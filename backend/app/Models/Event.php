@@ -12,7 +12,6 @@ class Event extends Model
         'dateEnd',
         'eventName',
         'privateSlots',
-        'flexibleSlots',
         'status',
         'createdBy'
     ];
@@ -21,4 +20,12 @@ class Event extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function creator() {
+        return $this->belongsTo(User::class, 'createdBy', 'id');
+    }
+
+    public function slots() {
+        return $this->hasMany(Slot::class, 'eventId', 'id');
+    }
 }

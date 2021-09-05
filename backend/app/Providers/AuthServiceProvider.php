@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Event;
 use App\Models\User;
 use App\Policies\EventPolicy;
+use App\Policies\SlotPolicy;
 use App\Services\JwtService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -34,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
         // the User instance via an API token or any other method necessary.
 
         Gate::policy(Event::class, EventPolicy::class);
+        Gate::policy(Slot::class, SlotPolicy::class);
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->header('Authorization')) {

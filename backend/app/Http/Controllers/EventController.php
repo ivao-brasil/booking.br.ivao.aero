@@ -18,7 +18,6 @@ class EventController extends Controller
             'dateEnd' => 'required|numeric',
             'eventName' => 'required|string|max:255',
             'privateSlots' => 'required|boolean',
-            'flexibleSlots' => 'required|boolean',
         ]);
 
         $user = Auth::user();
@@ -37,7 +36,6 @@ class EventController extends Controller
             'dateEnd' => $dateEnd->format("Y-m-d H:i:s"),
             'eventName' => $request->input('eventName'),
             'privateSlots' => $request->input('privateSlots'),
-            'flexibleSlots' => $request->input('flexibleSlots'),
             'status' => 'created',
             'createdBy' => $user->id
         ]);
@@ -65,7 +63,6 @@ class EventController extends Controller
             'dateEnd' => 'required|numeric',
             'eventName' => 'required|string|max:255',
             'privateSlots' => 'required|boolean',
-            'flexibleSlots' => 'required|boolean',
             'status' => 'required|string'
         ]);
 
@@ -89,7 +86,6 @@ class EventController extends Controller
             'dateEnd' => $dateEnd->format("Y-m-d H:i:s"),
             'eventName' => $request->input('eventName'),
             'privateSlots' => $request->input('privateSlots'),
-            'flexibleSlots' => $request->input('flexibleSlots'),
             'status' => $request->input('status'),
             'createdBy' => $user->id
         ]);

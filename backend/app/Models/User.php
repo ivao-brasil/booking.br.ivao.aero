@@ -18,4 +18,12 @@ class User extends Model
     protected $hidden = [
         'created_at', 'updated_at'
     ];
+
+    public function eventsCreated() {
+        return $this->hasMany(Event::class);
+    }
+
+    public function slotsBooked() {
+        return $this->hasMany(Slot::class);
+    }
 }
