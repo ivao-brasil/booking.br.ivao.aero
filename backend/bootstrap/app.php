@@ -113,6 +113,7 @@ $app->router->group([
 ], function (Router $router) {
     require __DIR__ . '/../routes/auth.php';
     require __DIR__ . '/../routes/user.php';
+    require __DIR__ . '/../routes/events.php';
 
     $router->get('/docs.json', function () {
         return Storage::get('openapi.json');
