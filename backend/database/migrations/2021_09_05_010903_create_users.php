@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class User extends Migration
+class CreateUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -23,6 +23,7 @@ class User extends Migration
             $table->string('division', 2);
             $table->string('country', 2);
             $table->string('email')->nullable();
+            $table->boolean('isAdmin')->default(false);
             $table->timestamps();
         });
     }
