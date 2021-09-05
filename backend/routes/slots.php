@@ -22,4 +22,6 @@ $router->group(['middleware' => 'auth', 'prefix' => '/event/{eventId}/slot'], fu
 
 $router->group(['middleware' => 'auth', 'prefix' => '/slot'], function () use($router) {
    $router->delete('/{slotId}', 'SlotController@delete');
+   $router->put('/{slotId}', 'SlotController@update');
+   $router->patch('/{slotId}/{action}', 'SlotController@book');
 });

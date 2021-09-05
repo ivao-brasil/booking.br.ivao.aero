@@ -16,7 +16,8 @@ class Slot extends Model
         'aircraft',
         'route',
         'bookingTime',
-        'bookingStatus'
+        'bookingStatus',
+        'private'
     ];
 
     protected $hidden = [

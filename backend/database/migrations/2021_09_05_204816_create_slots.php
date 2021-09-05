@@ -19,6 +19,7 @@ class CreateSlots extends Migration
             $table->string('origin', 4)->nullable();
             $table->string('destination', 4)->nullable();
             $table->enum('type', ['takeoff', 'landing']);
+            $table->boolean('private');
 
             $table->string('slotTime', 4);
             $table->string('gate', 10)->nullable();

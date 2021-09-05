@@ -24,6 +24,6 @@ class User extends Model
     }
 
     public function slotsBooked() {
-        return $this->hasMany(Slot::class);
+        return $this->hasMany(Slot::class, 'pilotId', 'id');
     }
 }
