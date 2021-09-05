@@ -13,12 +13,12 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
-
-$router->group(['prefix' => '/user'], function () use ($router) {
-    $router->post('/', 'UserController@create');
-});
+use Illuminate\Support\Facades\Auth;
 
 $router->post('auth', 'AuthController@auth');
+
+$router->group(['middleware'=> 'auth'], function () use($router) {
+   $router->get('auth', function () {
+       return Auth::user();
+   });
+});

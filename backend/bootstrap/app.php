@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+use Illuminate\Support\Facades\Storage;
+use Laravel\Lumen\Routing\Router;
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -75,9 +78,9 @@ $app->configure('app');
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth' => App\Http\Middleware\Authenticate::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -91,7 +94,7 @@ $app->configure('app');
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
@@ -107,8 +110,17 @@ $app->configure('app');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
+], function (Router $router) {
+    require __DIR__ . '/../routes/auth.php';
+    require __DIR__ . '/../routes/user.php';
+
+    $router->get('/docs.json', function () {
+        return Storage::get('openapi.json');
+    });
+
+    $router->get('/', function () {
+        return view('swagger');
+    });
 });
 
 return $app;

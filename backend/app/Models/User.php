@@ -12,6 +12,10 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'vid', 'firstName', 'lastName', 'atcRating', 'pilotRating', 'email'
+        'vid', 'firstName', 'lastName', 'atcRating', 'pilotRating', 'email', 'division', 'country'
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
     ];
 }
