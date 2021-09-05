@@ -137,4 +137,15 @@ class SlotController extends Controller
 
         $slot->save();
     }
+
+    public function list(String $eventId) {
+        return Slot
+            ::with('owner')
+            ->where('eventId', $eventId)
+            ->get()
+            ->map(function ($slot) {
+                $slot->private = $slot->private === 1;
+                return $slot;
+            });
+    }
 }

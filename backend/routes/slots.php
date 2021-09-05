@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 $router->group(['middleware' => 'auth', 'prefix' => '/event/{eventId}/slot'], function() use($router) {
     $router->post('/', 'SlotController@create');
+    $router->get('/', 'SlotController@list');
     $router->post('/many', 'SlotController@createMany');
 });
 
