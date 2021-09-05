@@ -1,0 +1,5 @@
+docker/web/mysql
+.env
+vendor
+.vscode
+.idea

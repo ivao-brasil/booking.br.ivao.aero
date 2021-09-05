@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: ivao-rfe-web
+    build:
+      context: ./docker
+    ports:
+      - 80:80
+    volumes:
+      - ./backend:/var/www/app
+    links:
+      - db
+  db:
+    container_name: ivao-rfe-db
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/web/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=admin
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
