@@ -20,10 +20,11 @@ class CreateEvents extends Migration
             $table->date('dateEnd');
             $table->string('eventName');
             $table->boolean('privateSlots');
-            $table->boolean('flexibleSlots');
             $table->enum('status', ['created', 'scheduled', 'finished']);
             $table->unsignedBigInteger('createdBy');
             $table->foreign('createdBy')->references('id')->on('users');
+            $table->string('atcBriefing');
+            $table->string('pilotBriefing');
             $table->timestamps();
         });
     }

@@ -13,7 +13,9 @@ class Event extends Model
         'eventName',
         'privateSlots',
         'status',
-        'createdBy'
+        'createdBy',
+        'pilotBriefing',
+        'atcBriefing'
     ];
 
     protected $hidden = [

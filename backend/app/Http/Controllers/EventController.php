@@ -18,6 +18,8 @@ class EventController extends Controller
             'dateEnd' => 'required|numeric',
             'eventName' => 'required|string|max:255',
             'privateSlots' => 'required|boolean',
+            'atcBriefing' => 'required|url',
+            'pilotBriefing' => 'required|url'
         ]);
 
         $user = Auth::user();
@@ -37,7 +39,9 @@ class EventController extends Controller
             'eventName' => $request->input('eventName'),
             'privateSlots' => $request->input('privateSlots'),
             'status' => 'created',
-            'createdBy' => $user->id
+            'createdBy' => $user->id,
+            'pilotBriefing' => $request->input('pilotBriefing'),
+            'atcBriefing' => $request->input('atcBriefing')
         ]);
 
         $event->save();

@@ -33,6 +33,7 @@ class CreateSlots extends Migration
 
             $table->dateTime('bookingTime')->nullable();
             $table->enum('bookingStatus', ['free', 'prebooked', 'booked']);
+
             $table->timestamps();
         });
     }
