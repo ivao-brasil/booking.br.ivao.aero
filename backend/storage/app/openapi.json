@@ -1,0 +1,873 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "IVAO Event Flight Booking System",
+        "description": "API privada Event Flight Booking IVAO",
+        "contact": {
+            "email": "br-web@ivao.aero"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Auth"
+        },
+        {
+            "name": "User"
+        },
+        {
+            "name": "Event"
+        },
+        {
+            "name": "Slot"
+        },
+        {
+            "name": "Scenery"
+        }
+    ],
+    "paths": {
+        "/auth": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Do Auth base on IVAO Token",
+                "requestBody": {
+                    "description": "IVAO Token",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "ivao-token": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "JWT Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "jwt": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Invalid IVAO Token"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get Auth data from a given JWT",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JWT Token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid User"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update user email",
+                "requestBody": {
+                    "description": "User email",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User email successfully updated"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    }
+                }
+            }
+        },
+        "/event": {
+            "post": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Create a new event",
+                "requestBody": {
+                    "description": "Event Data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "dateStart": {
+                                        "type": "number",
+                                        "description": "Timestamp of start date"
+                                    },
+                                    "dateEnd": {
+                                        "type": "number",
+                                        "description": "Timestamp of end date"
+                                    },
+                                    "eventName": {
+                                        "type": "string"
+                                    },
+                                    "privateSlots": {
+                                        "type": "boolean",
+                                        "description": "Indicate if there is private slots"
+                                    },
+                                    "pilotBriefing": {
+                                        "type": "string",
+                                        "description": "URL for Pilot Briefing"
+                                    },
+                                    "atcBriefing": {
+                                        "type": "string",
+                                        "description": "URL for ATC Briefing"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Event description"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Event successfully created"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Fetch events",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Event result"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Event status",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "created",
+                                "scheduled",
+                                "finished"
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "/event/{eventId}": {
+            "put": {
+                "tags": [
+                    "Event"
+                ],
+                "requestBody": {
+                    "description": "Event Data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "dateStart": {
+                                        "type": "number",
+                                        "description": "Timestamp of start date"
+                                    },
+                                    "dateEnd": {
+                                        "type": "number",
+                                        "description": "Timestamp of end date"
+                                    },
+                                    "eventName": {
+                                        "type": "string"
+                                    },
+                                    "privateSlots": {
+                                        "type": "boolean",
+                                        "description": "Indicate if there is private slots"
+                                    },
+                                    "flexibleSlots": {
+                                        "type": "boolean",
+                                        "description": "Indicate if user can do own flight or not"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "description": "Event status",
+                                        "enum": [
+                                            "created",
+                                            "scheduled",
+                                            "finished"
+                                        ]
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Event description"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Update a event",
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path"
+                    }
+                ],
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Event successfully updated"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Delete a event",
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path"
+                    }
+                ],
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Event successfully deleted"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+        "/event/{eventId}/slot": {
+            "get": {
+                "tags": [
+                    "Slot"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path"
+                    }
+                ],
+                "summary": "Get Event slots info",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Slot"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Slot"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path"
+                    }
+                ],
+                "summary": "Create a new slot to a given event",
+                "requestBody": {
+                    "description": "Slot Data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "takeoff",
+                                            "landing"
+                                        ],
+                                        "description": "Slot type"
+                                    },
+                                    "flightNumber": {
+                                        "type": "string",
+                                        "description": "The flight number"
+                                    },
+                                    "origin": {
+                                        "type": "string",
+                                        "description": "Departure ICAO (is not required if event has private slots)"
+                                    },
+                                    "destination": {
+                                        "type": "boolean",
+                                        "description": "Destination ICAO (is not required if event has private slots)"
+                                    },
+                                    "slotTime": {
+                                        "type": "string",
+                                        "description": "Slot time"
+                                    },
+                                    "gate": {
+                                        "type": "string",
+                                        "description": "Slot gate"
+                                    },
+                                    "aircraft": {
+                                        "type": "string",
+                                        "description": "Aircraft ICAO"
+                                    },
+                                    "private": {
+                                        "type": "boolean",
+                                        "description": "Indicate if slot is private"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Slot successfully created"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+        "/slot/{slotId}": {
+            "delete": {
+                "summary": "Delete a given slot",
+                "tags": [
+                    "Slot"
+                ],
+                "parameters": [
+                    {
+                        "name": "slotId",
+                        "in": "path"
+                    }
+                ],
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot successfully deleted"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Slot"
+                ],
+                "summary": "Update user from admin perspective",
+                "parameters": [
+                    {
+                        "name": "slotId",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Slot Data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "takeoff",
+                                            "landing"
+                                        ],
+                                        "description": "Slot type"
+                                    },
+                                    "flightNumber": {
+                                        "type": "string",
+                                        "description": "The flight number"
+                                    },
+                                    "origin": {
+                                        "type": "string",
+                                        "description": "Departure ICAO (is not required if event has private slots)"
+                                    },
+                                    "destination": {
+                                        "type": "boolean",
+                                        "description": "Destination ICAO (is not required if event has private slots)"
+                                    },
+                                    "slotTime": {
+                                        "type": "string",
+                                        "description": "Slot time"
+                                    },
+                                    "gate": {
+                                        "type": "string",
+                                        "description": "Slot gate"
+                                    },
+                                    "aircraft": {
+                                        "type": "string",
+                                        "description": "Aircraft ICAO"
+                                    },
+                                    "private": {
+                                        "type": "boolean",
+                                        "description": "Indicate if slot is private"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot successfully updated"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+        "/slot/{slotId}/{action}": {
+            "patch": {
+                "summary": "Handle user book operation",
+                "tags": [
+                    "Slot"
+                ],
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "path",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "book",
+                                "cancel"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "slotId",
+                        "in": "path"
+                    }
+                ],
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot successfully booked"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    }
+                }
+            }
+        },
+        "/event/{eventId}/scenery": {
+            "get": {
+                "tags": [
+                    "Scenery"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path"
+                    }
+                ],
+                "summary": "Get sceneries for a given event",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Scenery result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Scenery"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    }
+                }
+            },
+
+            "post": {
+                "tags": [
+                    "Scenery"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path"
+                    }
+                ],
+                "summary": "Create a new Scenery for given event",
+                "requestBody": {
+                    "description": "Slot Data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "description": "Scenery Title"
+                                    },
+                                    "license": {
+                                        "type": "string",
+                                        "enum": ["freeware", "payware"],
+                                        "description": "The sceney license"
+                                    },
+                                    "link": {
+                                        "type": "string",
+                                        "description": "The scenery download link"
+                                    },
+                                    "simulator": {
+                                        "type": "boolean",
+                                        "enum": ["fs9", "fsx", "p3d", "xp11", "msfs"],
+                                        "description": "The scenery simulator"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Scenery successfully created"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+        "/event/{eventId}/scenery/{sceneryId}": {
+            "delete": {
+                "summary": "Delete a given scenery",
+                "tags": [
+                    "Scenery"
+                ],
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path"
+                    },
+                    {
+                        "name": "sceneryId",
+                        "in": "path"
+                    }
+                ],
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Scenery successfully deleted"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "authentication": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        },
+        "schemas": {
+            "Scenery": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "license": {
+                        "type": "string",
+                        "enum": ["freeware", "payware"]
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "simulator": {
+                        "type": "string",
+                        "enum": ["fs9", "fsx", "p3d","xp11","msfs"]
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "vid": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "atcRating": {
+                        "type": "number"
+                    },
+                    "pilotRating": {
+                        "type": "number"
+                    },
+                    "division": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Slot": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "origin": {
+                        "type": "string"
+                    },
+                    "destination": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "takeoff",
+                            "landing"
+                        ]
+                    },
+                    "private": {
+                        "type": "boolean"
+                    },
+                    "slotTime": {
+                        "type": "string"
+                    },
+                    "gate": {
+                        "type": "string"
+                    },
+                    "aircraft": {
+                        "type": "string"
+                    },
+                    "owner": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "bookingTime": {
+                        "type": "string"
+                    },
+                    "bookingStatus": {
+                        "type": "string",
+                        "enum": ["free", "prebooked", "booked"]
+                    }
+                }
+            },
+            "Event": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "division": {
+                        "type": "string"
+                    },
+                    "dateStart": {
+                        "type": "string"
+                    },
+                    "dateEnd": {
+                        "type": "string"
+                    },
+                    "eventName": {
+                        "type": "string"
+                    },
+                    "privateSlots": {
+                        "type": "boolean"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "created",
+                            "scheduled",
+                            "finished"
+                        ]
+                    },
+                    "creator": {
+                        "$ref": "#/components/schemas/User",
+                        "required": false
+                    }
+                }
+            }
+        }
+    }
+}
