@@ -26,10 +26,20 @@ class CreateSlots extends Migration
             $table->string('aircraft', 4)->nullable();
 
             $table->unsignedBigInteger('pilotId')->nullable();
-            $table->foreign('pilotId')->references('id')->on('users');
+
+            $table
+                ->foreign('pilotId')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');;
 
             $table->unsignedBigInteger('eventId');
-            $table->foreign('eventId')->references('id')->on('events');
+
+            $table
+                ->foreign('eventId')
+                ->references('id')
+                ->on('events')
+                ->onDelete('cascade');
 
             $table->dateTime('bookingTime')->nullable();
             $table->enum('bookingStatus', ['free', 'prebooked', 'booked']);

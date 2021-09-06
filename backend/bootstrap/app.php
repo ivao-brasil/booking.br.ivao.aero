@@ -115,6 +115,7 @@ $app->router->group([
     require __DIR__ . '/../routes/user.php';
     require __DIR__ . '/../routes/events.php';
     require __DIR__ . '/../routes/slots.php';
+    require __DIR__ . '/../routes/scenery.php';
 
     $router->get('/docs.json', function () {
         return Storage::get('openapi.json');

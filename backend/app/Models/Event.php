@@ -30,4 +30,8 @@ class Event extends Model
     public function slots() {
         return $this->hasMany(Slot::class, 'eventId', 'id');
     }
+
+    public function sceneries() {
+        return $this->hasMany(Scenery::class, 'eventId', 'id');
+    }
 }

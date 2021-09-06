@@ -22,7 +22,13 @@ class CreateEvents extends Migration
             $table->boolean('privateSlots');
             $table->enum('status', ['created', 'scheduled', 'finished']);
             $table->unsignedBigInteger('createdBy');
-            $table->foreign('createdBy')->references('id')->on('users');
+
+            $table
+                ->foreign('createdBy')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->string('atcBriefing');
             $table->string('pilotBriefing');
             $table->timestamps();
