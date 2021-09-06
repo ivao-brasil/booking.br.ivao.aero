@@ -1,7 +1,7 @@
 on: push
 name: Build and Publish Front End Framework Website
 jobs:
-  FTP-Deploy-Action:
+  FRONTEND:
     name: FTP-Deploy-Action
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
           yarn build
 
       - name: List output files
-        run: find build/ -print
+        run: find ./ -print
 
       - name: FTP-Deploy-Action
         uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
