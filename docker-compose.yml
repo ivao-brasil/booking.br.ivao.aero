@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  web:
-    container_name: ivao-rfe-web
+  api:
+    container_name: ivao-rfe-api
     build:
       context: ./docker
     ports:
@@ -11,6 +11,18 @@ services:
       - ./backend:/var/www/app
     links:
       - db
+  front:
+    container_name: ivao-rfe-front
+    build:
+      context: ./
+      dockerfile: ./docker/front/Dockerfile
+    volumes:
+      - ./frontend:/var/www/app
+    links:
+      - db
+      - api
+    ports:
+      - 3000:3000
   db:
     container_name: ivao-rfe-db
     image: mariadb:latest

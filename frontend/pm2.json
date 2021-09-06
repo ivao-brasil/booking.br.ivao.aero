@@ -1,8 +1,0 @@
-{
-  "apps": [
-    {
-      "script": "server.js",
-      "watch": true
-    }
-  ]
-}
