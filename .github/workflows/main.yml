@@ -2,7 +2,7 @@ on: push
 name: Build and Publish Front End Framework Website
 jobs:
   FRONTEND:
-    name: FTP-Deploy-Action
+    name: Frontend
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -21,15 +21,12 @@ jobs:
           yarn install
           yarn build
 
-      - name: List output files
-        run: find ./ -print
-
       - name: FTP-Deploy-Action
         uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
         with:
           ftp_host: ${{ secrets.FTP_HOST }}
           ftp_username: ${{ secrets.FTP_USER }}
           ftp_password: ${{ secrets.FTP_PASSWORD }}
-          local_source_dir: "./"
+          local_source_dir: "./frontend"
           exclude: "./node_modules"
           dist_target_dir: "./public_html/booking.br.ivao.aero"
