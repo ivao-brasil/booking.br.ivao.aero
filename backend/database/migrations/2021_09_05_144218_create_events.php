@@ -29,6 +29,8 @@ class CreateEvents extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
+            $table->text('description');
+
             $table->string('atcBriefing');
             $table->string('pilotBriefing');
             $table->timestamps();

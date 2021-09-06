@@ -15,7 +15,8 @@ class Event extends Model
         'status',
         'createdBy',
         'pilotBriefing',
-        'atcBriefing'
+        'atcBriefing',
+        'description'
     ];
 
     protected $hidden = [

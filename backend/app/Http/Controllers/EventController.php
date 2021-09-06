@@ -19,7 +19,8 @@ class EventController extends Controller
             'eventName' => 'required|string|max:255',
             'privateSlots' => 'required|boolean',
             'atcBriefing' => 'required|url',
-            'pilotBriefing' => 'required|url'
+            'pilotBriefing' => 'required|url',
+            'description' => 'required|string',
         ]);
 
         $user = Auth::user();
@@ -41,7 +42,8 @@ class EventController extends Controller
             'status' => 'created',
             'createdBy' => $user->id,
             'pilotBriefing' => $request->input('pilotBriefing'),
-            'atcBriefing' => $request->input('atcBriefing')
+            'atcBriefing' => $request->input('atcBriefing'),
+            'description' => $request->input('description')
         ]);
 
         $event->save();
@@ -67,7 +69,10 @@ class EventController extends Controller
             'dateEnd' => 'required|numeric',
             'eventName' => 'required|string|max:255',
             'privateSlots' => 'required|boolean',
-            'status' => 'required|string'
+            'status' => 'required|string',
+            'atcBriefing' => 'required|url',
+            'pilotBriefing' => 'required|url',
+            'description' => 'required|string',
         ]);
 
         $event = Event::find($id);
@@ -91,7 +96,10 @@ class EventController extends Controller
             'eventName' => $request->input('eventName'),
             'privateSlots' => $request->input('privateSlots'),
             'status' => $request->input('status'),
-            'createdBy' => $user->id
+            'createdBy' => $user->id,
+            'pilotBriefing' => $request->input('pilotBriefing'),
+            'atcBriefing' => $request->input('atcBriefing'),
+            'description' => $request->input('description')
         ]);
 
         $event->save();
