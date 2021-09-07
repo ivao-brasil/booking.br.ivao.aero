@@ -1,12 +1,14 @@
-
-
+import { ApiClient } from "../clients/api.client";
+import { ENV } from "../env";
 
 export default function index() {
+    const apiClient = new ApiClient();
+
     return (
-        <div className="w-screen h-screen" style={{ background: 'url(http://localhost/banner/airport.jpg)' }}>
+        <div className="w-screen h-screen" style={{ background: `url(${apiClient.getMainBanner()})` }}>
             <div>
-                <img src="http://localhost/logo/tag.png" className="w-1/5" />
-                Teste
+                <img src={apiClient.getMainLogo()} className="w-1/5" />
+                {JSON.stringify(ENV)}
             </div>
         </div>
     )
