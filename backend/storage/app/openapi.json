@@ -21,6 +21,9 @@
             "name": "Auth"
         },
         {
+            "name": "User"
+        },
+        {
             "name": "Event"
         },
         {
@@ -31,6 +34,50 @@
         }
     ],
     "paths": {
+        "/user": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Get User List - Admin Only",
+                "parameters": [
+                    {
+                        "name": "suspended",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "required": false
+                    },
+                    {
+                        "name": "vid",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User list according filters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ]
+            }
+        },
         "/auth": {
             "post": {
                 "tags": ["Auth"],

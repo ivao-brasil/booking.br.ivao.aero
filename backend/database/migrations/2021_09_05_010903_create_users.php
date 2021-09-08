@@ -23,6 +23,7 @@ class CreateUsers extends Migration
             $table->string('division', 2);
             $table->string('country', 2);
             $table->boolean('isAdmin')->default(false);
+            $table->boolean('suspended')->default(false);
             $table->timestamps();
         });
     }
