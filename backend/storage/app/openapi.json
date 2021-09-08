@@ -135,6 +135,14 @@
                                     "description": {
                                         "type": "string",
                                         "description": "Event description"
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "description": "Event Banner Link"
+                                    },
+                                    "atcBooking": {
+                                        "type": "string",
+                                        "description": "Link to event ATC Booking"
                                     }
                                 }
                             }

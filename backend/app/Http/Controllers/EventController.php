@@ -21,6 +21,8 @@ class EventController extends Controller
             'atcBriefing' => 'required|url',
             'pilotBriefing' => 'required|url',
             'description' => 'required|string',
+            'banner' => 'required|url',
+            'atcBooking' => 'required|url'
         ]);
 
         $user = Auth::user();
@@ -43,7 +45,9 @@ class EventController extends Controller
             'createdBy' => $user->id,
             'pilotBriefing' => $request->input('pilotBriefing'),
             'atcBriefing' => $request->input('atcBriefing'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'atcBooking' => $request->input('atcBooking'),
+            'banner' => $request->input('banner')
         ]);
 
         $event->save();
