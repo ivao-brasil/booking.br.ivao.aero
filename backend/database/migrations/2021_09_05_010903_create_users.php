@@ -22,7 +22,6 @@ class CreateUsers extends Migration
             $table->tinyInteger('pilotRating');
             $table->string('division', 2);
             $table->string('country', 2);
-            $table->string('email')->nullable();
             $table->boolean('isAdmin')->default(false);
             $table->timestamps();
         });

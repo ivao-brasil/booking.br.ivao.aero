@@ -112,7 +112,6 @@ $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function (Router $router) {
     require __DIR__ . '/../routes/auth.php';
-    require __DIR__ . '/../routes/user.php';
     require __DIR__ . '/../routes/events.php';
     require __DIR__ . '/../routes/slots.php';
     require __DIR__ . '/../routes/scenery.php';
