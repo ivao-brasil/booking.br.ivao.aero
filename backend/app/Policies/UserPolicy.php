@@ -15,4 +15,13 @@ class UserPolicy
 
         return true;
     }
+
+    public function update(User $user)
+    {
+        if (!$user->isAdmin) {
+            return Response::deny("You have no admin permissions");
+        }
+
+        return true;
+    }
 }

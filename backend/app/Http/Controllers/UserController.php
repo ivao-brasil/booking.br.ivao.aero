@@ -23,4 +23,21 @@ class UserController extends Controller
 
         return $users->get();
     }
+
+    public function update(Request $request, String $userId)
+    {
+        $this->authorize('update', User::class);
+
+        $this->validate($request, ['suspended' => "required|boolean"]);
+
+        $user = User::find($userId);
+
+        if (!$user) {
+            abort(404, "User not founded");
+        }
+
+        $user->suspended = $request->input('suspended');
+
+        $user->save();
+    }
 }

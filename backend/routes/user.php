@@ -15,4 +15,5 @@
 
 $router->group(['middleware' => 'auth', 'prefix' => '/user'], function () use ($router) {
     $router->get('/', 'UserController@list');
+    $router->patch('/{userId}', 'UserController@update');
 });

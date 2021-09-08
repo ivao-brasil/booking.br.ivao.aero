@@ -69,6 +69,59 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ]
+            }
+        },
+        "/user/{userId}": {
+            "patch": {
+                "tags": ["User"],
+                "summary": "Update user - Admin only",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "schema": { "type": "number" },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "suspended": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    },
+                    "404": {
+                        "description": "User not founded"
                     }
                 },
                 "security": [
