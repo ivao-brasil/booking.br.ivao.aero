@@ -32,10 +32,6 @@ class SlotPolicy
             return Response::deny('You are suspended to book flights');
         }
 
-        if (is_null($user->email)) {
-            return Response::deny('You need to update your profile with valid email');
-        }
-
         if ($slot->pilotId !== $user->id && !is_null($slot->pilotId)) {
             return Response::deny("You're not owner of this slot");
         }

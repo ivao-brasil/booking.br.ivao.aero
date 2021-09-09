@@ -612,7 +612,7 @@
                         "in": "path",
                         "schema": {
                             "type": "string",
-                            "enum": ["book", "cancel"]
+                            "enum": ["book", "cancel", "confirm"]
                         }
                     },
                     {

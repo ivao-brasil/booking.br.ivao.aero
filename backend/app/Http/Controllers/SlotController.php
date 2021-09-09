@@ -91,6 +91,11 @@ class SlotController extends Controller
             $slot->pilotId = null;
             $slot->bookingStatus = 'free';
             $slot->save();
+        } else if($action === "confirm") {
+            if($slot->bookingStatus === "prebooked") {
+                $slot->bookingStatus = "booked";
+                $slot->save();
+            }
         }
     }
 
