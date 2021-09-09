@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class SceneryController extends Controller
 {
-    public function create(Request $request, string $eventId)
+    public function create(Request $request, String $eventId)
     {
         $this->validate($request, [
             'title' => 'required|string|max:255',
@@ -31,16 +31,15 @@ class SceneryController extends Controller
         $event->sceneries()->save($scenery);
     }
 
-    public function get(string $eventId)
+    public function get(String $eventId)
     {
         return Scenery::where('eventId', $eventId)->get();
     }
 
-    public function delete(string $eventId, string $sceneryId)
+    public function delete(String $sceneryId)
     {
         Scenery
-            ::where('eventId', $eventId)
-            ->where('id', $sceneryId)
+            ::where('id', $sceneryId)
             ->delete();
     }
 }

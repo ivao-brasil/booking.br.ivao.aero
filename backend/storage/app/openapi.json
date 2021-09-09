@@ -734,15 +734,11 @@
                 }
             }
         },
-        "/event/{eventId}/scenery/{sceneryId}": {
+        "/scenery/{sceneryId}": {
             "delete": {
                 "summary": "Delete a given scenery",
                 "tags": ["Scenery"],
                 "parameters": [
-                    {
-                        "name": "eventId",
-                        "in": "path"
-                    },
                     {
                         "name": "sceneryId",
                         "in": "path"
