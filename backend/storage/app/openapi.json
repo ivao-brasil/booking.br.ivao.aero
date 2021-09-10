@@ -11,6 +11,9 @@
     "servers": [
         {
             "url": "http://localhost/"
+        },
+        {
+            "url": "https://bookingapi.br.ivao.aero/"
         }
     ],
     "tags": [
@@ -31,11 +34,106 @@
         }
     ],
     "paths": {
+        "/user": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Get User List - Admin Only",
+                "parameters": [
+                    {
+                        "name": "suspended",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "required": false
+                    },
+                    {
+                        "name": "vid",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User list according filters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ]
+            }
+        },
+        "/user/{userId}": {
+            "patch": {
+                "tags": ["User"],
+                "summary": "Update user - Admin only",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "schema": { "type": "number" },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "suspended": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    },
+                    "404": {
+                        "description": "User not founded"
+                    }
+                },
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ]
+            }
+        },
         "/auth": {
             "post": {
-                "tags": [
-                    "Auth"
-                ],
+                "tags": ["Auth"],
                 "summary": "Do Auth base on IVAO Token",
                 "requestBody": {
                     "description": "IVAO Token",
@@ -75,9 +173,7 @@
                 }
             },
             "get": {
-                "tags": [
-                    "Auth"
-                ],
+                "tags": ["Auth"],
                 "summary": "Get Auth data from a given JWT",
                 "security": [
                     {
@@ -101,48 +197,9 @@
                 }
             }
         },
-        "/user": {
-            "patch": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Update user email",
-                "requestBody": {
-                    "description": "User email",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "authentication": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "User email successfully updated"
-                    },
-                    "401": {
-                        "description": "User not authenticated"
-                    }
-                }
-            }
-        },
         "/event": {
             "post": {
-                "tags": [
-                    "Event"
-                ],
+                "tags": ["Event"],
                 "summary": "Create a new event",
                 "requestBody": {
                     "description": "Event Data",
@@ -178,6 +235,14 @@
                                     "description": {
                                         "type": "string",
                                         "description": "Event description"
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "description": "Event Banner Link"
+                                    },
+                                    "atcBooking": {
+                                        "type": "string",
+                                        "description": "Link to event ATC Booking"
                                     }
                                 }
                             }
@@ -202,9 +267,7 @@
                 }
             },
             "get": {
-                "tags": [
-                    "Event"
-                ],
+                "tags": ["Event"],
                 "summary": "Fetch events",
                 "security": [
                     {
@@ -227,11 +290,7 @@
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "enum": [
-                                "created",
-                                "scheduled",
-                                "finished"
-                            ]
+                            "enum": ["created", "scheduled", "finished"]
                         }
                     }
                 ]
@@ -239,9 +298,7 @@
         },
         "/event/{eventId}": {
             "put": {
-                "tags": [
-                    "Event"
-                ],
+                "tags": ["Event"],
                 "requestBody": {
                     "description": "Event Data",
                     "required": true,
@@ -312,9 +369,7 @@
                 }
             },
             "delete": {
-                "tags": [
-                    "Event"
-                ],
+                "tags": ["Event"],
                 "summary": "Delete a event",
                 "parameters": [
                     {
@@ -342,9 +397,7 @@
         },
         "/event/{eventId}/slot": {
             "get": {
-                "tags": [
-                    "Slot"
-                ],
+                "tags": ["Slot"],
                 "parameters": [
                     {
                         "name": "eventId",
@@ -377,9 +430,7 @@
                 }
             },
             "post": {
-                "tags": [
-                    "Slot"
-                ],
+                "tags": ["Slot"],
                 "parameters": [
                     {
                         "name": "eventId",
@@ -397,10 +448,7 @@
                                 "properties": {
                                     "type": {
                                         "type": "string",
-                                        "enum": [
-                                            "takeoff",
-                                            "landing"
-                                        ],
+                                        "enum": ["takeoff", "landing"],
                                         "description": "Slot type"
                                     },
                                     "flightNumber": {
@@ -457,9 +505,7 @@
         "/slot/{slotId}": {
             "delete": {
                 "summary": "Delete a given slot",
-                "tags": [
-                    "Slot"
-                ],
+                "tags": ["Slot"],
                 "parameters": [
                     {
                         "name": "slotId",
@@ -484,9 +530,7 @@
                 }
             },
             "put": {
-                "tags": [
-                    "Slot"
-                ],
+                "tags": ["Slot"],
                 "summary": "Update user from admin perspective",
                 "parameters": [
                     {
@@ -504,10 +548,7 @@
                                 "properties": {
                                     "type": {
                                         "type": "string",
-                                        "enum": [
-                                            "takeoff",
-                                            "landing"
-                                        ],
+                                        "enum": ["takeoff", "landing"],
                                         "description": "Slot type"
                                     },
                                     "flightNumber": {
@@ -564,19 +605,14 @@
         "/slot/{slotId}/{action}": {
             "patch": {
                 "summary": "Handle user book operation",
-                "tags": [
-                    "Slot"
-                ],
+                "tags": ["Slot"],
                 "parameters": [
                     {
                         "name": "action",
                         "in": "path",
                         "schema": {
                             "type": "string",
-                            "enum": [
-                                "book",
-                                "cancel"
-                            ]
+                            "enum": ["book", "cancel", "confirm"]
                         }
                     },
                     {
@@ -601,9 +637,7 @@
         },
         "/event/{eventId}/scenery": {
             "get": {
-                "tags": [
-                    "Scenery"
-                ],
+                "tags": ["Scenery"],
                 "parameters": [
                     {
                         "name": "eventId",
@@ -637,9 +671,7 @@
             },
 
             "post": {
-                "tags": [
-                    "Scenery"
-                ],
+                "tags": ["Scenery"],
                 "parameters": [
                     {
                         "name": "eventId",
@@ -670,7 +702,13 @@
                                     },
                                     "simulator": {
                                         "type": "boolean",
-                                        "enum": ["fs9", "fsx", "p3d", "xp11", "msfs"],
+                                        "enum": [
+                                            "fs9",
+                                            "fsx",
+                                            "p3d",
+                                            "xp11",
+                                            "msfs"
+                                        ],
                                         "description": "The scenery simulator"
                                     }
                                 }
@@ -696,17 +734,11 @@
                 }
             }
         },
-        "/event/{eventId}/scenery/{sceneryId}": {
+        "/scenery/{sceneryId}": {
             "delete": {
                 "summary": "Delete a given scenery",
-                "tags": [
-                    "Scenery"
-                ],
+                "tags": ["Scenery"],
                 "parameters": [
-                    {
-                        "name": "eventId",
-                        "in": "path"
-                    },
                     {
                         "name": "sceneryId",
                         "in": "path"
@@ -720,6 +752,38 @@
                 "responses": {
                     "200": {
                         "description": "Scenery successfully deleted"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+        "/slot/me": {
+            "get": {
+                "tags": ["Slot"],
+                "summary": "Get user slots for all events",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Slot"
+                                    }
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "User not authenticated"
@@ -757,7 +821,7 @@
                     },
                     "simulator": {
                         "type": "string",
-                        "enum": ["fs9", "fsx", "p3d","xp11","msfs"]
+                        "enum": ["fs9", "fsx", "p3d", "xp11", "msfs"]
                     }
                 }
             },
@@ -784,9 +848,6 @@
                     },
                     "country": {
                         "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
                     }
                 }
             },
@@ -804,10 +865,7 @@
                     },
                     "type": {
                         "type": "string",
-                        "enum": [
-                            "takeoff",
-                            "landing"
-                        ]
+                        "enum": ["takeoff", "landing"]
                     },
                     "private": {
                         "type": "boolean"
@@ -822,7 +880,12 @@
                         "type": "string"
                     },
                     "owner": {
-                        "$ref": "#/components/schemas/User"
+                        "$ref": "#/components/schemas/User",
+                        "required": false
+                    },
+                    "event": {
+                        "$ref": "#/components/schemas/Event",
+                        "required": false
                     },
                     "bookingTime": {
                         "type": "string"
@@ -856,11 +919,7 @@
                     },
                     "status": {
                         "type": "string",
-                        "enum": [
-                            "created",
-                            "scheduled",
-                            "finished"
-                        ]
+                        "enum": ["created", "scheduled", "finished"]
                     },
                     "creator": {
                         "$ref": "#/components/schemas/User",

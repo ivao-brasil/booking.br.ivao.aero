@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Slot;
+use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -91,6 +92,11 @@ class SlotController extends Controller
             $slot->pilotId = null;
             $slot->bookingStatus = 'free';
             $slot->save();
+        } else if($action === "confirm") {
+            if($slot->bookingStatus === "prebooked") {
+                $slot->bookingStatus = "booked";
+                $slot->save();
+            }
         }
     }
 
@@ -147,5 +153,14 @@ class SlotController extends Controller
                 $slot->private = $slot->private === 1;
                 return $slot;
             });
+    }
+
+    public function getMySlots() {
+        $user = Auth::user();
+
+        return Slot
+            ::with('event')
+            ->where('pilotId', $user->id)
+            ->get();
     }
 }

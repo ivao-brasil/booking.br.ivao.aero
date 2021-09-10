@@ -2,19 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function update(Request $request)
+    public function list(Request $request)
     {
-        $this->validate($request, [
-            'email' => 'required|email'
-        ]);
+        $this->authorize('list', User::class);
 
-        $user = Auth::user();
-        $user->email = $request->input('email');
+        $users = User::where('id', '>=', 1);
+
+        if ($request->query('suspended')) {
+            $users->where('suspended', filter_var($request->query('suspended'), FILTER_VALIDATE_BOOLEAN));
+        }
+
+        if ($request->query('vid')) {
+            $users->where('vid', $request->query('vid'));
+        }
+
+        return $users->get();
+    }
+
+    public function update(Request $request, String $userId)
+    {
+        $this->authorize('update', User::class);
+
+        $this->validate($request, ['suspended' => "required|boolean"]);
+
+        $user = User::find($userId);
+
+        if (!$user) {
+            abort(404, "User not founded");
+        }
+
+        $user->suspended = $request->input('suspended');
+
         $user->save();
     }
 }

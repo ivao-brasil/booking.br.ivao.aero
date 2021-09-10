@@ -13,8 +13,7 @@
 |
 */
 
-use Illuminate\Support\Facades\Auth;
-
-$router->group(['middleware'=> 'auth', 'prefix' => 'user'], function () use($router) {
-    $router->patch('/', 'UserController@update');
+$router->group(['middleware' => 'auth', 'prefix' => '/user'], function () use ($router) {
+    $router->get('/', 'UserController@list');
+    $router->patch('/{userId}', 'UserController@update');
 });

@@ -16,7 +16,9 @@ class Event extends Model
         'createdBy',
         'pilotBriefing',
         'atcBriefing',
-        'description'
+        'description',
+        'atcBooking',
+        'banner'
     ];
 
     protected $hidden = [
@@ -24,15 +26,18 @@ class Event extends Model
         'updated_at'
     ];
 
-    public function creator() {
+    public function creator()
+    {
         return $this->belongsTo(User::class, 'createdBy', 'id');
     }
 
-    public function slots() {
+    public function slots()
+    {
         return $this->hasMany(Slot::class, 'eventId', 'id');
     }
 
-    public function sceneries() {
+    public function sceneries()
+    {
         return $this->hasMany(Scenery::class, 'eventId', 'id');
     }
 }
