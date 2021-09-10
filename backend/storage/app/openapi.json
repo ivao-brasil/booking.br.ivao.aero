@@ -761,6 +761,38 @@
                     }
                 }
             }
+        },
+        "/slot/me": {
+            "get": {
+                "tags": ["Slot"],
+                "summary": "Get user slots for all events",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Slot"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -848,7 +880,12 @@
                         "type": "string"
                     },
                     "owner": {
-                        "$ref": "#/components/schemas/User"
+                        "$ref": "#/components/schemas/User",
+                        "required": false
+                    },
+                    "event": {
+                        "$ref": "#/components/schemas/Event",
+                        "required": false
                     },
                     "bookingTime": {
                         "type": "string"
