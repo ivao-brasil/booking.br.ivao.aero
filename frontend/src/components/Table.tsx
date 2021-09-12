@@ -1,29 +1,108 @@
-export const Table: React.FC = ({ children }) => (
-	<table className="w-full divide-y divide-gray-200">
-		{children}
-	</table>
-)
+import { useMemo, useState } from 'react';
+import { Column, TableState, useGlobalFilter, useSortBy, useTable } from 'react-table'
 
-export const TableRow: React.FC = ({ children }) => (
-	<tr className="border-b-2">
+interface TableProps {
+	columns: Column[]
+	items?: object[],
+	initialState?: Partial<TableState>
+}
+
+function GlobalFilter({ globalFilter, setGlobalFilter}) {
+	const [value, setValue] = useState(globalFilter);
+	const onChange = (value: string) => {
+		setGlobalFilter(value || undefined)
+	};
+
+	return (
+		<input
+			className="w-full my-3 py-1 px-2 shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+			value={value || ""}
+			onChange={e => {
+				setValue(e.target.value);
+				onChange(e.target.value);
+			}}
+			placeholder={`Search`}
+		/>
+	)
+}
+
+export function Table({ columns, items, initialState }: TableProps) {
+	const defaultItem: object[] = useMemo(() => [], [])
+
+	const {
+		getTableProps,
+		getTableBodyProps,
+		headerGroups,
+		rows,
+		prepareRow,
+		state,
+		setGlobalFilter,
+	} = useTable({ columns, data: items ?? defaultItem, initialState }, useGlobalFilter, useSortBy)
+
+	return (
+		<>
+			<GlobalFilter
+				globalFilter={state.globalFilter}
+				setGlobalFilter={setGlobalFilter}
+			/>
+			<div className="overflow-x-auto">
+				<table className="w-full divide-y divide-gray-200" {...getTableProps()}>
+					<TableHeader>
+						{headerGroups.map(headerGroup => (
+							<TableRow {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map(column => (
+									<TableColumn {...column.getHeaderProps()} {...column.getSortByToggleProps()}>
+										{column.render('Header')}
+										<span>
+											{column.isSorted
+												? column.isSortedDesc
+													? ' ⬇️'
+													: ' ⬆️'
+												: ' ↕️'}
+										</span>
+									</TableColumn>
+								))}
+							</TableRow>
+						))}
+					</TableHeader>
+					<tbody {...getTableBodyProps()}>
+						{rows.map(row => {
+							prepareRow(row)
+							return (
+								<TableRow {...row.getRowProps()}>
+									{row.cells.map(cell => (
+										<TableItem {...cell.getCellProps()}>{cell.render('Cell')}</TableItem>
+									))}
+								</TableRow>
+							)
+						})}
+					</tbody>
+				</table>
+			</div>
+		</>
+	)
+}
+
+const TableRow: React.FC = ({ children, ...props }) => (
+	<tr className="border-b-2" {...props}>
 		{children}
 	</tr>
 )
 
-export const TableHeader: React.FC = ({ children }) => (
-	<thead className="bg-gray-50">
+const TableHeader: React.FC = ({ children, ...props }) => (
+	<thead className="bg-gray-50" {...props}>
 		{children}
 	</thead>
 )
 
-export const TableColumn: React.FC = ({ children }) => (
-	<th className="font-medium text-left py-2 pr-4">
+const TableColumn: React.FC = ({ children, ...props }) => (
+	<th className="font-medium text-left py-2 pr-4" {...props}>
 		{children}
 	</th>
 )
 
-export const TableItem: React.FC = ({ children }) => (
-	<td className="py-2 pr-2">
+const TableItem: React.FC = ({ children, ...props }) => (
+	<td className="py-2 pr-2" {...props}>
 		{children}
 	</td>
 )
