@@ -15,4 +15,12 @@ export class ApiClient {
     getMainLogo(): string {
         return `${ENV.API_HOST}/logo/tag.png`
     }
+
+    fetchEvents(): object[] {
+        return [{ "a": 1 }]
+    }
+
+    fetchEvent(id: string | number): object {
+        return [{ "a": 1 }]
+    }
 }
