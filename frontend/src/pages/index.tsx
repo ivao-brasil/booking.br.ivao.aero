@@ -10,7 +10,7 @@ export default function index() {
         <div className="w-screen h-screen overflow-hidden" style={{ background: `url(${apiClient.getMainBanner()})` }}>
             <Navbar />
             <div className="h-full flex flex-col items-center justify-center">
-                <DefaultButton />
+                <DefaultButton size="lg">Login</DefaultButton>
             </div>
         </div>
     )

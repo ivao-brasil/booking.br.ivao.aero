@@ -1,17 +1,26 @@
 import { useMemo, useState } from 'react';
-import { Column, TableState, useGlobalFilter, useSortBy, useTable } from 'react-table'
+import { Column, Row, RowPropGetter, TableState, useGlobalFilter, useSortBy, useTable } from 'react-table'
 
 interface TableProps {
 	columns: Column[]
 	items?: object[],
 	initialState?: Partial<TableState>
+	getRowProps ?: (row: Row) => RowPropGetter<object>
 }
 
-function GlobalFilter({ globalFilter, setGlobalFilter}) {
-	const [value, setValue] = useState(globalFilter);
-	const onChange = (value: string) => {
-		setGlobalFilter(value || undefined)
+function debounce(func: Function, timeout = 300) {
+	let timer: NodeJS.Timeout;
+	return (...args: any) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => { func.apply(this, args); }, timeout);
 	};
+}
+
+function GlobalFilter({ globalFilter, setGlobalFilter }) {
+	const [value, setValue] = useState(globalFilter);
+	const onChange = debounce(((value: string) => {
+		setGlobalFilter(value || undefined)
+	}), 200);
 
 	return (
 		<input
@@ -26,8 +35,13 @@ function GlobalFilter({ globalFilter, setGlobalFilter}) {
 	)
 }
 
-export function Table({ columns, items, initialState }: TableProps) {
+export function Table({ columns, items, initialState, getRowProps }: TableProps) {
 	const defaultItem: object[] = useMemo(() => [], [])
+	const defaultGetter = () => ({})
+
+	if (typeof getRowProps === "undefined") {
+		getRowProps = defaultGetter
+	}
 
 	const {
 		getTableProps,
@@ -54,11 +68,7 @@ export function Table({ columns, items, initialState }: TableProps) {
 									<TableColumn {...column.getHeaderProps()} {...column.getSortByToggleProps()}>
 										{column.render('Header')}
 										<span>
-											{column.isSorted
-												? column.isSortedDesc
-													? ' ⬇️'
-													: ' ⬆️'
-												: ' ↕️'}
+											{column.isSorted && (column.isSortedDesc ? ' ⬇️' : ' ⬆️')}
 										</span>
 									</TableColumn>
 								))}
@@ -69,7 +79,7 @@ export function Table({ columns, items, initialState }: TableProps) {
 						{rows.map(row => {
 							prepareRow(row)
 							return (
-								<TableRow {...row.getRowProps()}>
+								<TableRow {...row.getRowProps(getRowProps(row))}>
 									{row.cells.map(cell => (
 										<TableItem {...cell.getCellProps()}>{cell.render('Cell')}</TableItem>
 									))}

@@ -2,10 +2,18 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { Table } from "../../components/Table";
 import { Tab, TabItem, TabPanel } from "../../components/Tab";
+import { useEvent } from "../../hooks/useEvent";
+import { useEventSlots } from "../../hooks/useEventSlots";
+import { DefaultButton } from "../../components/Button";
+import { useEventScenary } from "../../hooks/useEventScenary";
+import InlineLink from "../../components/InlineLink";
 
 export default function event() {
 	const router = useRouter()
 	const [activeTab, setActiveTab] = useState(0)
+	const { event } = useEvent(1)
+	const { slots } = useEventSlots(1)
+	const { sceneries } = useEventScenary(1)
 
 	const handleChange = (_event: any, newValue: number) => {
 		setActiveTab(newValue);
@@ -47,14 +55,9 @@ export default function event() {
                 accessor: "aircraft"
             },
 			{
-                Header: "Status",
-                accessor: "bookingStatus"
-            },
-			{
-                Header: "Actions",
                 id: "actions",
 				Cell: () => (
-					<span>Teste</span>
+					<DefaultButton>Book</DefaultButton>
 				),
             }
         ],
@@ -77,7 +80,10 @@ export default function event() {
             },
 			{
                 Header: "Link",
-                accessor: "link"
+                accessor: "link",
+				Cell: ({ value }) => (
+					<InlineLink href={value}>Go to site</InlineLink>
+				),
             }
         ],
         []
@@ -94,6 +100,7 @@ export default function event() {
 			</Tab>
 
 			<TabPanel index={0} value={activeTab}>
+				{/* Details */}
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sagittis purus, sed ullamcorper augue.
 					Pellentesque pharetra diam quis elementum mollis. Etiam interdum mauris risus, ut interdum lacus dictum ac.
@@ -106,24 +113,15 @@ export default function event() {
 			</TabPanel>
 
 			<TabPanel index={1} value={activeTab}>
-				<div className="flex flex-wrap md:flex-nowrap">
-					<div className="w-full md:w-auto px-4">
-						<label htmlFor="status_filter" className="block">Filtro</label>
-						<select id="status_filter">
-							<option>Filtrar por status</option>
-							<option value="created">Criado</option>
-							<option value="scheduled">Agendado</option>
-							<option value="finished">Finalizado</option>
-						</select>
-					</div>
-					<div className="w-full md:w-full px-4">
-						<Table columns={slotTableColumns} />
-					</div>
+				{/* Slots */}
+				<div className="w-full md:w-full px-4">
+					<Table columns={slotTableColumns} items={slots} />
 				</div>
 			</TabPanel>
 
 			<TabPanel index={2} value={activeTab}>
-				<Table columns={scenaryTableColumns} />
+				{/* Scenary */}
+				<Table columns={scenaryTableColumns} items={sceneries} />
 			</TabPanel>
 		</div>
 
