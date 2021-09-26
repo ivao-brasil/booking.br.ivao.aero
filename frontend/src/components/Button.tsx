@@ -1,9 +1,12 @@
+import { forwardRef, PropsWithChildren } from "react";
+
 interface DefaultButtonProps {
 	size?: "sm" | "md" | "lg"
 	type ?: "submit" | "reset"
+	href ?: string
 }
 
-export const DefaultButton: React.FC<DefaultButtonProps> = (props) => {
+export const DefaultButton = forwardRef<HTMLAnchorElement,  PropsWithChildren<DefaultButtonProps>>((props, ref) => {
 	const defaultProps = {
 		size: "md"
 	}
@@ -19,11 +22,21 @@ export const DefaultButton: React.FC<DefaultButtonProps> = (props) => {
 		sizeClassNames = "py-6 px-24"
 	}
 
-	const classNames = `text-white font-medium bg-blue-400 shaow-md rounded-md hover:bg-blue-600 ${sizeClassNames}`
+	const classNames = `block my-1 text-center text-white font-medium bg-blue-400 shaow-md rounded-md hover:bg-blue-600 ${sizeClassNames}`
 
-	return (
-		<button className={classNames} {...btnProps}>
-			{props.children}
-		</button>
-	)
-}
+	const isLink = !!props.href
+
+	if (isLink) {
+		return (
+			<a href={props.href} ref={ref} className={classNames} {...btnProps}>
+				{props.children}
+			</a>
+		)
+	} else {
+		return (
+			<button className={classNames} {...btnProps}>
+				{props.children}
+			</button>
+		)
+	}
+});

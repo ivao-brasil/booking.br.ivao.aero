@@ -8,7 +8,7 @@ import { DefaultButton } from "../../components/Button";
 import { useEventScenary } from "../../hooks/useEventScenary";
 import InlineLink from "../../components/InlineLink";
 
-export default function event() {
+export default function eventItem() {
 	const router = useRouter()
 	const [activeTab, setActiveTab] = useState(0)
 	const { event } = useEvent(1)

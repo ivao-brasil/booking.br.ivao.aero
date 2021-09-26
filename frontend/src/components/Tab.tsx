@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 interface TabProps {
 	children: React.ReactNode
@@ -8,10 +9,22 @@ interface TabProps {
 
 export function Tab({ children: childrenProp, onChange }: TabProps) {
 	const [activeTab, setActiveTab] = useState(0)
+	const { query, push: routerPush } = useRouter()
+
+	useEffect(() => {
+		const { tab: urlTab } = query
+
+		if (urlTab) {
+			setActiveTab(Number(urlTab))
+		}
+	}, [query])
 
 	const onTabChange = (event: React.MouseEvent<HTMLElement>, newValue: number) => {
 		setActiveTab(newValue)
 		onChange(event, newValue)
+		routerPush({
+			query: {...query, tab: newValue}
+		})
 	}
 
 	const children = React.Children.map(childrenProp, (child, idx) => {
@@ -40,7 +53,7 @@ interface TabItemProps {
 	isActive?: boolean
 }
 
-export const TabItem: React.FC<TabItemProps> = ({ children, isActive, ...props }) => (
+export const TabItem: React.FunctionComponent<TabItemProps> = ({ children, isActive, ...props }) => (
 	<li className={
 		"cursor-pointer text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal md:mr-2 last:mr-0 flex-auto text-center " +
 		(isActive ? "text-white bg-blue-600" : "text-blue-600 bg-white")

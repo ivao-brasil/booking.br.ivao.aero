@@ -10,7 +10,7 @@ interface InputProps {
 	type: string
 }
 
-export const Input: React.FC<InputProps & BaseInputProps> = ({ type, label, ...props }) => {
+export const Input: React.FunctionComponent<InputProps & BaseInputProps> = ({ type, label, ...props }) => {
 	const [field, meta, helpers] = useField(props);
 
 	return (
@@ -21,13 +21,30 @@ export const Input: React.FC<InputProps & BaseInputProps> = ({ type, label, ...p
 	)
 }
 
-export const Checkbox: React.FC<BaseInputProps> = ({ label, ...props }) => {
+export const Checkbox: React.FunctionComponent<BaseInputProps> = ({ label, ...props }) => {
 	const [field, meta, helpers] = useField(props);
 
 	return (
-		<label className="inline-block my-2">
+		<label className="block my-3">
 			{label}
-			<input type="checkbox" className="inline-block mx-2 py-1 px-2 shadow-md rounded border border-gray-400 focus:ring-2 focus:border-blue-500" {...field} {...props} />
+			<input type="checkbox" className="inline-block mx-2 py-1 px-2 shadow-md rounded border border-gray-400 focus:ring-1 focus:border-blue-500" {...field} {...props} />
 		</label>
 	)
 }
+
+interface TextareaProps {
+	rows?: number
+	cols?: number
+}
+
+export const Textarea: React.FunctionComponent<TextareaProps & BaseInputProps> = ({ label, rows, cols, ...props }) => {
+	const [field, meta, helpers] = useField(props);
+
+	return (
+		<label className="block my-3">
+			{label}
+			<textarea rows={rows} cols={cols} className="block w-full my-2 py-1 px-2 shadow-md rounded border border-gray-400 focus:ring-2 focus:ring-blue-500" {...field} {...props} />
+		</label>
+	)
+}
+

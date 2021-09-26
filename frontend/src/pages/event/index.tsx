@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { Table } from "../../components/Table";
 import { useEventList } from "../../hooks/useEventList";
 
-export default function events() {
+export default function eventList() {
     const { events } = useEventList()
 
     const eventListColumns = useMemo(

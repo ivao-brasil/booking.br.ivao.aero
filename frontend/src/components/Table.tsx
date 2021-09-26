@@ -93,25 +93,25 @@ export function Table({ columns, items, initialState, getRowProps }: TableProps)
 	)
 }
 
-const TableRow: React.FC = ({ children, ...props }) => (
+const TableRow: React.FunctionComponent = ({ children, ...props }) => (
 	<tr className="border-b-2" {...props}>
 		{children}
 	</tr>
 )
 
-const TableHeader: React.FC = ({ children, ...props }) => (
+const TableHeader: React.FunctionComponent = ({ children, ...props }) => (
 	<thead className="bg-gray-50" {...props}>
 		{children}
 	</thead>
 )
 
-const TableColumn: React.FC = ({ children, ...props }) => (
+const TableColumn: React.FunctionComponent = ({ children, ...props }) => (
 	<th className="font-medium text-left py-2 pr-4" {...props}>
 		{children}
 	</th>
 )
 
-const TableItem: React.FC = ({ children, ...props }) => (
+const TableItem: React.FunctionComponent = ({ children, ...props }) => (
 	<td className="py-2 pr-2" {...props}>
 		{children}
 	</td>

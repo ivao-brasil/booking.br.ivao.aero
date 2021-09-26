@@ -2,8 +2,10 @@ import Link from "next/link";
 import React, { useMemo } from "react";
 import { Table } from "@/components/Table";
 import { useEventList } from "@/hooks/useEventList";
+import InlineLink from "@/components/InlineLink";
+import { DefaultButton } from "@/components/Button";
 
-export default function eventAdmin() {
+export default function adminEventList() {
     const { events } = useEventList()
 
     const eventListColumns = useMemo(
@@ -34,14 +36,13 @@ export default function eventAdmin() {
 
     return (
         <div className="flex flex-wrap md:flex-nowrap">
-            <div className="w-full md:w-auto px-4">
-                <label htmlFor="status_filter" className="block">Filtro</label>
-                <select id="status_filter">
-                    <option>Filtrar por status</option>
-                    <option value="created">Criado</option>
-                    <option value="scheduled">Agendado</option>
-                    <option value="finished">Finalizado</option>
-                </select>
+            <div className="w-full md:w-2/12 px-4">
+                <Link href="/admin/event/new" passHref>
+                    <DefaultButton>Create an event</DefaultButton>
+                </Link>
+                <Link href="/admin/eventSlots" passHref>
+                    <DefaultButton>Add slots to an event</DefaultButton>
+                </Link>
             </div>
             <div className="w-full md:w-full px-4">
                 <h1>Lista de eventos</h1>
