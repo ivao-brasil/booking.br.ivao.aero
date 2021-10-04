@@ -7,7 +7,7 @@ export class HttpClient {
         this.client = axios.create({ baseURL })
     }
 
-    get<T>(url: string, params?: { [key: string]: string | undefined }, headers?: object): Promise<T> {
+    get<T>(url: string, params?: { [key: string]: string | undefined }, headers?: Record<string, string>): Promise<T> {
         let queryString = undefined;
         let endpointRequest = `${url}`;
 
@@ -23,11 +23,11 @@ export class HttpClient {
         return this.client.get(endpointRequest, { headers: headers }).then(response => response.data);
     }
 
-    post<T>(url: string, body: object, headers?: object): Promise<T> {
+    post<T>(url: string, body: object, headers?: Record<string, string>): Promise<object | T> {
         return this.client.post(url, body, { headers }).then(response => response.data)
     }
 
-    put<T>(url: string, body: object, headers?: object): Promise<T> {
+    put<T>(url: string, body: object, headers?: Record<string, string>): Promise<object | T> {
         return this.client.put(url, body, { headers }).then(response => response.data)
     }
 }

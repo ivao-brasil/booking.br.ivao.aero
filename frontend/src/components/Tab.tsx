@@ -1,30 +1,17 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
 
 interface TabProps {
 	children: React.ReactNode
 	onChange: (event: React.MouseEvent<HTMLElement>, newValue: number) => void
 }
 
-
 export function Tab({ children: childrenProp, onChange }: TabProps) {
 	const [activeTab, setActiveTab] = useState(0)
-	const { query, push: routerPush } = useRouter()
-
-	useEffect(() => {
-		const { tab: urlTab } = query
-
-		if (urlTab) {
-			setActiveTab(Number(urlTab))
-		}
-	}, [query])
 
 	const onTabChange = (event: React.MouseEvent<HTMLElement>, newValue: number) => {
 		setActiveTab(newValue)
 		onChange(event, newValue)
-		routerPush({
-			query: {...query, tab: newValue}
-		})
 	}
 
 	const children = React.Children.map(childrenProp, (child, idx) => {

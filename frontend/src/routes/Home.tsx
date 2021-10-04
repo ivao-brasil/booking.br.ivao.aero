@@ -1,9 +1,9 @@
-import { ApiClient } from "../clients/api.client";
-import { DefaultButton } from "../components/Button";
-import { ENV } from "../env";
-import Navbar from "../components/Navbar";
+import React from "react";
+import { ApiClient } from "clients/api.client";
+import { DefaultButton } from "components/Button";
+import Navbar from "components/Navbar";
 
-export default function index() {
+export default function Home() {
     const apiClient = new ApiClient();
 
     return (

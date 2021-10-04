@@ -29,7 +29,7 @@ export default function SelectBox<T>({ id, items, onSelectedItemChange }: Select
 		onInputValueChange: ({ inputValue }) => {
 			setInputItems(
 				items.filter(item =>
-				  String(item).toLowerCase().startsWith(inputValue.toLowerCase()),
+				  String(item).toLowerCase().startsWith(inputValue?.toLowerCase() ?? ""),
 				),
 			  )
 		},

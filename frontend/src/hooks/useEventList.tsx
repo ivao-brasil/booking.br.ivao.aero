@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import useSWR from 'swr'
 
 export function useEventList(memberId ?: number) {
 	const events = useMemo(() => [

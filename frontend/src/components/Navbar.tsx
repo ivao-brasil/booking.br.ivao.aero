@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from "react-router-dom";
 import { ApiClient } from "../clients/api.client";
 import InlineLink from './InlineLink';
 
@@ -7,19 +7,13 @@ export default function Navbar() {
 
 	return (
 		<div className="flex flex-wrap items-center justify-center md:justify-start shadow-md py-3 px-3">
-			<Link href="/">
+			<Link to="/">
 				<img src={apiClient.getMainLogo()} className="w-48 md:w-1/5" />
 			</Link>
-			<Link href="/event" passHref>
-				<InlineLink>Event list</InlineLink>
-			</Link>
+			<Link to="/event">Event list</Link>
 			<div className="ml-auto">
-				<Link href="/admin" passHref>
-					<InlineLink>Admin panel</InlineLink>
-				</Link>
-				<Link href="/myBookings" passHref>
-					<InlineLink>My Bookings (1 to confirm)</InlineLink>
-				</Link>
+				<Link to="/admin">Admin panel</Link>
+				<Link to="/myBookings">My Bookings (1 to confirm)</Link>
 			</div>
 		</div>
 	)

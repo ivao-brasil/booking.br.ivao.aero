@@ -1,7 +1,7 @@
-import SelectBox, { SelectedItemChange } from "@/components/SelectBox"
-import { useEventList } from "@/hooks/useEventList"
+import SelectBox, { SelectedItemChange } from "components/SelectBox"
+import { useEventList } from "hooks/useEventList"
 
-export default function adminEventSlots() {
+export default function EventSlots() {
 	const { events } = useEventList()
 
 	const onEventSelectChanged = (changes: SelectedItemChange<any>) => {

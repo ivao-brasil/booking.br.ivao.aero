@@ -1,9 +1,10 @@
-import { forwardRef, PropsWithChildren } from "react";
+import { forwardRef, MouseEventHandler, PropsWithChildren } from "react";
 
 interface DefaultButtonProps {
 	size?: "sm" | "md" | "lg"
 	type ?: "submit" | "reset"
 	href ?: string
+	onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 }
 
 export const DefaultButton = forwardRef<HTMLAnchorElement,  PropsWithChildren<DefaultButtonProps>>((props, ref) => {
@@ -28,13 +29,13 @@ export const DefaultButton = forwardRef<HTMLAnchorElement,  PropsWithChildren<De
 
 	if (isLink) {
 		return (
-			<a href={props.href} ref={ref} className={classNames} {...btnProps}>
+			<a href={props.href} ref={ref} onClick={props.onClick} className={classNames} {...btnProps}>
 				{props.children}
 			</a>
 		)
 	} else {
 		return (
-			<button className={classNames} {...btnProps}>
+			<button className={classNames} onClick={props.onClick} {...btnProps}>
 				{props.children}
 			</button>
 		)
