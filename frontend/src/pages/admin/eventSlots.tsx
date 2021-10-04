@@ -1,13 +1,17 @@
-import SelectBox from "@/components/SelectBox"
+import SelectBox, { SelectedItemChange } from "@/components/SelectBox"
 import { useEventList } from "@/hooks/useEventList"
 
 export default function adminEventSlots() {
 	const { events } = useEventList()
 
+	const onEventSelectChanged = (changes: SelectedItemChange<any>) => {
+		console.log(changes)
+	}
+
 	return (
 		<>
 			<p>TODO</p>
-			<SelectBox items={events} />
+			<SelectBox id="a" items={events.map(item => item.id)} onSelectedItemChange={onEventSelectChanged} />
 		</>
 	)
 }

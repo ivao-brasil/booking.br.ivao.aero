@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useCombobox, UseComboboxStateChange, useSelect } from "downshift";
+import { useCombobox, UseComboboxStateChange } from "downshift";
 import { Input } from "./Form";
 
+export type SelectedItemChange<T> = UseComboboxStateChange<T>
+
 interface SelectBoxProps<T> {
+	id: string
 	items: T[]
-	onSelectedItemChange ?: (changes: UseComboboxStateChange<T>) => void
+	onSelectedItemChange ?: (changes: SelectedItemChange<T>) => void
 }
 
-export default function SelectBox<T>({ items, onSelectedItemChange }: SelectBoxProps<T>) {
+export default function SelectBox<T>({ id, items, onSelectedItemChange }: SelectBoxProps<T>) {
 	const [inputItems, setInputItems] = useState(items)
 
 	const {
@@ -20,6 +23,7 @@ export default function SelectBox<T>({ items, onSelectedItemChange }: SelectBoxP
 		highlightedIndex,
 		getItemProps
 	} = useCombobox({
+		id,
 		items,
 		onSelectedItemChange,
 		onInputValueChange: ({ inputValue }) => {

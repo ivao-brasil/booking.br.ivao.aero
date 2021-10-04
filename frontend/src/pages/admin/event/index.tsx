@@ -12,11 +12,7 @@ export default function adminEventList() {
         () => [
             {
                 Header: "Name",
-                accessor: "eventName",
-                Cell: ({ row, value }) => {
-                    const itemId: number = row.original.id
-                    return <Link href={`/admin/event/${itemId}`}>{value}</Link>
-                }
+                accessor: "eventName"
             },
             {
                 Header: "Start date",
@@ -29,6 +25,19 @@ export default function adminEventList() {
             {
                 Header: "Status",
                 accessor: "status"
+            },
+            {
+                id: "actions",
+                Cell: ({ row }) => {
+                    const itemId: number = row.original.id
+                    return (
+                        <>
+                            <Link href={`/admin/event/${itemId}`}>
+                                <a>Edit</a>
+                            </Link>
+                        </>
+                    )
+                }
             }
         ],
         []
@@ -36,7 +45,7 @@ export default function adminEventList() {
 
     return (
         <div className="flex flex-wrap md:flex-nowrap">
-            <div className="w-full md:w-2/12 px-4">
+            <div className="w-full md:w-3/12 px-4">
                 <Link href="/admin/event/new" passHref>
                     <DefaultButton>Create an event</DefaultButton>
                 </Link>

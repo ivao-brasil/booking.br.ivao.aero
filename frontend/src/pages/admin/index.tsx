@@ -1,3 +1,10 @@
+import Link from "next/link";
+import React from "react";
+
 export default function index() {
-	return <p>ADMIN</p>
+	return (
+		<Link href="/admin/event">
+			<a>Events</a>
+		</Link>
+	)
 }
