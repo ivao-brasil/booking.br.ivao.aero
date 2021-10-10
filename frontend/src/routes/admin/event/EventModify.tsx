@@ -1,5 +1,4 @@
-import React from "react";
-import { Field, FormikHelpers, useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { useEvent } from "hooks/useEvent";
 import { useParams } from "react-router";
 import { Checkbox, Input, Textarea } from "components/Form";

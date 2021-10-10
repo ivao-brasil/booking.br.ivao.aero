@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Column, Row, RowPropGetter, TableState, useGlobalFilter, UseGlobalFiltersState, useSortBy, useTable } from 'react-table'
+import { Column, Row, RowPropGetter, TableState, useGlobalFilter, useSortBy, useTable } from 'react-table'
 
 interface TableProps {
 	columns: Column[]

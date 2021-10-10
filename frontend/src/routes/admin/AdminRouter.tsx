@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import { lazy } from "react";
 import { Route, Switch, useRouteMatch } from "react-router";
 
 const AdminHome = lazy(() => import("./AdminHome"))
@@ -6,7 +6,7 @@ const EventList = lazy(() => import("./event/EventList"))
 const EventModify = lazy(() => import("./event/EventModify"))
 
 export default function AdminRouter() {
-	const { path, url } = useRouteMatch()
+	const { path } = useRouteMatch()
 
 	return (
 		<Switch>

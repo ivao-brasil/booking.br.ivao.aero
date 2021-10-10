@@ -7,6 +7,7 @@
     "axios": "^0.22.0",
     "downshift": "^6.1.7",
     "formik": "^2.2.9",
+    "ivaobr-api-client": "git+https://github.com/ivao-brasil/api-client.git",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.25.0",

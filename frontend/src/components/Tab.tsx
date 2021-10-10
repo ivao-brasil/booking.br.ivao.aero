@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import React, { useState } from "react";
 
 interface TabProps {
 	children: React.ReactNode
