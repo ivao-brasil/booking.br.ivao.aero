@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   api:
-    container_name: ivao-rfe-api
+    container_name: booking-api
     build:
       context: ./docker
     ports:
@@ -11,21 +11,9 @@ services:
       - ./backend:/var/www/app
     links:
       - db
-  front:
-    container_name: ivao-rfe-front
-    build:
-      context: ./
-      dockerfile: ./docker/front/Dockerfile
-    volumes:
-      - ./frontend:/var/www/app
-    links:
-      - db
-      - api
-    ports:
-      - 3000:3000
   db:
-    container_name: ivao-rfe-db
-    image: mariadb:latest
+    container_name: booking-db
+    image: mariadb
     ports:
       - 3306:3306
     volumes:
@@ -35,3 +23,13 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
+  phpmyadmin:
+    container_name: booking-phpmyadmin
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=secret
