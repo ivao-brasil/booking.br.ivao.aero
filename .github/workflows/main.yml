@@ -20,8 +20,6 @@ jobs:
           cd frontend
           yarn install
           yarn build
-      - name: List output files
-        run: find build/ -print
 
       - name: FTP-Deploy-Action
         uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
