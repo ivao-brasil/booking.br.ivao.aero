@@ -13,7 +13,7 @@
             "url": "http://localhost/"
         },
         {
-            "url": "https://bookingapi.br.ivao.aero/api"
+            "url": "https://booking.br.ivao.aero/api"
         }
     ],
     "tags": [
