@@ -1,0 +1,117 @@
+.filter {
+  border-radius: 10px 0px 10px 10px;
+  background-color: #f8f8f8;
+  backdrop-filter: blue(10px);
+  padding-bottom: 10px;
+}
+
+.filter header {
+  font-family: var(--nunito);
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  background-color: var(--blue);
+  height: 37px;
+  padding-left: 12px;
+  border-radius: 10px 0px 0px 0px;
+}
+
+.filter main > div:first-child {
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.filter main > div:nth-child(2) {
+  margin-top: 19px;
+  height: 100px;
+}
+
+.filter main > div:nth-child(2) > span {
+  font-family: var(--poppins);
+  font-size: 14px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: var(--silver);
+  margin-bottom: 8px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.filter main > div:nth-child(3) {
+  display: flex;
+  justify-content: flex-start;
+  height: 16px;
+  padding-left: 18px;
+  padding-right: 18px;
+  align-items: center;
+}
+
+.filter main > div:nth-child(4) {
+  margin-top: 24px;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.filter > main > div:nth-child(4) > button {
+  height: 25px;
+  width: 46%;
+  font-family: var(--poppins);
+  font-size: 10px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  padding: 6px 0px 6px 0px;
+  border: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter > main > div:nth-child(4) > button:hover {
+  filter: brightness(90%);
+}
+
+.filter > main > div:nth-child(4) > button:nth-child(2) {
+  color: var(--white);
+  background-color: var(--green);
+  font-weight: 600;
+}
+
+.filter > main > div:nth-child(4) > button:nth-child(1) {
+  color: var(--silver);
+  background-color: #ebebeb;
+}
+
+.filter main > div:nth-child(3) > span {
+  font-family: var(--poppins);
+  font-size: 14px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: var(--silver);
+  padding-left: 4px;
+}
+
+.filter main > div:first-child > select {
+  font-family: var(--poppins);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--silver);
+  background: #ebebeb;
+  border-radius: 5px;
+  width: 49%;
+  border: 0;
+}
