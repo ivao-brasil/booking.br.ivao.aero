@@ -3,6 +3,12 @@ import { FunctionComponent } from "react";
 import bodyStyle from "./board-pass-body.module.css";
 import headerStyle from "./boarding-pass-header.module.css";
 import { ReactComponent as Plane } from "./plane.svg";
+
+export enum BoardingPassType {
+  DEPARTURE,
+  ARIVAL,
+}
+
 interface BoardingPassProps {
   themeColor?: string;
   user: {
@@ -21,6 +27,7 @@ interface BoardingPassProps {
   callsign: string;
   slotDate: Date;
   gate: string;
+  type: BoardingPassType;
 }
 
 const defaultThemeColor = "#0d2c99";
@@ -52,7 +59,7 @@ const formatDate = (date: Date) => {
   ].join(" ");
 };
 
-const formatEOBT = (date: Date) =>
+const formatHour = (date: Date) =>
   [date.getUTCHours(), date.getUTCMinutes()]
     .map((value) => value.toString().padStart(2, "0"))
     .join("");
@@ -82,6 +89,7 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
   gate,
   slotDate,
   children,
+  type,
 }) => {
   return (
     <div>
@@ -137,8 +145,10 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
               <div>{gate}</div>
             </div>
             <div>
-              <div>eobt(utc)</div>
-              <div>{formatEOBT(slotDate)}</div>
+              <div>
+                {type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}
+              </div>
+              <div>{formatHour(slotDate)}</div>
             </div>
           </div>
         </div>
@@ -162,6 +172,7 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
   callsign,
   destination,
   slotDate,
+  type,
 }) => {
   return (
     <div className={bodyStyle.sideContent}>
@@ -187,8 +198,10 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
           <div>{formatDate(slotDate)}</div>
         </div>
         <div>
-          <div>EOBT(UTC)</div>
-          <div>{formatEOBT(slotDate)}</div>
+          <div>
+            {type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}
+          </div>
+          <div>{formatHour(slotDate)}</div>
         </div>
       </div>
       <div className={bodyStyle.seatInfo}>
