@@ -21,9 +21,9 @@ export class ApiClient {
     });
   }
 
-  async auth(login: string, password: string) {
+  async auth(ivaoToken: string) {
     return this.axios
-      .post<AuthResponse>("/auth", { login, password })
+      .post<AuthResponse>("/auth", { "ivao-token": ivaoToken })
       .then((response) => response.data);
   }
 

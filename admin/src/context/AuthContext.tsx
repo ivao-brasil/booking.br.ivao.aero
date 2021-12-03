@@ -1,5 +1,12 @@
-import { createContext, FunctionComponent } from "react";
+import {
+  createContext,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { User } from "../types/User";
+import { IocContext } from "./IocContext";
 
 interface IAuthContext {
   signed: boolean;
@@ -7,6 +14,7 @@ interface IAuthContext {
   token: string | null;
   signIn: (ivaoToken: string) => Promise<User>;
   signOut: () => void;
+  loading: Boolean;
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -15,17 +23,58 @@ export const AuthContext = createContext<IAuthContext>({
   signed: false,
   token: "",
   user: null,
+  loading: true,
 });
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
+  const { apiClient } = useContext(IocContext);
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem("token")
+  );
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (token) {
+      apiClient
+        .getAuth(token)
+        .then(setUser)
+        .catch(() => {
+          setToken(null);
+          localStorage.removeItem("token");
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  const signIn = async (ivaoToken: string) => {
+    const { jwt } = await apiClient.auth(ivaoToken);
+    const user = await apiClient.getAuth(jwt);
+
+    setToken(jwt);
+    setUser(user);
+
+    localStorage.setItem("token", jwt);
+
+    return user;
+  };
+
+  const signOut = async () => {
+    setToken(null);
+    setUser(null);
+  };
+
   return (
     <AuthContext.Provider
       value={{
-        signIn: (ivaoToken: string) => Promise.reject(),
-        signOut: () => {},
-        signed: false,
-        token: "",
-        user: null,
+        signIn,
+        signOut,
+        signed: Boolean(user) || Boolean(token),
+        token,
+        user,
+        loading,
       }}
     >
       {children}

@@ -1,9 +1,14 @@
-import { MainLayout } from "./layouts/MainLayout";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import { PrivateRoutes } from "./routes/PrivateRoutes";
+import { PublicRoutes } from "./routes/PublicRoutes";
 
 export const App = () => {
-  return (
-    <MainLayout>
-      <div>Teste</div>
-    </MainLayout>
-  );
+  const { signed, loading } = useContext(AuthContext);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  return signed ? <PrivateRoutes /> : <PublicRoutes />;
 };
