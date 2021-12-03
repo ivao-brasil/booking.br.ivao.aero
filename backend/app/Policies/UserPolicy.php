@@ -16,8 +16,12 @@ class UserPolicy
         return true;
     }
 
-    public function update(User $user)
+    public function update(User $user, String $userId)
     {
+        if($user->id == $userId) {
+            return Response::deny("You can't update yourself");
+        }
+
         if (!$user->isAdmin) {
             return Response::deny("You have no admin permissions");
         }

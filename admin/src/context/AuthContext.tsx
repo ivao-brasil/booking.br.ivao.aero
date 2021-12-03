@@ -11,7 +11,7 @@ import { IocContext } from "./IocContext";
 interface IAuthContext {
   signed: boolean;
   user: User | null;
-  token: string | null;
+  token: string;
   signIn: (ivaoToken: string) => Promise<void>;
   signOut: () => void;
   loading: Boolean;
@@ -28,8 +28,8 @@ export const AuthContext = createContext<IAuthContext>({
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
   const { apiClient } = useContext(IocContext);
-  const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token")
+  const [token, setToken] = useState<string>(
+    localStorage.getItem("token") || ""
   );
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         .getAuth(token)
         .then(setUser)
         .catch(() => {
-          setToken(null);
+          setToken("");
           localStorage.removeItem("token");
         })
         .finally(() => setLoading(false));
@@ -57,7 +57,8 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
   };
 
   const signOut = async () => {
-    setToken(null);
+    localStorage.removeItem("token");
+    setToken("");
     setUser(null);
   };
 

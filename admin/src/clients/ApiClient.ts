@@ -5,11 +5,9 @@ interface AuthResponse {
   jwt: string;
 }
 
-interface CreateUserRequest {
-  name: string;
-  login: string;
-  password: string;
-  email: string;
+interface UserRequest {
+  suspended?: boolean;
+  vid?: string;
 }
 
 export class ApiClient {
@@ -41,17 +39,21 @@ export class ApiClient {
       });
   }
 
-  async createUser(data: CreateUserRequest) {
+  async getUsers(data: UserRequest, token: string): Promise<Array<User>> {
     return this.axios
-      .post("/user", { ...data })
+      .get<Array<User>>("/user", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data);
   }
 
-  async getUsers(token: string) {
+  async setUserBlock(user: User, suspended: boolean, token: string) {
     return this.axios
-      .get<User[]>("/user", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .patch(
+        `/user/${user.id}`,
+        { suspended },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((response) => response.data);
   }
 }

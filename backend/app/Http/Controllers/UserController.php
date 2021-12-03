@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function update(Request $request, String $userId)
     {
-        $this->authorize('update', User::class);
+        $this->authorize('update', [User::class, $userId]);
 
         $this->validate($request, ['suspended' => "required|boolean"]);
 

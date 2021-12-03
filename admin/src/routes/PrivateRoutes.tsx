@@ -1,8 +1,14 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HomePage } from "../pages/HomePage";
+import { EventPage } from "../pages/UsersPage";
 
 export const PrivateRoutes = () => {
-  const { user } = useContext(AuthContext);
-
-  return <>{JSON.stringify(user)}</>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/admin" element={<HomePage />} />
+        <Route path="/admin/users" element={<EventPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
