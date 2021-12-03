@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import { App } from "./App";
+import { AuthProvider } from "./context/AuthContext";
+import { IocProvider } from "./context/IocContext";
+import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <IocProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </IocProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
