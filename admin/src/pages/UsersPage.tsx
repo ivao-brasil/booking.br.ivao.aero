@@ -1,4 +1,10 @@
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import {
+  FunctionComponent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Badge, Button, Container, Table } from "react-bootstrap";
 import { Confirm } from "../components/Confirm";
 import { AuthContext } from "../context/AuthContext";
@@ -41,11 +47,14 @@ export const UserList = () => {
   const [selectedUser, setSelectedUser] = useState<User>();
   const [confirm, setConfirm] = useState(false);
 
-  const fetchUsers = () => apiClient.getUsers({}, token).then(setUsers);
+  const fetchUsers = useCallback(
+    () => apiClient.getUsers({}, token).then(setUsers),
+    [apiClient, token]
+  );
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   const confirmUserBlock = (value: boolean) => {
     setConfirm(false);
@@ -93,9 +102,11 @@ export const UserList = () => {
                   style={{ display: "flex", justifyContent: "space-around" }}
                 >
                   <img
+                    alt="Pilot Rating"
                     src={`https://www.ivao.aero/data/images/ratings/pilot/${user.pilotRating}.gif`}
                   />
                   <img
+                    alt="Atc Rating"
                     src={`https://www.ivao.aero/data/images/ratings/atc/${user.atcRating}.gif`}
                   />
                 </div>
