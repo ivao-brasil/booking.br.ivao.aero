@@ -12,7 +12,7 @@ interface IAuthContext {
   signed: boolean;
   user: User | null;
   token: string | null;
-  signIn: (ivaoToken: string) => Promise<User>;
+  signIn: (ivaoToken: string) => Promise<void>;
   signOut: () => void;
   loading: Boolean;
 }
@@ -36,6 +36,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     if (token) {
+      setLoading(true);
       apiClient
         .getAuth(token)
         .then(setUser)
@@ -47,18 +48,12 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [apiClient, token]);
 
   const signIn = async (ivaoToken: string) => {
     const { jwt } = await apiClient.auth(ivaoToken);
-    const user = await apiClient.getAuth(jwt);
-
     setToken(jwt);
-    setUser(user);
-
     localStorage.setItem("token", jwt);
-
-    return user;
   };
 
   const signOut = async () => {

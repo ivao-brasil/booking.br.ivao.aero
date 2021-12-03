@@ -2,10 +2,6 @@ import { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-interface Props {
-  IVAOTOKEN: string;
-}
-
 export const RedirectToLogin = () => {
   const IVAOTOKEN = new URLSearchParams(window.location.search).get(
     "IVAOTOKEN"
@@ -32,7 +28,7 @@ export const RedirectToLogin = () => {
     signIn(IVAOTOKEN).then(() => {
       navigate(redirect || "");
     });
-  }, []);
+  }, [IVAOTOKEN, signIn, navigate]);
 
   return <></>;
 };
