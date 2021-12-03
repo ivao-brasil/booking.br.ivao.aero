@@ -1,3 +1,9 @@
+import { MainLayout } from "./layouts/MainLayout";
+
 export const App = () => {
-  return <h1>Hello World</h1>;
+  return (
+    <MainLayout>
+      <div>Teste</div>
+    </MainLayout>
+  );
 };
