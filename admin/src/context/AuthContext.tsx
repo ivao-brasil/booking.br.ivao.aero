@@ -66,7 +66,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
       value={{
         signIn,
         signOut,
-        signed: Boolean(user) || Boolean(token),
+        signed: user ? user.isAdmin && !user.suspended : false,
         token,
         user,
         loading,

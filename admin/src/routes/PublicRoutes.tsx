@@ -8,9 +8,14 @@ export const RedirectToLogin = () => {
   );
 
   const { signIn } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (user) {
+      window.location.href = "https://booking.br.ivao.aero";
+    }
+
     if (!IVAOTOKEN) {
       const ivaoLoginUrl = "https://login.ivao.aero/index.php?url={url}";
       const baseUrl = window.location.href;
@@ -28,7 +33,7 @@ export const RedirectToLogin = () => {
     signIn(IVAOTOKEN).then(() => {
       navigate(redirect || "");
     });
-  }, [IVAOTOKEN, signIn, navigate]);
+  }, [IVAOTOKEN, signIn, navigate, user]);
 
   return <></>;
 };
