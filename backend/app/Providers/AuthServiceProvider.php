@@ -9,6 +9,7 @@ use App\Policies\EventPolicy;
 use App\Policies\SceneryPolicy;
 use App\Policies\SlotPolicy;
 use App\Services\JwtService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -47,9 +48,19 @@ class AuthServiceProvider extends ServiceProvider
                 $userId = $data->sub->id;
                 $vid = $data->sub->vid;
 
-                return User::where('id', $userId)
+                $user = Cache::get($userId);
+
+                if ($user) {
+                    return $user;
+                }
+
+                $user = User::where('id', $userId)
                     ->where('vid', $vid)
                     ->first();
+
+                Cache::put($userId, $user, 5 * 60);
+
+                return $user;
             }
         });
     }
