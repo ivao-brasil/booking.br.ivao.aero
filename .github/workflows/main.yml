@@ -31,7 +31,7 @@ jobs:
           exclude: "node_modules"
           dist_target_dir: "./public_html/booking.br.ivao.aero"
   ADMIN:
-    name: Frontend
+    name: Admin
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
