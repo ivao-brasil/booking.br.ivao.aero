@@ -32,7 +32,13 @@ export class ApiClient {
       .get<User>("/auth", {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => response.data);
+      .then((response) => {
+        return {
+          ...response.data,
+          isAdmin: Boolean(response.data.isAdmin),
+          suspended: Boolean(response.data.suspended),
+        };
+      });
   }
 
   async createUser(data: CreateUserRequest) {
