@@ -42,7 +42,16 @@ const UserRow = (user: User, onUserChange: (user: User) => void) => {
         </div>
       </TableCell>
       <TableCell>
-        {user.division} / {user.country}
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <img
+            alt="Division flag"
+            src={`https://www.ivao.aero/data/images/badge/${user.division}.gif`}
+          />
+          <img
+            alt="Country Flag"
+            src={`https://www.ivao.aero/data/images/badge/${user.country}.gif`}
+          />
+        </div>
       </TableCell>
       <TableCell>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
