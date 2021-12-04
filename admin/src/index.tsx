@@ -4,10 +4,6 @@ import { App } from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { IocProvider } from "./context/IocContext";
 import { NotificationProvider } from "./context/NotificationContext/NotificationContext";
-import { Env } from "./env";
-import "./index.css";
-
-console.log(Env.API_HOST);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,6 +1,5 @@
+import { Alert, AlertColor, AlertTitle, Snackbar } from "@material-ui/core";
 import { createContext, FunctionComponent, useState } from "react";
-import { Toast, ToastContainer } from "react-bootstrap";
-import style from "./notification-context.module.css";
 
 export enum NotificationType {
   SUCCESS,
@@ -21,12 +20,12 @@ export const NotificationContext = createContext<INotificationContext>({
   dispatch: (...args) => {},
 });
 
-const getBackground = (type: NotificationType) => {
-  return {
-    [NotificationType.ALERT]: style.alert,
-    [NotificationType.ERROR]: style.error,
-    [NotificationType.SUCCESS]: style.success,
-  }[type];
+const getBackground = (type: NotificationType): AlertColor => {
+  return ({
+    [NotificationType.ALERT]: "warning",
+    [NotificationType.ERROR]: "error",
+    [NotificationType.SUCCESS]: "success",
+  }[type] || "info") as AlertColor;
 };
 
 export const NotificationProvider: FunctionComponent = ({ children }) => {
@@ -57,23 +56,22 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
     >
       <>
         {visible && (
-          <ToastContainer position="bottom-end">
-            <Toast
-              className="d-inline-block m-1"
+          <Snackbar
+            open={true}
+            onClose={() => setVisible(false)}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          >
+            <Alert
               onClose={() => setVisible(false)}
+              severity={getBackground(type)}
+              sx={{ width: "100%" }}
             >
-              <Toast.Header className={getBackground(type)}>
-                <img
-                  src="holder.js/20x20?text=%20"
-                  className="rounded me-2"
-                  alt=""
-                />
-                <strong className="me-auto">{title}</strong>
-              </Toast.Header>
-              <Toast.Body>{text}</Toast.Body>
-            </Toast>
-          </ToastContainer>
+              <AlertTitle>{title}</AlertTitle>
+              {text}
+            </Alert>
+          </Snackbar>
         )}
+
         {children}
       </>
     </NotificationContext.Provider>

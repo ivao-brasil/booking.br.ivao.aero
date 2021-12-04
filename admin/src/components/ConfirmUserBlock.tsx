@@ -3,8 +3,8 @@ import { User } from "../types/User";
 import { Confirm } from "./Confirm";
 
 const confirmationText = {
-  block: "Por favor confirme se gostaria de bloquear {1} do sistema?",
-  unblock: "Por favor confirme se gostaria de desbloquear {1} do sistema?",
+  block: "Please confirm {1} suspension of system use?",
+  unblock: "Please confirm {1} unsuspension of system use?",
 };
 
 interface ConfirmUserBlockProps {

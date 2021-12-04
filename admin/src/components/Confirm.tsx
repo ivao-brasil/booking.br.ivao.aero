@@ -1,5 +1,12 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@material-ui/core";
 import { FunctionComponent } from "react";
-import { Button, Modal } from "react-bootstrap";
 
 export interface ConfirmProps {
   text: string;
@@ -11,28 +18,17 @@ export const Confirm: FunctionComponent<ConfirmProps> = ({
   onConfirm,
 }) => {
   return (
-    <Modal
-      show={true}
-      onClick={() => onConfirm(false)}
-      onHide={() => onConfirm(false)}
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>Confirmação</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <p>{text}</p>
-      </Modal.Body>
-
-      <Modal.Footer>
-        <Button variant="secondary" onClick={() => onConfirm(false)}>
-          Cancelar
+    <Dialog onClose={() => onConfirm(false)} open>
+      <DialogTitle>Confirmation</DialogTitle>
+      <DialogContent>
+        <DialogContentText>{text}</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => onConfirm(false)}>Cancel</Button>
+        <Button onClick={() => onConfirm(true)} variant="contained">
+          Confirm
         </Button>
-        <Button variant="primary" onClick={() => onConfirm(true)}>
-          Confirmar
-        </Button>
-      </Modal.Footer>
-    </Modal>
+      </DialogActions>
+    </Dialog>
   );
 };
