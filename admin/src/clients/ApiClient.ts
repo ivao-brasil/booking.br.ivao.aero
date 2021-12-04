@@ -49,11 +49,11 @@ export class ApiClient {
 
   async setUserBlock(user: User, suspended: boolean, token: string) {
     return this.axios
-      .patch(
+      .patch<void>(
         `/user/${user.id}`,
         { suspended },
         { headers: { Authorization: `Bearer ${token}` } }
       )
-      .then((response) => response.data);
+      .then(() => {});
   }
 }

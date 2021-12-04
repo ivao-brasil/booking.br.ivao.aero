@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { App } from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { IocProvider } from "./context/IocContext";
+import { NotificationProvider } from "./context/NotificationContext/NotificationContext";
 import { Env } from "./env";
 import "./index.css";
 
@@ -12,7 +13,9 @@ ReactDOM.render(
   <React.StrictMode>
     <IocProvider>
       <AuthProvider>
-        <App />
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
       </AuthProvider>
     </IocProvider>
   </React.StrictMode>,
