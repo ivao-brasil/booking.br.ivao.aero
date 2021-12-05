@@ -17,7 +17,7 @@ import { IocContext } from "../context/IocContext";
 import {
   NotificationContext,
   NotificationType,
-} from "../context/NotificationContext/NotificationContext";
+} from "../context/NotificationContext";
 import { User } from "../types/User";
 
 const UserRow = (user: User, onUserChange: (user: User) => void) => {

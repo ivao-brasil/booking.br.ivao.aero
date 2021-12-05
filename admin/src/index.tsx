@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { App } from "./App";
 import { AuthProvider } from "./context/AuthContext";
 import { IocProvider } from "./context/IocContext";
-import { NotificationProvider } from "./context/NotificationContext/NotificationContext";
+import { NotificationProvider } from "./context/NotificationContext";
 import { theme } from "./theme";
 
 ReactDOM.render(

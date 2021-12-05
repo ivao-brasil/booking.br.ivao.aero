@@ -1,4 +1,5 @@
 import Axios, { AxiosInstance } from "axios";
+import { Event } from "../types/Event";
 import { User } from "../types/User";
 
 interface AuthResponse {
@@ -55,5 +56,21 @@ export class ApiClient {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(() => {});
+  }
+
+  async createEvent(data: Event, token: string) {
+    return this.axios
+      .post<Event>("/event", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {});
+  }
+
+  async getEvents(token: string) {
+    return this.axios
+      .get<Array<Event>>("/event", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data);
   }
 }

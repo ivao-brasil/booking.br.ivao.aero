@@ -71,7 +71,6 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
             </Alert>
           </Snackbar>
         )}
-
         {children}
       </>
     </NotificationContext.Provider>

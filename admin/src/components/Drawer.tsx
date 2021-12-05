@@ -7,7 +7,13 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
-import { ChevronLeft, ChevronRight, Home, People } from "@material-ui/icons";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Event,
+  Home,
+  People,
+} from "@material-ui/icons";
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 
@@ -60,6 +66,13 @@ export const Drawer: FunctionComponent<DrawerProps> = ({
             <Home />
           </ListItemIcon>
           <ListItemText primary="Users" />
+        </ListItemButton>
+
+        <ListItemButton component={Link} to="/admin/events">
+          <ListItemIcon>
+            <Event />
+          </ListItemIcon>
+          <ListItemText primary="Events" />
         </ListItemButton>
       </List>
     </MuiDrawer>

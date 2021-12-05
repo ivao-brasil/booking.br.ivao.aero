@@ -1,13 +1,14 @@
 import {
   AppBar,
   Box,
+  Container,
   CssBaseline,
   IconButton,
   Toolbar,
   Typography,
-  useTheme,
 } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
+import { useTheme } from "@mui/material";
 import { FunctionComponent, useState } from "react";
 import { Drawer } from "../components/Drawer";
 import { Env } from "../env";
@@ -76,10 +77,10 @@ export const MainLayout: FunctionComponent = ({ children }) => {
             height: "100vh",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            paddingTop: theme.spacing(8),
           }}
         >
-          {children}
+          <Container>{children}</Container>
         </div>
       </Box>
     </>
