@@ -924,6 +924,24 @@
                     "creator": {
                         "$ref": "#/components/schemas/User",
                         "required": false
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "banner": {
+                        "type": "string"
+                    },
+                    "atcBooking": {
+                        "type": "string"
+                    },
+                    "atcBriefing": {
+                        "type": "string"
+                    },
+                    "pilotBriefing": {
+                        "type": "string"
+                    },
+                    "public": {
+                        "type": "boolean"
                     }
                 }
             }

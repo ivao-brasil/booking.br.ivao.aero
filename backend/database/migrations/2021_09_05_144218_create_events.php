@@ -23,7 +23,7 @@ class CreateEvents extends Migration
 
             $table->string('eventName');
 
-            $table->boolean('privateSlots');
+            $table->boolean('privateSlots')->default(false);
 
             $table->enum('status', ['created', 'scheduled', 'finished']);
 
@@ -43,6 +43,8 @@ class CreateEvents extends Migration
 
             $table->string('atcBriefing');
             $table->string('pilotBriefing');
+
+            $table->boolean('public')->default(false);
 
             $table->timestamps();
         });
