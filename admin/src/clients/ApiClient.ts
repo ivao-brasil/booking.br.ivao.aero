@@ -58,9 +58,9 @@ export class ApiClient {
       .then(() => {});
   }
 
-  async createEvent(data: Event, token: string) {
+  async createEvent(data: Partial<Event>, token: string) {
     return this.axios
-      .post<Event>("/event", data, {
+      .post<Partial<Event>>("/event", data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {});
@@ -69,6 +69,14 @@ export class ApiClient {
   async getEvents(token: string) {
     return this.axios
       .get<Array<Event>>("/event", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data);
+  }
+
+  async updateEvent(eventId: number, data: Partial<Event>, token: string) {
+    return this.axios
+      .put<Array<Event>>(`/event/${eventId}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data);

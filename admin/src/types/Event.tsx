@@ -1,8 +1,9 @@
 export interface Event {
+  id: number;
   dateStart: number;
   dateEnd: number;
   eventName: string;
-  privateSlots: boolean;
+  privateSlots: number;
   pilotBriefing: string;
   atcBriefing: string;
   description: string;

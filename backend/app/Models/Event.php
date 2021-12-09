@@ -19,7 +19,6 @@ class Event extends Model
         'description',
         'atcBooking',
         'banner',
-        'public'
     ];
 
     protected $casts = [
