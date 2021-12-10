@@ -1,20 +1,11 @@
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  TextField,
-  Tooltip,
-} from "@material-ui/core";
-import { FunctionComponent, useContext } from "react";
-import { useForm } from "react-hook-form";
-import { AuthContext } from "../context/AuthContext";
-import { IocContext } from "../context/IocContext";
-import {
-  NotificationContext,
-  NotificationType,
-} from "../context/NotificationContext";
-import { Event } from "../types/Event";
+import { Button, Checkbox, FormControlLabel, FormGroup, TextField, Tooltip } from '@material-ui/core';
+import { FunctionComponent, useContext } from 'react';
+import Datetime from 'react-datetime';
+import { useForm } from 'react-hook-form';
+import { AuthContext } from '../context/AuthContext';
+import { IocContext } from '../context/IocContext';
+import { NotificationContext, NotificationType } from '../context/NotificationContext';
+import { Event } from '../types/Event';
 
 interface INewEventForm {
   dateStart: Date;
@@ -32,9 +23,7 @@ interface IEventFormProps {
   defaultState?: Event;
 }
 
-export const EventForm: FunctionComponent<IEventFormProps> = ({
-  defaultState,
-}) => {
+export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) => {
   const { register, handleSubmit, watch, reset } = useForm<INewEventForm>({
     defaultValues: defaultState
       ? {
@@ -64,20 +53,10 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({
       )
       .then(() => {
         reset();
-        dispatch(
-          "Event successfully created",
-          "Event created",
-          NotificationType.SUCCESS,
-          5000
-        );
+        dispatch('Event successfully created', 'Event created', NotificationType.SUCCESS, 5000);
       })
       .catch(() => {
-        dispatch(
-          "Error to create event",
-          "Event creation error",
-          NotificationType.ERROR,
-          5000
-        );
+        dispatch('Error to create event', 'Event creation error', NotificationType.ERROR, 5000);
       });
 
   const updateEvent = (data: INewEventForm) => {
@@ -95,20 +74,10 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({
         )
         .then(() => {
           reset();
-          dispatch(
-            "Event successfully updated",
-            "Event update",
-            NotificationType.SUCCESS,
-            5000
-          );
+          dispatch('Event successfully updated', 'Event update', NotificationType.SUCCESS, 5000);
         })
         .catch(() => {
-          dispatch(
-            "Error to update event",
-            "Event updating error",
-            NotificationType.ERROR,
-            5000
-          );
+          dispatch('Error to update event', 'Event updating error', NotificationType.ERROR, 5000);
         });
     }
   };
@@ -122,71 +91,47 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({
   };
 
   return (
-    <section style={{ display: "flex", gap: "24px" }}>
+    <section style={{ display: 'flex', gap: '24px' }}>
       <form
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "24px",
-          width: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+          width: '100%',
         }}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <TextField
-          placeholder="Event Name"
-          {...register("eventName", { required: true })}
-        />
+        <TextField label="Event Name" {...register('eventName', { required: true })} />
         <Tooltip title="Your local time" placement="left-start">
           <TextField
-            placeholder="Date Start"
+            InputLabelProps={{ shrink: true }}
+            label="Date Start"
             type="datetime-local"
-            {...register("dateStart", { required: true, valueAsDate: true })}
+            {...register('dateStart', { required: true, valueAsDate: true })}
           />
         </Tooltip>
         <Tooltip title="Your local time" placement="left-start">
-          <TextField
-            placeholder="Date end"
+          {/*<TextField
+            InputLabelProps={{ shrink: true }}
+            label="Date end"
             type="datetime-local"
             {...register("dateEnd", { required: true, valueAsDate: true })}
-          />
+          />*/}
+          <Datetime />
         </Tooltip>
-        <TextField
-          placeholder="Pilot Briefing"
-          {...register("pilotBriefing", { required: true })}
-        />
-        <TextField
-          placeholder="ATC Briefing"
-          {...register("atcBriefing", { required: true })}
-        />
-        <TextField
-          placeholder="Event Description"
-          rows={4}
-          multiline
-          {...register("description", { required: true })}
-        />
-        <TextField
-          placeholder="Banner Link"
-          {...register("banner", { required: true })}
-        />
-        <TextField
-          placeholder="ATC Booking Link"
-          {...register("atcBooking", { required: true })}
-        />
+        <TextField label="Pilot Briefing" {...register('pilotBriefing', { required: true })} />
+        <TextField label="ATC Briefing" {...register('atcBriefing', { required: true })} />
+        <TextField label="Event Description" rows={4} multiline {...register('description', { required: true })} />
+        <TextField label="Banner Link" {...register('banner', { required: true })} />
+        <TextField label="ATC Booking Link" {...register('atcBooking', { required: true })} />
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox {...register("privateSlots")} value={privateSlots} />
-            }
-            label="Private slots available"
-          />
+          <FormControlLabel control={<Checkbox {...register('privateSlots')} value={privateSlots} />} label="Private slots available" />
         </FormGroup>
         <Button variant="contained" type="submit">
           Save
         </Button>
       </form>
-      <section style={{ width: "100%" }}>
-        {banner && <img src={banner} width="600px" alt="Banner" />}
-      </section>
+      <section style={{ width: '100%' }}>{banner && <img src={banner} width="600px" alt="Banner" />}</section>
     </section>
   );
 };

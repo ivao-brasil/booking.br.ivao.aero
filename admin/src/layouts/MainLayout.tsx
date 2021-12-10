@@ -1,17 +1,9 @@
-import {
-  AppBar,
-  Box,
-  Container,
-  CssBaseline,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
-import { useTheme } from "@mui/material";
-import { FunctionComponent, useState } from "react";
-import { Drawer } from "../components/Drawer";
-import { Env } from "../env";
+import { AppBar, Box, Container, CssBaseline, IconButton, Toolbar, Typography } from '@material-ui/core';
+import { Menu } from '@material-ui/icons';
+import { useTheme } from '@mui/material';
+import { FunctionComponent, useState } from 'react';
+import { Drawer } from '../components/Drawer';
+import { Env } from '../env';
 
 const drawerWidth = 240;
 
@@ -28,7 +20,7 @@ export const MainLayout: FunctionComponent = ({ children }) => {
   };
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CssBaseline />
         <AppBar
           position="fixed"
@@ -39,13 +31,7 @@ export const MainLayout: FunctionComponent = ({ children }) => {
           }}
         >
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
-            >
+            <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" sx={{ mr: 2, ...(open && { display: 'none' }) }}>
               <Menu />
             </IconButton>
 
@@ -62,21 +48,21 @@ export const MainLayout: FunctionComponent = ({ children }) => {
         <div
           style={{
             flexGrow: 1,
-            transition: theme.transitions.create("margin", {
+            transition: theme.transitions.create('margin', {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.leavingScreen,
             }),
             ...(!open && { marginLeft: 0 }),
             ...(open && {
-              transition: theme.transitions.create("margin", {
+              transition: theme.transitions.create('margin', {
                 easing: theme.transitions.easing.easeOut,
                 duration: theme.transitions.duration.enteringScreen,
               }),
               marginLeft: `${drawerWidth}px`,
             }),
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
             paddingTop: theme.spacing(8),
           }}
         >

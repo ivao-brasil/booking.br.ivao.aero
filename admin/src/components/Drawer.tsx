@@ -1,39 +1,22 @@
-import {
-  Divider,
-  Drawer as MuiDrawer,
-  IconButton,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@material-ui/core";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Event,
-  Home,
-  People,
-} from "@material-ui/icons";
-import { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
+import { Divider, Drawer as MuiDrawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from '@material-ui/core';
+import { ChevronLeft, ChevronRight, Event, Home, People } from '@material-ui/icons';
+import { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
 
 interface DrawerProps {
   open: boolean;
   handleClose: () => void;
 }
 
-export const Drawer: FunctionComponent<DrawerProps> = ({
-  open,
-  handleClose,
-}) => {
+export const Drawer: FunctionComponent<DrawerProps> = ({ open, handleClose }) => {
   return (
     <MuiDrawer
       sx={{
         width: 240,
         flexShrink: 0,
-        "& .MuiDrawer-paper": {
+        '& .MuiDrawer-paper': {
           width: 240,
-          boxSizing: "border-box",
+          boxSizing: 'border-box',
         },
       }}
       variant="persistent"
@@ -42,15 +25,13 @@ export const Drawer: FunctionComponent<DrawerProps> = ({
     >
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "10px",
-          justifyContent: "flex-end",
+          display: 'flex',
+          alignItems: 'center',
+          padding: '10px',
+          justifyContent: 'flex-end',
         }}
       >
-        <IconButton onClick={handleClose}>
-          {open ? <ChevronLeft /> : <ChevronRight />}
-        </IconButton>
+        <IconButton onClick={handleClose}>{open ? <ChevronLeft /> : <ChevronRight />}</IconButton>
       </div>
       <Divider />
       <List>

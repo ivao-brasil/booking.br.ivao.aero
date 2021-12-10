@@ -1,6 +1,6 @@
-import Axios, { AxiosInstance } from "axios";
-import { Event } from "../types/Event";
-import { User } from "../types/User";
+import Axios, { AxiosInstance } from 'axios';
+import { Event } from '../types/Event';
+import { User } from '../types/User';
 
 interface AuthResponse {
   jwt: string;
@@ -21,14 +21,12 @@ export class ApiClient {
   }
 
   async auth(ivaoToken: string) {
-    return this.axios
-      .post<AuthResponse>("/auth", { "ivao-token": ivaoToken })
-      .then((response) => response.data);
+    return this.axios.post<AuthResponse>('/auth', { 'ivao-token': ivaoToken }).then((response) => response.data);
   }
 
   async getAuth(token: string): Promise<User> {
     return this.axios
-      .get<User>("/auth", {
+      .get<User>('/auth', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -42,25 +40,19 @@ export class ApiClient {
 
   async getUsers(data: UserRequest, token: string): Promise<Array<User>> {
     return this.axios
-      .get<Array<User>>("/user", {
+      .get<Array<User>>('/user', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data);
   }
 
   async setUserBlock(user: User, suspended: boolean, token: string) {
-    return this.axios
-      .patch<void>(
-        `/user/${user.id}`,
-        { suspended },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then(() => {});
+    return this.axios.patch<void>(`/user/${user.id}`, { suspended }, { headers: { Authorization: `Bearer ${token}` } }).then(() => {});
   }
 
   async createEvent(data: Partial<Event>, token: string) {
     return this.axios
-      .post<Partial<Event>>("/event", data, {
+      .post<Partial<Event>>('/event', data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {});
@@ -68,7 +60,7 @@ export class ApiClient {
 
   async getEvents(token: string) {
     return this.axios
-      .get<Array<Event>>("/event", {
+      .get<Array<Event>>('/event', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data);

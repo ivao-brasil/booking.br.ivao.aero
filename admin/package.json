@@ -19,7 +19,10 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "axios": "^0.24.0",
+    "moment": "^2.29.1",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
+    "react-datetime": "^3.1.1",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.20.5",
     "react-router-dom": "^6.0.2",
@@ -31,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\""
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +56,7 @@
     ]
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0"
+    "@types/axios": "^0.14.0",
+    "@types/moment": "^2.13.0"
   }
 }

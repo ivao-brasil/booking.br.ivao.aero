@@ -1,5 +1,5 @@
-import { Alert, AlertColor, AlertTitle, Snackbar } from "@material-ui/core";
-import { createContext, FunctionComponent, useState } from "react";
+import { Alert, AlertColor, AlertTitle, Snackbar } from '@material-ui/core';
+import { createContext, FunctionComponent, useState } from 'react';
 
 export enum NotificationType {
   SUCCESS,
@@ -8,12 +8,7 @@ export enum NotificationType {
 }
 
 interface INotificationContext {
-  dispatch: (
-    text: string,
-    title: string,
-    type: NotificationType,
-    timeout?: number
-  ) => void;
+  dispatch: (text: string, title: string, type: NotificationType, timeout?: number) => void;
 }
 
 export const NotificationContext = createContext<INotificationContext>({
@@ -22,27 +17,22 @@ export const NotificationContext = createContext<INotificationContext>({
 
 const getBackground = (type: NotificationType): AlertColor => {
   return ({
-    [NotificationType.ALERT]: "warning",
-    [NotificationType.ERROR]: "error",
-    [NotificationType.SUCCESS]: "success",
-  }[type] || "info") as AlertColor;
+    [NotificationType.ALERT]: 'warning',
+    [NotificationType.ERROR]: 'error',
+    [NotificationType.SUCCESS]: 'success',
+  }[type] || 'info') as AlertColor;
 };
 
 export const NotificationProvider: FunctionComponent = ({ children }) => {
   const [visible, setVisible] = useState(false);
-  const [text, setText] = useState("");
-  const [title, setTitle] = useState("");
+  const [text, setText] = useState('');
+  const [title, setTitle] = useState('');
   const [type, setType] = useState(NotificationType.SUCCESS);
 
   return (
     <NotificationContext.Provider
       value={{
-        dispatch: (
-          text: string,
-          title: string,
-          type: NotificationType,
-          timeout?: number
-        ) => {
+        dispatch: (text: string, title: string, type: NotificationType, timeout?: number) => {
           setVisible(true);
           setText(text);
           setTitle(title);
@@ -56,16 +46,8 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
     >
       <>
         {visible && (
-          <Snackbar
-            open={true}
-            onClose={() => setVisible(false)}
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          >
-            <Alert
-              onClose={() => setVisible(false)}
-              severity={getBackground(type)}
-              sx={{ width: "100%" }}
-            >
+          <Snackbar open={true} onClose={() => setVisible(false)} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+            <Alert onClose={() => setVisible(false)} severity={getBackground(type)} sx={{ width: '100%' }}>
               <AlertTitle>{title}</AlertTitle>
               {text}
             </Alert>
