@@ -73,4 +73,12 @@ export class ApiClient {
       })
       .then(response => response.data);
   }
+
+  deleteEvent(event: Event, token: string) {
+    return this.axios
+      .delete(`/event/${event.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
 }

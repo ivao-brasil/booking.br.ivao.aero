@@ -1,11 +1,12 @@
 import { Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, IconButtonProps, styled, Typography } from '@material-ui/core';
-import { Edit, ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
+import { Edit, ExpandMore as ExpandMoreIcon, Delete } from '@material-ui/icons';
 import { FunctionComponent, useState } from 'react';
 import { Event } from '../types/Event';
 
 interface EventCardProps {
   event: Event;
   onEdit?: (event: Event) => void;
+  onDelete?: (event: Event) => void;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -25,7 +26,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 const months = ['Jannuary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export const EventCard: FunctionComponent<EventCardProps> = ({ event, onEdit }) => {
+export const EventCard: FunctionComponent<EventCardProps> = ({ event, onEdit, onDelete }) => {
   const [expanded, setExpanded] = useState(false);
 
   const formatDate = (date: Date) => {
@@ -47,6 +48,12 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ event, onEdit }) 
         {onEdit && (
           <IconButton aria-label="edit" onClick={() => onEdit(event)}>
             <Edit />
+          </IconButton>
+        )}
+
+        {onDelete && (
+          <IconButton aria-label="delete" onClick={() => onDelete(event)}>
+            <Delete />
           </IconButton>
         )}
 
