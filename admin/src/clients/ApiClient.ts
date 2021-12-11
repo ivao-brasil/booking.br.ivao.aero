@@ -21,7 +21,7 @@ export class ApiClient {
   }
 
   async auth(ivaoToken: string) {
-    return this.axios.post<AuthResponse>('/auth', { 'ivao-token': ivaoToken }).then((response) => response.data);
+    return this.axios.post<AuthResponse>('/auth', { 'ivao-token': ivaoToken }).then(response => response.data);
   }
 
   async getAuth(token: string): Promise<User> {
@@ -29,7 +29,7 @@ export class ApiClient {
       .get<User>('/auth', {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
+      .then(response => {
         return {
           ...response.data,
           isAdmin: Boolean(response.data.isAdmin),
@@ -43,7 +43,7 @@ export class ApiClient {
       .get<Array<User>>('/user', {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => response.data);
+      .then(response => response.data);
   }
 
   async setUserBlock(user: User, suspended: boolean, token: string) {
@@ -63,7 +63,7 @@ export class ApiClient {
       .get<Array<Event>>('/event', {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => response.data);
+      .then(response => response.data);
   }
 
   async updateEvent(eventId: number, data: Partial<Event>, token: string) {
@@ -71,6 +71,6 @@ export class ApiClient {
       .put<Array<Event>>(`/event/${eventId}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => response.data);
+      .then(response => response.data);
   }
 }

@@ -1,6 +1,5 @@
 import { Button, Checkbox, FormControlLabel, FormGroup, TextField, Tooltip } from '@material-ui/core';
 import { FunctionComponent, useContext } from 'react';
-import Datetime from 'react-datetime';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../context/AuthContext';
 import { IocContext } from '../context/IocContext';
@@ -35,7 +34,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) 
       : {},
   });
 
-  const { banner, privateSlots } = watch();
+  const { banner, privateSlots, dateEnd, dateStart } = watch();
   const { apiClient } = useContext(IocContext);
   const { token } = useContext(AuthContext);
   const { dispatch } = useContext(NotificationContext);
@@ -90,6 +89,18 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) 
     return updateEvent(data);
   };
 
+  const formatDateToDateTime = (date?: Date) => {
+    if (!date) {
+      return '';
+    }
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${year}-${month}-${day}T${hour}:${minutes}`;
+  };
+
   return (
     <section style={{ display: 'flex', gap: '24px' }}>
       <form
@@ -99,25 +110,25 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) 
           gap: '24px',
           width: '100%',
         }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+        onSubmit={handleSubmit(onSubmit)}>
         <TextField label="Event Name" {...register('eventName', { required: true })} />
         <Tooltip title="Your local time" placement="left-start">
           <TextField
             InputLabelProps={{ shrink: true }}
-            label="Date Start"
+            label="Start Date (localtime)"
             type="datetime-local"
+            value={formatDateToDateTime(dateStart)}
             {...register('dateStart', { required: true, valueAsDate: true })}
           />
         </Tooltip>
         <Tooltip title="Your local time" placement="left-start">
-          {/*<TextField
+          <TextField
             InputLabelProps={{ shrink: true }}
-            label="Date end"
+            label="End Date (localtime)"
             type="datetime-local"
-            {...register("dateEnd", { required: true, valueAsDate: true })}
-          />*/}
-          <Datetime />
+            value={formatDateToDateTime(dateEnd)}
+            {...register('dateEnd', { required: true, valueAsDate: true })}
+          />
         </Tooltip>
         <TextField label="Pilot Briefing" {...register('pilotBriefing', { required: true })} />
         <TextField label="ATC Briefing" {...register('atcBriefing', { required: true })} />
@@ -125,7 +136,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) 
         <TextField label="Banner Link" {...register('banner', { required: true })} />
         <TextField label="ATC Booking Link" {...register('atcBooking', { required: true })} />
         <FormGroup>
-          <FormControlLabel control={<Checkbox {...register('privateSlots')} value={privateSlots} />} label="Private slots available" />
+          <FormControlLabel control={<Checkbox {...register('privateSlots')} checked={privateSlots} />} label="Private slots available" />
         </FormGroup>
         <Button variant="contained" type="submit">
           Save

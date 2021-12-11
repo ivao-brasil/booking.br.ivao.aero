@@ -28,8 +28,7 @@ export const MainLayout: FunctionComponent = ({ children }) => {
           sx={{
             width: `calc(100% - ${open ? drawerWidth : 0}px)`,
             ml: `${open ? drawerWidth : 0}px`,
-          }}
-        >
+          }}>
           <Toolbar>
             <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" sx={{ mr: 2, ...(open && { display: 'none' }) }}>
               <Menu />
@@ -64,8 +63,7 @@ export const MainLayout: FunctionComponent = ({ children }) => {
             display: 'flex',
             justifyContent: 'center',
             paddingTop: theme.spacing(8),
-          }}
-        >
+          }}>
           <Container>{children}</Container>
         </div>
       </Box>

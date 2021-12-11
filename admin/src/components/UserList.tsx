@@ -47,14 +47,13 @@ const UserRow = (user: User, onUserChange: (user: User) => void) => {
         </div>
       </TableCell>
       <TableCell>
-        {user.vid !== authUser?.vid && (
+        {user.vid !== authUser?.vid && !user.isAdmin && (
           <Button
             onClick={() => {
               onUserChange(user);
             }}
             variant="contained"
-            color={user.suspended ? 'success' : 'error'}
-          >
+            color={user.suspended ? 'success' : 'error'}>
             {user.suspended ? 'Unsuspend' : 'Suspend'}
           </Button>
         )}
@@ -92,7 +91,7 @@ export const UserList = () => {
           );
           fetchUsers();
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch(
             `Error to suspend user ${selectedUser.firstName} ${selectedUser.lastName} (${selectedUser.vid})`,
             'User Suspension',
@@ -122,7 +121,7 @@ export const UserList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) =>
+            {users.map(user =>
               UserRow(user, (user: User) => {
                 setSelectedUser(user);
                 setConfirm(true);

@@ -26,7 +26,7 @@ export const EventsPage = () => {
           </Box>
           <TabPanel value="1">
             <EventList
-              onEdit={(event) => {
+              onEdit={event => {
                 setValue('3');
                 setEditEvent(event);
               }}

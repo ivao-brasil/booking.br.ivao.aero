@@ -28,7 +28,7 @@ export const EventList: FunctionComponent<EventListProps> = ({ onEdit }) => {
   return (
     <div>
       <Grid container spacing={2}>
-        {events.map((event) => (
+        {events.map(event => (
           <Grid item xs={4} key={event.id}>
             <EventCard event={event} onEdit={onEdit} />
           </Grid>

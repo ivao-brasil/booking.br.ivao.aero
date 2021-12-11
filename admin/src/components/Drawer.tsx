@@ -21,16 +21,14 @@ export const Drawer: FunctionComponent<DrawerProps> = ({ open, handleClose }) =>
       }}
       variant="persistent"
       anchor="left"
-      open={open}
-    >
+      open={open}>
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
           padding: '10px',
           justifyContent: 'flex-end',
-        }}
-      >
+        }}>
         <IconButton onClick={handleClose}>{open ? <ChevronLeft /> : <ChevronRight />}</IconButton>
       </div>
       <Divider />

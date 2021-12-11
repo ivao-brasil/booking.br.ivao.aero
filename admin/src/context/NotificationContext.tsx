@@ -42,8 +42,7 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
               setVisible(false);
             }, timeout);
         },
-      }}
-    >
+      }}>
       <>
         {visible && (
           <Snackbar open={true} onClose={() => setVisible(false)} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>

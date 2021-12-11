@@ -63,8 +63,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         token,
         user,
         loading,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );
