@@ -16,9 +16,9 @@ interface ButtonTextProps {
 }
 
 export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, muted = false }) => {
-	const textColor = muted ? "text-gray" : "text-white"
+	const textColor = muted ? "text-gray dark:text-white" : "text-white"
 	return (
-		<span className={`inline-block px-6 py-2.5 leading-[37px] font-action font-semibold ${textColor}`}>
+		<span className={`inline-block px-8 py-2.5 leading-[37px] font-action font-semibold ${textColor}`}>
 			{children}
 		</span>
 	)

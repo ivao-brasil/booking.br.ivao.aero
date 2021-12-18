@@ -5,13 +5,15 @@ import { FunctionComponent } from "react";
 export const InformationalLayout: FunctionComponent = ({ children }) => {
     return (
         <div className="flex flex-col min-h-screen">
-            <div className="ml-40 mt-14">
+            <div className="container md:pl-40 md:pt-14">
                 <Logo />
-                <div className="pt-24">
+                <div className="md:w-34 mt-8 2xl-height:mt-24">
                     {children}
                 </div>
             </div>
-            <Footer />
+            <div className="mt-auto">
+                <Footer />
+            </div>
         </div>
     )
 };

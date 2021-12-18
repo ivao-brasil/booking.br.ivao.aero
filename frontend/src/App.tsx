@@ -1,4 +1,4 @@
-import { CookieConsent } from "pages/CookieConsent";
+import { CookieConsent } from "pages/CookieConsent/CookieConsent";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { PrivateRoutes } from "./routes/PrivateRoutes";
@@ -13,6 +13,8 @@ export const App = () => {
 
   // return signed ? <PrivateRoutes /> : <PublicRoutes />;
   return (
-    <CookieConsent />
+    <div className="dark:bg-black">
+      <CookieConsent />
+    </div>
   )
 };

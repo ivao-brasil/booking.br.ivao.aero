@@ -11,12 +11,14 @@ export const Header: FunctionComponent<HeaderProps> = ({ level = 1, children }) 
     const Tag = `h${level}` as HeadingTag;
 
     return (
-        <Tag className={styles.header}>{children}</Tag>
+        <Tag className="font-header font-extrabold text-xl text-blue dark:text-white">
+            {children}
+        </Tag>
     )
 };
 
 export const MutedText: FunctionComponent = ({ children }) => (
-    <p className={styles.muted}>{children}</p>
+    <p className="font-normal text-base text-gray dark:text-light-gray">{children}</p>
 );
 
 export const FooterText: FunctionComponent = ({ children }) => (
