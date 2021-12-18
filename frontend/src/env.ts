@@ -1,4 +1,3 @@
-export const ENV = {
-    API_HOST: process.env.NEXT_PUBLIC_API_HOST || 'https://bookingapi.br.ivao.aero',
-    API_KEY: process.env.API_KEY || 'wSLxyXOLqiq3Qaafm7duu1O7'
+export const Env = {
+    API_HOST: process.env.REACT_APP_API_HOST || 'https://booking.br.ivao.aero/api'
 }
