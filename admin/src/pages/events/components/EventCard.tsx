@@ -1,12 +1,13 @@
-import { Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, IconButtonProps, styled, Typography } from '@material-ui/core';
-import { Edit, ExpandMore as ExpandMoreIcon, Delete } from '@material-ui/icons';
+import { Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, IconButtonProps, styled, Tooltip, Typography } from '@material-ui/core';
+import { Bookmark, Delete, Edit, ExpandMore as ExpandMoreIcon } from '@material-ui/icons';
 import { FunctionComponent, useState } from 'react';
-import { Event } from '../types/Event';
+import { Event } from '../../../types/Event';
 
 interface EventCardProps {
   event: Event;
   onEdit?: (event: Event) => void;
   onDelete?: (event: Event) => void;
+  slotRedirection?: (event: Event) => void;
 }
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -26,7 +27,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 const months = ['Jannuary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export const EventCard: FunctionComponent<EventCardProps> = ({ event, onEdit, onDelete }) => {
+export const EventCard: FunctionComponent<EventCardProps> = ({ event, onEdit, onDelete, slotRedirection }) => {
   const [expanded, setExpanded] = useState(false);
 
   const formatDate = (date: Date) => {
@@ -52,9 +53,19 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ event, onEdit, on
         )}
 
         {onDelete && (
-          <IconButton aria-label="delete" onClick={() => onDelete(event)}>
-            <Delete />
-          </IconButton>
+          <Tooltip title={`Delete ${event.eventName}`}>
+            <IconButton aria-label="delete" onClick={() => onDelete(event)}>
+              <Delete />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        {slotRedirection && (
+          <Tooltip title={`Slots ${event.eventName}`}>
+            <IconButton aria-label="delete" onClick={() => slotRedirection(event)}>
+              <Bookmark />
+            </IconButton>
+          </Tooltip>
         )}
 
         <ExpandMore expand={expanded} onClick={() => setExpanded(!expanded)} aria-expanded={expanded} aria-label="show more">

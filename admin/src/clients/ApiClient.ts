@@ -1,6 +1,7 @@
 import Axios, { AxiosInstance } from 'axios';
 import { Event } from '../types/Event';
 import { User } from '../types/User';
+import { Slot } from '../types/Slot';
 
 interface AuthResponse {
   jwt: string;
@@ -77,6 +78,38 @@ export class ApiClient {
   deleteEvent(event: Event, token: string) {
     return this.axios
       .delete(`/event/${event.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  async getSlotsByEvent(eventId: number, token: string) {
+    return this.axios
+      .get<Array<Slot>>(`/event/${eventId}/slot`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  createSlot(eventId: number, data: Partial<Slot>, token: string) {
+    return this.axios
+      .post(`/event/${eventId}/slot`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  updateSlot(slotId: number, data: Partial<Slot>, token: string) {
+    return this.axios
+      .put(`/slot/${slotId}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  deleteSlot(id: number, token: string) {
+    return this.axios
+      .delete(`/slot/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(response => response.data);

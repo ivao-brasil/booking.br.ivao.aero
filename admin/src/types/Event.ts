@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export interface Event {
   id: number;
   dateStart: number;
@@ -9,4 +11,5 @@ export interface Event {
   description: string;
   banner: string;
   atcBooking: string;
+  creator?: User;
 }

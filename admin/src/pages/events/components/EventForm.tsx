@@ -1,10 +1,10 @@
 import { Button, Checkbox, FormControlLabel, FormGroup, TextField, Tooltip } from '@material-ui/core';
 import { FunctionComponent, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { AuthContext } from '../context/AuthContext';
-import { IocContext } from '../context/IocContext';
-import { NotificationContext, NotificationType } from '../context/NotificationContext';
-import { Event } from '../types/Event';
+import { AuthContext } from '../../../context/AuthContext';
+import { IocContext } from '../../../context/IocContext';
+import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
+import { Event } from '../../../types/Event';
 import { useMutation, useQueryClient } from 'react-query';
 
 interface INewEventForm {
