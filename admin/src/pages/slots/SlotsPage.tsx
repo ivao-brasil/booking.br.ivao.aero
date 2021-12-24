@@ -1,14 +1,16 @@
+import { MainLayout } from '../../layouts/MainLayout';
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 import { Box, Tab } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useState } from 'react';
-import { EventForm } from '../components/EventForm';
-import { EventList } from '../components/EventList';
-import { MainLayout } from '../layouts/MainLayout';
-import { Event } from '../types/Event';
+import { SlotForm } from './components/SlotForm';
+import { SlotList } from './components/SlotList';
+import { Slot } from '../../types/Slot';
 
-export const EventsPage = () => {
+export const SlotsPage = () => {
+  const eventId = Number(useParams().eventId);
   const [value, setValue] = useState('1');
-  const [editEvent, setEditEvent] = useState<Event>();
+  const [editingSlot, setEditingSlot] = useState<Slot>();
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -25,18 +27,18 @@ export const EventsPage = () => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <EventList
-              onEdit={event => {
+            <SlotList
+              onEdit={slot => {
                 setValue('3');
-                setEditEvent(event);
+                setEditingSlot(slot);
               }}
             />
           </TabPanel>
           <TabPanel value="2">
-            <EventForm onPersist={() => setValue('1')} />
+            <SlotForm onPersist={() => setValue('1')} eventId={eventId} />
           </TabPanel>
           <TabPanel value="3">
-            <EventForm defaultState={editEvent} onPersist={() => setValue('1')} />
+            <SlotForm onPersist={() => setValue('1')} eventId={eventId} defaultState={editingSlot} />
           </TabPanel>
         </TabContext>
       </Box>

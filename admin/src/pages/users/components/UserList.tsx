@@ -1,13 +1,13 @@
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@material-ui/core';
 import { RemoveCircle, SupervisorAccount } from '@material-ui/icons';
 import { useContext, useState } from 'react';
-import { ConfirmUserBlock } from '../components/ConfirmUserBlock';
-import { AuthContext } from '../context/AuthContext';
-import { IocContext } from '../context/IocContext';
-import { NotificationContext, NotificationType } from '../context/NotificationContext';
-import { User } from '../types/User';
+import { ConfirmUserBlock } from '../../../components/ConfirmUserBlock';
+import { AuthContext } from '../../../context/AuthContext';
+import { IocContext } from '../../../context/IocContext';
+import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
+import { User } from '../../../types/User';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { ONE_DAY } from '../constants';
+import { ONE_DAY } from '../../../constants';
 
 const UserRow = (user: User, onUserChange: (user: User) => void) => {
   const { user: authUser } = useContext(AuthContext);

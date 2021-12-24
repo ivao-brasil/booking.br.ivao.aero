@@ -1,13 +1,14 @@
 import { Grid } from '@material-ui/core';
 import { FunctionComponent, useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { IocContext } from '../context/IocContext';
-import { NotificationContext, NotificationType } from '../context/NotificationContext';
-import { Event } from '../types/Event';
+import { AuthContext } from '../../../context/AuthContext';
+import { IocContext } from '../../../context/IocContext';
+import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
+import { Event } from '../../../types/Event';
 import { EventCard } from './EventCard';
-import { Confirm } from './Confirm';
+import { Confirm } from '../../../components/Confirm';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { ONE_DAY } from '../constants';
+import { ONE_DAY } from '../../../constants';
+import { useNavigate } from 'react-router-dom';
 
 interface EventListProps {
   onEdit: (event: Event) => void;
@@ -21,6 +22,8 @@ export const EventList: FunctionComponent<EventListProps> = ({ onEdit }) => {
   const [event, setEvent] = useState<Event>();
 
   const queryClient = useQueryClient();
+
+  const navigate = useNavigate();
 
   const { data: events, isLoading: eventLoading } = useQuery('events', () => apiClient.getEvents(token), {
     staleTime: ONE_DAY,
@@ -54,7 +57,7 @@ export const EventList: FunctionComponent<EventListProps> = ({ onEdit }) => {
           events &&
           events.map(event => (
             <Grid item xs={4} key={event.id}>
-              <EventCard event={event} onEdit={onEdit} onDelete={onDelete} />
+              <EventCard event={event} onEdit={onEdit} onDelete={onDelete} slotRedirection={event => navigate(`/admin/events/${event.id}/slots`)} />
             </Grid>
           ))}
       </Grid>
