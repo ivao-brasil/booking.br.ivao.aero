@@ -11,7 +11,7 @@ export const RedirectToLogin = () => {
 
   useEffect(() => {
     if (user) {
-      window.location.href = 'https://booking.br.ivao.aero';
+      window.location.href = '/';
     }
 
     if (!IVAOTOKEN) {
