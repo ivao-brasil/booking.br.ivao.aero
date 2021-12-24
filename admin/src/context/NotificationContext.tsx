@@ -45,7 +45,7 @@ export const NotificationProvider: FunctionComponent = ({ children }) => {
       }}>
       <>
         {visible && (
-          <Snackbar open={true} onClose={() => setVisible(false)} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+          <Snackbar open={true} onClose={() => setVisible(false)} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
             <Alert onClose={() => setVisible(false)} severity={getBackground(type)} sx={{ width: '100%' }}>
               <AlertTitle>{title}</AlertTitle>
               {text}

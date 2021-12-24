@@ -33,10 +33,10 @@ export const EventsPage = () => {
             />
           </TabPanel>
           <TabPanel value="2">
-            <EventForm />
+            <EventForm onPersist={() => setValue('1')} />
           </TabPanel>
           <TabPanel value="3">
-            <EventForm defaultState={editEvent} />
+            <EventForm defaultState={editEvent} onPersist={() => setValue('1')} />
           </TabPanel>
         </TabContext>
       </Box>

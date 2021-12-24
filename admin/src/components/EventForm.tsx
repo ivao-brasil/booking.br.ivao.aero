@@ -5,6 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { IocContext } from '../context/IocContext';
 import { NotificationContext, NotificationType } from '../context/NotificationContext';
 import { Event } from '../types/Event';
+import { useMutation, useQueryClient } from 'react-query';
 
 interface INewEventForm {
   dateStart: Date;
@@ -20,9 +21,10 @@ interface INewEventForm {
 
 interface IEventFormProps {
   defaultState?: Event;
+  onPersist: () => void;
 }
 
-export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) => {
+export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, onPersist }) => {
   const { register, handleSubmit, watch, reset } = useForm<INewEventForm>({
     defaultValues: defaultState
       ? {
@@ -39,9 +41,11 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) 
   const { token } = useContext(AuthContext);
   const { dispatch } = useContext(NotificationContext);
 
-  const createEvent = (data: INewEventForm) =>
-    apiClient
-      .createEvent(
+  const queryClient = useQueryClient();
+
+  const createEvent = useMutation(
+    (data: INewEventForm) =>
+      apiClient.createEvent(
         {
           ...data,
           dateEnd: data.dateEnd.getTime() / 1000,
@@ -49,44 +53,51 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState }) 
           privateSlots: data.privateSlots ? 1 : 0,
         },
         token
-      )
-      .then(() => {
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('events');
+        onPersist();
         reset();
         dispatch('Event successfully created', 'Event created', NotificationType.SUCCESS, 5000);
-      })
-      .catch(() => {
+      },
+      onError: () => {
         dispatch('Error to create event', 'Event creation error', NotificationType.ERROR, 5000);
-      });
-
-  const updateEvent = (data: INewEventForm) => {
-    if (defaultState) {
-      return apiClient
-        .updateEvent(
-          defaultState.id,
-          {
-            ...data,
-            dateEnd: data.dateEnd.getTime() / 1000,
-            dateStart: data.dateStart.getTime() / 1000,
-            privateSlots: data.privateSlots ? 1 : 0,
-          },
-          token
-        )
-        .then(() => {
-          reset();
-          dispatch('Event successfully updated', 'Event update', NotificationType.SUCCESS, 5000);
-        })
-        .catch(() => {
-          dispatch('Error to update event', 'Event updating error', NotificationType.ERROR, 5000);
-        });
+      },
     }
-  };
+  );
+
+  const updateEvent = useMutation(
+    (data: INewEventForm) =>
+      apiClient.updateEvent(
+        defaultState?.id || 0,
+        {
+          ...data,
+          dateEnd: data.dateEnd.getTime() / 1000,
+          dateStart: data.dateStart.getTime() / 1000,
+          privateSlots: data.privateSlots ? 1 : 0,
+        },
+        token
+      ),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('events');
+        onPersist();
+        reset();
+        dispatch('Event successfully updated', 'Event update', NotificationType.SUCCESS, 5000);
+      },
+      onError: () => {
+        dispatch('Error to update event', 'Event updating error', NotificationType.ERROR, 5000);
+      },
+    }
+  );
 
   const onSubmit = (data: INewEventForm) => {
     if (!defaultState) {
-      return createEvent(data);
+      return createEvent.mutate(data);
     }
 
-    return updateEvent(data);
+    return updateEvent.mutate(data);
   };
 
   const formatDateToDateTime = (date?: Date) => {
