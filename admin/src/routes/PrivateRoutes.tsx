@@ -1,7 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { EventsPage } from "../pages/EventsPage";
-import { HomePage } from "../pages/HomePage";
-import { UsersPage } from "../pages/UsersPage";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { EventsPage } from '../pages/EventsPage';
+import { HomePage } from '../pages/HomePage';
+import { UsersPage } from '../pages/UsersPage';
 
 export const PrivateRoutes = () => {
   return (

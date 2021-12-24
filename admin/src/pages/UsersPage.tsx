@@ -1,6 +1,6 @@
-import { Container } from "@material-ui/core";
-import { UserList } from "../components/UserList";
-import { MainLayout } from "../layouts/MainLayout";
+import { Container } from '@material-ui/core';
+import { UserList } from '../components/UserList';
+import { MainLayout } from '../layouts/MainLayout';
 
 export const UsersPage = () => {
   return (

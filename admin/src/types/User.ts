@@ -1,4 +1,4 @@
-import { AtcRating, PilotRating } from "./Ratings";
+import { AtcRating, PilotRating } from './Ratings';
 
 export interface User {
   id: number;
