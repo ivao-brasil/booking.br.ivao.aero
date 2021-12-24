@@ -1,11 +1,9 @@
-import { useContext, useEffect } from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useContext, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 export const RedirectToLogin = () => {
-  const IVAOTOKEN = new URLSearchParams(window.location.search).get(
-    "IVAOTOKEN"
-  );
+  const IVAOTOKEN = new URLSearchParams(window.location.search).get('IVAOTOKEN');
 
   const { signIn } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
@@ -13,25 +11,20 @@ export const RedirectToLogin = () => {
 
   useEffect(() => {
     if (user) {
-      window.location.href = "https://booking.br.ivao.aero";
+      window.location.href = '/';
     }
 
     if (!IVAOTOKEN) {
-      const ivaoLoginUrl = "https://login.ivao.aero/index.php?url={url}";
+      const ivaoLoginUrl = 'https://login.ivao.aero/index.php?url={url}';
       const baseUrl = window.location.href;
-      window.location.href = ivaoLoginUrl.replace(
-        "{url}",
-        `${baseUrl}?redirect=${window.location.pathname}`
-      );
+      window.location.href = ivaoLoginUrl.replace('{url}', `${baseUrl}?redirect=${window.location.pathname}`);
       return;
     }
 
-    const redirect = new URLSearchParams(window.location.search).get(
-      "redirect"
-    );
+    const redirect = new URLSearchParams(window.location.search).get('redirect');
 
     signIn(IVAOTOKEN).then(() => {
-      navigate(redirect || "");
+      navigate(redirect || '');
     });
   }, [IVAOTOKEN, signIn, navigate, user]);
 
