@@ -1,11 +1,13 @@
-import { ThemeContext, ThemeVariants } from "context/ThemeContext";
 import { FunctionComponent, useContext } from "react";
+import { Env } from "env";
+import { ThemeContext, ThemeVariants } from "context/ThemeContext";
+
 
 export const Logo: FunctionComponent = () => {
     const { themeVariant } = useContext(ThemeContext);
 
-    const imgName = themeVariant === ThemeVariants.DARK ? "tag_white.svg" : "tag_blue.svg";
+    const imgUrl = themeVariant === ThemeVariants.DARK ? Env.LOGO_DARK : Env.LOGO_LIGHT;
     return (
-        <img src={`https://assets.br.ivao.aero/logos/${imgName}`} className="w-54 -ml-5" alt="Logo IVAO Brasil" />
+        <img src={imgUrl} className="w-54 -ml-5" alt="Logo IVAO Brasil" />
     );
 }
