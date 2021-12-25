@@ -22,14 +22,16 @@ module.exports = {
       'green': '#2EC662',
       'light-green': '#39E574',
       'gray': '#A9A9A9',
+      'dark-gray': '#B6B6B6',
       'light-gray': '#CCCCCC',
       'white': '#ffffff',
       'black': '#282828',
-      'blue': '#0D2C99'
+      'blue': '#0D2C99',
     },
     fontSize: {
-      sm: ['14px', '20px'],
+      sm: ['0.63rem', '150%'],
       base: ['1.5rem', '152%'],
+      lg: ['3rem', '120%'],
       xl: ['3.5rem', '127%'],
     },
     container: {

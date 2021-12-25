@@ -1,21 +1,22 @@
-import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
-import { CookieConsent } from "pages/CookieConsent/CookieConsent";
 import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
-import { PrivateRoutes } from "./routes/PrivateRoutes";
-import { PublicRoutes } from "./routes/PublicRoutes";
+import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
+import { CookieConsentPage } from "pages/CookieConsent/CookieConsentPage";
+import { AuthContext } from "context/AuthContext";
+import { AppRoutes } from "routes/AppRoutes";
 
 export const App = () => {
   const { cookieConsent } = useContext(CookieConsentContext);
-  const { signed, loading } = useContext(AuthContext);
+  const { loading } = useContext(AuthContext);
 
   if (cookieConsent === ConsentAnwsers.UNKNOW) {
-    return <CookieConsent />;
+    return <CookieConsentPage />;
   }
 
   if (loading) {
     return <p>Loading...</p>;
   }
 
-  return signed ? <PrivateRoutes /> : <PublicRoutes />;
+  return (
+    <AppRoutes />
+  );
 };

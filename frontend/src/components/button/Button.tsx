@@ -1,19 +1,24 @@
-import { FunctionComponent, MouseEventHandler } from "react";
+import { FunctionComponent, MouseEventHandler, ReactNode } from "react";
 
 interface ActionButtonProps {
-	backgroundFilled?: boolean,
-	onClick?: MouseEventHandler<HTMLButtonElement> | undefined
+	backgroundFilled?: boolean;
+	content: ReactNode;
+	icon?: ReactNode;
+	onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-export const ActionButton: FunctionComponent<ActionButtonProps> = ({ children, backgroundFilled = true, onClick }) => {
+export const ActionButton: FunctionComponent<ActionButtonProps> = ({ content, icon, backgroundFilled = true, onClick }) => {
 	const background = backgroundFilled ? "bg-green" : ""
 	return (
-		<button className={`${background} rounded-md h-14`} onClick={onClick}>{children}</button>
-	)
+		<button className={`${background} rounded-md h-14`} onClick={onClick}>
+			{icon && (<ButtonIcon>{icon}</ButtonIcon>)}
+            <ButtonText muted={!backgroundFilled}>{content}</ButtonText>
+		</button>
+	);
 };
 
 interface ButtonTextProps {
-	muted?: boolean
+	muted?: boolean;
 }
 
 export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, muted = false }) => {
@@ -33,15 +38,17 @@ export const ButtonIcon: FunctionComponent = ({ children }) => (
 	</div>
 );
 
-interface LinkButtonProps {
-	href: string,
-	backgroundFilled?: boolean
+interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
+	href: string;
 }
 
-export const LinkButton: FunctionComponent<LinkButtonProps> = ({ href, backgroundFilled = true, children }) => {
+export const LinkButton: FunctionComponent<LinkButtonProps> = ({ content, icon, href, backgroundFilled = true }) => {
 	const background = backgroundFilled ? "bg-green" : ""
 	return (
-		<a className={`inline-block ${background} rounded-md h-14`} href={href}>{children}</a>
-	)
+		<a className={`inline-block ${background} rounded-md h-14`} href={href}>
+			{icon && (<ButtonIcon>{icon}</ButtonIcon>)}
+            <ButtonText muted={!backgroundFilled}>{content}</ButtonText>
+		</a>
+	);
 };
 

@@ -1,4 +1,4 @@
-import { createContext, FunctionComponent, useCallback, useEffect, useState } from "react";
+import { createContext, FunctionComponent, useCallback, useLayoutEffect, useState } from "react";
 
 export enum ConsentAnwsers {
     UNKNOW,
@@ -17,22 +17,20 @@ export const CookieConsentProvider: FunctionComponent = ({ children }) => {
     const [cookieConsent, setConsentState] = useState(ConsentAnwsers.UNKNOW);
     const LOCAL_STORAGE_KEY = "cookieConsent";
 
-    useEffect(() => {
-        const hasAcceptedCookies = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (hasAcceptedCookies !== null) {
-            setConsentState(ConsentAnwsers.ACCEPTED);
+    useLayoutEffect(() => {
+        const storedConsentValue = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (storedConsentValue !== null) {
+            setConsentState(ConsentAnwsers[storedConsentValue as keyof typeof ConsentAnwsers]);
         }
     }, [setConsentState]);
 
     const setCookieConsent = useCallback((value: ConsentAnwsers) => {
-        if (value === ConsentAnwsers.ACCEPTED) {
-            try {
-                localStorage.setItem(LOCAL_STORAGE_KEY, "1");
-            } catch (e) {
-                // Unable to insert to localstorage, just log the error.
-                // Maybe the user is using the anonymous tab?
-                console.error(e);
-            }
+        try {
+            localStorage.setItem(LOCAL_STORAGE_KEY, value.toString());
+        } catch (e) {
+            // Unable to insert to localstorage, just log the error.
+            // Maybe the user is using the anonymous tab?
+            console.error(e);
         }
 
         setConsentState(value);
