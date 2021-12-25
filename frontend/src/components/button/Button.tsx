@@ -33,3 +33,15 @@ export const ButtonIcon: FunctionComponent = ({ children }) => (
 	</div>
 );
 
+interface LinkButtonProps {
+	href: string,
+	backgroundFilled?: boolean
+}
+
+export const LinkButton: FunctionComponent<LinkButtonProps> = ({ href, backgroundFilled = true, children }) => {
+	const background = backgroundFilled ? "bg-green" : ""
+	return (
+		<a className={`inline-block ${background} rounded-md h-14`} href={href}>{children}</a>
+	)
+};
+

@@ -13,10 +13,9 @@ export const App = () => {
     return <CookieConsent />;
   }
 
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-  // return signed ? <PrivateRoutes /> : <PublicRoutes />;
-  return <PrivateRoutes />
+  return signed ? <PrivateRoutes /> : <PublicRoutes />;
 };

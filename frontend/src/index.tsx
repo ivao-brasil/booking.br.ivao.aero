@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { CookieConsentProvider } from 'context/CookieConsentContext';
 import { AuthProvider } from 'context/AuthContext';
 import { IocProvider } from 'context/IocContext';
+import { ErrorBoundary } from 'pages/ErrorBoundary';
 
 ReactDOM.render(
     <React.StrictMode>
         <IocProvider>
             <AuthProvider>
                 <CookieConsentProvider>
-                    <App />
+                    <ErrorBoundary>
+                        <App />
+                    </ErrorBoundary>
                 </CookieConsentProvider>
             </AuthProvider>
         </IocProvider>

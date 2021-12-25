@@ -8,7 +8,7 @@ export const InformationalLayout: FunctionComponent = ({ children }) => {
             <div className="flex flex-col min-h-screen">
                 <div className="container md:pl-40 md:pt-14">
                     <Logo />
-                    <div className="md:w-34 mt-8 2xl-height:mt-24">
+                    <div className="md:w-[36rem] mt-8 2xl-height:mt-24">
                         {children}
                     </div>
                 </div>
