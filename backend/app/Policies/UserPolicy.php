@@ -26,6 +26,12 @@ class UserPolicy
             return Response::deny("You have no admin permissions");
         }
 
+        $targetUser = User::find($userId);
+
+        if($targetUser->isAdmin) {
+            return Response::deny("You can't update another admin!");
+        }
+
         return true;
     }
 }

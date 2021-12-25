@@ -1,12 +1,6 @@
-import {
-  createContext,
-  FunctionComponent,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { User } from "../types/User";
-import { IocContext } from "./IocContext";
+import { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { User } from '../types/User';
+import { IocContext } from './IocContext';
 
 interface IAuthContext {
   signed: boolean;
@@ -21,16 +15,14 @@ export const AuthContext = createContext<IAuthContext>({
   signIn: (ivaoToken: string) => Promise.reject(),
   signOut: () => {},
   signed: false,
-  token: "",
+  token: '',
   user: null,
   loading: true,
 });
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
   const { apiClient } = useContext(IocContext);
-  const [token, setToken] = useState<string>(
-    localStorage.getItem("token") || ""
-  );
+  const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -41,8 +33,8 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         .getAuth(token)
         .then(setUser)
         .catch(() => {
-          setToken("");
-          localStorage.removeItem("token");
+          setToken('');
+          localStorage.removeItem('token');
         })
         .finally(() => setLoading(false));
     } else {
@@ -53,12 +45,12 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
   const signIn = async (ivaoToken: string) => {
     const { jwt } = await apiClient.auth(ivaoToken);
     setToken(jwt);
-    localStorage.setItem("token", jwt);
+    localStorage.setItem('token', jwt);
   };
 
   const signOut = async () => {
-    localStorage.removeItem("token");
-    setToken("");
+    localStorage.removeItem('token');
+    setToken('');
     setUser(null);
   };
 
@@ -71,8 +63,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         token,
         user,
         loading,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );

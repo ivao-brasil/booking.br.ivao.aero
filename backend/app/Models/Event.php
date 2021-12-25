@@ -18,12 +18,12 @@ class Event extends Model
         'atcBriefing',
         'description',
         'atcBooking',
-        'banner'
+        'banner',
     ];
 
-    protected $hidden = [
-        'created_at',
-        'updated_at'
+    protected $casts = [
+        'dateStart' => 'datetime:Y-m-d\TH:i:sP',
+        'dateEnd' => 'datetime:Y-m-d\TH:i:sP'
     ];
 
     public function creator()

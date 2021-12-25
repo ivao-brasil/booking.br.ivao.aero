@@ -1,5 +1,7 @@
-import Axios, { AxiosInstance } from "axios";
-import { User } from "../types/User";
+import Axios, { AxiosInstance } from 'axios';
+import { Event } from '../types/Event';
+import { User } from '../types/User';
+import { Slot } from '../types/Slot';
 
 interface AuthResponse {
   jwt: string;
@@ -20,17 +22,15 @@ export class ApiClient {
   }
 
   async auth(ivaoToken: string) {
-    return this.axios
-      .post<AuthResponse>("/auth", { "ivao-token": ivaoToken })
-      .then((response) => response.data);
+    return this.axios.post<AuthResponse>('/auth', { 'ivao-token': ivaoToken }).then(response => response.data);
   }
 
   async getAuth(token: string): Promise<User> {
     return this.axios
-      .get<User>("/auth", {
+      .get<User>('/auth', {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => {
+      .then(response => {
         return {
           ...response.data,
           isAdmin: Boolean(response.data.isAdmin),
@@ -41,19 +41,77 @@ export class ApiClient {
 
   async getUsers(data: UserRequest, token: string): Promise<Array<User>> {
     return this.axios
-      .get<Array<User>>("/user", {
+      .get<Array<User>>('/user', {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((response) => response.data);
+      .then(response => response.data);
   }
 
   async setUserBlock(user: User, suspended: boolean, token: string) {
+    return this.axios.patch<void>(`/user/${user.id}`, { suspended }, { headers: { Authorization: `Bearer ${token}` } }).then(() => {});
+  }
+
+  async createEvent(data: Partial<Event>, token: string) {
     return this.axios
-      .patch<void>(
-        `/user/${user.id}`,
-        { suspended },
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
+      .post<Partial<Event>>('/event', data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then(() => {});
+  }
+
+  async getEvents(token: string) {
+    return this.axios
+      .get<Array<Event>>('/event', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  async updateEvent(eventId: number, data: Partial<Event>, token: string) {
+    return this.axios
+      .put<Array<Event>>(`/event/${eventId}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  deleteEvent(event: Event, token: string) {
+    return this.axios
+      .delete(`/event/${event.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  async getSlotsByEvent(eventId: number, token: string) {
+    return this.axios
+      .get<Array<Slot>>(`/event/${eventId}/slot`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  createSlot(eventId: number, data: Partial<Slot>, token: string) {
+    return this.axios
+      .post(`/event/${eventId}/slot`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  updateSlot(slotId: number, data: Partial<Slot>, token: string) {
+    return this.axios
+      .put(`/slot/${slotId}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
+
+  deleteSlot(id: number, token: string) {
+    return this.axios
+      .delete(`/slot/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
   }
 }

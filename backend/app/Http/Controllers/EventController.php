@@ -14,15 +14,16 @@ class EventController extends Controller
         $this->authorize('create', Event::class);
 
         $this->validate($request, [
+            'atcBooking' => 'required|url',
+            'atcBriefing' => 'required|url',
+            'banner' => 'required|url',
             'dateStart' => 'required|numeric',
             'dateEnd' => 'required|numeric',
-            'eventName' => 'required|string|max:255',
-            'privateSlots' => 'required|boolean',
-            'atcBriefing' => 'required|url',
-            'pilotBriefing' => 'required|url',
             'description' => 'required|string',
-            'banner' => 'required|url',
-            'atcBooking' => 'required|url'
+            'eventName' => 'required|string|max:255',
+            'pilotBriefing' => 'required|url',
+            'privateSlots' => 'boolean',
+            'publicAccess' => 'boolean'
         ]);
 
         $user = Auth::user();
@@ -77,6 +78,8 @@ class EventController extends Controller
             'atcBriefing' => 'required|url',
             'pilotBriefing' => 'required|url',
             'description' => 'required|string',
+            'banner' => 'required|url',
+            'atcBooking' => 'required|url'
         ]);
 
         $event = Event::find($id);
@@ -103,7 +106,9 @@ class EventController extends Controller
             'createdBy' => $user->id,
             'pilotBriefing' => $request->input('pilotBriefing'),
             'atcBriefing' => $request->input('atcBriefing'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'banner' => $request->input('banner'),
+            'atcBooking' => $request->input('atcBooking')
         ]);
 
         $event->save();
