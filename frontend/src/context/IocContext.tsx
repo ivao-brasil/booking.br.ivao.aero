@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createContext, FunctionComponent, useEffect, useMemo, useState } from "react";
+import { createContext, FunctionComponent, useMemo } from "react";
 import { AuthApiClient } from "../clients/auth.client";
 import { Env } from "../env";
 

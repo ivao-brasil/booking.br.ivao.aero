@@ -1,10 +1,15 @@
+import { FunctionComponent, useContext } from 'react';
 import { FiCheckCircle } from 'react-icons/fi';
 import { ActionButton, ButtonIcon, ButtonText } from "components/button/Button";
 import { Header, MutedText } from "components/typography/Typography";
-import { InformationalLayout } from "../../layouts/InformationalLayout";
+import { InformationalLayout } from "layouts/InformationalLayout";
+import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
+
 import emoji from './crying_face.svg'
 
-export const CookieConsent = () => {
+export const CookieConsent: FunctionComponent = () => {
+  const { setCookieConsent } = useContext(CookieConsentContext);
+
   return (
     <InformationalLayout>
       <Header>Utilizamos cookies para melhorar a sua experiência</Header>
@@ -14,13 +19,13 @@ export const CookieConsent = () => {
         </MutedText>
       </div>
       <div className="mt-12">
-        <ActionButton>
+        <ActionButton onClick={() => setCookieConsent(ConsentAnwsers.ACCEPTED)}>
           <ButtonIcon>
             <FiCheckCircle size={20} />
           </ButtonIcon>
           <ButtonText>Autorizar o uso</ButtonText>
         </ActionButton>
-        <ActionButton backgroundFilled={false}>
+        <ActionButton backgroundFilled={false} onClick={() => setCookieConsent(ConsentAnwsers.DECLINED)}>
           <ButtonText muted={true}>Continuar sem cookies <img className='inline-block w-4' alt='crying face' src={emoji} /></ButtonText>
         </ActionButton>
       </div>

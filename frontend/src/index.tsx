@@ -3,10 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
+import { CookieConsentProvider } from 'context/CookieConsentContext';
+import { AuthProvider } from 'context/AuthContext';
+import { IocProvider } from 'context/IocContext';
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <IocProvider>
+            <AuthProvider>
+                <CookieConsentProvider>
+                    <App />
+                </CookieConsentProvider>
+            </AuthProvider>
+        </IocProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );

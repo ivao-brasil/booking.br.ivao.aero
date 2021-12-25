@@ -51,6 +51,10 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
   }, [authClient, token]);
 
   const signIn = async (ivaoToken: string) => {
+    if (ivaoToken === "error") {
+      throw Error("An invalid token was received from IVAO Login");
+    }
+
     const { jwt } = await authClient.auth(ivaoToken);
     setToken(jwt);
     localStorage.setItem("token", jwt);

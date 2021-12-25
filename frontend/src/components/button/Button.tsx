@@ -1,13 +1,14 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, MouseEventHandler } from "react";
 
 interface ActionButtonProps {
-	backgroundFilled?: boolean
+	backgroundFilled?: boolean,
+	onClick?: MouseEventHandler<HTMLButtonElement> | undefined
 }
 
-export const ActionButton: FunctionComponent<ActionButtonProps> = ({ children, backgroundFilled = true }) => {
+export const ActionButton: FunctionComponent<ActionButtonProps> = ({ children, backgroundFilled = true, onClick }) => {
 	const background = backgroundFilled ? "bg-green" : ""
 	return (
-		<button className={`${background} rounded-md h-14`}>{children}</button>
+		<button className={`${background} rounded-md h-14`} onClick={onClick}>{children}</button>
 	)
 };
 
