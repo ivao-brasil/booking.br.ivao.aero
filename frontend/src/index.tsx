@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { CookieConsentProvider } from 'context/CookieConsentContext';
 import { AuthProvider } from 'context/AuthContext';
 import { IocProvider } from 'context/IocContext';
+import { ThemeContextProvider } from 'context/ThemeContext';
 import { ErrorPage } from 'pages/ErrorPage';
 
 ReactDOM.render(
@@ -13,9 +14,11 @@ ReactDOM.render(
         <IocProvider>
             <AuthProvider>
                 <CookieConsentProvider>
-                    <ErrorPage>
-                        <App />
-                    </ErrorPage>
+                    <ThemeContextProvider>
+                        <ErrorPage>
+                            <App />
+                        </ErrorPage>
+                    </ThemeContextProvider>
                 </CookieConsentProvider>
             </AuthProvider>
         </IocProvider>

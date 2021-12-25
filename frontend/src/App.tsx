@@ -8,15 +8,9 @@ export const App = () => {
   const { cookieConsent } = useContext(CookieConsentContext);
   const { loading } = useContext(AuthContext);
 
-  if (cookieConsent === ConsentAnwsers.UNKNOW) {
-    return <CookieConsentPage />;
-  }
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   return (
-    <AppRoutes />
+    <div className="dark:bg-black min-h-screen">
+      {(loading ? <p>Loading...</p> : (cookieConsent === ConsentAnwsers.UNKNOW) ? <CookieConsentPage /> : <AppRoutes />)}
+    </div>
   );
 };

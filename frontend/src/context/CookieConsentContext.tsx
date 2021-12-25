@@ -26,7 +26,7 @@ export const CookieConsentProvider: FunctionComponent = ({ children }) => {
 
     const setCookieConsent = useCallback((value: ConsentAnwsers) => {
         try {
-            localStorage.setItem(LOCAL_STORAGE_KEY, value.toString());
+            localStorage.setItem(LOCAL_STORAGE_KEY, ConsentAnwsers[value]);
         } catch (e) {
             // Unable to insert to localstorage, just log the error.
             // Maybe the user is using the anonymous tab?
