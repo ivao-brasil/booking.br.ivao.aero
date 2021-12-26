@@ -2,6 +2,7 @@ import Axios, { AxiosInstance } from 'axios';
 import { Event } from '../types/Event';
 import { User } from '../types/User';
 import { Slot } from '../types/Slot';
+import { Pagination } from '../types/Pagination';
 
 interface AuthResponse {
   jwt: string;
@@ -10,7 +11,15 @@ interface AuthResponse {
 interface UserRequest {
   suspended?: boolean;
   vid?: string;
+  page?: number;
+  perPage?: number;
 }
+
+const fromObjectToQueryString = (obj: any) => {
+  const searchParams = new URLSearchParams();
+  Object.keys(obj).forEach(key => searchParams.append(key, obj[key]));
+  return searchParams.toString();
+};
 
 export class ApiClient {
   private axios: AxiosInstance;
@@ -33,15 +42,16 @@ export class ApiClient {
       .then(response => {
         return {
           ...response.data,
-          isAdmin: Boolean(response.data.isAdmin),
+          admin: Boolean(response.data.admin),
           suspended: Boolean(response.data.suspended),
         };
       });
   }
 
-  async getUsers(data: UserRequest, token: string): Promise<Array<User>> {
+  async getUsers(data: UserRequest, token: string) {
+    const queryString = fromObjectToQueryString(data);
     return this.axios
-      .get<Array<User>>('/user', {
+      .get<Pagination<User>>(`/user?${queryString}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(response => response.data);
