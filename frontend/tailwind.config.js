@@ -7,7 +7,8 @@ module.exports = {
         '34': '34rem',
       },
       screens: {
-        '2xl-height': {'raw': '(min-height: 816px)'}
+        'xl-height': { 'raw': '(min-height: 720px)' },
+        '2xl-height': { 'raw': '(min-height: 816px)' }
       },
       spacing: {
         '54': '13.5rem'
@@ -29,18 +30,26 @@ module.exports = {
       'blue': '#0D2C99',
     },
     fontSize: {
-      sm: ['0.63rem', '150%'],
-      base: ['1.5rem', '152%'],
-      lg: ['3rem', '120%'],
-      xl: ['3.5rem', '127%'],
+      "sm": ['0.63rem', '150%'],
+      "md": ['1rem', '150%'],
+      "lg": ['1.5rem', '152%'],
+      "xl": ['3rem', '120%'],
+      "2xl": ['3.5rem', '127%']
     },
     container: {
+      center: true,
       screens: {
-         sm: "100%",
-         md: "100%",
-         lg: "1024px",
-         xl: "1120px"
-      }
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1120px"
+      },
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '0'
+      },
     }
   },
   variants: {

@@ -1,12 +1,23 @@
-import { FunctionComponent } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { FunctionComponent, useContext } from "react";
+import { Route, Routes } from "react-router-dom";
+import { RequireAuth } from "components/RequireAuth";
+import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 import { SplashPage } from "pages/SplashPage";
 import { LoginPage } from "pages/LoginPage";
 import { NotFoundPage } from "pages/NotFoundPage";
-import { RequireAuth } from "../components/RequireAuth";
+import { CookieConsentPage } from "pages/CookieConsent/CookieConsentPage";
 
-export const AppRoutes: FunctionComponent = () => (
-    <BrowserRouter>
+export const AppRoutes: FunctionComponent = () => {
+    const { cookieConsent } = useContext(CookieConsentContext);
+    if (cookieConsent === ConsentAnwsers.UNKNOW) {
+        return (
+            <Routes>
+                <Route path="*" element={<CookieConsentPage />} />
+            </Routes>
+        );
+    }
+
+    return (
         <Routes>
             <Route path="/" element={<SplashPage />} />
             <Route path="login" element={<LoginPage />} />
@@ -15,5 +26,5 @@ export const AppRoutes: FunctionComponent = () => (
             </Route>
             <Route path="*" element={<NotFoundPage />} />
         </Routes>
-    </BrowserRouter>
-);
+    );
+};

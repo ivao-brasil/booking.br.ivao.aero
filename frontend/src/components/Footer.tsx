@@ -8,7 +8,8 @@ export const Footer: FunctionComponent = () => (
         </FooterText>
         <div>
             <FooterText>
-                <a className="underline" href="#">Privacy Policy</a> | <a className="underline" href="#">Terms of Use</a>
+                <a className="underline" href="https://wiki.ivao.aero/home/ivao/privacypolicy" target="_blank" rel="noreferrer">Privacy Policy</a>&nbsp;
+                |&nbsp;<a className="underline" href="https://wiki.ivao.aero/home/ivao/terms-of-use" target="_blank" rel="noreferrer">Terms of Use</a>
             </FooterText>
         </div>
 

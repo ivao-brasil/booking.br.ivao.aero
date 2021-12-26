@@ -7,13 +7,15 @@ import { FiSearch } from "react-icons/fi";
 export const SplashPage: FunctionComponent = () => {
     return (
         <InformationalLayout
-            header={<Header textSize="text-lg">Experimente o melhor que a simulação aérea tem a oferecer</Header>}
+            header={<Header textSize="text-xl">Experimente o melhor que a simulação aérea tem a oferecer</Header>}
             description={
-                <div className="w-[31rem]">
+                <div className="md:w-[31rem]">
                     <MutedText>Gerencie sua reserva de voos de uma maneira fácil, moderna e intuitiva.</MutedText>
                 </div>
             }>
-            <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerarios' href="/events" />
+            <div className="mx-auto md:mx-0 mt-12">
+                <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerarios' href="/events" />
+            </div>
         </InformationalLayout>
     )
 };

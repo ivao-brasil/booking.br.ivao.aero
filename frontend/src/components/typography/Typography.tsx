@@ -7,7 +7,7 @@ interface HeaderProps {
 
 type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
-export const Header: FunctionComponent<HeaderProps> = ({ level = 1, textSize = "text-xl", children }) => {
+export const Header: FunctionComponent<HeaderProps> = ({ level = 1, textSize = "text-2xl", children }) => {
     const Tag = `h${level}` as HeadingTag;
 
     return (
@@ -18,7 +18,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ level = 1, textSize = "
 };
 
 export const MutedText: FunctionComponent = ({ children }) => (
-    <p className="font-normal text-base text-gray dark:text-light-gray">{children}</p>
+    <p className="font-normal text-md md:text-lg text-gray dark:text-light-gray">{children}</p>
 );
 
 export const FooterText: FunctionComponent = ({ children }) => (

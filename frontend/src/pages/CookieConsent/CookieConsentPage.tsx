@@ -5,6 +5,7 @@ import { InformationalLayout } from "layouts/InformationalLayout";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 
 import emoji from './crying_face.svg'
+import { CookieLottie } from 'components/backgrounds/CookieLottie';
 
 export const CookieConsentPage: FunctionComponent = () => {
   const { setCookieConsent } = useContext(CookieConsentContext);
@@ -12,7 +13,10 @@ export const CookieConsentPage: FunctionComponent = () => {
   return (
     <InformationalLayout
       header='Utilizamos cookies para melhorar a sua experiência'
-      description='Precisamos da sua autorização para continuar com a nossa maravilhosa receita de biscoitos de gengibre.'>
+      description='Precisamos da sua autorização para continuar com a nossa maravilhosa receita de biscoitos de gengibre.'
+      image={<CookieLottie />}
+      isImageRelativeToText={true}>
+      <div className='flex flex-col space-y-4 md:space-y-0 md:flex-row'>
         <ActionButton
           content='Autorizar o uso'
           icon={<FiCheckCircle size={20} />}
@@ -21,6 +25,7 @@ export const CookieConsentPage: FunctionComponent = () => {
           backgroundFilled={false}
           content={<>Continuar sem cookies <img className='inline-block w-4' alt='crying face' src={emoji} /></>}
           onClick={() => setCookieConsent(ConsentAnwsers.DECLINED)} />
+      </div>
     </InformationalLayout>
   );
 };

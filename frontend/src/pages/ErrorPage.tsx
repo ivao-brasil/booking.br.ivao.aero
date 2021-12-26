@@ -38,8 +38,9 @@ export class ErrorPage extends Component<any, ErrorPageState> {
       <InformationalLayout
         header='Houston, we have a problem...'
         description='Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.'>
-
-        <LinkButton icon={<FiHome size={20} />} content='Voltar ao início' href='/' />
+        <div className="mx-auto md:mx-0 mt-12">
+          <LinkButton icon={<FiHome size={20} />} content='Voltar ao início' href='/' />
+        </div>
       </InformationalLayout>
     )
   }

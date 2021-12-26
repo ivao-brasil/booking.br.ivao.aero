@@ -7,7 +7,6 @@ import { CookieConsentProvider } from 'context/CookieConsentContext';
 import { AuthProvider } from 'context/AuthContext';
 import { IocProvider } from 'context/IocContext';
 import { ThemeContextProvider } from 'context/ThemeContext';
-import { ErrorPage } from 'pages/ErrorPage';
 
 ReactDOM.render(
     <React.StrictMode>
@@ -15,9 +14,7 @@ ReactDOM.render(
             <AuthProvider>
                 <CookieConsentProvider>
                     <ThemeContextProvider>
-                        <ErrorPage>
-                            <App />
-                        </ErrorPage>
+                        <App />
                     </ThemeContextProvider>
                 </CookieConsentProvider>
             </AuthProvider>
