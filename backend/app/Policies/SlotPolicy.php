@@ -10,7 +10,7 @@ class SlotPolicy
 {
     public function create(User $user)
     {
-        if (!$user->isAdmin) {
+        if (!$user->admin) {
             return Response::deny("You have no admin permissions");
         }
 
@@ -19,7 +19,7 @@ class SlotPolicy
 
     public function delete(User $user)
     {
-        if (!$user->isAdmin) {
+        if (!$user->admin) {
             return Response::deny("You have no admin permissions");
         }
 
@@ -41,7 +41,7 @@ class SlotPolicy
 
     public function update(User $user)
     {
-        if (!$user->isAdmin) {
+        if (!$user->admin) {
             return Response::deny("You have no admin permissions");
         }
 
