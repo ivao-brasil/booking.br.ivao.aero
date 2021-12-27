@@ -21,10 +21,12 @@ class UserController extends Controller
             $users->where('vid', $request->query('vid'));
         }
 
-        return $users->get();
+        $perPage = (int)$request->query('perPage', 5,);
+
+        return $users->paginate($perPage > 25 ? 25 : $perPage);
     }
 
-    public function update(Request $request, String $userId)
+    public function update(Request $request, string $userId)
     {
         $this->authorize('update', [User::class, $userId]);
 

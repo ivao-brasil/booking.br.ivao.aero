@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\Response;
 class SceneryPolicy
 {
     public function create(User $user) {
-        if(!$user->isAdmin) {
+        if(!$user->admin) {
             return Response::deny("You have no admin permissions");
         }
 

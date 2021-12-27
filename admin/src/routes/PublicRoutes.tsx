@@ -6,7 +6,7 @@ export const RedirectToLogin = () => {
   const IVAOTOKEN = new URLSearchParams(window.location.search).get('IVAOTOKEN');
 
   const { signIn } = useContext(AuthContext);
-  const { user } = useContext(AuthContext);
+  const { user, signed, token, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,11 +24,13 @@ export const RedirectToLogin = () => {
     const redirect = new URLSearchParams(window.location.search).get('redirect');
 
     signIn(IVAOTOKEN).then(() => {
-      navigate(redirect || '');
+      setTimeout(() => {
+        navigate(redirect || '');
+      }, 2000);
     });
   }, [IVAOTOKEN, signIn, navigate, user]);
 
-  return <></>;
+  return <>{JSON.stringify({ user, signed, token, loading })}</>;
 };
 
 export const PublicRoutes = () => {

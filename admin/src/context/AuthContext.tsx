@@ -1,10 +1,12 @@
-import { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
+import { createContext, FunctionComponent, useContext } from 'react';
 import { User } from '../types/User';
 import { IocContext } from './IocContext';
+import { useQuery, useQueryClient } from 'react-query';
+import { ONE_DAY } from '../constants';
 
 interface IAuthContext {
   signed: boolean;
-  user: User | null;
+  user?: User;
   token: string;
   signIn: (ivaoToken: string) => Promise<void>;
   signOut: () => void;
@@ -16,42 +18,31 @@ export const AuthContext = createContext<IAuthContext>({
   signOut: () => {},
   signed: false,
   token: '',
-  user: null,
   loading: true,
 });
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
   const { apiClient } = useContext(IocContext);
-  const [token, setToken] = useState<string>(localStorage.getItem('token') || '');
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (token) {
-      setLoading(true);
-      apiClient
-        .getAuth(token)
-        .then(setUser)
-        .catch(() => {
-          setToken('');
-          localStorage.removeItem('token');
-        })
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, [apiClient, token]);
+  const queryClient = useQueryClient();
+
+  const { data: token } = useQuery<string>('token', {
+    staleTime: ONE_DAY,
+  });
+
+  const { data: user, isLoading: loading } = useQuery('user', () => apiClient.getAuth(token || ''), {
+    staleTime: ONE_DAY,
+    enabled: Boolean(token),
+  });
 
   const signIn = async (ivaoToken: string) => {
-    const { jwt } = await apiClient.auth(ivaoToken);
-    setToken(jwt);
-    localStorage.setItem('token', jwt);
+    apiClient.auth(ivaoToken).then(data => {
+      queryClient.setQueryData('token', data.jwt);
+    });
   };
 
   const signOut = async () => {
-    localStorage.removeItem('token');
-    setToken('');
-    setUser(null);
+    queryClient.removeQueries();
   };
 
   return (
@@ -59,8 +50,8 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
       value={{
         signIn,
         signOut,
-        signed: user ? user.isAdmin && !user.suspended : false,
-        token,
+        signed: user ? user.admin && !user.suspended : false,
+        token: token || '',
         user,
         loading,
       }}>

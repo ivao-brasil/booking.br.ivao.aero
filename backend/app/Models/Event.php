@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\EventFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
@@ -39,5 +40,10 @@ class Event extends Model
     public function sceneries()
     {
         return $this->hasMany(Scenery::class, 'eventId', 'id');
+    }
+
+    public static function newFactory()
+    {
+        return EventFactory::new();
     }
 }

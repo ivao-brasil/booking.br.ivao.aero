@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
@@ -19,11 +20,18 @@ class User extends Model
         'created_at', 'updated_at'
     ];
 
-    public function eventsCreated() {
+    public function eventsCreated()
+    {
         return $this->hasMany(Event::class);
     }
 
-    public function slotsBooked() {
+    public function slotsBooked()
+    {
         return $this->hasMany(Slot::class, 'pilotId', 'id');
+    }
+
+    public static function newFactory()
+    {
+        return UserFactory::new();
     }
 }
