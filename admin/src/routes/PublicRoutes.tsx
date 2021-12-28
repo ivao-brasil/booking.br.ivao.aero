@@ -6,7 +6,7 @@ export const RedirectToLogin = () => {
   const IVAOTOKEN = new URLSearchParams(window.location.search).get('IVAOTOKEN');
 
   const { signIn } = useContext(AuthContext);
-  const { user, signed, token, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -18,16 +18,6 @@ interface UserRequest extends PaginateRequest {
   vid?: string;
 }
 
-interface EventRequest extends PaginateRequest {
-  callsign?: string;
-  destination?: string;
-  operation?: string;
-  type?: string;
-  slotTime?: string;
-  gate?: string;
-  owner?: string;
-}
-
 const fromObjectToQueryString = (obj: any) => {
   const searchParams = new URLSearchParams();
   Object.keys(obj).forEach(key => searchParams.append(key, obj[key]));
@@ -82,7 +72,7 @@ export class ApiClient {
       .then(() => {});
   }
 
-  async getEvents(token: string, data?: PaginateRequest) {
+  async getEvents(token: string, data: PaginateRequest = {}) {
     const queryString = fromObjectToQueryString(data);
     return this.axios
       .get<Pagination<Event>>(`/event${queryString}`, {
