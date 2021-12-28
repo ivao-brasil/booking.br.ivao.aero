@@ -40,7 +40,7 @@
     window.onload = function () {
         // Begin Swagger UI call region
         const ui = SwaggerUIBundle({
-            url: `${window.location.href}/docs.json`,
+            url: `${window.location.origin}/${window.location.pathname}/docs.json`,
             dom_id: '#swagger-ui',
             deepLinking: true,
             presets: [

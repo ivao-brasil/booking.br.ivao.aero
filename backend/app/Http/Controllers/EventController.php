@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Services\PaginationService;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+    private $paginationService;
+
+    function __construct(PaginationService $paginationService)
+    {
+        $this->paginationService = $paginationService;
+    }
+
     public function create(Request $request)
     {
         $this->authorize('create', Event::class);
@@ -58,11 +66,15 @@ class EventController extends Controller
 
     public function get(Request $request)
     {
+        $events = Event::where('id', '>=', 1);
+
+        $perPage = (int)$request->query('perPage', 5,);
+
         if ($request->query('status')) {
-            return Event::where('status', $request->query('status'))->get();
+            $events->where('status', $request->query('status'));
         }
 
-        return Event::all();
+        return $this->paginationService->transform($events->paginate($perPage > 25 ? 25 : $perPage));
     }
 
     public function update(Request $request, $id)

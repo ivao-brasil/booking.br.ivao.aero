@@ -4,25 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Slot;
-use App\Models\User;
+use App\Services\PaginationService;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SlotController extends Controller
 {
-    public function create(Request $request, $eventId) {
+
+    private $paginationService;
+
+    public function __construct(PaginationService $paginationService)
+    {
+        $this->paginationService = $paginationService;
+    }
+
+    public function create(Request $request, $eventId)
+    {
         $this->authorize('create', Slot::class);
 
         $event = Event::find($eventId);
 
-        if(!$event) {
+        if (!$event) {
             abort(404, 'Event not founded');
         }
 
         $this->validate($request, ['private' => 'required|boolean']);
 
-        if($request->input('private')) {
+        if ($request->input('private')) {
             $this->validate($request, [
                 'type' => 'required|string',
                 'flightNumber' => 'string|max:7',
@@ -49,23 +58,25 @@ class SlotController extends Controller
         $event->slots()->save($slot);
     }
 
-    public function delete(String $slotId) {
+    public function delete(string $slotId)
+    {
         $this->authorize('delete', Slot::class);
         Slot::where('id', $slotId)->delete();
     }
 
-    public function book(Request $request, String $slotId, String $action) {
+    public function book(Request $request, string $slotId, string $action)
+    {
         $slot = Slot::find($slotId);
         $user = Auth::user();
 
-        if(!$slot) {
+        if (!$slot) {
             abort(404, 'Slot not founded');
         }
 
         $this->authorize('bookUpdate', $slot);
 
-        if($action === 'book') {
-            if($slot->private) {
+        if ($action === 'book') {
+            if ($slot->private) {
                 $this->validate($request, [
                     'flightNumber' => 'required|string|max:7',
                     'origin' => 'required|string|max:4',
@@ -80,8 +91,8 @@ class SlotController extends Controller
             $slot->bookingTime = (new DateTime())->format("Y-m-d H:i:s");
 
             $user->slotsBooked()->save($slot);
-        } else if($action === "cancel") {
-            if($slot->private) {
+        } else if ($action === "cancel") {
+            if ($slot->private) {
                 $slot->flightNumber = null;
                 $slot->origin = null;
                 $slot->destination = null;
@@ -92,26 +103,27 @@ class SlotController extends Controller
             $slot->pilotId = null;
             $slot->bookingStatus = 'free';
             $slot->save();
-        } else if($action === "confirm") {
-            if($slot->bookingStatus === "prebooked") {
+        } else if ($action === "confirm") {
+            if ($slot->bookingStatus === "prebooked") {
                 $slot->bookingStatus = "booked";
                 $slot->save();
             }
         }
     }
 
-    public function update(Request $request, $slotId) {
+    public function update(Request $request, $slotId)
+    {
         $this->authorize('create', Slot::class);
 
         $slot = Slot::find($slotId);
 
-        if(!$slot) {
+        if (!$slot) {
             abort(404, 'Slot not founded');
         }
 
         $this->validate($request, ['private' => 'required|boolean']);
 
-        if($request->input('private')) {
+        if ($request->input('private')) {
             $this->validate($request, [
                 'type' => 'required|string',
                 'flightNumber' => 'string|max:7',
@@ -144,18 +156,24 @@ class SlotController extends Controller
         $slot->save();
     }
 
-    public function list(String $eventId) {
-        return Slot
-            ::with('owner')
-            ->where('eventId', $eventId)
-            ->get()
-            ->map(function ($slot) {
-                $slot->private = $slot->private === 1;
-                return $slot;
-            });
+    public function list(string $eventId, Request $request)
+    {
+        $perPage = (int)$request->query('perPage', 5,);
+
+        return $this->paginationService->transform(
+            Slot
+                ::with('owner')
+                ->where('eventId', $eventId)
+                ->paginate($perPage > 25 ? 25 : $perPage)
+        /*->map(function ($slot) {
+            $slot->private = $slot->private === 1;
+            return $slot;
+        })*/
+        );
     }
 
-    public function getMySlots() {
+    public function getMySlots()
+    {
         $user = Auth::user();
 
         return Slot

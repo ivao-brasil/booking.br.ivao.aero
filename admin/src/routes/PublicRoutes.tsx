@@ -30,7 +30,7 @@ export const RedirectToLogin = () => {
     });
   }, [IVAOTOKEN, signIn, navigate, user]);
 
-  return <>{JSON.stringify({ user, signed, token, loading })}</>;
+  return <>Loading...</>;
 };
 
 export const PublicRoutes = () => {

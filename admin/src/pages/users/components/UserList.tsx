@@ -20,7 +20,7 @@ export const UserList = () => {
   const [filterVid, setFilterVid] = useState<string>();
 
   const [page, setPage] = useState(0);
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(25);
 
   const { users, count, usersLoading } = useUsers(page + 1, perPage, filterVid);
   const { user: authUser } = useContext(AuthContext);
@@ -176,7 +176,7 @@ export const UserList = () => {
           } else {
             setFilterVid(vid);
             if (!vid) {
-              setPerPage(10);
+              setPerPage(5);
             }
           }
         }}

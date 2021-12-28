@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\SlotFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Slot extends Model
@@ -25,11 +26,18 @@ class Slot extends Model
         'updated_at'
     ];
 
-    public function owner() {
+    public function owner()
+    {
         return $this->belongsTo(User::class, 'pilotId', 'id');
     }
 
-    public function event() {
+    public function event()
+    {
         return $this->belongsTo(Event::class, 'eventId', 'id');
+    }
+
+    public static function _factory()
+    {
+        return SlotFactory::new();
     }
 }

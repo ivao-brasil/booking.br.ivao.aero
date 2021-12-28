@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\PaginationService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    private $paginationService;
+
+    function __construct(PaginationService $paginationService)
+    {
+        $this->paginationService = $paginationService;
+    }
+
     public function list(Request $request)
     {
         $this->authorize('list', User::class);
@@ -23,7 +31,7 @@ class UserController extends Controller
 
         $perPage = (int)$request->query('perPage', 5,);
 
-        return $users->paginate($perPage > 25 ? 25 : $perPage);
+        return $this->paginationService->transform($users->paginate($perPage > 25 ? 25 : $perPage));
     }
 
     public function update(Request $request, string $userId)

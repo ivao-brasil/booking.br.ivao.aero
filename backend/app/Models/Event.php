@@ -42,7 +42,7 @@ class Event extends Model
         return $this->hasMany(Scenery::class, 'eventId', 'id');
     }
 
-    public static function newFactory()
+    public static function _factory()
     {
         return EventFactory::new();
     }

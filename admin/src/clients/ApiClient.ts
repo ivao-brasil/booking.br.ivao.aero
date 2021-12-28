@@ -8,11 +8,24 @@ interface AuthResponse {
   jwt: string;
 }
 
-interface UserRequest {
+interface PaginateRequest {
+  perPage?: number;
+  page?: number;
+}
+
+interface UserRequest extends PaginateRequest {
   suspended?: boolean;
   vid?: string;
-  page?: number;
-  perPage?: number;
+}
+
+interface EventRequest extends PaginateRequest {
+  callsign?: string;
+  destination?: string;
+  operation?: string;
+  type?: string;
+  slotTime?: string;
+  gate?: string;
+  owner?: string;
 }
 
 const fromObjectToQueryString = (obj: any) => {
@@ -69,9 +82,10 @@ export class ApiClient {
       .then(() => {});
   }
 
-  async getEvents(token: string) {
+  async getEvents(token: string, data?: PaginateRequest) {
+    const queryString = fromObjectToQueryString(data);
     return this.axios
-      .get<Array<Event>>('/event', {
+      .get<Pagination<Event>>(`/event${queryString}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(response => response.data);
@@ -93,9 +107,10 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async getSlotsByEvent(eventId: number, token: string) {
+  async getSlotsByEvent(eventId: number, token: string, filter?: PaginateRequest) {
+    const queryString = fromObjectToQueryString(filter);
     return this.axios
-      .get<Array<Slot>>(`/event/${eventId}/slot`, {
+      .get<Pagination<Slot>>(`/event/${eventId}/slot?${queryString}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(response => response.data);
