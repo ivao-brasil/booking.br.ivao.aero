@@ -30,7 +30,7 @@ class User extends Model
         return $this->hasMany(Slot::class, 'pilotId', 'id');
     }
 
-    public static function newFactory()
+    public static function _factory()
     {
         return UserFactory::new();
     }

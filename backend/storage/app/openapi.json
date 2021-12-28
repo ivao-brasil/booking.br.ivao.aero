@@ -318,7 +318,29 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Event result"
+                        "description": "Event result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Event"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "User not authenticated"
@@ -468,7 +490,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Slot"
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Slot"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -886,28 +923,13 @@
             "Pagination": {
                 "type": "object",
                 "properties": {
-                    "current_page": {
+                    "page": {
                         "type": "number"
                     },
-                    "first_page_url": {
-                        "type": "string"
-                    },
-                    "from": {
+                    "perPage": {
                         "type": "number"
                     },
-                    "next_page_url": {
-                        "type": "string"
-                    },
-                    "path": {
-                        "type": "string"
-                    },
-                    "per_page": {
-                        "type": "number"
-                    },
-                    "prev_page_url": {
-                        "type": "string"
-                    },
-                    "to": {
+                    "total": {
                         "type": "number"
                     }
                 }

@@ -6,9 +6,9 @@ import { NotificationContext, NotificationType } from '../../../context/Notifica
 import { Event } from '../../../types/Event';
 import { EventCard } from './EventCard';
 import { Confirm } from '../../../components/Confirm';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { ONE_DAY } from '../../../constants';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { useEvents } from '../../../hooks/useEvents';
 
 interface EventListProps {
   onEdit: (event: Event) => void;
@@ -25,10 +25,7 @@ export const EventList: FunctionComponent<EventListProps> = ({ onEdit }) => {
 
   const navigate = useNavigate();
 
-  const { data: events, isLoading: eventLoading } = useQuery('events', () => apiClient.getEvents(token), {
-    staleTime: ONE_DAY,
-    enabled: Boolean(token),
-  });
+  const { events, eventsLoading } = useEvents();
 
   const deleteEvent = useMutation((event: Event) => apiClient.deleteEvent(event, token), {
     onSuccess: () => {
@@ -47,14 +44,14 @@ export const EventList: FunctionComponent<EventListProps> = ({ onEdit }) => {
     setConfirm(true);
     setEvent(event);
   };
+
   return (
     <div>
       {confirm && (
         <Confirm text={`Please confirm if you want to delete event ${event?.eventName}`} onConfirm={() => event && deleteEvent.mutate(event)} deletion={true} />
       )}
       <Grid container spacing={2}>
-        {!eventLoading &&
-          events &&
+        {!eventsLoading &&
           events.map(event => (
             <Grid item xs={4} key={event.id}>
               <EventCard event={event} onEdit={onEdit} onDelete={onDelete} slotRedirection={event => navigate(`/admin/events/${event.id}/slots`)} />
