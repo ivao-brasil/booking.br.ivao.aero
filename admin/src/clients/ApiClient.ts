@@ -129,4 +129,12 @@ export class ApiClient {
       })
       .then(response => response.data);
   }
+
+  createManySlots(eventId: number, token: string, data: FormData) {
+    return this.axios
+      .post(`/event/${eventId}/slot/many`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(response => response.data);
+  }
 }
