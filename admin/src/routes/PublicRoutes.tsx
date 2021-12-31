@@ -24,11 +24,13 @@ export const RedirectToLogin = () => {
     const redirect = new URLSearchParams(window.location.search).get('redirect');
 
     signIn(IVAOTOKEN).then(() => {
-      navigate(redirect || '');
+      setTimeout(() => {
+        navigate(redirect || '');
+      }, 2000);
     });
   }, [IVAOTOKEN, signIn, navigate, user]);
 
-  return <></>;
+  return <>Loading...</>;
 };
 
 export const PublicRoutes = () => {

@@ -9,6 +9,6 @@ export interface User {
   pilotRating: PilotRating;
   division: string;
   country: string;
-  isAdmin: boolean;
+  admin: boolean;
   suspended: boolean;
 }

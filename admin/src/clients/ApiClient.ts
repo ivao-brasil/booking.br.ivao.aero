@@ -2,15 +2,27 @@ import Axios, { AxiosInstance } from 'axios';
 import { Event } from '../types/Event';
 import { User } from '../types/User';
 import { Slot } from '../types/Slot';
+import { Pagination } from '../types/Pagination';
 
 interface AuthResponse {
   jwt: string;
 }
 
-interface UserRequest {
+interface PaginateRequest {
+  perPage?: number;
+  page?: number;
+}
+
+interface UserRequest extends PaginateRequest {
   suspended?: boolean;
   vid?: string;
 }
+
+const fromObjectToQueryString = (obj: any) => {
+  const searchParams = new URLSearchParams();
+  Object.keys(obj).forEach(key => searchParams.append(key, obj[key]));
+  return searchParams.toString();
+};
 
 export class ApiClient {
   private axios: AxiosInstance;
@@ -33,15 +45,16 @@ export class ApiClient {
       .then(response => {
         return {
           ...response.data,
-          isAdmin: Boolean(response.data.isAdmin),
+          admin: Boolean(response.data.admin),
           suspended: Boolean(response.data.suspended),
         };
       });
   }
 
-  async getUsers(data: UserRequest, token: string): Promise<Array<User>> {
+  async getUsers(data: UserRequest, token: string) {
+    const queryString = fromObjectToQueryString(data);
     return this.axios
-      .get<Array<User>>('/user', {
+      .get<Pagination<User>>(`/user?${queryString}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(response => response.data);
@@ -59,9 +72,10 @@ export class ApiClient {
       .then(() => {});
   }
 
-  async getEvents(token: string) {
+  async getEvents(token: string, data: PaginateRequest = {}) {
+    const queryString = fromObjectToQueryString(data);
     return this.axios
-      .get<Array<Event>>('/event', {
+      .get<Pagination<Event>>(`/event${queryString}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(response => response.data);
@@ -83,9 +97,10 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async getSlotsByEvent(eventId: number, token: string) {
+  async getSlotsByEvent(eventId: number, token: string, filter?: PaginateRequest) {
+    const queryString = fromObjectToQueryString(filter);
     return this.axios
-      .get<Array<Slot>>(`/event/${eventId}/slot`, {
+      .get<Pagination<Slot>>(`/event/${eventId}/slot?${queryString}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(response => response.data);

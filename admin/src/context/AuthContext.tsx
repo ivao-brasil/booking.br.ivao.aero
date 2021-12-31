@@ -48,7 +48,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     localStorage.setItem('token', jwt);
   };
 
-  const signOut = async () => {
+  const signOut = () => {
     localStorage.removeItem('token');
     setToken('');
     setUser(null);
@@ -59,7 +59,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
       value={{
         signIn,
         signOut,
-        signed: user ? user.isAdmin && !user.suspended : false,
+        signed: user ? user.admin && !user.suspended : false,
         token,
         user,
         loading,
