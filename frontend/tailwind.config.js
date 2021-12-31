@@ -3,15 +3,16 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
-      width: {
-        '34': '34rem',
-      },
       screens: {
         'xl-height': { 'raw': '(min-height: 720px)' },
         '2xl-height': { 'raw': '(min-height: 816px)' }
       },
       spacing: {
-        '54': '13.5rem'
+        '54': '13.5rem',
+        '130': '34rem'
+      },
+      maxWidth: {
+        '130': '34rem',
       }
     },
     fontFamily: {
@@ -45,8 +46,8 @@ module.exports = {
         xl: "1120px"
       },
       padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
+        DEFAULT: '2rem',
+        sm: '3rem',
         lg: '4rem',
         xl: '0'
       },

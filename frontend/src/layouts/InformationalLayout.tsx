@@ -7,29 +7,28 @@ interface InformationalLayoutProps {
     header: ReactNode;
     description: ReactNode;
     image?: ReactNode;
-    isImageRelativeToText?: boolean;
 }
 
-export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, children, isImageRelativeToText = false }) => {
+export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, children }) => {
     return (
-        <div className="container relative flex flex-col min-h-screen">
-            <div className="md:pt-14">
+        <div className="container flex flex-col min-h-screen">
+            <div className="pt-10 md:pt-14">
                 <Logo />
             </div>
-            <div className={`${isImageRelativeToText ? "relative" : "static"} w-full`}>
-                <div className="mx-auto md:mx-0 md:max-w-[36rem] mt-8 2xl-height:mt-24">
-                    {(isValidElement(header) ? header : <Header>{header}</Header>)}
-                    <div className="mt-8 pr-1.5">
-                        {(isValidElement(description) ? description : <MutedText>{description}</MutedText>)}
+            <div className={`${image ? "flex xl:items-center" : ""}`}>
+                <div className="mt-24 self-start md:max-w-130">
+                    <div className="flex flex-col items-center md:items-start">
+                        {(isValidElement(header) ? header : <Header textSize="text-xl md:text-2xl">{header}</Header>)}
+                        <div className="mt-8 lg:pr-1.5">
+                            {(isValidElement(description) ? description : <MutedText>{description}</MutedText>)}
+                        </div>
+                        <div className="mx-auto md:mx-0 mt-12">
+                            {children}
+                        </div>
                     </div>
                 </div>
-                {isImageRelativeToText && image}
+                {image && (<div className="hidden xl:block w-full max-w-[28rem] 2xl-height:max-w-130">{image}</div>)}
             </div>
-
-            <div className="mx-auto md:mx-0 mt-12">
-                {children}
-            </div>
-            {!isImageRelativeToText && image}
             <div className="mt-8 xl-height:mt-auto z-10">
                 <Footer />
             </div>

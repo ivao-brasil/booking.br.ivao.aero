@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 import { FiHome } from 'react-icons/fi';
 import { LinkButton } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
+import { LottieFile } from 'components/LottieFile';
 
 interface ErrorPageState {
   hasError: boolean
@@ -37,7 +38,8 @@ export class ErrorPage extends Component<any, ErrorPageState> {
     return (
       <InformationalLayout
         header='Houston, we have a problem...'
-        description='Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.'>
+        description='Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.'
+        image={<LottieFile src="https://assets1.lottiefiles.com/packages/lf20_zf9mqyhk.json" />}>
         <div className="mx-auto md:mx-0 mt-12">
           <LinkButton icon={<FiHome size={20} />} content='Voltar ao início' href='/' />
         </div>

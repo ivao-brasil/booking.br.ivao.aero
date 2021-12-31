@@ -10,7 +10,7 @@ interface ActionButtonProps {
 export const ActionButton: FunctionComponent<ActionButtonProps> = ({ content, icon, backgroundFilled = true, onClick }) => {
 	const background = backgroundFilled ? "bg-green" : ""
 	return (
-		<button className={`${background} rounded-md h-14`} onClick={onClick}>
+		<button className={`block ${background} rounded-md h-14`} onClick={onClick}>
 			{icon && (<ButtonIcon>{icon}</ButtonIcon>)}
             <ButtonText muted={!backgroundFilled}>{content}</ButtonText>
 		</button>
@@ -24,7 +24,7 @@ interface ButtonTextProps {
 export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, muted = false }) => {
 	const textColor = muted ? "text-gray dark:text-white" : "text-white"
 	return (
-		<span className={`inline-block px-8 py-2.5 leading-[37px] font-action font-semibold ${textColor} truncate`}>
+		<span className={`inline-block px-8 py-2.5 leading-[37px] text-center font-action font-semibold ${textColor} truncate`}>
 			{children}
 		</span>
 	)
@@ -45,7 +45,7 @@ interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
 export const LinkButton: FunctionComponent<LinkButtonProps> = ({ content, icon, href, backgroundFilled = true }) => {
 	const background = backgroundFilled ? "bg-green" : ""
 	return (
-		<a className={`inline-block ${background} rounded-md h-14`} href={href}>
+		<a className={`block ${background} rounded-md h-14`} href={href}>
 			{icon && (<ButtonIcon>{icon}</ButtonIcon>)}
             <ButtonText muted={!backgroundFilled}>{content}</ButtonText>
 		</a>

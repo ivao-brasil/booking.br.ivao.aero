@@ -5,7 +5,7 @@ import { InformationalLayout } from "layouts/InformationalLayout";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 
 import emoji from './crying_face.svg'
-import { CookieLottie } from 'components/backgrounds/CookieLottie';
+import { LottieFile } from 'components/LottieFile';
 
 export const CookieConsentPage: FunctionComponent = () => {
   const { setCookieConsent } = useContext(CookieConsentContext);
@@ -14,9 +14,10 @@ export const CookieConsentPage: FunctionComponent = () => {
     <InformationalLayout
       header='Utilizamos cookies para melhorar a sua experiência'
       description='Precisamos da sua autorização para continuar com a nossa maravilhosa receita de biscoitos de gengibre.'
-      image={<CookieLottie />}
-      isImageRelativeToText={true}>
-      <div className='flex flex-col space-y-4 md:space-y-0 md:flex-row'>
+      image={
+        <LottieFile src="https://assets1.lottiefiles.com/packages/lf20_zf9mqyhk.json" />
+      }>
+      <div className='flex flex-col md:flex-row space-y-4 md:space-y-0'>
         <ActionButton
           content='Autorizar o uso'
           icon={<FiCheckCircle size={20} />}

@@ -1,4 +1,5 @@
 import { LinkButton } from "components/button/Button";
+import { LottieFile } from "components/LottieFile";
 import { Header, MutedText } from "components/typography/Typography";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { FunctionComponent } from "react";
@@ -12,7 +13,8 @@ export const SplashPage: FunctionComponent = () => {
                 <div className="md:w-[31rem]">
                     <MutedText>Gerencie sua reserva de voos de uma maneira fácil, moderna e intuitiva.</MutedText>
                 </div>
-            }>
+            }
+            image={<LottieFile src="https://assets1.lottiefiles.com/packages/lf20_zf9mqyhk.json" />}>
             <div className="mx-auto md:mx-0 mt-12">
                 <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerarios' href="/events" />
             </div>
