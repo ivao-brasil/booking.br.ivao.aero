@@ -5,75 +5,77 @@ import {
   useEffect,
   useState,
 } from "react";
-import { User } from "../types/User";
+import jwtDecode from "jwt-decode";
 import { IocContext } from "./IocContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 
 interface IAuthContext {
   signed: boolean;
-  user: User | null;
   token: string;
   signIn: (ivaoToken: string) => Promise<void>;
   signOut: () => void;
-  loading: Boolean;
+  refreshToken: () => void;
+}
+
+interface TokenData {
+  iat: number;
+  exp: number;
 }
 
 export const AuthContext = createContext<IAuthContext>({
-  signIn: (ivaoToken: string) => Promise.reject(),
-  signOut: () => {},
   signed: false,
   token: "",
-  user: null,
-  loading: true,
+  signIn: (_: string) => Promise.reject(),
+  signOut: () => { },
+  refreshToken: () => { }
 });
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
   const { authClient } = useContext(IocContext);
-  const [token, setToken] = useState<string>(
-    localStorage.getItem("token") || ""
-  );
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [token, setToken] = useState<string>(localStorage.getItem("token") || "");
 
-  useEffect(() => {
-    if (token) {
-      setLoading(true);
-
-      authClient.token = token;
-
-      authClient
-        .getAuth()
-        .then(setUser)
-        .catch(() => {
-          setToken("");
-          localStorage.removeItem("token");
-        })
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
-    }
-  }, [authClient, token]);
-
-  const signIn = async (ivaoToken: string) => {
+  const signIn = useCallback(async (ivaoToken: string) => {
     const { jwt } = await authClient.auth(ivaoToken);
     setToken(jwt);
     localStorage.setItem("token", jwt);
-  };
+  }, [authClient]);
 
-  const signOut = async () => {
+  const signOut = useCallback(() => {
     localStorage.removeItem("token");
     setToken("");
-    setUser(null);
-  };
+  }, []);
+
+  const refreshToken = useCallback(() => {
+    signOut();
+    navigate("/login", { state: { from: location } });
+  }, [navigate, signOut, location]);
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+
+    const currentTimestampSec = Math.floor(Date.now() / 1000);
+    const { exp } = jwtDecode<TokenData>(token);
+
+    if (currentTimestampSec > exp) {
+      refreshToken();
+    }
+
+    authClient.token = token;
+  }, [authClient, refreshToken, token]);
 
   return (
     <AuthContext.Provider
       value={{
         signIn,
         signOut,
-        signed: !!user,
+        refreshToken,
+        signed: !!token,
         token,
-        user,
-        loading,
       }}
     >
       {children}

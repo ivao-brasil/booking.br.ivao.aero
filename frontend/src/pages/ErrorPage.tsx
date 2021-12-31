@@ -1,14 +1,19 @@
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode, ErrorInfo } from 'react';
+import axios from 'axios';
 import { FiHome } from 'react-icons/fi';
 import { LinkButton } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { LottieFile } from 'components/LottieFile';
+import { AuthContext } from 'context/AuthContext';
 
 interface ErrorPageState {
   hasError: boolean
 }
 
 export class ErrorPage extends Component<any, ErrorPageState> {
+  static contextType = AuthContext;
+  context!: React.ContextType<typeof AuthContext>
+
   private unhandledPromiseCallback = (_: any) => {
     this.setState({ hasError: true });
   };
@@ -20,6 +25,16 @@ export class ErrorPage extends Component<any, ErrorPageState> {
 
   static getDerivedStateFromError(_: any) {
     return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, _: ErrorInfo) {
+    if (axios.isAxiosError(error)) {
+      // TODO: Check the expired token via HTTP 403 error.
+      // The backend is returning HTTP 500 with the string 'Expired token' as message
+      if (error.message === "Expired token") {
+        this.context.refreshToken();
+      }
+    }
   }
 
   componentDidMount() {

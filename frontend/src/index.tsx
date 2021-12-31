@@ -7,17 +7,31 @@ import { CookieConsentProvider } from 'context/CookieConsentContext';
 import { AuthProvider } from 'context/AuthContext';
 import { IocProvider } from 'context/IocContext';
 import { ThemeContextProvider } from 'context/ThemeContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from 'react-router-dom';
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            useErrorBoundary: true
+        }
+    }
+});
 
 ReactDOM.render(
     <React.StrictMode>
         <IocProvider>
-            <AuthProvider>
-                <CookieConsentProvider>
-                    <ThemeContextProvider>
-                        <App />
-                    </ThemeContextProvider>
-                </CookieConsentProvider>
-            </AuthProvider>
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <AuthProvider>
+                        <CookieConsentProvider>
+                            <ThemeContextProvider>
+                                <App />
+                            </ThemeContextProvider>
+                        </CookieConsentProvider>
+                    </AuthProvider>
+                </BrowserRouter>
+            </QueryClientProvider>
         </IocProvider>
     </React.StrictMode>,
     document.getElementById('root')

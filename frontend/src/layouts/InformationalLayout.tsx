@@ -12,11 +12,11 @@ interface InformationalLayoutProps {
 export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, children }) => {
     return (
         <div className="container flex flex-col min-h-screen">
-            <div className="pt-10 md:pt-14">
+            <div className="mt-10 md:mt-14">
                 <Logo />
             </div>
             <div className={`${image ? "flex xl:items-center" : ""}`}>
-                <div className="mt-24 self-start md:max-w-130">
+                <div className="w-full pt-20 self-start md:max-w-130">
                     <div className="flex flex-col items-center md:items-start">
                         {(isValidElement(header) ? header : <Header textSize="text-xl md:text-2xl">{header}</Header>)}
                         <div className="mt-8 lg:pr-1.5">
@@ -27,7 +27,7 @@ export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = 
                         </div>
                     </div>
                 </div>
-                {image && (<div className="hidden xl:block w-full max-w-[28rem] 2xl-height:max-w-130">{image}</div>)}
+                {image && (<div className="hidden xl:block w-full max-w-[28rem] 2xl-height:max-w-130 mx-auto">{image}</div>)}
             </div>
             <div className="mt-8 xl-height:mt-auto z-10">
                 <Footer />

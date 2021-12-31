@@ -8,6 +8,6 @@ export const Logo: FunctionComponent = () => {
 
     const imgUrl = themeVariant === ThemeVariants.DARK ? Env.LOGO_DARK : Env.LOGO_LIGHT;
     return (
-        <img src={imgUrl} className="w-54 -ml-5" alt="Logo IVAO Brasil" />
+        <img src={imgUrl} width="216px" height="80px" className="w-54 -ml-5" alt="Logo IVAO Brasil" />
     );
 }

@@ -15,9 +15,7 @@ export const SplashPage: FunctionComponent = () => {
                 </div>
             }
             image={<LottieFile src="https://assets1.lottiefiles.com/packages/lf20_zf9mqyhk.json" />}>
-            <div className="mx-auto md:mx-0 mt-12">
-                <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerarios' href="/events" />
-            </div>
+            <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerarios' href="/events" />
         </InformationalLayout>
     )
 };
