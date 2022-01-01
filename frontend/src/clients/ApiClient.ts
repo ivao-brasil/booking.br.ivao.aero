@@ -1,17 +1,22 @@
 import { AxiosInstance } from 'axios'
-import { Env } from "../env";
-import { User } from "../types/User";
-
+import { User } from "types/User";
+import { Pagination } from "types/Pagination";
+import { Event } from "types/Event";
 
 interface AuthResponse {
   jwt: string;
 }
 
-interface UserRequest {
-  suspended?: boolean;
-  vid?: string;
+interface PaginateRequest {
+  perPage?: number;
+  page?: number;
 }
 
+const fromObjectToQueryString = (obj: any) => {
+  const searchParams = new URLSearchParams();
+  Object.keys(obj).forEach(key => searchParams.append(key, obj[key]));
+  return searchParams.toString();
+};
 
 export class AuthApiClient {
   private axios: AxiosInstance;
@@ -38,6 +43,13 @@ export class AuthApiClient {
           suspended: Boolean(response.data.suspended),
         };
       });
+  }
+
+  async getEvents(data: PaginateRequest = {}) {
+    const queryString = fromObjectToQueryString(data);
+    return this.axios
+      .get<Pagination<Event>>(`/event?${queryString}`)
+      .then(response => response.data);
   }
 
   public get token() {

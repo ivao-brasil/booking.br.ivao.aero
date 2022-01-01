@@ -5,7 +5,7 @@ import { User } from "types/User";
 import { AxiosError } from "axios";
 
 export function useAuthData() {
-    const { authClient } = useContext(IocContext);
+    const { apiClient: authClient } = useContext(IocContext);
 
     const authData = useQuery<User, AxiosError>("authData", async() => {
         return await authClient.getAuth();

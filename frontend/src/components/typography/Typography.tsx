@@ -18,7 +18,7 @@ export const Header: FunctionComponent<HeaderProps> = ({ level = 1, textSize = "
 };
 
 export const MutedText: FunctionComponent = ({ children }) => (
-    <p className="font-normal text-md md:text-lg text-gray dark:text-light-gray">{children}</p>
+    <p className="font-normal text-md md:text-lg text-gray dark:text-light-gray-1">{children}</p>
 );
 
 export const FooterText: FunctionComponent = ({ children }) => (

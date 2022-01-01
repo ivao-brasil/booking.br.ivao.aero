@@ -1,13 +1,13 @@
-import { FunctionComponent, useContext } from 'react';
+import { useContext } from 'react';
 import { FiCheckCircle } from 'react-icons/fi';
-import { ActionButton } from "components/button/Button";
+import { ActionButton, ButtonText } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 
 import emoji from './crying_face.svg'
 import { LottieFile } from 'components/LottieFile';
 
-export const CookieConsentPage: FunctionComponent = () => {
+export default function CookieConsentPage() {
   const { setCookieConsent } = useContext(CookieConsentContext);
 
   return (
@@ -24,9 +24,13 @@ export const CookieConsentPage: FunctionComponent = () => {
           onClick={() => setCookieConsent(ConsentAnwsers.ACCEPTED)} />
         <ActionButton
           backgroundFilled={false}
-          content={<>Continuar sem cookies <img className='inline-block w-4' alt='crying face' src={emoji} /></>}
+          content={
+            <ButtonText textColor='text-gray dark:text-white"'>
+              Continuar sem cookies <img className='inline-block w-4' alt='crying face' src={emoji} />
+            </ButtonText>
+          }
           onClick={() => setCookieConsent(ConsentAnwsers.DECLINED)} />
       </div>
     </InformationalLayout>
   );
-};
+}

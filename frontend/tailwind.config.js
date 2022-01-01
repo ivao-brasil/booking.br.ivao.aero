@@ -25,9 +25,12 @@ module.exports = {
       'light-green': '#39E574',
       'gray': '#A9A9A9',
       'dark-gray': '#B6B6B6',
-      'light-gray': '#CCCCCC',
+      'light-gray-1': '#CCCCCC',
+      'light-gray-2': '#464646',
+      'light-gray-3': '#BCBCBC',
       'white': '#ffffff',
       'black': '#282828',
+      'light-blue': '#7EA2D6',
       'blue': '#0D2C99',
     },
     fontSize: {

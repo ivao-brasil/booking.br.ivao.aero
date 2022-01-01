@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { createContext, FunctionComponent, useMemo } from "react";
-import { AuthApiClient } from "../clients/auth.client";
+import { AuthApiClient } from "../clients/ApiClient";
 import { Env } from "../env";
 
 interface IIocContext {
-  authClient: AuthApiClient;
+  apiClient: AuthApiClient;
 }
 
 const axiosInstance = axios.create({
@@ -16,9 +16,9 @@ export const IocContext = createContext<IIocContext>({} as IIocContext);
 export const IocProvider: FunctionComponent = ({ children }) => {
   const iocValue = useMemo<IIocContext>(() => {
     return {
-      authClient: new AuthApiClient(axiosInstance)
+      apiClient: new AuthApiClient(axiosInstance)
     }
-  }, [])
+  }, []);
 
   return (
     <IocContext.Provider value={iocValue}>{children}</IocContext.Provider>

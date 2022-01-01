@@ -1,0 +1,10 @@
+@media screen and (min-width: 768px) {
+    .background {
+        background: linear-gradient(to bottom, #F8F8F8 306px, #ffffff 306px);
+    }
+
+    :global(.dark) .background {
+        background: linear-gradient(to bottom, #1F1F1F 306px, #282828 306px);
+    }
+}
+

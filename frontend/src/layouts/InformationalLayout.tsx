@@ -4,8 +4,8 @@ import { FunctionComponent, isValidElement, ReactNode } from "react";
 import { Header, MutedText } from "components/typography/Typography";
 
 interface InformationalLayoutProps {
-    header: ReactNode;
-    description: ReactNode;
+    header?: ReactNode;
+    description?: ReactNode;
     image?: ReactNode;
 }
 
