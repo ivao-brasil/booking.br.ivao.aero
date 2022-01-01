@@ -1,7 +1,13 @@
 import { RefObject, useEffect, useState } from "react";
 import lottie, { AnimationItem } from 'lottie-web';
 
-export function useLottieFile(containerRef: RefObject<Element>, animationData: string | object) {
+interface LottieFileOptions {
+    src: string | object;
+    autoplay?: boolean;
+    loop?: boolean;
+}
+
+export function useLottieFile(containerRef: RefObject<Element>, { src, autoplay, loop }: LottieFileOptions) {
     const [lottieInstance, setLottieInstance] = useState<AnimationItem | null>(null);
 
     useEffect(() => {
@@ -11,9 +17,9 @@ export function useLottieFile(containerRef: RefObject<Element>, animationData: s
 
         const animation = lottie.loadAnimation({
             container: containerRef.current,
-            loop: true,
-            autoplay: true,
-            [typeof animationData === "string" ? "path" : "animationData"]: animationData
+            loop: loop,
+            autoplay: autoplay,
+            [typeof src === "string" ? "path" : "animationData"]: src
         });
 
         setLottieInstance(animation);
@@ -22,7 +28,7 @@ export function useLottieFile(containerRef: RefObject<Element>, animationData: s
             setLottieInstance(null);
             animation.destroy();
         };
-    }, [containerRef, animationData]);
+    }, [containerRef, src, loop, autoplay]);
 
     return lottieInstance;
 }
