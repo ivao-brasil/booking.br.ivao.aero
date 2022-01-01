@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { FooterText } from "components/typography/Typography";
 
 export const Footer: FunctionComponent = () => (
-    <footer className="text-center mb-4">
+    <footer className="mt-28 mb-4 xl-height:mt-auto text-center z-10 ">
         <FooterText>
             © 2021 International Virtual Aviation Organisation - IVAO Brazil.
         </FooterText>

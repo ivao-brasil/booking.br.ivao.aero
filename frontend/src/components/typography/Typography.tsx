@@ -22,5 +22,5 @@ export const MutedText: FunctionComponent = ({ children }) => (
 );
 
 export const FooterText: FunctionComponent = ({ children }) => (
-    <span className="font-action text-sm text-dark-gray">{children}</span>
+    <span className="font-action text-sm text-dark-gray-1">{children}</span>
 );

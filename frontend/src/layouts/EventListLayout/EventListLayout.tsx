@@ -20,9 +20,7 @@ export const EventListLayout: FunctionComponent = ({ children }) => {
                 <div className="mt-14 lg:my-14">
                     {children}
                 </div>
-                <div className="mt-28 lg:mt-auto z-10">
-                    <Footer />
-                </div>
+                <Footer />
             </div>
         </div>
     );

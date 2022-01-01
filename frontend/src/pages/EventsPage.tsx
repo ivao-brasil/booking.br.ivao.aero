@@ -1,8 +1,9 @@
 import { Fragment } from "react";
 import { EventListLayout } from "layouts/EventListLayout/EventListLayout";
-import { EventCard } from "components/EventCard";
 import { useEvents } from "hooks/useEventList";
+import { EventCard } from "components/EventCard";
 import { ActionButton } from "components/button/Button";
+import { LoadingIndicator } from "components/LoadingIndicator";
 
 export default function EventsPage() {
     const { data, isLoading, hasPreviousPage, hasNextPage, isFetchingNextPage, fetchNextPage } = useEvents(0, 3);
@@ -11,7 +12,9 @@ export default function EventsPage() {
     if (isLoading && !hasPreviousPage) {
         return (
             <EventListLayout>
-                <p>Loading...</p>
+                <div className="w-min mx-auto md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+                    <LoadingIndicator />
+                </div>
             </EventListLayout>
         );
     }
@@ -46,8 +49,7 @@ export default function EventsPage() {
             </div>
             {(hasNextPage) && (
                 <div className="flex justify-center mt-8">
-                    {isFetchingNextPage ? <p>Loading...</p> : (
-
+                    {isFetchingNextPage ? <LoadingIndicator /> : (
                         <ActionButton content="Ver mais eventos" backgroundFilled={false} onClick={() => fetchNextPage()} />
                     )}
                 </div>

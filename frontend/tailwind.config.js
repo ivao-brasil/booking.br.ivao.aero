@@ -24,7 +24,8 @@ module.exports = {
       'green': '#2EC662',
       'light-green': '#39E574',
       'gray': '#A9A9A9',
-      'dark-gray': '#B6B6B6',
+      'dark-gray-2': '#1F1F1F',
+      'dark-gray-1': '#B6B6B6',
       'light-gray-1': '#CCCCCC',
       'light-gray-2': '#464646',
       'light-gray-3': '#BCBCBC',
@@ -32,6 +33,7 @@ module.exports = {
       'black': '#282828',
       'light-blue': '#7EA2D6',
       'blue': '#0D2C99',
+      'yellow': '#F9CC2C'
     },
     fontSize: {
       "sm": ['0.63rem', '150%'],

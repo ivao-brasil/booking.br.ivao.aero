@@ -29,9 +29,7 @@ export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = 
                 </div>
                 {image && (<div className="hidden xl:block w-full max-w-[28rem] 2xl-height:max-w-130 mx-auto">{image}</div>)}
             </div>
-            <div className="mt-28 xl-height:mt-auto z-10">
-                <Footer />
-            </div>
+            <Footer />
         </div>
     )
 };

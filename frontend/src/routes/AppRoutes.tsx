@@ -3,8 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import { RequireAuth } from "components/RequireAuth";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 import { SplashPage } from "pages/SplashPage";
-import { MutedText } from "components/typography/Typography";
 import { NotFoundPage } from "pages/NotFoundPage";
+import { LoadingIndicator } from "components/LoadingIndicator";
+import { SidebarLayout } from "layouts/SidebarLayout";
 
 const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
@@ -15,7 +16,7 @@ export const AppRoutes: FunctionComponent = () => {
     const { cookieConsent } = useContext(CookieConsentContext);
 
     return (
-        <Suspense fallback={<MutedText>Loading...</MutedText>}>
+        <Suspense fallback={<LoadingIndicator />}>
             <Routes>
                 {cookieConsent === ConsentAnwsers.UNKNOW ? (
                     <Route path="*" element={<CookieConsentPage />} />
@@ -25,7 +26,9 @@ export const AppRoutes: FunctionComponent = () => {
                         <Route path="login" element={<LoginPage />} />
                         <Route element={<RequireAuth />}>
                             <Route path="/events" element={<EventsPage />} />
-                            <Route path="/event/:id" element={<EventPage />} />
+                            <Route path="/event/:eventId" element={<SidebarLayout />}>
+                                <Route index element={<EventPage />} />
+                            </Route>
                         </Route>
                         <Route path="*" element={<NotFoundPage />} />
                     </>
