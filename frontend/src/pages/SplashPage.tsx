@@ -8,7 +8,7 @@ import { FiSearch } from "react-icons/fi";
 export const SplashPage: FunctionComponent = () => {
     return (
         <InformationalLayout
-            header={<Header textSize="text-xl">Experimente o melhor que a simulação aérea tem a oferecer</Header>}
+            header={<Header textSize="text-2xl">Experimente o melhor que a simulação aérea tem a oferecer</Header>}
             description={
                 <div className="md:w-[31rem]">
                     <MutedText>Gerencie sua reserva de voos de uma maneira fácil, moderna e intuitiva.</MutedText>

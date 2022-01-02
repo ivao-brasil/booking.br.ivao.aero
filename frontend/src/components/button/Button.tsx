@@ -51,12 +51,25 @@ interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
 
 export const LinkButton: FunctionComponent<LinkButtonProps> = ({ content, icon, href, backgroundFilled = true }) => {
 	const background = backgroundFilled ? "bg-green" : "";
+	const isExternalLink = href.indexOf("://") !== -1;
+	const buttonContent = (
+		<div className="flex items-center">
+			{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
+			{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
+		</div>
+	);
+
+	if (isExternalLink) {
+		return (
+			<a className={`block ${background} rounded-md`} href={href} target="_blank" rel="noreferrer">
+				{buttonContent}
+			</a>
+		);
+	}
+
 	return (
 		<Link className={`block ${background} rounded-md`} to={href}>
-			<div className="flex items-center">
-				{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
-				{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
-			</div>
+			{buttonContent}
 		</Link>
 	);
 };

@@ -8,9 +8,10 @@ interface SidebarLinkProps {
     title: string;
     href: string;
     icon: JSX.Element;
+    indexLink?: boolean;
 }
 
-const SidebarLink: FunctionComponent<SidebarLinkProps> = ({ href, icon, title }) => {
+const SidebarLink: FunctionComponent<SidebarLinkProps> = ({ href, icon, title, indexLink = false }) => {
     const activeClasses = "text-white border-b-4 md:border-b-0 md:border-l-4 border-white py-3";
     const inactiveClasses = "text-[#3C55AC] dark:text-[#838383]";
 
@@ -19,6 +20,7 @@ const SidebarLink: FunctionComponent<SidebarLinkProps> = ({ href, icon, title })
             to={href}
             className={({ isActive }) => `block ${isActive ? activeClasses : inactiveClasses}`}
             title={title}
+            end={indexLink}
         >
             {({ isActive }) => (
                 <div className="w-min mx-auto">
@@ -58,7 +60,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
     const ICON_SIZE = 28;
 
     return (
-        <nav className={`${visible ? "" : "hidden"} flex flex-row md:flex-col w-full md:w-28 bg-blue dark:bg-dark-gray-2 px-4 md:px-0 overflow-x-scroll`}>
+        <nav className={`${visible ? "" : "hidden"} flex flex-row md:flex-col w-full md:w-28 h-full px-4 md:px-0 bg-blue dark:bg-dark-gray-2 shadow-3xl overflow-x-auto`}>
             <div className="hidden md:block">
                 <Logo sidebar={true} />
             </div>
@@ -67,7 +69,8 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                 <SidebarLink
                     href={`/event/${eventId}`}
                     icon={<FiInfo size={ICON_SIZE} />}
-                    title="Sobre o evento" />
+                    title="Sobre o evento"
+                    indexLink />
 
                 <SidebarLink
                     href={`/event/${eventId}/flights`}
@@ -89,7 +92,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     icon={<FiGlobe size={ICON_SIZE} />}
                     title="Home" />
             </div>
-            <div className="mx-auto md:mx-0 ml-8 md:ml-0 md:mt-auto md:mb-10">
+            <div className="my-auto md:my-0 mx-auto md:mx-0 ml-8 md:ml-0 md:mt-auto md:mb-10">
                 <SidebarLink
                     href={`/logout`}
                     icon={<FiLogOut size={ICON_SIZE} />}

@@ -1,54 +1,36 @@
-import { useEffect, useState } from "react"
+import { useContext } from "react";
+import { AxiosError } from "axios";
+import { InfiniteData, useQuery, useQueryClient } from "react-query";
+import { ONE_DAY } from "appConstants";
+import { IocContext } from "context/IocContext";
+import { Event } from "types/Event";
+import { Pagination } from "types/Pagination";
 
-interface FormValues {
-	id?: string | number
-	dateStart: string,
-	dateEnd: string,
-	eventName: string,
-	privateSlots: boolean,
-	pilotBriefing: string,
-	atcBriefing: string,
-	description: string,
-	banner: string,
-	atcBooking: string
-}
+export function useEvent(id: number) {
+	const { apiClient } = useContext(IocContext);
+	const queryClient = useQueryClient();
+	const EVENT_LIST_KEY = "events";
 
-export function useEvent(id?: number | string | undefined) {
-	const [event, setEvent] = useState<FormValues>({
-		"dateStart": "",
-		"dateEnd": "",
-		"eventName": "",
-		"privateSlots": true,
-		"pilotBriefing": "",
-		"atcBriefing": "",
-		"description": "",
-		"banner": "",
-		"atcBooking": ""
-	})
+	const eventData = useQuery<Event, AxiosError>(["event", id], async () => await apiClient.getEvent(id),
+		{
+			staleTime: ONE_DAY,
+			initialData: () => {
+				const eventListQuery = queryClient.getQueryData<InfiniteData<Pagination<Event>>>(EVENT_LIST_KEY);
+				let fetechedEvent = undefined;
 
-	useEffect(() => {
-		if (id && id !== "new") {
-			const event: FormValues = {
-				"dateStart": "12/09/2021 00:00",
-				"dateEnd": "13/09/2021 00:00",
-				"eventName": "Teste",
-				"privateSlots": true,
-				"pilotBriefing": "",
-				"atcBriefing": "",
-				"description": "Teste22",
-				"banner": "",
-				"atcBooking": "",
-				"id": id
-			}
+				eventListQuery?.pages.forEach(page => {
+					page.data.forEach(event => {
+						if (event.id === id) {
+							fetechedEvent = event;
+						}
+					});
+				});
 
-			console.log(event)
-			setEvent(event)
-		}
-	}, [id])
+				return fetechedEvent;
+			},
+			initialDataUpdatedAt: () => queryClient.getQueryState(EVENT_LIST_KEY)?.dataUpdatedAt
+		});
 
-	return {
-		event,
-		isLoading: false,
-		isError: false
-	}
+	return eventData;
+
 }

@@ -2,6 +2,7 @@ import { AxiosInstance } from 'axios'
 import { User } from "types/User";
 import { Pagination } from "types/Pagination";
 import { Event } from "types/Event";
+import { Scenary } from 'types/Scenary';
 
 interface AuthResponse {
   jwt: string;
@@ -18,7 +19,7 @@ const fromObjectToQueryString = (obj: any) => {
   return searchParams.toString();
 };
 
-export class AuthApiClient {
+export class ApiClient {
   private axios: AxiosInstance;
   private _token: string = "";
 
@@ -49,6 +50,18 @@ export class AuthApiClient {
     const queryString = fromObjectToQueryString(data);
     return this.axios
       .get<Pagination<Event>>(`/event?${queryString}`)
+      .then(response => response.data);
+  }
+
+  async getEvent(id: number) {
+    return this.axios
+      .get<Event>(`/event/${id}`)
+      .then(response => response.data);
+  }
+
+  async getEventSceneries(eventId: number) {
+    return this.axios
+      .get<Scenary[]>(`/event/${eventId}/scenery`)
       .then(response => response.data);
   }
 

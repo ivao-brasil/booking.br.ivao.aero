@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
@@ -7,13 +9,13 @@ import { CookieConsentProvider } from 'context/CookieConsentContext';
 import { AuthProvider } from 'context/AuthContext';
 import { IocProvider } from 'context/IocContext';
 import { ThemeContextProvider } from 'context/ThemeContext';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { BrowserRouter } from 'react-router-dom';
+import { ONE_DAY } from 'appConstants';
 
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            useErrorBoundary: true
+            useErrorBoundary: true,
+            staleTime: ONE_DAY
         }
     }
 });

@@ -1,5 +1,5 @@
 import { FunctionComponent, lazy, Suspense, useContext } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "components/RequireAuth";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 import { SplashPage } from "pages/SplashPage";
@@ -11,6 +11,7 @@ const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPa
 const LoginPage = lazy(() => import("pages/LoginPage"));
 const EventsPage = lazy(() => import("pages/EventsPage"));
 const EventPage = lazy(() => import("pages/EventPage"));
+const FlightsPage = lazy(() => import("pages/FlightsPage"));
 
 export const AppRoutes: FunctionComponent = () => {
     const { cookieConsent } = useContext(CookieConsentContext);
@@ -28,9 +29,11 @@ export const AppRoutes: FunctionComponent = () => {
                             <Route path="/events" element={<EventsPage />} />
                             <Route path="/event/:eventId" element={<SidebarLayout />}>
                                 <Route index element={<EventPage />} />
+                                <Route path="flights" element={<FlightsPage />} />
                             </Route>
                         </Route>
-                        <Route path="*" element={<NotFoundPage />} />
+                        <Route path="/404" element={<NotFoundPage />} />
+                        <Route path="*" element={<Navigate to="/404" />} />
                     </>
                 )}
 

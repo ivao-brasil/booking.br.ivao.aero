@@ -1,15 +1,17 @@
 import { FunctionComponent, useState } from "react";
 import { EventSidebar } from "components/EventSidebar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useMatch } from "react-router-dom";
 import { Footer } from "components/Footer";
 
 export const SidebarLayout: FunctionComponent = () => {
-    const [sidebarVisible, setSidebarVisible] = useState(true);
+    const routeMatch = useMatch("/event/:eventId");
 
     return (
         <div className="flex flex-col md:flex-row">
-            <EventSidebar />
-            <div className="container flex flex-col min-h-screen pt-16">
+            <div className="md:flex-none">
+                <EventSidebar />
+            </div>
+            <div className={`flex flex-col min-h-screen pt-16 ${routeMatch !== null ? "container" : "w-full"}`}>
                 <main>
                     <Outlet />
                 </main>

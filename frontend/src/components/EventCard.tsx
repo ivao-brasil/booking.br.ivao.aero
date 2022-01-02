@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
+import { Subheader } from "./typography/Typography";
 
 interface EventCardProps {
     eventId: number;
@@ -33,7 +34,7 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ eventId, imageSrc
             <h2 className="mt-3 text-blue dark:text-white text-[2rem] font-bold">
                 <Link to={`/event/${eventId}`}>{eventName}</Link>
             </h2>
-            <span className="text-light-blue">{eventType}</span>
+            <Subheader>{eventType}</Subheader>
             <p className="mt-3 text-light-gray-2 dark:text-light-gray-3 max-h-32">{description.substring(0, MAX_DESC_LENGTH) + "..."}</p>
         </div>
     );

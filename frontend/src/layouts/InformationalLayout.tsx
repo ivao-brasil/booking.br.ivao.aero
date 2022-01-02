@@ -18,7 +18,7 @@ export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = 
             <div className={`${image ? "flex xl:items-center" : ""}`}>
                 <div className="w-full pt-20 self-start md:max-w-130">
                     <div className="flex flex-col items-center md:items-start">
-                        {(isValidElement(header) ? header : <Header textSize="text-xl md:text-2xl">{header}</Header>)}
+                        {(isValidElement(header) ? header : <Header textSize="text-2xl md:text-3xl">{header}</Header>)}
                         <div className="mt-8 lg:pr-1.5">
                             {(isValidElement(description) ? description : <MutedText>{description}</MutedText>)}
                         </div>
