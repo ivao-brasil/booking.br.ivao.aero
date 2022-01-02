@@ -10,9 +10,7 @@ export const NotFoundPage: FunctionComponent = () => {
       header='Seu voo para Magrathea não foi encontrado...'
       description='Acho que você chegou ao limite do universo. A página que você requisitou não foi encontrada.'
       image={<LottieFile src="https://assets1.lottiefiles.com/packages/lf20_zf9mqyhk.json" />}>
-      <div className="mx-auto md:mx-0 mt-12">
-        <LinkButton icon={<FiHome size={20} />} content='Voltar ao início' href='/' />
-      </div>
+      <LinkButton icon={<FiHome size={20} />} content='Voltar ao início' href='/' />
     </InformationalLayout>
   )
 };
