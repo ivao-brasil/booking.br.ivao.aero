@@ -9,7 +9,7 @@ import { SidebarLayout } from "layouts/SidebarLayout";
 
 const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
-const EventsPage = lazy(() => import("pages/EventsPage"));
+const EventsPage = lazy(() => import("pages/EventsPage/EventsPage"));
 const EventPage = lazy(() => import("pages/EventPage"));
 const FlightsPage = lazy(() => import("pages/FlightsPage"));
 

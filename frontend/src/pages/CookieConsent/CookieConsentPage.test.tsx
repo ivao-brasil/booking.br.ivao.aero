@@ -1,7 +1,6 @@
 import { CookieConsentProvider } from 'context/CookieConsentContext';
-import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom'
-import userEvent from '@testing-library/user-event'
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from 'routes/AppRoutes';
 
@@ -13,7 +12,7 @@ afterEach(() => {
     localStorage.clear();
 });
 
-test("It shows the splash page, when the user answers the prompt", () => {
+test("It shows the splash page, when the user answers the prompt", async () => {
     render(
         <CookieConsentProvider>
             <MemoryRouter initialEntries={["/"]}>
@@ -22,12 +21,14 @@ test("It shows the splash page, when the user answers the prompt", () => {
         </CookieConsentProvider>
     );
 
+    await waitFor(() => screen.getByText("Autorizar o uso"));
+
     userEvent.click(screen.getByText("Autorizar o uso"));
 
     expect(screen.getByText("Explorar itinerarios")).toBeInTheDocument();
 });
 
-test("It doesn't shows the prompt page, when the user has already answered", () => {
+test("It doesn't shows the prompt page, when the user has already answered", async () => {
     localStorage.setItem("cookieConsent", "ACCEPTED");
 
     render(
@@ -37,6 +38,8 @@ test("It doesn't shows the prompt page, when the user has already answered", () 
             </MemoryRouter>
         </CookieConsentProvider>
     );
+
+    await waitFor(() => screen.getByText("Explorar itinerarios"));
 
     expect(screen.getByText("Explorar itinerarios")).toBeInTheDocument();
 });

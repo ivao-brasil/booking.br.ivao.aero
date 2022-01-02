@@ -2,8 +2,9 @@ import { User } from './User';
 
 export interface Event {
   id: number;
-  dateStart: number;
-  dateEnd: number;
+  division: string;
+  dateStart: string;
+  dateEnd: string;
   eventName: string;
   privateSlots: number;
   pilotBriefing: string;
@@ -11,5 +12,7 @@ export interface Event {
   description: string;
   banner: string;
   atcBooking: string;
+  status: "created" | "scheduled" | "finished";
+  public: boolean;
   creator?: User;
 }
