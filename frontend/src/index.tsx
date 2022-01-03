@@ -1,21 +1,40 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ProvideRootContext } from "rootContext";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import { App } from './App';
+import reportWebVitals from './reportWebVitals';
+import { CookieConsentProvider } from 'context/CookieConsentContext';
+import { AuthProvider } from 'context/AuthContext';
+import { IocProvider } from 'context/IocContext';
+import { ThemeContextProvider } from 'context/ThemeContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { BrowserRouter } from 'react-router-dom';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            useErrorBoundary: true
+        }
+    }
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ProvideRootContext>
-        <div>Hello World</div>
-      </ProvideRootContext>
-    </QueryClientProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <React.StrictMode>
+        <IocProvider>
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <AuthProvider>
+                        <CookieConsentProvider>
+                            <ThemeContextProvider>
+                                <App />
+                            </ThemeContextProvider>
+                        </CookieConsentProvider>
+                    </AuthProvider>
+                </BrowserRouter>
+            </QueryClientProvider>
+        </IocProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

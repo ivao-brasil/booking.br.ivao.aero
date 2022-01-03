@@ -1,4 +1,5 @@
-export const ENV = {
-    API_HOST: process.env.NEXT_PUBLIC_API_HOST || 'https://bookingapi.br.ivao.aero',
-    API_KEY: process.env.API_KEY || 'wSLxyXOLqiq3Qaafm7duu1O7'
+export const Env = {
+    API_HOST: process.env.REACT_APP_API_HOST || 'https://booking.br.ivao.aero/api',
+    LOGO_LIGHT: process.env.REACT_APP_LOGO_LIGHT || 'https://assets.br.ivao.aero/logos/tag_blue.svg',
+    LOGO_DARK: process.env.REACT_APP_LOGO_DARK || 'https://assets.br.ivao.aero/logos/tag_white.svg'
 }
