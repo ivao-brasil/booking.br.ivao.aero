@@ -11,7 +11,7 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ProvideRootContext>
-        <div>Hello World</div>
+        <div>Hello, world!</div>
       </ProvideRootContext>
     </QueryClientProvider>
   </React.StrictMode>,
