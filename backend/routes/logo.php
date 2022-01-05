@@ -13,14 +13,18 @@
 |
 */
 
+use App\Http\Controllers\AirlineLogoController;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 $router->group(['prefix' => 'logo'], function() use($router) {
     $router->get('/{logo}', function($logo) {
         $path = Storage::path("logos/$logo");
         $type = 'image/png';
-        $headers = ['Content-Type' => $type];        
+        $headers = ['Content-Type' => $type];
         $response = new BinaryFileResponse($path, 200 , $headers);
         return $response;
     });
+
+    $router->get('/airline/{icao}/{format}', 'AirlineLogoController@get');
 });
