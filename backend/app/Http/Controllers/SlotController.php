@@ -200,14 +200,13 @@ class SlotController extends Controller
         $content = $file->getContent();
 
         $csv = new Csv();
-        $csv->encoding('UTF-16', 'UTF-8');
         $csv->auto($content);
 
         $slots = collect($csv->data)->map(function ($data) use ($eventId) {
             $data['eventId'] = $eventId;
             return $data;
         })->toArray();
-
+        
         Slot::insert($slots);
     }
 }

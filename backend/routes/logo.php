@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +13,18 @@
 |
 */
 
-use App\Http\Controllers\AirlineLogoController;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Lumen\Routing\Router;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-$router->group(['prefix' => 'logo'], function() use($router) {
-    $router->get('/{logo}', function($logo) {
+$router->group(['prefix' => 'logo'], function () use ($router) {
+    $router->get('/{logo}', function ($logo) {
         $path = Storage::path("logos/$logo");
         $type = 'image/png';
         $headers = ['Content-Type' => $type];
-        $response = new BinaryFileResponse($path, 200 , $headers);
+        $response = new BinaryFileResponse($path, 200, $headers);
         return $response;
     });
 
-    $router->get('/airline/{icao}/{format}', 'AirlineLogoController@get');
+    $router->get('/airline/{icao}', 'AirlineLogoController@get');
 });
