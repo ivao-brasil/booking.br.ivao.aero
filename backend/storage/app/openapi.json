@@ -31,6 +31,9 @@
         },
         {
             "name": "Scenery"
+        },
+        {
+            "name": "Logo"
         }
     ],
     "paths": {
@@ -283,6 +286,10 @@
                                     "atcBooking": {
                                         "type": "string",
                                         "description": "Link to event ATC Booking"
+                                    },
+                                    "airports": {
+                                        "type": "string",
+                                        "description": "List of airports on this event, separated by ',' (eg: SBKP,SBRF,SBEG)"
                                     }
                                 }
                             }
@@ -408,6 +415,10 @@
                                     "description": {
                                         "type": "string",
                                         "description": "Event description"
+                                    },
+                                    "airports": {
+                                        "type": "string",
+                                        "description": "List of airports on this event, separated by ',' (eg: SBKP,SBRF,SBEG)"
                                     }
                                 }
                             }
@@ -907,6 +918,34 @@
                     },
                     "403": {
                         "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+
+        "/logo/airline/{icao}": {
+            "get": {
+                "tags": [
+                    "Logo"
+                ],
+                "parameters": [
+                    {
+                        "name": "icao",
+                        "in": "path"
+                    }
+                ],
+                "summary": "Get the airline logo for a given airline ICAO code.",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Airline logo, on a fixed height and width PNG file"
+                    },
+                    "404": {
+                        "description": "Logo not found"
                     }
                 }
             }
