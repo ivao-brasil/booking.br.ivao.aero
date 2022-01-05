@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Faker\Provider\Image;
 use Illuminate\Support\Facades\Storage;
 
 class AirlineLogoController extends Controller
@@ -20,10 +19,10 @@ class AirlineLogoController extends Controller
     /**
      * Gets the airline logo
      */
-    public function get($icao, $format)
+    public function get($icao)
     {
-        $fileName = strtoupper($icao . "_" . $format);
-        return Storage::response('/logos/airlines/' . $fileName . '.png');
+        /*$fileName = strtoupper($icao . "_" . $format);*/
+        return Storage::response("/logos/airlines/$icao.gif");
     }
 
 }

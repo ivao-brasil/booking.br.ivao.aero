@@ -43,7 +43,7 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ event, onEdit, on
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader title={event.eventName} subheader={formatDate(new Date(event.dateStart))} />
-      <CardMedia component="img" image={event.banner} alt="Paella dish" />
+      <CardMedia component="img" image={event.banner} />
 
       <CardActions disableSpacing>
         {onEdit && (

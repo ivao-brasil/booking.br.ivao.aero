@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useSlots } from '../../../hooks/useSlots';
-import { Button, Chip, Grid, Tooltip } from '@mui/material';
-import { Delete, Edit, FlightLand, FlightTakeoff, People } from '@material-ui/icons';
+import { Button, Grid, Tooltip } from '@mui/material';
+import { Delete, Edit, FlightLand, FlightTakeoff, People, Public } from '@material-ui/icons';
 import { useMutation, useQueryClient } from 'react-query';
 import { Slot } from '../../../types/Slot';
 import { FunctionComponent, useContext, useState } from 'react';
@@ -10,6 +10,8 @@ import { AuthContext } from '../../../context/AuthContext';
 import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
 import { Confirm } from '../../../components/Confirm';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Env } from '../../../env';
+import { PrivacyTip } from '@mui/icons-material';
 
 interface SlotListProp {
   onEdit: (slot: Slot) => void;
@@ -50,6 +52,14 @@ export const SlotList: FunctionComponent<SlotListProp> = ({ onEdit }) => {
       width: 70,
     },
     {
+      width: 120,
+      field: 'company',
+      headerName: 'Airline',
+      editable: false,
+      renderCell: data => <img src={`${Env.API_HOST}/logo/airline/${data.row.flightNumber.substring(0, 3)}`} />,
+      filterable: true,
+    },
+    {
       width: 80,
       field: 'flightNumber',
       headerName: 'Callsign',
@@ -59,40 +69,41 @@ export const SlotList: FunctionComponent<SlotListProp> = ({ onEdit }) => {
     },
     {
       field: 'origin',
-      headerName: 'Origin',
+      headerName: 'DEP',
       editable: false,
       width: 70,
       filterable: true,
     },
     {
       field: 'destination',
-      headerName: 'Destination',
+      headerName: 'ARR',
       editable: false,
-      width: 100,
+      width: 70,
       filterable: true,
     },
     {
       field: 'type',
-      headerName: 'Operation',
+      headerName: 'OPR',
       editable: false,
       filterable: false,
       renderCell: data => (
-        <Chip
-          label={data.row.type.toUpperCase()}
-          color={data.row.type === 'takeoff' ? 'info' : 'success'}
-          deleteIcon={data.row.type === 'takeoff' ? <FlightTakeoff /> : <FlightLand />}
-          onDelete={() => {}}
-        />
+        <Tooltip title={`Type of operation: ${data.row.type === 'takeoff' ? 'Takeoff' : 'Landing'}`}>
+          {data.row.type === 'takeoff' ? <FlightTakeoff fontSize="large" color="action" /> : <FlightLand fontSize="large" color="action" />}
+        </Tooltip>
       ),
-      width: 120,
+      width: 60,
     },
     {
-      width: 120,
+      width: 60,
       field: 'private',
       headerName: 'Type',
       editable: false,
       filterable: false,
-      renderCell: data => <Chip label={data.row.private ? 'PRIVATE' : 'REGULAR'} color={data.row.private ? 'error' : 'primary'} />,
+      renderCell: data => (
+        <Tooltip title={`Type of slot: ${data.row.private ? 'Private' : 'Regular'}`}>
+          {data.row.private ? <PrivacyTip fontSize="large" color="primary" /> : <Public fontSize="large" color="primary" />}
+        </Tooltip>
+      ),
     },
     {
       width: 100,
