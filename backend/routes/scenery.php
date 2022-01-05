@@ -15,11 +15,22 @@
 
 use Illuminate\Support\Facades\Auth;
 
+/*
 $router->group(['middleware' => 'auth', 'prefix' => '/event/{eventId}/scenery'], function() use($router) {
     $router->post('/', 'SceneryController@create');
     $router->get('/', 'SceneryController@get');
 });
 
 $router->group(['middleware' => 'auth', 'prefix' => 'scenery'], function() use($router) {
+    $router->delete('/{sceneryId}', 'SceneryController@delete');
+});
+*/
+
+$router->group(['prefix' => '/event/{eventId}/scenery'], function() use($router) {
+    $router->get('/', 'SceneryController@get');
+});
+
+$router->group(['prefix' => 'scenery'], function() use($router) {
+    $router->post('/', 'SceneryController@create');
     $router->delete('/{sceneryId}', 'SceneryController@delete');
 });

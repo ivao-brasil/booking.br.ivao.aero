@@ -46,4 +46,9 @@ class Event extends Model
     {
         return EventFactory::new();
     }
+
+    public function airports()
+    {
+        return $this->hasMany(EventAirport::class, 'eventId', 'id');
+    }
 }

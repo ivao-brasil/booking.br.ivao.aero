@@ -2,38 +2,35 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Events\Event as EventsEvent;
 use App\Models\Event;
 use App\Models\Scenery;
 use Illuminate\Http\Request;
 
 class SceneryController extends Controller
 {
-    public function create(Request $request, String $eventId)
+    public function create(Request $request)
     {
         $this->validate($request, [
             'title' => 'required|string|max:255',
             'license' => 'required|string',
             'link' => 'required|string',
-            'simulator' => 'required|string'
+            'simulator' => 'required|string',
+            'icao'      =>  'required|string',
         ]);
 
         $this->authorize('create', Scenery::class);
 
-        $event = Event::find($eventId);
-
-        if (!$event) {
-            abort(404, 'Event not founded');
-        }
-
         $scenery = new Scenery($request->all());
-
-        $event->sceneries()->save($scenery);
+        $scenery->save();
     }
 
     public function get(String $eventId)
     {
-        return Scenery::where('eventId', $eventId)->get();
+        $airports = Event::where('id', $eventId)->first()->airports;
+        $airports->each (function($item) { $item->sceneries; });
+
+        return $airports;
     }
 
     public function delete(String $sceneryId)
