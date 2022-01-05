@@ -1,6 +1,6 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+/** @var Router $router */
 
 /*
 |--------------------------------------------------------------------------
@@ -13,17 +13,21 @@
 |
 */
 
-use Illuminate\Support\Facades\Auth;
+use Laravel\Lumen\Routing\Router;
 
-$router->group(['middleware' => 'auth', 'prefix' => '/event/{eventId}/slot'], function() use($router) {
+$router->group(['middleware' => 'auth', 'prefix' => '/event/{eventId}/slot'], function () use ($router) {
     $router->post('/', 'SlotController@create');
     $router->get('/', 'SlotController@list');
     $router->post('/many', 'SlotController@createMany');
 });
 
-$router->group(['middleware' => 'auth', 'prefix' => '/slot'], function () use($router) {
-   $router->delete('/{slotId}', 'SlotController@delete');
-   $router->put('/{slotId}', 'SlotController@update');
-   $router->patch('/{slotId}/{action}', 'SlotController@book');
-   $router->get('/me', 'SlotController@getMySlots');
+$router->group(['middleware' => 'auth', 'prefix' => '/slot'], function () use ($router) {
+    $router->delete('/{slotId}', 'SlotController@delete');
+    $router->put('/{slotId}', 'SlotController@update');
+    $router->patch('/{slotId}/{action}', 'SlotController@book');
+    $router->get('/me', 'SlotController@getMySlots');
+});
+
+$router->group(['prefix' => '/slot'], function () use ($router) {
+    $router->get('/many', 'SlotController@getTemplate');
 });
