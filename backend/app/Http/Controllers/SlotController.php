@@ -8,11 +8,16 @@ use App\Services\PaginationService;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use ParseCsv\Csv;
+use Response;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class SlotController extends Controller
 {
 
     private $paginationService;
+
 
     public function __construct(PaginationService $paginationService)
     {
@@ -138,7 +143,6 @@ class SlotController extends Controller
             $slot->origin = null;
             $slot->destination = null;
             $slot->aircraft = null;
-
         } else {
             $this->validate($request, [
                 'type' => 'required|string',
@@ -165,20 +169,45 @@ class SlotController extends Controller
                 ::with('owner')
                 ->where('eventId', $eventId)
                 ->paginate($perPage > 25 ? 25 : $perPage)
-        /*->map(function ($slot) {
-            $slot->private = $slot->private === 1;
-            return $slot;
-        })*/
         );
     }
 
-    public function getMySlots()
+    public function getMySlots(Request $request)
     {
         $user = Auth::user();
 
-        return Slot
+        $perPage = (int)$request->query('perPage', 5,);
+
+        return $this->paginationService->transform(Slot
             ::with('event')
             ->where('pilotId', $user->id)
-            ->get();
+            ->paginate($perPage > 25 ? 25 : $perPage));
+    }
+
+    public function getTemplate()
+    {
+        return Storage::download('template.csv');
+    }
+
+    public function createMany(string $eventId, Request $request)
+    {
+        $file = $request->file('file');
+
+        if ($file->getSize() >= 1024 * 1024) {
+            throw new UnprocessableEntityHttpException();
+        }
+
+        $content = $file->getContent();
+
+        $csv = new Csv();
+        $csv->encoding('UTF-16', 'UTF-8');
+        $csv->auto($content);
+
+        $slots = collect($csv->data)->map(function ($data) use ($eventId) {
+            $data['eventId'] = $eventId;
+            return $data;
+        })->toArray();
+
+        Slot::insert($slots);
     }
 }

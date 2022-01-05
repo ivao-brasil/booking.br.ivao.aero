@@ -894,10 +894,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Slot"
-                                    }
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Slot"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -907,6 +919,27 @@
                     },
                     "403": {
                         "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+        "/slot/many": {
+            "get": {
+                "tags": [
+                    "Slot"
+                ],
+                "summary": "Get CSV template for many creation",
+                "responses": {
+                    "200": {
+                        "description": "Slot result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "csv"
+                                }
+                            }
+                        }
                     }
                 }
             }
