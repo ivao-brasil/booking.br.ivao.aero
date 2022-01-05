@@ -1,19 +1,38 @@
+import { AuthProvider } from "context/AuthContext";
+import { CookieConsentProvider } from "context/CookieConsentContext";
+import { IocProvider } from "context/IocContext";
+import { ThemeContextProvider } from "context/ThemeContext";
 import React from "react";
 import ReactDOM from "react-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ProvideRootContext } from "rootContext";
+import { BrowserRouter } from "react-router-dom";
+import { App } from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      useErrorBoundary: true,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ProvideRootContext>
-        <div>Hello, world!</div>
-      </ProvideRootContext>
-    </QueryClientProvider>
+    <IocProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AuthProvider>
+            <CookieConsentProvider>
+              <ThemeContextProvider>
+                <App />
+              </ThemeContextProvider>
+            </CookieConsentProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </IocProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
