@@ -1,17 +1,17 @@
-import { useParams } from 'react-router-dom';
-import { useSlots } from '../../../hooks/useSlots';
-import { Button, Grid, Tooltip } from '@mui/material';
 import { Delete, Edit, FlightLand, FlightTakeoff, People, Public } from '@material-ui/icons';
-import { useMutation, useQueryClient } from 'react-query';
-import { Slot } from '../../../types/Slot';
-import { FunctionComponent, useContext, useState } from 'react';
-import { IocContext } from '../../../context/IocContext';
-import { AuthContext } from '../../../context/AuthContext';
-import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
-import { Confirm } from '../../../components/Confirm';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Env } from '../../../env';
 import { PrivacyTip } from '@mui/icons-material';
+import { Button, Grid, Tooltip } from '@mui/material';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { FunctionComponent, useContext, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { useParams } from 'react-router-dom';
+import { Confirm } from '../../../components/Confirm';
+import { AuthContext } from '../../../context/AuthContext';
+import { IocContext } from '../../../context/IocContext';
+import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
+import { Env } from '../../../env';
+import { useSlots } from '../../../hooks/useSlots';
+import { Slot } from '../../../types/Slot';
 
 interface SlotListProp {
   onEdit: (slot: Slot) => void;
@@ -56,7 +56,7 @@ export const SlotList: FunctionComponent<SlotListProp> = ({ onEdit }) => {
       field: 'company',
       headerName: 'Airline',
       editable: false,
-      renderCell: data => <img src={`${Env.API_HOST}/logo/airline/${data.row.flightNumber.substring(0, 3)}`} />,
+      renderCell: data => <img alt="airline logo" src={`${Env.API_HOST}/logo/airline/${data.row.flightNumber.substring(0, 3)}`} />,
       filterable: true,
     },
     {

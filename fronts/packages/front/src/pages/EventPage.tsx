@@ -11,7 +11,7 @@ import { LinkButton } from "components/button/Button";
 export default function EventsPage() {
     const { eventId } = useParams();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
-    const { data: scenaries, isLoading: isLoadingScenaries } = useEventSceneries(Number(eventId));
+    const { data: scenaries } = useEventSceneries(Number(eventId));
     const navigate = useNavigate();
 
     const startDate = useMemo(() => {
