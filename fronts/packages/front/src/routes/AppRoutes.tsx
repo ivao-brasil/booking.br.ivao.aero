@@ -1,30 +1,43 @@
-import { FunctionComponent, useContext } from "react";
-import { Route, Routes } from "react-router-dom";
+import { FunctionComponent, lazy, Suspense, useContext } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "components/RequireAuth";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 import { SplashPage } from "pages/SplashPage";
-import { LoginPage } from "pages/LoginPage";
 import { NotFoundPage } from "pages/NotFoundPage";
-import { CookieConsentPage } from "pages/CookieConsent/CookieConsentPage";
+import { LoadingIndicator } from "components/LoadingIndicator";
+import { SidebarLayout } from "layouts/SidebarLayout";
+
+const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));
+const LoginPage = lazy(() => import("pages/LoginPage"));
+const EventsPage = lazy(() => import("pages/EventsPage/EventsPage"));
+const EventPage = lazy(() => import("pages/EventPage"));
+const FlightsPage = lazy(() => import("pages/FlightsPage"));
 
 export const AppRoutes: FunctionComponent = () => {
     const { cookieConsent } = useContext(CookieConsentContext);
-    if (cookieConsent === ConsentAnwsers.UNKNOW) {
-        return (
-            <Routes>
-                <Route path="*" element={<CookieConsentPage />} />
-            </Routes>
-        );
-    }
 
     return (
-        <Routes>
-            <Route path="/" element={<SplashPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="/events" element={<RequireAuth />}>
-                <Route index element={<p>Events</p>} />
-            </Route>
-            <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <Suspense fallback={<LoadingIndicator />}>
+            <Routes>
+                {cookieConsent === ConsentAnwsers.UNKNOW ? (
+                    <Route path="*" element={<CookieConsentPage />} />
+                ) : (
+                    <>
+                        <Route path="/" element={<SplashPage />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route element={<RequireAuth />}>
+                            <Route path="/events" element={<EventsPage />} />
+                            <Route path="/event/:eventId" element={<SidebarLayout />}>
+                                <Route index element={<EventPage />} />
+                                <Route path="flights" element={<FlightsPage />} />
+                            </Route>
+                        </Route>
+                        <Route path="/404" element={<NotFoundPage />} />
+                        <Route path="*" element={<Navigate to="/404" />} />
+                    </>
+                )}
+
+            </Routes>
+        </Suspense>
     );
 };

@@ -1,4 +1,5 @@
-import { FunctionComponent, MouseEventHandler, ReactNode } from "react";
+import { FunctionComponent, isValidElement, MouseEventHandler, ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface ActionButtonProps {
 	backgroundFilled?: boolean;
@@ -8,21 +9,22 @@ interface ActionButtonProps {
 }
 
 export const ActionButton: FunctionComponent<ActionButtonProps> = ({ content, icon, backgroundFilled = true, onClick }) => {
-	const background = backgroundFilled ? "bg-green" : ""
+	const background = backgroundFilled ? "bg-green" : "";
 	return (
-		<button className={`block ${background} rounded-md h-14`} onClick={onClick}>
-			{icon && (<ButtonIcon>{icon}</ButtonIcon>)}
-            <ButtonText muted={!backgroundFilled}>{content}</ButtonText>
+		<button className={`block ${background} rounded-md`} onClick={onClick}>
+			<div className="flex items-center">
+				{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
+				{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
+			</div>
 		</button>
 	);
 };
 
 interface ButtonTextProps {
-	muted?: boolean;
+	textColor?: string;
 }
 
-export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, muted = false }) => {
-	const textColor = muted ? "text-gray dark:text-white" : "text-white"
+export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, textColor = "text-light-gray-2 dark:text-white" }) => {
 	return (
 		<span className={`block px-8 py-2.5 leading-[37px] text-center font-action font-semibold ${textColor} truncate`}>
 			{children}
@@ -30,25 +32,45 @@ export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, muted
 	)
 };
 
-export const ButtonIcon: FunctionComponent = ({ children }) => (
-	<div className="inline-block float-left relative w-14 h-full p-5 bg-light-green rounded-tl-md rounded-bl-md text-white">
-		<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+interface ButtonIconProps {
+	backgroundFilled?: boolean;
+}
+
+export const ButtonIcon: FunctionComponent<ButtonIconProps> = ({ backgroundFilled = true, children }) => {
+	const background = backgroundFilled ? "bg-light-green w-14 p-5" : "";
+	return (
+		<div className={`relative ${background} rounded-tl-md rounded-bl-md text-white`}>
 			{children}
 		</div>
-	</div>
-);
+	);
+};
 
 interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
 	href: string;
 }
 
 export const LinkButton: FunctionComponent<LinkButtonProps> = ({ content, icon, href, backgroundFilled = true }) => {
-	const background = backgroundFilled ? "bg-green" : ""
+	const background = backgroundFilled ? "bg-green" : "";
+	const isExternalLink = href.indexOf("://") !== -1;
+	const buttonContent = (
+		<div className="flex items-center">
+			{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
+			{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
+		</div>
+	);
+
+	if (isExternalLink) {
+		return (
+			<a className={`block ${background} rounded-md`} href={href} target="_blank" rel="noreferrer">
+				{buttonContent}
+			</a>
+		);
+	}
+
 	return (
-		<a className={`block ${background} rounded-md h-14`} href={href}>
-			{icon && (<ButtonIcon>{icon}</ButtonIcon>)}
-            <ButtonText muted={!backgroundFilled}>{content}</ButtonText>
-		</a>
+		<Link className={`block ${background} rounded-md`} to={href}>
+			{buttonContent}
+		</Link>
 	);
 };
 

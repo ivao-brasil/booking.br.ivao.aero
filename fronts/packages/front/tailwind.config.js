@@ -13,29 +13,41 @@ module.exports = {
       },
       maxWidth: {
         '130': '34rem',
+      },
+      boxShadow: {
+        '3xl': '0px 0px 60px rgba(0, 0, 0, 0.05)',
       }
     },
     fontFamily: {
       'header': ['Nunito Sans'],
-      'normal': ['Roboto'],
+      'text': ['Roboto'],
       'action': ['Poppins']
     },
     colors: {
       'green': '#2EC662',
       'light-green': '#39E574',
       'gray': '#A9A9A9',
-      'dark-gray': '#B6B6B6',
-      'light-gray': '#CCCCCC',
+      'dark-gray-3': '#747474',
+      'dark-gray-2': '#1F1F1F',
+      'dark-gray-1': '#B6B6B6',
+      'light-gray-1': '#CCCCCC',
+      'light-gray-2': '#464646',
+      'light-gray-3': '#BCBCBC',
+      'light-gray-4': '#F8F8F8',
+      'light-gray-5': '#D7D7DC',
       'white': '#ffffff',
       'black': '#282828',
+      'light-blue': '#7EA2D6',
       'blue': '#0D2C99',
+      'yellow': '#F9CC2C'
     },
     fontSize: {
       "sm": ['0.63rem', '150%'],
       "md": ['1rem', '150%'],
       "lg": ['1.5rem', '152%'],
-      "xl": ['3rem', '120%'],
-      "2xl": ['3.5rem', '127%']
+      "xl": ['2.2rem', '100%'],
+      "2xl": ['3rem', '120%'],
+      "3xl": ['3.5rem', '127%']
     },
     container: {
       center: true,
@@ -48,8 +60,7 @@ module.exports = {
       padding: {
         DEFAULT: '20px',
         sm: '3rem',
-        lg: '4rem',
-        xl: '0'
+        lg: '2rem'
       },
     }
   },

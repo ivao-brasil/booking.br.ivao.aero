@@ -1,12 +1,12 @@
-import { Slot, SlotType } from '../../../types/Slot';
+import { Button, Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { FunctionComponent, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { IocContext } from '../../../context/IocContext';
-import { AuthContext } from '../../../context/AuthContext';
-import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
 import { useMutation, useQueryClient } from 'react-query';
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { Button, Checkbox, FormControlLabel, FormGroup } from '@material-ui/core';
+import { AuthContext } from '../../../context/AuthContext';
+import { IocContext } from '../../../context/IocContext';
+import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
+import { Slot, SlotType } from '../../../types/Slot';
 
 interface ISlotForm {
   type: SlotType;
@@ -87,12 +87,12 @@ export const SlotForm: FunctionComponent<ISlotFormProps> = ({ defaultState, even
             <MenuItem value={SlotType.LANDING}>Arrival</MenuItem>
           </Select>
         </FormControl>
-        <TextField label="Callsign" {...register('flightNumber', { maxLength: '7' })} />
-        <TextField label="Origin" {...register('origin', { maxLength: '4' })} />
-        <TextField label="Destination" {...register('destination', { maxLength: '4' })} />
-        <TextField label="Slot Time" {...register('slotTime', { required: true, maxLength: '4' })} />
-        <TextField label="Gate" {...register('gate', { required: true, maxLength: '10' })} />
-        <TextField label="Aircraft" {...register('aircraft', { maxLength: '4' })} />
+        <TextField label="Callsign" {...register('flightNumber', { maxLength: 7 })} />
+        <TextField label="Origin" {...register('origin', { maxLength: 4 })} />
+        <TextField label="Destination" {...register('destination', { maxLength: 4 })} />
+        <TextField label="Slot Time" {...register('slotTime', { required: true, maxLength: 4 })} />
+        <TextField label="Gate" {...register('gate', { required: true, maxLength: 10 })} />
+        <TextField label="Aircraft" {...register('aircraft', { maxLength: 4 })} />
         <FormGroup>
           <FormControlLabel control={<Checkbox {...register('private')} checked={slotPrivate} />} label="Private" />
         </FormGroup>

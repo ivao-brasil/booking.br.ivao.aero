@@ -1,8 +1,8 @@
-import { FunctionComponent, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-export const LoginPage: FunctionComponent = () => {
+export default function LoginPage() {
     const [urlParams] = useSearchParams();
     const ivaoToken = urlParams.get("IVAOTOKEN");
 
@@ -55,4 +55,4 @@ export const LoginPage: FunctionComponent = () => {
     }, [ivaoToken, urlParams, signIn, token, location.state]);
 
     return <></>;
-};
+}

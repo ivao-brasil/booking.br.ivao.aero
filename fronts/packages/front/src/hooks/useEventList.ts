@@ -1,30 +1,25 @@
-import { useMemo } from 'react'
+import { useContext } from 'react';
+import { AxiosError } from 'axios';
+import { useInfiniteQuery } from 'react-query';
+import { ONE_DAY } from "appConstants";
+import { IocContext } from 'context/IocContext';
+import { Event } from "types/Event";
+import { Pagination } from 'types/Pagination';
 
-export function useEventList(memberId ?: number) {
-	const events = useMemo(() => [
-		{
-			"id": 1,
-			"division": "BR",
-			"dateStart": "12/09/2021 00:00",
-			"dateEnd": "13/09/2021 00:00",
-			"eventName": "Teste",
-			"privateSlots": true,
-			"status": "created"
+export const useEvents = (page = 1, perPage = 6) => {
+	const { apiClient } = useContext(IocContext);
+
+	const eventList = useInfiniteQuery<Pagination<Event>, AxiosError>('events', async ({ pageParam = page, }) => {
+		return await apiClient.getEvents({ page: pageParam, perPage });
+	}, {
+		staleTime: ONE_DAY,
+		getNextPageParam: (lastPage, _) => {
+			return (lastPage.page * lastPage.perPage) >= lastPage.total ? undefined : lastPage.page + 1;
 		},
-		{
-			"id": 2,
-			"division": "BR",
-			"dateStart": "12/09/2021 00:00",
-			"dateEnd": "13/09/2021 00:00",
-			"eventName": "ABC",
-			"privateSlots": true,
-			"status": "scheduled"
+		getPreviousPageParam: (firstPage, _) => {
+			return firstPage.page === 0 ? undefined : firstPage.page - 1;
 		}
-	], [])
+	});
 
-	return {
-		events,
-		isLoading: false,
-		isError: false
-	}
-}
+	return eventList;
+};

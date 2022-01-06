@@ -32,7 +32,7 @@ export const AuthContext = createContext<IAuthContext>({
 });
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
-  const { authClient } = useContext(IocContext);
+  const { apiClient: authClient } = useContext(IocContext);
   const location = useLocation();
   const navigate = useNavigate();
   const [token, setToken] = useState<string>(localStorage.getItem("token") || "");
