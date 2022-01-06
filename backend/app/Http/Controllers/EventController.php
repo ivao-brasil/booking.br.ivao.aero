@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventAirport;
 use App\Services\PaginationService;
 use DateTime;
 use Illuminate\Http\Request;
@@ -31,7 +32,8 @@ class EventController extends Controller
             'eventName' => 'required|string|max:255',
             'pilotBriefing' => 'required|url',
             'privateSlots' => 'boolean',
-            'publicAccess' => 'boolean'
+            'publicAccess' => 'boolean',
+            'airports'      =>  'required|string',
         ]);
 
         $user = Auth::user();
@@ -45,28 +47,33 @@ class EventController extends Controller
         $event = new Event();
 
         $event->fill([
-            'division' => $user->division,
-            'dateStart' => $dateStart->format("Y-m-d H:i:s"),
-            'dateEnd' => $dateEnd->format("Y-m-d H:i:s"),
-            'eventName' => $request->input('eventName'),
-            'privateSlots' => $request->input('privateSlots'),
-            'status' => 'created',
-            'createdBy' => $user->id,
+            'division'      => $user->division,
+            'dateStart'     => $dateStart->format("Y-m-d H:i:s"),
+            'dateEnd'       => $dateEnd->format("Y-m-d H:i:s"),
+            'eventName'     => $request->input('eventName'),
+            'privateSlots'  => $request->input('privateSlots'),
+            'status'        => 'created',
+            'createdBy'     => $user->id,
             'pilotBriefing' => $request->input('pilotBriefing'),
-            'atcBriefing' => $request->input('atcBriefing'),
-            'description' => $request->input('description'),
-            'atcBooking' => $request->input('atcBooking'),
-            'banner' => $request->input('banner')
+            'atcBriefing'   => $request->input('atcBriefing'),
+            'description'   => $request->input('description'),
+            'atcBooking'    => $request->input('atcBooking'),
+            'banner'        => $request->input('banner')
         ]);
 
         $event->save();
+        $event->refresh();
+
+        self::setAirports($event->id, $request->input('airports'));
 
         return response(null, 201);
     }
 
     public function get(Request $request)
     {
-        $events = Event::where('id', '>=', 1);
+
+        $events = Event::where('id', '>=', 1)->with('airports.sceneries');  //Specifies that we want to bring the airports, as well as the sceneries
+
 
         $perPage = (int)$request->query('perPage', 5,);
 
@@ -123,6 +130,8 @@ class EventController extends Controller
             'atcBooking' => $request->input('atcBooking')
         ]);
 
+        self::setAirports($event->id, $request->input('airports'));
+
         $event->save();
     }
 
@@ -131,11 +140,28 @@ class EventController extends Controller
         $event = Event::find($id);
 
         if (!$event) {
-            abort(404, 'Event not founded');
+            abort(404, 'Event not found');
         }
 
         $this->authorize('delete', $event);
 
         Event::where('id', $id)->delete();
+    }
+
+    /**
+     * MINIMUM VIABLE PRODUCT
+     *
+     * TODO: IMPROVE THIS THING TO AVOID UNECESSARY CALLS TO THE DATABASE
+     */
+    private static function setAirports($eventId, $airportList)
+    {
+        foreach (explode(',', $airportList) as $icao) {
+            $airport = new EventAirport;
+
+            $airport->eventId   = $eventId;
+            $airport->icao      = $icao;
+
+            $airport->save();
+        }
     }
 }
