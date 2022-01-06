@@ -60,8 +60,8 @@ services:
       - WDS_SOCKET_PATH=/admin/sockjs-node
     working_dir: /app
     volumes:
-      - ./admin:/app
-    command: sh -c "yarn && yarn start"
+      - ./fronts:/app
+    command: sh -c "yarn && yarn start:admin"
     depends_on:
       - api
     networks:
@@ -71,8 +71,8 @@ services:
     image: node:14
     working_dir: /app
     volumes:
-      - ./frontend:/app
-    command: sh -c "yarn && yarn start"
+      - ./fronts:/app
+    command: sh -c "yarn && yarn start:front"
     depends_on:
       - api
     networks:
@@ -81,7 +81,7 @@ services:
     container_name: booking-nginx
     image: nginx
     volumes:
-      - ./conf:/etc/nginx/conf.d
+      - ./docker/nginx:/etc/nginx/conf.d
     ports:
       - 80:80
       - 3000:3000

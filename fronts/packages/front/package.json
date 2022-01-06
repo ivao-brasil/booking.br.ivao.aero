@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "front",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +26,7 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.3.2",
     "autoprefixer": "^10.4.0",
+    "common": "*",
     "jest-canvas-mock": "^2.3.1",
     "postcss": "^8.4.5",
     "tailwindcss": "^3.0.6",
