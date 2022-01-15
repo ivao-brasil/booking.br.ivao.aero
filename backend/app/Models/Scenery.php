@@ -10,7 +10,8 @@ class Scenery extends Model
         'title',
         'license',
         'simulator',
-        'link'
+        'link',
+        'icao'
     ];
 
     protected $hidden = [

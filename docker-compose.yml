@@ -38,6 +38,8 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
   phpmyadmin:
     container_name: booking-phpmyadmin
     image: phpmyadmin
@@ -60,8 +62,8 @@ services:
       - WDS_SOCKET_PATH=/admin/sockjs-node
     working_dir: /app
     volumes:
-      - ./admin:/app
-    command: sh -c "yarn && yarn start"
+      - ./fronts:/app
+    command: sh -c "yarn && yarn start:admin"
     depends_on:
       - api
     networks:
@@ -69,10 +71,15 @@ services:
   front:
     container_name: booking-front
     image: node:14
+    environment:
+      - REACT_APP_API_HOST=http://dev.ivao.aero/api
+      - REACT_APP_DEV=true
+      - REACT_APP_LOGO_URL=https://assets.br.ivao.aero/logos/tag_white.png
+      - WDS_SOCKET_PATH=/admin/sockjs-node
     working_dir: /app
     volumes:
-      - ./frontend:/app
-    command: sh -c "yarn && yarn start"
+      - ./fronts:/app
+    command: sh -c "yarn && yarn start:front"
     depends_on:
       - api
     networks:
@@ -81,7 +88,7 @@ services:
     container_name: booking-nginx
     image: nginx
     volumes:
-      - ./conf:/etc/nginx/conf.d
+      - ./docker/nginx:/etc/nginx/conf.d
     ports:
       - 80:80
       - 3000:3000

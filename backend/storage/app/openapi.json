@@ -31,6 +31,9 @@
         },
         {
             "name": "Scenery"
+        },
+        {
+            "name": "Logo"
         }
     ],
     "paths": {
@@ -283,6 +286,10 @@
                                     "atcBooking": {
                                         "type": "string",
                                         "description": "Link to event ATC Booking"
+                                    },
+                                    "airports": {
+                                        "type": "string",
+                                        "description": "List of airports on this event, separated by ',' (eg: SBKP,SBRF,SBEG)"
                                     }
                                 }
                             }
@@ -408,6 +415,10 @@
                                     "description": {
                                         "type": "string",
                                         "description": "Event description"
+                                    },
+                                    "airports": {
+                                        "type": "string",
+                                        "description": "List of airports on this event, separated by ',' (eg: SBKP,SBRF,SBEG)"
                                     }
                                 }
                             }
@@ -894,10 +905,22 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Slot"
-                                    }
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Slot"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
                                 }
                             }
                         }
@@ -907,6 +930,56 @@
                     },
                     "403": {
                         "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+
+        "/logo/airline/{icao}": {
+            "get": {
+                "tags": [
+                    "Logo"
+                ],
+                "parameters": [
+                    {
+                        "name": "icao",
+                        "in": "path"
+                    }
+                ],
+                "summary": "Get the airline logo for a given airline ICAO code.",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Airline logo, on a fixed height and width PNG file"
+                    },
+                    "404": {
+                        "description": "Logo not found"
+                    }
+                }
+            }
+        },
+
+        "/slot/many": {
+            "get": {
+                "tags": [
+                    "Slot"
+                ],
+                "summary": "Get CSV template for many creation",
+                "responses": {
+                    "200": {
+                        "description": "Slot result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "csv"
+                                }
+                            }
+                        }
                     }
                 }
             }
