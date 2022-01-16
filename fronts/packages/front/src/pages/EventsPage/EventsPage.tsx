@@ -24,7 +24,7 @@ export default function EventsPage() {
     return (
         <EventListLayout>
             <p className="font-header text-light-gray-2 dark:text-white text-center md:text-left"><b>{totalFound} eventos</b> encontrados</p>
-            <div className="mt-8 flex flex-col md:flex-row gap-7 justify-between items-center md:items-start flex-wrap">
+            <div className="mt-8 flex flex-col md:flex-row gap-12 xl:gap-24 items-center md:items-start flex-wrap">
                 {data?.pages.map(eventPage => (
                     <Fragment key={eventPage.page}>
                         {eventPage.data.map((event) => {

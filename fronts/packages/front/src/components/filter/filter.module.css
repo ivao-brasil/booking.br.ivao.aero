@@ -95,7 +95,7 @@
 
 .filter main > div:nth-child(3) > span {
   font-family: var(--poppins);
-  font-size: 14px;
+  font-size: 8px;
   line-height: 15px;
   display: flex;
   align-items: center;

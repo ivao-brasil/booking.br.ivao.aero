@@ -11,7 +11,7 @@ const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPa
 const LoginPage = lazy(() => import("pages/LoginPage"));
 const EventsPage = lazy(() => import("pages/EventsPage/EventsPage"));
 const EventPage = lazy(() => import("pages/EventPage"));
-const FlightsPage = lazy(() => import("pages/FlightsPage"));
+const SlotsPage = lazy(() => import("pages/SlotsPage"));
 
 export const AppRoutes: FunctionComponent = () => {
     const { cookieConsent } = useContext(CookieConsentContext);
@@ -29,7 +29,7 @@ export const AppRoutes: FunctionComponent = () => {
                             <Route path="/events" element={<EventsPage />} />
                             <Route path="/event/:eventId" element={<SidebarLayout />}>
                                 <Route index element={<EventPage />} />
-                                <Route path="flights" element={<FlightsPage />} />
+                                <Route path="slots" element={<SlotsPage />} />
                             </Route>
                         </Route>
                         <Route path="/404" element={<NotFoundPage />} />

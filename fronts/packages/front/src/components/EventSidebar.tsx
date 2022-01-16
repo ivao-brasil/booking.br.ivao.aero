@@ -1,6 +1,6 @@
 import { ThemeContext, ThemeVariants } from "context/ThemeContext";
 import { FunctionComponent, MouseEventHandler, useContext } from "react";
-import { FiClipboard, FiCompass, FiGlobe, FiInfo, FiLogOut, FiMoon } from "react-icons/fi";
+import { FiClipboard, FiCompass, FiGlobe, FiInfo, FiLogOut, FiSun } from "react-icons/fi";
 import { NavLink, useParams } from "react-router-dom";
 import { Logo } from "./Logo";
 
@@ -73,7 +73,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     indexLink />
 
                 <SidebarLink
-                    href={`/event/${eventId}/flights`}
+                    href={`/event/${eventId}/slots`}
                     icon={<FiCompass size={ICON_SIZE} />}
                     title="Voos" />
 
@@ -83,7 +83,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     title="Meus Voos" />
 
                 <SidebarButton
-                    icon={<FiMoon size={ICON_SIZE} />}
+                    icon={<FiSun size={ICON_SIZE} />}
                     title="Alterar tema"
                     onClick={() => setThemeVariant(themeVariant === ThemeVariants.DARK ? ThemeVariants.LIGHT : ThemeVariants.DARK)} />
 

@@ -52,7 +52,7 @@ export default function EventsPage() {
     }
 
     return (
-        <div className="xl:mt-16">
+        <div className="mt-[4.3rem]">
             <div className="flex flex-col md:flex-row">
                 <div>
                     <Header textSize="text-xl" textColor="text-blue dark:text-yellow">{event.eventName}</Header>
