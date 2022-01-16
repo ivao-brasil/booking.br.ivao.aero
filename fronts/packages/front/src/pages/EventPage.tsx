@@ -43,7 +43,11 @@ export default function EventsPage() {
     }, [event]);
 
     if (isLoadingEvent) {
-        return <LoadingIndicator />
+        return (
+            <div className="w-min mx-auto md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
+                <LoadingIndicator />
+            </div>
+        )
     }
 
     if (event === undefined) {

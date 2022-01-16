@@ -9,7 +9,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = () => {
     return (
         <table className="table-auto border-separate text-center w-full" style={{ borderSpacing: 0 }}>
             <thead>
-                <tr className="text-[12px] font-semibold leading-7">
+                <tr className="text-[12px] font-semibold leading-7 font-header">
                     <th aria-label="Logo da companhia" className="invisible w-24"></th>
                     <th>Número do voo</th>
                     <th>Aeronave</th>
@@ -22,21 +22,21 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr className="bg-white dark:bg-black shadow-md text-blue dark:text-white font-semibold">
+                <tr className="bg-white dark:bg-black shadow-md text-blue dark:text-white font-semibold font-action">
                     <td className="rounded-lg bg-transparent">
                         <img className="rounded-l-lg" src="https://via.placeholder.com/96x60" alt="Logo companhia GLO" />
                     </td>
                     <td>
                         AZU5037
                     </td>
-                    <td>
+                    <td className="font-header text-[12px]">
                         A320
                     </td>
                     <td>
                         <span className="font-extrabold">SBCF</span><br />
                         TANCREDO NEVES INTL
                     </td>
-                    <td>
+                    <td aria-hidden="true">
                         <div className="flex items-center">
                             <div className="inline-block border-b-2 border-dashed w-6 h-1 -ml-10" />
                             <div className="inline-block mx-auto w-4">
