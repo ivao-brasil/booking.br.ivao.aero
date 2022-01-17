@@ -14,7 +14,7 @@ class UpdateEventsTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->enum('type', ['rfe', 'rfo']);
+            $table->enum('type', ['rfe', 'rfo', 'msa']);
         });
     }
 
