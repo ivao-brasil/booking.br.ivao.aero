@@ -290,6 +290,14 @@
                                     "airports": {
                                         "type": "string",
                                         "description": "List of airports on this event, separated by ',' (eg: SBKP,SBRF,SBEG)"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "description": "Event Type",
+                                        "enum": [
+                                            "rfe",
+                                            "rfo"
+                                        ]
                                     }
                                 }
                             }
@@ -410,6 +418,14 @@
                                             "created",
                                             "scheduled",
                                             "finished"
+                                        ]
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "description": "Event Type",
+                                        "enum": [
+                                            "rfe",
+                                            "rfo"
                                         ]
                                     },
                                     "description": {

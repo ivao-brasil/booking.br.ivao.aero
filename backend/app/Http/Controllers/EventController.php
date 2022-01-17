@@ -34,6 +34,7 @@ class EventController extends Controller
             'privateSlots' => 'boolean',
             'publicAccess' => 'boolean',
             'airports'      =>  'required|string',
+            'type'      =>  'required|string',
         ]);
 
         $user = Auth::user();
@@ -58,7 +59,8 @@ class EventController extends Controller
             'atcBriefing'   => $request->input('atcBriefing'),
             'description'   => $request->input('description'),
             'atcBooking'    => $request->input('atcBooking'),
-            'banner'        => $request->input('banner')
+            'banner'        => $request->input('banner'),
+            'type'          => $request->input('type'),
         ]);
 
         $event->save();
@@ -98,7 +100,8 @@ class EventController extends Controller
             'pilotBriefing' => 'required|url',
             'description' => 'required|string',
             'banner' => 'required|url',
-            'atcBooking' => 'required|url'
+            'atcBooking' => 'required|url',
+            'type'      =>  'required|string',
         ]);
 
         $event = Event::find($id);
@@ -127,7 +130,8 @@ class EventController extends Controller
             'atcBriefing' => $request->input('atcBriefing'),
             'description' => $request->input('description'),
             'banner' => $request->input('banner'),
-            'atcBooking' => $request->input('atcBooking')
+            'atcBooking' => $request->input('atcBooking'),
+            'type'          => $request->input('type'),
         ]);
 
         self::setAirports($event->id, $request->input('airports'));
