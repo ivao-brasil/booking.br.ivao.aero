@@ -84,6 +84,11 @@ class EventController extends Controller
         return $this->paginationService->transform($events->paginate($perPage > 25 ? 25 : $perPage));
     }
 
+    public function getSingle($id)
+    {
+        return Event::where('id', $id)->with('airports.sceneries')->get();  //Returns a single Event from the database
+    }
+
     public function update(Request $request, $id)
     {
         $user = Auth::user();

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 $router->group(['middleware' => 'auth', 'prefix' => 'event'], function() use($router) {
     $router->post('/', 'EventController@create');
     $router->get('/', 'EventController@get');
+    $router->get('/{id}', 'EventController@getSingle');
     $router->put('/{id}', 'EventController@update');
     $router->delete('/{id}', 'EventController@delete');
 });
