@@ -78,6 +78,8 @@ class EventController extends Controller
      */
     private static function setAirports($eventId, $airportList)
     {
+        EventAirport::where('eventId', $eventId)->delete();
+        
         foreach (explode(',', $airportList) as $icao) {
             $airport = new EventAirport;
 
