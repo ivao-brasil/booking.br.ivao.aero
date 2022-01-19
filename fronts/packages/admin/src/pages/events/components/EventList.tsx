@@ -1,14 +1,14 @@
 import { Grid } from '@material-ui/core';
 import { FunctionComponent, useContext, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { Confirm } from '../../../components/Confirm';
 import { AuthContext } from '../../../context/AuthContext';
 import { IocContext } from '../../../context/IocContext';
 import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
+import { useEvents } from '../../../hooks/useEvents';
 import { Event } from '../../../types/Event';
 import { EventCard } from './EventCard';
-import { Confirm } from '../../../components/Confirm';
-import { useMutation, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { useEvents } from '../../../hooks/useEvents';
 
 interface EventListProps {
   onEdit: (event: Event) => void;
@@ -35,9 +35,6 @@ export const EventList: FunctionComponent<EventListProps> = ({ onEdit }) => {
     onError: () => {
       dispatch('Error to delete event', 'Deletion Error', NotificationType.ERROR, 5000);
     },
-    onMutate: () => {
-      setConfirm(false);
-    },
   });
 
   const onDelete = (event: Event) => {
@@ -48,7 +45,16 @@ export const EventList: FunctionComponent<EventListProps> = ({ onEdit }) => {
   return (
     <div>
       {confirm && (
-        <Confirm text={`Please confirm if you want to delete event ${event?.eventName}`} onConfirm={() => event && deleteEvent.mutate(event)} deletion={true} />
+        <Confirm
+          text={`Please confirm if you want to delete event ${event?.eventName}`}
+          onConfirm={result => {
+            if (event && result) {
+              deleteEvent.mutate(event);
+            }
+            setConfirm(false);
+          }}
+          deletion={true}
+        />
       )}
       <Grid container spacing={2}>
         {!eventsLoading &&

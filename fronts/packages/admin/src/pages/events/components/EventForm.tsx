@@ -7,7 +7,12 @@ import { IocContext } from '../../../context/IocContext';
 import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
 import { Event, EventType } from '../../../types/Event';
 
-interface INewEventForm {
+interface IEventFormProps {
+  defaultState?: Event;
+  onPersist: () => void;
+}
+
+export interface EventForm {
   dateStart: Date;
   dateEnd: Date;
   eventName: string;
@@ -21,14 +26,9 @@ interface INewEventForm {
   airports: string;
 }
 
-interface IEventFormProps {
-  defaultState?: Event;
-  onPersist: () => void;
-}
-
 export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, onPersist }) => {
   console.log(defaultState);
-  const { register, handleSubmit, watch, reset } = useForm<INewEventForm>({
+  const { register, handleSubmit, watch, reset } = useForm<EventForm>({
     defaultValues: defaultState
       ? {
           ...defaultState,
@@ -48,7 +48,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
   const queryClient = useQueryClient();
 
   const createEvent = useMutation(
-    (data: INewEventForm) =>
+    (data: EventForm) =>
       apiClient.createEvent(
         {
           ...data,
@@ -72,7 +72,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
   );
 
   const updateEvent = useMutation(
-    (data: INewEventForm) =>
+    (data: EventForm) =>
       apiClient.updateEvent(
         defaultState?.id || 0,
         {
@@ -96,7 +96,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
     }
   );
 
-  const onSubmit = (data: INewEventForm) => {
+  const onSubmit = (data: EventForm) => {
     if (!defaultState) {
       return createEvent.mutate(data);
     }

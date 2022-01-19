@@ -1,8 +1,8 @@
 import Axios, { AxiosInstance } from 'axios';
-import { Event } from '../types/Event';
-import { User } from '../types/User';
-import { Slot } from '../types/Slot';
+import { Event, EventType } from '../types/Event';
 import { Pagination } from '../types/Pagination';
+import { Slot } from '../types/Slot';
+import { User } from '../types/User';
 
 interface AuthResponse {
   jwt: string;
@@ -11,6 +11,20 @@ interface AuthResponse {
 interface PaginateRequest {
   perPage?: number;
   page?: number;
+}
+
+export interface CreateEventRequest {
+  dateStart: number;
+  dateEnd: number;
+  eventName: string;
+  privateSlots: number;
+  pilotBriefing: string;
+  atcBriefing: string;
+  description: string;
+  banner: string;
+  atcBooking: string;
+  type: EventType;
+  airports: string;
 }
 
 interface UserRequest extends PaginateRequest {
@@ -64,7 +78,7 @@ export class ApiClient {
     return this.axios.patch<void>(`/user/${user.id}`, { suspended }, { headers: { Authorization: `Bearer ${token}` } }).then(() => {});
   }
 
-  async createEvent(data: Partial<Event>, token: string) {
+  async createEvent(data: CreateEventRequest, token: string) {
     return this.axios
       .post<Partial<Event>>('/event', data, {
         headers: { Authorization: `Bearer ${token}` },
