@@ -18,7 +18,7 @@ export const HorizontalInfoCard: FunctionComponent<InfoCardProps> = ({ icon, hea
         )}
         <div className="ml-5">
             <span className="font-text text-blue dark:text-[#E1E1E6] font-bold text-md leading-5">{header}</span>
-            <p className="font-text text-dark-gray-3 dark:text-[#A8A8B3] text-sm leading-4">{content}</p>
+            <p className="font-text text-dark-gray-3 dark:text-[#A8A8B3] text-xs leading-4">{content}</p>
         </div>
         {children && (
             <div className="mt-6">
@@ -40,7 +40,7 @@ export const VerticalInfoCard: FunctionComponent<InfoCardProps> = ({ icon, heade
             )}
             <span className="font-text text-blue dark:text-[#E1E1E6] font-extrabold text-md leading-5">{header}</span>
         </div>
-        <p className="font-action text-dark-gray-3 dark:text-[#A8A8B3] text-sm leading-4 my-5">{content}</p>
+        <p className="font-action text-dark-gray-3 dark:text-[#A8A8B3] text-xs leading-4 my-5">{content}</p>
         {children}
     </div>
 );

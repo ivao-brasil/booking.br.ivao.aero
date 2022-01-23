@@ -5,13 +5,18 @@ interface ActionButtonProps {
 	backgroundFilled?: boolean;
 	content: ReactNode;
 	icon?: ReactNode;
+	width?: string;
+	backgroundColor?: string;
 	onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-export const ActionButton: FunctionComponent<ActionButtonProps> = ({ content, icon, backgroundFilled = true, onClick }) => {
-	const background = backgroundFilled ? "bg-green" : "";
+export const ActionButton: FunctionComponent<ActionButtonProps> = ({
+	content, icon, backgroundFilled = true,
+	backgroundColor = "bg-green", width = "w-fit", onClick
+}) => {
+	const background = backgroundFilled ? backgroundColor : "";
 	return (
-		<button className={`block ${background} rounded-md`} onClick={onClick}>
+		<button className={`block ${background} rounded-md ${width}`} onClick={onClick}>
 			<div className="flex items-center">
 				{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
 				{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
@@ -26,7 +31,7 @@ interface ButtonTextProps {
 
 export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, textColor = "text-light-gray-2 dark:text-white" }) => {
 	return (
-		<span className={`block px-8 py-2.5 leading-[37px] text-center font-action font-semibold ${textColor} truncate`}>
+		<span className={`block px-8 py-2.5 leading-[37px] text-center font-action font-semibold ${textColor} truncate w-full`}>
 			{children}
 		</span>
 	)
@@ -49,8 +54,11 @@ interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
 	href: string;
 }
 
-export const LinkButton: FunctionComponent<LinkButtonProps> = ({ content, icon, href, backgroundFilled = true }) => {
-	const background = backgroundFilled ? "bg-green" : "";
+export const LinkButton: FunctionComponent<LinkButtonProps> = ({
+	content, icon, href, backgroundFilled = true,
+	backgroundColor = "bg-green", width = "w-fit"
+}) => {
+	const background = backgroundFilled ? backgroundColor : "";
 	const isExternalLink = href.indexOf("://") !== -1;
 	const buttonContent = (
 		<div className="flex items-center">
@@ -58,17 +66,18 @@ export const LinkButton: FunctionComponent<LinkButtonProps> = ({ content, icon, 
 			{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
 		</div>
 	);
+	const classNames = `block ${background} rounded-md ${width}`;
 
 	if (isExternalLink) {
 		return (
-			<a className={`block ${background} rounded-md`} href={href} target="_blank" rel="noreferrer">
+			<a className={classNames} href={href} target="_blank" rel="noreferrer">
 				{buttonContent}
 			</a>
 		);
 	}
 
 	return (
-		<Link className={`block ${background} rounded-md`} to={href}>
+		<Link className={classNames} to={href}>
 			{buttonContent}
 		</Link>
 	);

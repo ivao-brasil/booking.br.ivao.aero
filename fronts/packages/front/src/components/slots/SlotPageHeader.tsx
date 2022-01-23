@@ -1,6 +1,7 @@
-import { Filter } from "components/filter/Filter";
 import { useEffect, useMemo, useState } from "react";
-import { FiFilter, FiSearch } from "react-icons/fi";
+import { Filter } from "components/filter/Filter";
+import { FlightSearchInput } from "components/FlightSearchInput";
+import { FiFilter } from "react-icons/fi";
 
 export const SlotPageHeader = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -24,16 +25,7 @@ export const SlotPageHeader = () => {
 
     return (
         <div className="flex items-center dark:bg-black p-8">
-            <div className="border-0 border-b border-[#818181] dark:border-dark-gray-3 text-[#818181] dark:text-light-gray-5">
-                <div className="inline-block">
-                    <FiSearch />
-                </div>
-                <input
-                    className="border-0 bg-white dark:bg-black"
-                    type="search"
-                    aria-label="Buscar voo"
-                    placeholder="Buscar voo" />
-            </div>
+            <FlightSearchInput />
             <span className="text-inherit ml-auto text-[12px]">{utcTime} UTC</span>
             <span className="mx-3">|</span>
             <div className="relative">

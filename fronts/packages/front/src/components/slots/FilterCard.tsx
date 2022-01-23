@@ -44,7 +44,7 @@ export const FilterCard: FunctionComponent<FilterCardProps> = ({ slotType, quant
                     {cardIcon}
                 </div>
             </div>
-            <p className={`w-40 text-sm ${active ? "text-light-gray-5 dark:text-[#3C55AC]" : "text-[#858585] dark:text-light-gray-5"}`}>
+            <p className={`w-40 text-xs ${active ? "text-light-gray-5 dark:text-[#3C55AC]" : "text-[#858585] dark:text-light-gray-5"}`}>
                 {text}
             </p>
             <span className={`font-header font-extrabold text-lg self-end ${active ? "text-white dark:text-blue" : "text-blue dark:text-light-gray-5"}`}>

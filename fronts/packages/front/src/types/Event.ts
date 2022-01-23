@@ -15,4 +15,5 @@ export interface Event {
   status: "created" | "scheduled" | "finished";
   public: boolean;
   creator?: User;
+  type: "rfe" | "rfo" | "msa"
 }

@@ -16,6 +16,9 @@ module.exports = {
       },
       boxShadow: {
         '3xl': '0px 0px 60px rgba(0, 0, 0, 0.05)',
+      },
+      flex: {
+        'slot-table': '0 1 calc(100vh - 105px - 12px)'
       }
     },
     fontFamily: {
@@ -41,10 +44,12 @@ module.exports = {
       'light-blue': '#7EA2D6',
       'blue': '#0D2C99',
       'yellow': '#F9CC2C',
-      'transparent': 'transparent'
+      'transparent': 'transparent',
+      'red': '#E93434'
     },
     fontSize: {
-      "sm": ['0.63rem', '150%'],
+      "xs": ['0.63rem', '150%'],
+      "sm": ['0.75rem', '150%'],
       "md": ['1rem', '150%'],
       "lg": ['1.5rem', '152%'],
       "xl": ['2.2rem', '100%'],
@@ -67,9 +72,11 @@ module.exports = {
     }
   },
   variants: {
+    scrollbar: ['dark', 'rounded'],
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar'),
   ],
 };

@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FiHeadphones, FiMap } from "react-icons/fi";
 import { useEvent } from "hooks/useEvent";
@@ -42,17 +42,12 @@ export default function EventsPage() {
         return `${startTime.join("")}z - ${endTime.join("")}z`
     }, [event]);
 
-    if (isLoadingEvent) {
+    if (isLoadingEvent || !event) {
         return (
             <div className="w-min mx-auto md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
                 <LoadingIndicator />
             </div>
         )
-    }
-
-    if (event === undefined) {
-        navigate("/404");
-        return null;
     }
 
     return (
@@ -105,7 +100,7 @@ export default function EventsPage() {
                                     header={scenary.simulator.toUpperCase()}
                                     content={scenary.title}>
                                     <LinkButton href={scenary.link} content={(
-                                        <span className={`block px-8 py-2.5 text-center font-action text-sm font-semibold text-light-gray-2 dark:text-white truncate`}>
+                                        <span className={`block px-8 py-2.5 text-center font-action text-xs font-semibold text-light-gray-2 dark:text-white truncate`}>
                                             {scenary.license}
                                         </span>
                                     )} />

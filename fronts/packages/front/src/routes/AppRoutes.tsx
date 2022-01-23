@@ -10,8 +10,9 @@ import { SidebarLayout } from "layouts/SidebarLayout";
 const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
 const EventsPage = lazy(() => import("pages/EventsPage/EventsPage"));
-const EventPage = lazy(() => import("pages/EventPage"));
-const SlotsPage = lazy(() => import("pages/SlotsPage"));
+const EventPage = lazy(() => import("pages/Event/EventPage"));
+const SlotsPage = lazy(() => import("pages/Event/SlotsPage"));
+const SlotScheduledPage = lazy(() => import("pages/Slot/SlotScheduled"));
 
 export const AppRoutes: FunctionComponent = () => {
     const { cookieConsent } = useContext(CookieConsentContext);
@@ -31,6 +32,9 @@ export const AppRoutes: FunctionComponent = () => {
                                 <Route index element={<EventPage />} />
                                 <Route path="slots" element={<SlotsPage />} />
                             </Route>
+                            <Route path="/slot/scheduled" element={<SlotScheduledPage />} />
+                            <Route path="/slot/confirmed" element={<SidebarLayout />} />
+                            <Route path="/slot/:slotId/confirm" element={<SidebarLayout />} />
                         </Route>
                         <Route path="/404" element={<NotFoundPage />} />
                         <Route path="*" element={<Navigate to="/404" />} />

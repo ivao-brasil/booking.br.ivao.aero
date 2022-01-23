@@ -22,7 +22,7 @@ export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = 
                         <div className="mt-8 lg:pr-1.5">
                             {(isValidElement(description) ? description : <MutedText>{description}</MutedText>)}
                         </div>
-                        <div className="mx-auto md:mx-0 mt-24 md:mt-12">
+                        <div className="mx-auto md:mx-0 mt-24 md:mt-12 w-full">
                             {children}
                         </div>
                     </div>
