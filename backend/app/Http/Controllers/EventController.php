@@ -88,7 +88,9 @@ class EventController extends Controller
 
     public function getSingle($id)
     {
-        return Event::where('id', $id)->with('airports.sceneries')->first();  //Returns a single Event from the database
+        $event = Event::where('id', $id)->with('airports.sceneries')->first();  //Returns a single Event from the database
+        if(!$event) return response(['error' => 'no event found'], 404);
+        return $event;
     }
 
     public function update(Request $request, $id)
