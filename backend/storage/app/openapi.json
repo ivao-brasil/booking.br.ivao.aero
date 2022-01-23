@@ -290,6 +290,14 @@
                                     "airports": {
                                         "type": "string",
                                         "description": "List of airports on this event, separated by ',' (eg: SBKP,SBRF,SBEG)"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "description": "Event Type",
+                                        "enum": [
+                                            "rfe",
+                                            "rfo"
+                                        ]
                                     }
                                 }
                             }
@@ -372,6 +380,47 @@
             }
         },
         "/event/{eventId}": {
+            "get": {
+                "tags": [
+                    "Event"
+                ],
+                "summary": "Fetch a single Event",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Event result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Event"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "Event"
@@ -410,6 +459,14 @@
                                             "created",
                                             "scheduled",
                                             "finished"
+                                        ]
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "description": "Event Type",
+                                        "enum": [
+                                            "rfe",
+                                            "rfo"
                                         ]
                                     },
                                     "description": {

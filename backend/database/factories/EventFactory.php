@@ -22,7 +22,7 @@ class EventFactory extends Factory
     public function definition()
     {
         return [
-            'division' => $this->faker->countryCode(),
+            'division' => 'BR',
             'dateStart' => $this->faker->dateTime(),
             'dateEnd' => $this->faker->dateTime(),
             'eventName' => $this->faker->jobTitle(),
