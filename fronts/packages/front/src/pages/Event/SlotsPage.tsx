@@ -48,14 +48,14 @@ export default function SlotsPage() {
 
     return (
         <div className="flex flex-col md:flex-row h-full">
-            <SlotTypeFilter
-                eventName={event.eventName}
-                eventType={event.type}
-                slotsQtdData={{ takeoff: 1, landing: 1, private: 2 }}
-                selectedSlotType={selectedSlotType}
-                onSlotTypeChange={(selectedType) => setSelectedSlotType(selectedType)} />
-
-
+            <div className="md:flex-none">
+                <SlotTypeFilter
+                    eventName={event.eventName}
+                    eventType={event.type}
+                    slotsQtdData={{ takeoff: 1, landing: 1, private: 2 }}
+                    selectedSlotType={selectedSlotType}
+                    onSlotTypeChange={(selectedType) => setSelectedSlotType(selectedType)} />
+            </div>
             <div className="flex-auto flex flex-col">
                 <SlotPageHeader />
                 <ContentWrapper>

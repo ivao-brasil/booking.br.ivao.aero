@@ -3,7 +3,6 @@
 }
 
 .header {
-  height: 65px;
   border-radius: 10px 10px 0 0;
 }
 
@@ -26,7 +25,7 @@
   font-weight: bold;
 }
 
-.header b header span:nth-child(2) {
+.header span:not(:first-child) {
   font-size: 10px;
   line-height: 14px;
 }

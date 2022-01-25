@@ -19,17 +19,19 @@ export default function UserSlots() {
 
     return (
         <div className="flex flex-col md:flex-row h-full">
-            <UserSlotsSideInfos atcBriefing={event.atcBriefing} pilotBriefing={event.pilotBriefing} />
+            <div className="md:flex-none">
+                <UserSlotsSideInfos atcBriefing={event.atcBriefing} pilotBriefing={event.pilotBriefing} />
+            </div>
 
             <div className="flex-auto flex flex-col">
                 <SlotPageHeader showFilter={false} />
                 <ContentWrapper>
-                    <div className="mx-2 md:ml-8 md:mr-4 mt-4 overflow-x-auto">
+                    <div className="max-w-[61rem] mx-auto mt-4">
                         <BoardingPass
-                            user={{ firstName: "A", lastName: "B", vid: "1" }}
-                            origin={{ name: "O NAME", iata: "O IATA" }}
-                            destination={{ name: "D NAME", iata: "D IATA" }}
-                            callsign="ABC123"
+                            user={{ firstName: "ARAUTO", lastName: "HERMES", vid: "595866" }}
+                            origin={{ name: "PORTO ALEGRE", iata: "POA" }}
+                            destination={{ name: "GUARULHOS", iata: "GRU" }}
+                            callsign="TAM2056"
                             slotDate={new Date()}
                             gate="123"
                             type={BoardingPassType.DEPARTURE} />
