@@ -4,13 +4,13 @@ import { SlotInformationLayout } from "layouts/SlotInformationLayout";
 import { useEffect } from "react";
 
 export default function SlotScheduled() {
-    let { state: locationState } = useLocation();
     const navigate = useNavigate();
+    let { state: locationState } = useLocation();
     const locationData = locationState as { slotId: number } | undefined;
 
     useEffect(() => {
         if (!locationData) {
-            navigate("/404");
+            navigate("/404", { replace: true });
         }
     }, [navigate, locationData]);
 

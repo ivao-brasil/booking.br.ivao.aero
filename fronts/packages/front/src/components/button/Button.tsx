@@ -6,18 +6,19 @@ interface ActionButtonProps {
 	content: ReactNode;
 	icon?: ReactNode;
 	width?: string;
+	height?: string;
 	backgroundColor?: string;
 	onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 export const ActionButton: FunctionComponent<ActionButtonProps> = ({
 	content, icon, backgroundFilled = true,
-	backgroundColor = "bg-green", width = "w-fit", onClick
+	backgroundColor = "bg-green", width = "w-fit", height = "h-14", onClick
 }) => {
 	const background = backgroundFilled ? backgroundColor : "";
 	return (
-		<button className={`block ${background} rounded-md ${width}`} onClick={onClick}>
-			<div className="flex items-center">
+		<button className={`block ${background} rounded-md ${width} ${height}`} onClick={onClick}>
+			<div className="flex items-center h-full">
 				{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
 				{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
 			</div>
@@ -31,7 +32,7 @@ interface ButtonTextProps {
 
 export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, textColor = "text-light-gray-2 dark:text-white" }) => {
 	return (
-		<span className={`block px-8 py-2.5 leading-[37px] text-center font-action font-semibold ${textColor} truncate w-full`}>
+		<span className={`block w-full px-8 py-2.5 leading-[37px] text-center font-action font-semibold ${textColor} truncate`}>
 			{children}
 		</span>
 	)
@@ -42,10 +43,12 @@ interface ButtonIconProps {
 }
 
 export const ButtonIcon: FunctionComponent<ButtonIconProps> = ({ backgroundFilled = true, children }) => {
-	const background = backgroundFilled ? "bg-light-green w-14 p-5" : "";
+	const background = backgroundFilled ? "bg-light-green w-14" : "";
 	return (
-		<div className={`relative ${background} rounded-tl-md rounded-bl-md text-white`}>
-			{children}
+		<div className={`${background} rounded-tl-md rounded-bl-md text-white h-full`}>
+			<div className="flex justify-center items-center h-full">
+				{children}
+			</div>
 		</div>
 	);
 };
@@ -56,17 +59,17 @@ interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
 
 export const LinkButton: FunctionComponent<LinkButtonProps> = ({
 	content, icon, href, backgroundFilled = true,
-	backgroundColor = "bg-green", width = "w-fit"
+	backgroundColor = "bg-green", width = "w-fit", height = "h-14"
 }) => {
 	const background = backgroundFilled ? backgroundColor : "";
 	const isExternalLink = href.indexOf("://") !== -1;
 	const buttonContent = (
-		<div className="flex items-center">
+		<div className="flex items-center h-full">
 			{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
 			{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
 		</div>
 	);
-	const classNames = `block ${background} rounded-md ${width}`;
+	const classNames = `block ${background} rounded-md ${width} ${height}`;
 
 	if (isExternalLink) {
 		return (

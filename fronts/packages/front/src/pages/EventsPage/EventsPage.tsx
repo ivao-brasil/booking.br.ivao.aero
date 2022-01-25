@@ -12,9 +12,7 @@ export default function EventsPage() {
     if (isLoading && !hasPreviousPage) {
         return (
             <EventListLayout>
-                <div className="w-min mx-auto md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-                    <LoadingIndicator />
-                </div>
+                <LoadingIndicator />
             </EventListLayout>
         );
     }

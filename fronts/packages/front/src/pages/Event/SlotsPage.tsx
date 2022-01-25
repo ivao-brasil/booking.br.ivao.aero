@@ -7,6 +7,7 @@ import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
 import { SlotsTable } from "components/slots/SlotsTable";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
 import { BookInfoMessage } from "components/slots/BookInfoMessage";
+import { ContentWrapper } from "components/slots/ContentWrapper";
 import { LoadingIndicator } from "components/LoadingIndicator";
 import { ActionButton } from "components/button/Button";
 import { SlotTypeOptions } from "types/SlotFilter";
@@ -36,9 +37,7 @@ export default function SlotsPage() {
 
     if (isLoadingEvent || isLoadingSlots || bookMutation.isLoading || !event) {
         return (
-            <div className="w-min mx-auto md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-                <LoadingIndicator />
-            </div>
+            <LoadingIndicator />
         )
     }
 
@@ -59,9 +58,7 @@ export default function SlotsPage() {
 
             <div className="flex-auto flex flex-col">
                 <SlotPageHeader />
-                <div
-                    className="flex-1 md:flex-slot-table mt-3 w-full bg-[#F7F7F7] dark:bg-dark-gray-2 overflow-y-auto scrollbar-thin scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded"
-                >
+                <ContentWrapper>
                     {bookMutation.isError
                         ? (
                             <div className="mt-11 ml-9">
@@ -87,7 +84,7 @@ export default function SlotsPage() {
                                 )}
                             </>
                         )}
-                </div>
+                </ContentWrapper>
             </div>
         </div>
     );

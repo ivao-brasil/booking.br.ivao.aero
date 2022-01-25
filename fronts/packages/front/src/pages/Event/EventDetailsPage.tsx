@@ -8,11 +8,10 @@ import { Header, Subheader } from "components/typography/Typography";
 import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LinkButton } from "components/button/Button";
 
-export default function EventsPage() {
+export default function EventDetailsPage() {
     const { eventId } = useParams();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
     const { data: scenaries, isLoading: isLoadingScenaries } = useEventSceneries(Number(eventId));
-    const navigate = useNavigate();
 
     const startDate = useMemo(() => {
         if (!event?.dateStart) {
@@ -44,9 +43,7 @@ export default function EventsPage() {
 
     if (isLoadingEvent || !event) {
         return (
-            <div className="w-min mx-auto md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-                <LoadingIndicator />
-            </div>
+            <LoadingIndicator />
         )
     }
 
