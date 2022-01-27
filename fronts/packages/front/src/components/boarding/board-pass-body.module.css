@@ -24,10 +24,7 @@
 .passengerInfo > span {
   display: flex;
   flex-direction: column;
-}
-
-.passengerInfo > span:nth-child(2) {
-  margin-left: 249px;
+  flex: 1 0 423px
 }
 
 .passengerInfo span > span {

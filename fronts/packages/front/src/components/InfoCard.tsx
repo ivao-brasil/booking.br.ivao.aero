@@ -38,7 +38,7 @@ export const VerticalInfoCard: FunctionComponent<InfoCardProps> = ({ icon, heade
                     </div>
                 </div>
             )}
-            <span className="font-text text-blue dark:text-[#E1E1E6] font-extrabold text-md leading-5">{header}</span>
+            <span className="font-text text-blue dark:text-[#E1E1E6] font-extrabold text-lg leading-6">{header}</span>
         </div>
         <p className="font-action text-dark-gray-3 dark:text-[#A8A8B3] text-xs leading-4 my-5">{content}</p>
         {children}

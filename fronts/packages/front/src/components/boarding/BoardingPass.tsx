@@ -1,5 +1,5 @@
 import QrCode from "qrcode.react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import bodyStyle from "./board-pass-body.module.css";
 import headerStyle from "./boarding-pass-header.module.css";
 import { IoAirplaneOutline } from "react-icons/io5";
@@ -28,6 +28,7 @@ interface BoardingPassProps {
   slotDate: Date;
   gate: string;
   type: BoardingPassType;
+  actions?: ReactNode;
 }
 
 const defaultThemeColor = "#0d2c99";
@@ -66,6 +67,7 @@ const formatHour = (date: Date) =>
 
 const BoardingPassHeader: FunctionComponent<BoardingPassProps> = ({
   themeColor = defaultThemeColor,
+  actions
 }) => {
   return (
     <header
@@ -75,6 +77,9 @@ const BoardingPassHeader: FunctionComponent<BoardingPassProps> = ({
       <div>
         <span>Cartão de Embarque</span>
         <span>Boarding Pass</span>
+      </div>
+      <div>
+        {actions}
       </div>
     </header>
   );

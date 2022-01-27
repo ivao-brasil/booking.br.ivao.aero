@@ -1,15 +1,14 @@
 import { FunctionComponent } from "react";
-import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
+import { VerticalInfoCard } from "components/InfoCard";
 import { Header, Subheader } from "components/typography/Typography";
 import { FiDownload, FiMap } from "react-icons/fi";
 import { ButtonText, LinkButton } from "components/button/Button";
 
 interface UserSlotsSideInfosProps {
-    atcBriefing: string;
     pilotBriefing: string;
 }
 
-export const UserSlotsSideInfos: FunctionComponent<UserSlotsSideInfosProps> = ({ atcBriefing, pilotBriefing }) => {
+export const UserSlotsSideInfos: FunctionComponent<UserSlotsSideInfosProps> = ({ pilotBriefing }) => {
     return (
         <aside className="bg-white dark:bg-black w-72 h-full">
             <div className="pl-6 pt-9">
@@ -24,7 +23,7 @@ export const UserSlotsSideInfos: FunctionComponent<UserSlotsSideInfosProps> = ({
                         <LinkButton
                             width="w-full"
                             height="h-9"
-                            icon={<FiMap size={18} />}
+                            icon={<FiDownload size={18} />}
                             href={pilotBriefing}
                             content={
                                 <span className="block w-full px-8 text-center font-semibold text-xs text-white">

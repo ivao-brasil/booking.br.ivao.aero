@@ -12,7 +12,7 @@ interface SlotsQtdData {
 interface SlotTypeFilterProps {
     eventName: string;
     eventType: string;
-    slotsQtdData: SlotsQtdData;
+    slotsQtdData?: SlotsQtdData;
     selectedSlotType?: SlotTypeOptions;
     onSlotTypeChange: (newType: SlotTypeOptions) => void;
 }
@@ -34,21 +34,21 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = (
                 <FilterCard
                     slotType={SlotTypeOptions.LANDING}
                     text="Voos partindo do Aeroporto Internacional de Guarulhos"
-                    quantity={2}
+                    quantity={slotsQtdData?.landing}
                     onClick={() => onSlotTypeChange(SlotTypeOptions.LANDING)}
                     active={selectedSlotType === SlotTypeOptions.LANDING} />
 
                 <FilterCard
                     slotType={SlotTypeOptions.TAKEOFF}
                     text="Voos partindo do Aeroporto Internacional de Guarulhos"
-                    quantity={157}
+                    quantity={slotsQtdData?.takeoff}
                     onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF)}
                     active={selectedSlotType === SlotTypeOptions.TAKEOFF} />
 
                 <FilterCard
                     slotType={SlotTypeOptions.PRIVATE}
                     text="Voos partindo do Aeroporto Internacional de Guarulhos"
-                    quantity={0}
+                    quantity={slotsQtdData?.private}
                     onClick={() => onSlotTypeChange(SlotTypeOptions.PRIVATE)}
                     active={selectedSlotType === SlotTypeOptions.PRIVATE} />
             </div>

@@ -32,7 +32,7 @@ interface ButtonTextProps {
 
 export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, textColor = "text-light-gray-2 dark:text-white" }) => {
 	return (
-		<span className={`block w-full px-8 py-2.5 leading-[37px] text-center font-action font-semibold ${textColor} truncate`}>
+		<span className={`block w-full px-8 leading-[37px] text-center font-action font-semibold ${textColor} truncate`}>
 			{children}
 		</span>
 	)
