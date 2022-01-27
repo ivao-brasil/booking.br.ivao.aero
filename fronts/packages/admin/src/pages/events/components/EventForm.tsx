@@ -1,13 +1,18 @@
-import { Button, Checkbox, FormControlLabel, FormGroup, TextField, Tooltip } from '@material-ui/core';
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select, TextField, Tooltip } from '@material-ui/core';
 import { FunctionComponent, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from 'react-query';
 import { AuthContext } from '../../../context/AuthContext';
 import { IocContext } from '../../../context/IocContext';
 import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
-import { Event } from '../../../types/Event';
-import { useMutation, useQueryClient } from 'react-query';
+import { Event, EventType } from '../../../types/Event';
 
-interface INewEventForm {
+interface IEventFormProps {
+  defaultState?: Event;
+  onPersist: () => void;
+}
+
+export interface EventForm {
   dateStart: Date;
   dateEnd: Date;
   eventName: string;
@@ -17,26 +22,25 @@ interface INewEventForm {
   description: string;
   banner: string;
   atcBooking: string;
-}
-
-interface IEventFormProps {
-  defaultState?: Event;
-  onPersist: () => void;
+  type: EventType;
+  airports: string;
 }
 
 export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, onPersist }) => {
-  const { register, handleSubmit, watch, reset } = useForm<INewEventForm>({
+  console.log(defaultState);
+  const { register, handleSubmit, watch, reset } = useForm<EventForm>({
     defaultValues: defaultState
       ? {
           ...defaultState,
           dateStart: new Date(defaultState.dateStart),
           dateEnd: new Date(defaultState.dateEnd),
           privateSlots: Boolean(defaultState.privateSlots),
+          airports: defaultState.airports.map(airport => airport.icao).join(','),
         }
       : {},
   });
 
-  const { banner, privateSlots, dateEnd, dateStart } = watch();
+  const { banner, privateSlots, dateEnd, dateStart, type } = watch();
   const { apiClient } = useContext(IocContext);
   const { token } = useContext(AuthContext);
   const { dispatch } = useContext(NotificationContext);
@@ -44,7 +48,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
   const queryClient = useQueryClient();
 
   const createEvent = useMutation(
-    (data: INewEventForm) =>
+    (data: EventForm) =>
       apiClient.createEvent(
         {
           ...data,
@@ -68,7 +72,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
   );
 
   const updateEvent = useMutation(
-    (data: INewEventForm) =>
+    (data: EventForm) =>
       apiClient.updateEvent(
         defaultState?.id || 0,
         {
@@ -92,7 +96,7 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
     }
   );
 
-  const onSubmit = (data: INewEventForm) => {
+  const onSubmit = (data: EventForm) => {
     if (!defaultState) {
       return createEvent.mutate(data);
     }
@@ -146,9 +150,18 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
         <TextField label="Event Description" rows={4} multiline {...register('description', { required: true })} />
         <TextField label="Banner Link" {...register('banner', { required: true })} />
         <TextField label="ATC Booking Link" {...register('atcBooking', { required: true })} />
+        <TextField label="Airports" {...register('airports', { required: true })} />
         <FormGroup>
           <FormControlLabel control={<Checkbox {...register('privateSlots')} checked={privateSlots} />} label="Private slots available" />
         </FormGroup>
+        <FormControl fullWidth>
+          <InputLabel id="eventType">Event Type</InputLabel>
+          <Select labelId="eventType" id="demo-simple-select" label="Event Type" {...register('type', { required: true })} value={type}>
+            <MenuItem value={EventType.RFE}>RFE</MenuItem>
+            <MenuItem value={EventType.RFO}>RFO</MenuItem>
+            <MenuItem value={EventType.MSA}>MSA</MenuItem>
+          </Select>
+        </FormControl>
         <Button variant="contained" type="submit">
           Save
         </Button>

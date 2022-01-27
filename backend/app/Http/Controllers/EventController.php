@@ -33,7 +33,8 @@ class EventController extends Controller
             'pilotBriefing' => 'required|url',
             'privateSlots' => 'boolean',
             'publicAccess' => 'boolean',
-            'airports'      =>  'required|string',
+            'airports' => 'required|string',
+            'type' => 'required|string',
         ]);
 
         $user = Auth::user();
@@ -47,18 +48,19 @@ class EventController extends Controller
         $event = new Event();
 
         $event->fill([
-            'division'      => $user->division,
-            'dateStart'     => $dateStart->format("Y-m-d H:i:s"),
-            'dateEnd'       => $dateEnd->format("Y-m-d H:i:s"),
-            'eventName'     => $request->input('eventName'),
-            'privateSlots'  => $request->input('privateSlots'),
-            'status'        => 'created',
-            'createdBy'     => $user->id,
+            'division' => $user->division,
+            'dateStart' => $dateStart->format("Y-m-d H:i:s"),
+            'dateEnd' => $dateEnd->format("Y-m-d H:i:s"),
+            'eventName' => $request->input('eventName'),
+            'privateSlots' => $request->input('privateSlots'),
+            'status' => 'created',
+            'createdBy' => $user->id,
             'pilotBriefing' => $request->input('pilotBriefing'),
-            'atcBriefing'   => $request->input('atcBriefing'),
-            'description'   => $request->input('description'),
-            'atcBooking'    => $request->input('atcBooking'),
-            'banner'        => $request->input('banner')
+            'atcBriefing' => $request->input('atcBriefing'),
+            'description' => $request->input('description'),
+            'atcBooking' => $request->input('atcBooking'),
+            'banner' => $request->input('banner'),
+            'type' => $request->input('type'),
         ]);
 
         $event->save();
@@ -67,6 +69,25 @@ class EventController extends Controller
         self::setAirports($event->id, $request->input('airports'));
 
         return response(null, 201);
+    }
+
+    /**
+     * MINIMUM VIABLE PRODUCT
+     *
+     * TODO: IMPROVE THIS THING TO AVOID UNECESSARY CALLS TO THE DATABASE
+     */
+    private static function setAirports($eventId, $airportList)
+    {
+        EventAirport::where('eventId', $eventId)->delete();
+        
+        foreach (explode(',', $airportList) as $icao) {
+            $airport = new EventAirport;
+
+            $airport->eventId = $eventId;
+            $airport->icao = $icao;
+
+            $airport->save();
+        }
     }
 
     public function get(Request $request)
@@ -84,6 +105,13 @@ class EventController extends Controller
         return $this->paginationService->transform($events->paginate($perPage > 25 ? 25 : $perPage));
     }
 
+    public function getSingle($id)
+    {
+        $event = Event::where('id', $id)->with('airports.sceneries')->first();  //Returns a single Event from the database
+        if(!$event) return response(['error' => 'no event found'], 404);
+        return $event;
+    }
+
     public function update(Request $request, $id)
     {
         $user = Auth::user();
@@ -98,7 +126,8 @@ class EventController extends Controller
             'pilotBriefing' => 'required|url',
             'description' => 'required|string',
             'banner' => 'required|url',
-            'atcBooking' => 'required|url'
+            'atcBooking' => 'required|url',
+            'type' => 'required|string',
         ]);
 
         $event = Event::find($id);
@@ -127,7 +156,8 @@ class EventController extends Controller
             'atcBriefing' => $request->input('atcBriefing'),
             'description' => $request->input('description'),
             'banner' => $request->input('banner'),
-            'atcBooking' => $request->input('atcBooking')
+            'atcBooking' => $request->input('atcBooking'),
+            'type' => $request->input('type'),
         ]);
 
         self::setAirports($event->id, $request->input('airports'));
@@ -146,22 +176,5 @@ class EventController extends Controller
         $this->authorize('delete', $event);
 
         Event::where('id', $id)->delete();
-    }
-
-    /**
-     * MINIMUM VIABLE PRODUCT
-     *
-     * TODO: IMPROVE THIS THING TO AVOID UNECESSARY CALLS TO THE DATABASE
-     */
-    private static function setAirports($eventId, $airportList)
-    {
-        foreach (explode(',', $airportList) as $icao) {
-            $airport = new EventAirport;
-
-            $airport->eventId   = $eventId;
-            $airport->icao      = $icao;
-
-            $airport->save();
-        }
     }
 }

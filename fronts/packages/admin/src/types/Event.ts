@@ -1,4 +1,11 @@
+import { Airport } from './Airport';
 import { User } from './User';
+
+export enum EventType {
+  RFE = 'rfe',
+  RFO = 'rfo',
+  MSA = 'msa',
+}
 
 export interface Event {
   id: number;
@@ -12,4 +19,6 @@ export interface Event {
   banner: string;
   atcBooking: string;
   creator?: User;
+  type: EventType;
+  airports: Array<Airport>;
 }
