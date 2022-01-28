@@ -16,6 +16,7 @@ const SlotsPage = lazy(() => import("pages/Event/SlotsPage"));
 
 const SlotScheduledPage = lazy(() => import("pages/Slot/SlotScheduled"));
 const UserSlotsPage = lazy(() => import("pages/Slot/UserSlots"));
+const ConfirmSlotPage = lazy(() => import("pages/Slot/ConfirmSlot"));
 
 export const AppRoutes: FunctionComponent = () => {
     const { cookieConsent } = useContext(CookieConsentContext);
@@ -38,7 +39,7 @@ export const AppRoutes: FunctionComponent = () => {
                             </Route>
                             <Route path="/slot/scheduled" element={<SlotScheduledPage />} />
                             <Route path="/slot/confirmed" element={<SidebarLayout />} />
-                            <Route path="/slot/:slotId/confirm" element={<SidebarLayout />} />
+                            <Route path="/slot/:slotId/confirm" element={<ConfirmSlotPage />} />
                         </Route>
                         <Route path="/404" element={<NotFoundPage />} />
                         <Route path="*" element={<Navigate to="/404" replace />} />

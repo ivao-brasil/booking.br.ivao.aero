@@ -9,10 +9,10 @@ module.exports = {
       },
       spacing: {
         '54': '13.5rem',
-        '130': '34rem'
+        '130': '36rem'
       },
       maxWidth: {
-        '130': '34rem',
+        '130': '36rem',
       },
       boxShadow: {
         '3xl': '0px 0px 60px rgba(0, 0, 0, 0.05)',
@@ -45,7 +45,9 @@ module.exports = {
       'blue': '#0D2C99',
       'yellow': '#F9CC2C',
       'transparent': 'transparent',
-      'red': '#E93434'
+      'red': '#E93434',
+      'orange': '#F56E2F',
+      'brown': '#FF702E1A'
     },
     fontSize: {
       "xs": ['0.63rem', '150%'],
