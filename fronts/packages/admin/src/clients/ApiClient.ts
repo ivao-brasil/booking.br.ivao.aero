@@ -95,7 +95,7 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async updateEvent(eventId: number, data: Partial<Event>, token: string) {
+  async updateEvent(eventId: number, data: CreateEventRequest, token: string) {
     return this.axios
       .put<Array<Event>>(`/event/${eventId}`, data, {
         headers: { Authorization: `Bearer ${token}` },
