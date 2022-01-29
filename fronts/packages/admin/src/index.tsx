@@ -12,6 +12,8 @@ import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor
 import { persistQueryClient } from 'react-query/persistQueryClient-experimental';
 import { Env } from './env';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,8 +37,10 @@ ReactDOM.render(
         <AuthProvider>
           <ThemeProvider theme={theme}>
             <NotificationProvider>
-              {Env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
-              <App />
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                {Env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+                <App />
+              </LocalizationProvider>
             </NotificationProvider>
           </ThemeProvider>
         </AuthProvider>

@@ -1,11 +1,12 @@
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select, TextField, Tooltip } from '@material-ui/core';
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { AuthContext } from '../../../context/AuthContext';
 import { IocContext } from '../../../context/IocContext';
 import { NotificationContext, NotificationType } from '../../../context/NotificationContext';
 import { Event, EventType } from '../../../types/Event';
+import { DatePicker, DateTimePicker } from '@mui/lab';
 
 interface IEventFormProps {
   defaultState?: Event;
@@ -27,8 +28,7 @@ export interface EventForm {
 }
 
 export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, onPersist }) => {
-  console.log(defaultState);
-  const { register, handleSubmit, watch, reset } = useForm<EventForm>({
+  const { register, handleSubmit, watch, reset, setValue } = useForm<EventForm>({
     defaultValues: defaultState
       ? {
           ...defaultState,
@@ -104,18 +104,6 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
     return updateEvent.mutate(data);
   };
 
-  const formatDateToDateTime = (date?: Date) => {
-    if (!date) {
-      return '';
-    }
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    const hour = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${year}-${month}-${day}T${hour}:${minutes}`;
-  };
-
   return (
     <section style={{ display: 'flex', gap: '24px' }}>
       <form
@@ -127,24 +115,30 @@ export const EventForm: FunctionComponent<IEventFormProps> = ({ defaultState, on
         }}
         onSubmit={handleSubmit(onSubmit)}>
         <TextField label="Event Name" {...register('eventName', { required: true })} />
-        <Tooltip title="Your local time" placement="left-start">
-          <TextField
-            InputLabelProps={{ shrink: true }}
-            label="Start Date (localtime)"
-            type="datetime-local"
-            value={formatDateToDateTime(dateStart)}
-            {...register('dateStart', { required: true, valueAsDate: true })}
-          />
-        </Tooltip>
-        <Tooltip title="Your local time" placement="left-start">
-          <TextField
-            InputLabelProps={{ shrink: true }}
-            label="End Date (localtime)"
-            type="datetime-local"
-            value={formatDateToDateTime(dateEnd)}
-            {...register('dateEnd', { required: true, valueAsDate: true })}
-          />
-        </Tooltip>
+        <DateTimePicker
+          renderInput={(params: any) => <TextField {...params} />}
+          label="Start date (your local time)"
+          value={dateStart}
+          onChange={newValue => {
+            if (newValue) {
+              setValue('dateStart', newValue);
+            }
+          }}
+          minDateTime={new Date()}
+          ampm={false}
+        />
+        <DateTimePicker
+          renderInput={(params: any) => <TextField {...params} />}
+          label="End date (your local time)"
+          value={dateEnd}
+          onChange={newValue => {
+            if (newValue) {
+              setValue('dateEnd', newValue);
+            }
+          }}
+          minDateTime={new Date()}
+          ampm={false}
+        />
         <TextField label="Pilot Briefing" {...register('pilotBriefing', { required: true })} />
         <TextField label="ATC Briefing" {...register('atcBriefing', { required: true })} />
         <TextField label="Event Description" rows={4} multiline {...register('description', { required: true })} />
