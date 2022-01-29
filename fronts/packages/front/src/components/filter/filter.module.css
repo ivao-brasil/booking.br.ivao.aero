@@ -3,6 +3,11 @@
   background-color: #f8f8f8;
   backdrop-filter: blue(10px);
   padding-bottom: 10px;
+  width: 17.6rem;
+}
+
+:global(.dark) .filter {
+  background-color: #303030;
 }
 
 .filter header {
@@ -17,6 +22,11 @@
   height: 37px;
   padding-left: 12px;
   border-radius: 10px 0px 0px 0px;
+}
+
+:global(.dark) .filter header {
+  color: var(--white);
+  background-color: #1F1F1F;
 }
 
 .filter main > div:first-child {
@@ -75,10 +85,10 @@
   padding: 6px 0px 6px 0px;
   border: 0;
   cursor: pointer;
-  transition: all 0.2s;
 }
 
 .filter > main > div:nth-child(4) > button:hover {
+  transition: all 0.2s;
   filter: brightness(90%);
 }
 
@@ -91,6 +101,11 @@
 .filter > main > div:nth-child(4) > button:nth-child(1) {
   color: var(--silver);
   background-color: #ebebeb;
+}
+
+:global(.dark) .filter > main > div:nth-child(4) > button:nth-child(1) {
+  background-color: #373737;
+  color: var(--white);
 }
 
 .filter main > div:nth-child(3) > span {
@@ -114,4 +129,9 @@
   border-radius: 5px;
   width: 49%;
   border: 0;
+}
+
+:global(.dark) .filter main > div:first-child > select {
+  color: rgba(215, 215, 220, 0,5);
+  background-color: #282828;
 }

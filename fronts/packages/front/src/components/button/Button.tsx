@@ -8,18 +8,19 @@ interface ActionButtonProps {
 	width?: string;
 	height?: string;
 	backgroundColor?: string;
+	iconBackgroundColor?: string;
 	onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 export const ActionButton: FunctionComponent<ActionButtonProps> = ({
 	content, icon, backgroundFilled = true,
-	backgroundColor = "bg-green", width = "w-fit", height = "h-14", onClick
+	backgroundColor = "bg-green", width = "w-fit", height = "h-14",
+	iconBackgroundColor, onClick
 }) => {
-	const background = backgroundFilled ? backgroundColor : "";
 	return (
-		<button className={`block ${background} rounded-md ${width} ${height}`} onClick={onClick}>
+		<button className={`block ${backgroundFilled ? backgroundColor : ""} rounded-md ${width} ${height}`} onClick={onClick}>
 			<div className="flex items-center h-full">
-				{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
+				{icon && (<ButtonIcon backgroundFilled={backgroundFilled} backgroundColor={iconBackgroundColor}>{icon}</ButtonIcon>)}
 				{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
 			</div>
 		</button>
@@ -40,12 +41,12 @@ export const ButtonText: FunctionComponent<ButtonTextProps> = ({ children, textC
 
 interface ButtonIconProps {
 	backgroundFilled?: boolean;
+	backgroundColor?: string;
 }
 
-export const ButtonIcon: FunctionComponent<ButtonIconProps> = ({ backgroundFilled = true, children }) => {
-	const background = backgroundFilled ? "bg-light-green w-14" : "";
+export const ButtonIcon: FunctionComponent<ButtonIconProps> = ({ backgroundColor = "bg-light-green", backgroundFilled = true, children }) => {
 	return (
-		<div className={`${background} rounded-tl-md rounded-bl-md text-white h-full`}>
+		<div className={`${backgroundFilled ? `${backgroundColor}` : ""} w-14 rounded-tl-md rounded-bl-md text-white h-full`}>
 			<div className="flex justify-center items-center h-full">
 				{children}
 			</div>
@@ -59,13 +60,14 @@ interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
 
 export const LinkButton: FunctionComponent<LinkButtonProps> = ({
 	content, icon, href, backgroundFilled = true,
-	backgroundColor = "bg-green", width = "w-fit", height = "h-14"
+	backgroundColor = "bg-green", width = "w-fit", height = "h-14",
+	iconBackgroundColor
 }) => {
 	const background = backgroundFilled ? backgroundColor : "";
 	const isExternalLink = href.indexOf("://") !== -1;
 	const buttonContent = (
 		<div className="flex items-center h-full">
-			{icon && (<ButtonIcon backgroundFilled={backgroundFilled}>{icon}</ButtonIcon>)}
+			{icon && (<ButtonIcon backgroundFilled={backgroundFilled} backgroundColor={iconBackgroundColor}>{icon}</ButtonIcon>)}
 			{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
 		</div>
 	);

@@ -33,7 +33,7 @@ export const FilterCard: FunctionComponent<FilterCardProps> = ({ slotType, quant
 
     return (
         <button
-            className={`flex flex-col w-60 pl-5 pr-4 py-3 rounded-lg text-left my-8 ${active ? "bg-blue dark:bg-yellow" : "bg-light-gray-4 dark:bg-dark-gray-4"}`}
+            className={`flex flex-col w-60 pl-5 pr-4 py-3 rounded-lg text-left ${active ? "bg-blue dark:bg-yellow" : "bg-light-gray-4 dark:bg-dark-gray-4"}`}
             onClick={onClick}
         >
             <div

@@ -1,12 +1,14 @@
-import { InformationalLayout } from "layouts/InformationalLayout";
 import { LottieFile } from "components/LottieFile";
 import { ActionButton } from "components/button/Button";
 import { FiAlertTriangle, FiCheck } from "react-icons/fi";
 import { Footer } from "components/Footer";
 import { Header, MutedText } from "components/typography/Typography";
 import { Logo } from "components/Logo";
+import { useNavigate } from "react-router-dom";
 
 export default function ConfirmSlot() {
+    const navigate = useNavigate();
+
     return (
         <div className="container flex flex-col min-h-screen">
             <div className="mt-10 md:mt-14">
@@ -44,11 +46,9 @@ export default function ConfirmSlot() {
                                     <ActionButton
                                         backgroundFilled={false}
                                         width='w-full'
-                                        content={
-                                            <span className={`block px-5 py-2.5 leading-[37px] text-center font-action font-semibold text-gray dark:text-white truncate w-full`}>
-                                                <span>Voltar</span>
-                                            </span>
-                                        } />
+                                        content="Voltar"
+                                        onClick={() => navigate(-1)}
+                                    />
                                 </div>
                             </div>
                         </div>

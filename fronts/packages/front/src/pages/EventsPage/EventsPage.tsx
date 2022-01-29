@@ -4,6 +4,7 @@ import { useEvents } from "hooks/useEventList";
 import { EventCard } from "components/EventCard";
 import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator";
+import { getEventTypeName } from "types/Event";
 
 export default function EventsPage() {
     const { data, isLoading, hasPreviousPage, hasNextPage, isFetchingNextPage, fetchNextPage } = useEvents();
@@ -35,7 +36,7 @@ export default function EventsPage() {
                                         eventId={event.id}
                                         imageSrc={event.banner}
                                         eventName={event.eventName}
-                                        eventType="Evento Divisional"
+                                        eventType={getEventTypeName(event.type)}
                                         description={event.description}
                                         tbd={!hasStarted} />
                                 </Fragment>

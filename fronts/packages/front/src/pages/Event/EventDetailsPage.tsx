@@ -7,6 +7,7 @@ import { LoadingIndicator } from "components/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
 import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LinkButton } from "components/button/Button";
+import { getEventTypeName } from "types/Event";
 
 export default function EventDetailsPage() {
     const { eventId } = useParams();
@@ -52,7 +53,7 @@ export default function EventDetailsPage() {
             <div className="flex flex-col md:flex-row">
                 <div>
                     <Header textSize="text-xl" textColor="text-blue dark:text-yellow">{event.eventName}</Header>
-                    <Subheader textSize="text-lg" textColor="text-light-blue dark:text-white">Real Flight Operations</Subheader>
+                    <Subheader textSize="text-lg" textColor="text-light-blue dark:text-white">{getEventTypeName(event.type)}</Subheader>
                 </div>
                 <div className="md:text-right md:ml-auto text-dark-gray-3 dark:text-light-gray-5">
                     <span className="block font-header text-[1.1rem] font-extrabold text-blue dark:text-white">SBGR</span>

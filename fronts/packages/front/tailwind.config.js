@@ -19,6 +19,9 @@ module.exports = {
       },
       flex: {
         'slot-table': '0 1 calc(100vh - 105px - 12px)'
+      },
+      maxHeight: {
+        'slot-table': 'calc(100vh - 105px - 12px)',
       }
     },
     fontFamily: {

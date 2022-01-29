@@ -12,7 +12,7 @@ interface BookInfoMessageProps {
 
 export const BookInfoMessage: FunctionComponent<BookInfoMessageProps> = ({ header, description, onErrorReset }) => {
     return (
-        <div className="max-w-[42rem]">
+        <div className="max-w-[42rem] mt-11 ml-9">
             <Header textSize="text-2xl" textColor="text-blue dark:text-white">{header}</Header>
             <p className="mt-4 font-action text-[20px] text-[#858585] dark:text-light-gray-5">{description}</p>
             <div className="mt-16">

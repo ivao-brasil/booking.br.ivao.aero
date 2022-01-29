@@ -16,7 +16,7 @@ export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = 
                 <Logo />
             </div>
             <div className={`${image ? "flex xl:items-center" : ""}`}>
-                <div className="flex-[1_0_34rem] w-full 2xl-height:pt-[4.5rem] self-start">
+                <div className="md:flex-[1_0_34rem] w-full 2xl-height:pt-[4.5rem] self-start">
                     <div className="flex flex-col items-center md:items-start">
                         {(isValidElement(header) ? header : <Header textSize="text-2xl md:text-3xl">{header}</Header>)}
                         <div className="mt-7 lg:pr-1.5">

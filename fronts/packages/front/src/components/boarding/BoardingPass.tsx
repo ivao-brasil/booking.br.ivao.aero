@@ -221,7 +221,7 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
 
 export const BoardingPass: FunctionComponent<BoardingPassProps> = (props) => {
   return (
-    <section style={{ width: "100%", minWidth: '976px' }}>
+    <section style={{ minWidth: "976px" }}>
       <BoardingPassHeader {...props} />
 
       <main className={bodyStyle.body}>

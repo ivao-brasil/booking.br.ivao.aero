@@ -48,7 +48,7 @@ export default function SlotsPage() {
 
     return (
         <div className="flex flex-col md:flex-row h-full">
-            <div className="md:flex-none">
+            <div className="md:max-w-[18rem]">
                 <SlotTypeFilter
                     eventName={event.eventName}
                     eventType={event.type}
@@ -56,36 +56,48 @@ export default function SlotsPage() {
                     selectedSlotType={selectedSlotType}
                     onSlotTypeChange={(selectedType) => setSelectedSlotType(selectedType)} />
             </div>
-            <div className="flex-auto flex flex-col">
+
+            <ContentWrapper>
                 <SlotPageHeader />
-                <ContentWrapper>
-                    {bookMutation.isError
-                        ? (
-                            <div className="mt-11 ml-9">
-                                <BookInfoMessage
-                                    header="Não foi possível agendar esse voo..."
-                                    description="Esses dados podem não existir no nosso sistema ou já foram reservados por outro piloto."
-                                    type="error"
-                                    onErrorReset={() => bookMutation.reset()}
-                                />
+                {bookMutation.isError
+                    ? (
+                        <BookInfoMessage
+                            header="Não foi possível agendar esse voo..."
+                            description="Esses dados podem não existir no nosso sistema ou já foram reservados por outro piloto."
+                            type="error"
+                            onErrorReset={() => bookMutation.reset()}
+                        />
+                    )
+                    : (
+                        <>
+                            <div className="mx-2 md:ml-8 md:mr-4 mt-4 overflow-x-auto">
+                                {tableData
+                                    ? <SlotsTable slots={tableData} onSlotBook={onSlotBook} />
+                                    : (
+                                        <BookInfoMessage
+                                            header="Parece que já não há mais nada para você aqui..."
+                                            description="Esses dados podem não existir no nosso sistema, verifique os filtros aplicados ou tente novamente mais tarde. "
+                                            type="warning"
+                                            onErrorReset={() => { }}
+                                        />
+                                    )}
                             </div>
-                        )
-                        : (
-                            <>
-                                <div className="mx-2 md:ml-8 md:mr-4 mt-4 overflow-x-auto">
-                                    {tableData ? <SlotsTable slots={tableData} onSlotBook={onSlotBook} /> : null}
-                                </div>
-                                {(hasNextPage) && (
-                                    <div className="flex justify-center my-8">
-                                        {isFetchingNextPage ? <LoadingIndicator /> : (
+                            {(tableData && hasNextPage) && (
+                                <div className="flex justify-center my-8">
+                                    {isFetchingNextPage
+                                        ? (
+                                            <div className="relative">
+                                                <LoadingIndicator />
+                                            </div>
+                                        )
+                                        : (
                                             <ActionButton content="Carregar mais informações" backgroundFilled={false} onClick={() => fetchNextPage()} />
                                         )}
-                                    </div>
-                                )}
-                            </>
-                        )}
-                </ContentWrapper>
-            </div>
+                                </div>
+                            )}
+                        </>
+                    )}
+            </ContentWrapper>
         </div>
     );
 }

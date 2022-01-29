@@ -1,5 +1,7 @@
 import { User } from './User';
 
+type EventTypes = "rfe" | "rfo" | "msa";
+
 export interface Event {
   id: number;
   division: string;
@@ -15,5 +17,20 @@ export interface Event {
   status: "created" | "scheduled" | "finished";
   public: boolean;
   creator?: User;
-  type: "rfe" | "rfo" | "msa"
+  type: EventTypes;
 }
+
+const eventTypesNames = {
+  "rfe": "Real Flight Event",
+  "rfo": "Real Flight Operations",
+  "mse": "Mega Slot Events"
+}
+
+export function getEventTypeName(eventType: string) {
+  if (eventType in eventTypesNames) {
+    return eventTypesNames[eventType as keyof typeof eventTypesNames];
+  }
+
+  return eventType;
+}
+
