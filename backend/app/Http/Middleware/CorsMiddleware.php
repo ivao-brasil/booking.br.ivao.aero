@@ -16,6 +16,11 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
+        $response = $next($request);
+
+        if ($response instanceof \Symfony\Component\HttpFoundation\StreamedResponse) {
+            return $response;
+        }
         // return $next($request);
 
         $headers = [
@@ -29,8 +34,6 @@ class CorsMiddleware
         if ($request->isMethod('OPTIONS')) {
             return response()->json('{"method":"OPTIONS"}', 200, $headers);
         }
-
-        $response = $next($request);
 
         foreach ($headers as $key => $value) {
             $response->header($key, $value);

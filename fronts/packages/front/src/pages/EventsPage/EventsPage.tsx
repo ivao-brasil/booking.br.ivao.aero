@@ -18,8 +18,6 @@ export default function EventsPage() {
         );
     }
 
-    const today = new Date();
-
     return (
         <EventListLayout>
             <p className="font-header text-light-gray-2 dark:text-white text-center md:text-left"><b>{totalFound} eventos</b> encontrados</p>
@@ -27,9 +25,6 @@ export default function EventsPage() {
                 {data?.pages.map(eventPage => (
                     <Fragment key={eventPage.page}>
                         {eventPage.data.map((event) => {
-                            const eventStartDate = new Date(event.dateStart);
-                            const hasStarted = today > eventStartDate;
-
                             return (
                                 <Fragment key={event.id}>
                                     <EventCard
@@ -38,7 +33,7 @@ export default function EventsPage() {
                                         eventName={event.eventName}
                                         eventType={getEventTypeName(event.type)}
                                         description={event.description}
-                                        tbd={!hasStarted} />
+                                        tbd={event.status === "created"} />
                                 </Fragment>
                             )
 

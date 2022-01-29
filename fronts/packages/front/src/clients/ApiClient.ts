@@ -73,6 +73,13 @@ export class ApiClient {
       .then(response => response.data);
   }
 
+  async getUserSlots(pageData: PaginateRequest = {}) {
+    const queryString = fromObjectToQueryString(pageData);
+    return this.axios
+      .get<Pagination<Slot>>(`/slot/me?${queryString}`)
+      .then(response => response.data);
+  }
+
   async bookSlot(slotId: number) {
     return this.axios
       .patch<any>(`/slot/${slotId}/book`)

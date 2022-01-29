@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useMemo, useRef, useState } from "react";
+import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { FiFilter, FiTrash } from "react-icons/fi";
 import { Filter, FilterState } from "components/filter/Filter";
 import { FlightSearchInput } from "components/FlightSearchInput";

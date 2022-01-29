@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { FiCheckCircle } from 'react-icons/fi';
-import { ActionButton, ButtonText } from "components/button/Button";
+import { ActionButton } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 

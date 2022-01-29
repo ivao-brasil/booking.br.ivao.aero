@@ -1,12 +1,12 @@
-import { FunctionComponent, MouseEventHandler, ReactNode } from "react";
+import { FunctionComponent, MouseEventHandler } from "react";
 
-interface SlotBookButton {
+interface SlotBookButtonProps {
 	canBookFLight?: boolean;
 	content: string;
 	onBookClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-export const SlotBookButton: FunctionComponent<SlotBookButton> = ({ content, canBookFLight = true, onBookClick }) => {
+export const SlotBookButton: FunctionComponent<SlotBookButtonProps> = ({ content, canBookFLight = true, onBookClick }) => {
     const background = canBookFLight ? "bg-green text-white" : "bg-red/10 text-red dark:bg-red dark:text-white";
 
     return (

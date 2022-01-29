@@ -1,7 +1,8 @@
 import { Checkbox } from "components/checkbox/Checkbox";
 import { Progress } from "components/progress/Progress";
-import { forwardRef, FunctionComponent, useEffect, useState } from "react";
+import { forwardRef, FunctionComponent, useState } from "react";
 import style from "./filter.module.css";
+
 export interface FilterProps {
   aircrafts: Array<string>;
   airlines: Array<string>;

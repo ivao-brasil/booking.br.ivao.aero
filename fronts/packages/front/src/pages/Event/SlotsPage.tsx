@@ -91,7 +91,7 @@ export default function SlotsPage() {
                                             </div>
                                         )
                                         : (
-                                            <ActionButton content="Carregar mais informações" backgroundFilled={false} onClick={() => fetchNextPage()} />
+                                            <ActionButton content="Carregar mais voos" backgroundFilled={false} onClick={() => fetchNextPage()} />
                                         )}
                                 </div>
                             )}

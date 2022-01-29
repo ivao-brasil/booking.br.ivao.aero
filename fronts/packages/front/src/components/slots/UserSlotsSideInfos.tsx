@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { VerticalInfoCard } from "components/InfoCard";
 import { Header, Subheader } from "components/typography/Typography";
 import { FiDownload, FiMap } from "react-icons/fi";
-import { ButtonText, LinkButton } from "components/button/Button";
+import { LinkButton } from "components/button/Button";
 
 interface UserSlotsSideInfosProps {
     pilotBriefing: string;
