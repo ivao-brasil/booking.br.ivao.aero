@@ -1,18 +1,17 @@
-import { Fragment, useMemo } from "react";
-import { useParams } from "react-router-dom";
-import { FiHeadphones, FiMap } from "react-icons/fi";
-import { useEvent } from "hooks/useEvent";
-import { useEventSceneries } from "hooks/useEventSceneries";
+import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LoadingIndicator } from "components/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
-import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
-import { LinkButton } from "components/button/Button";
+import { useEvent } from "hooks/useEvent";
+import { useEventSceneries } from "hooks/useEventSceneries";
+import { Fragment, useMemo } from "react";
+import { FiHeadphones, FiMap } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 import { getEventTypeName } from "types/Event";
+import { Scenary } from "types/Scenary";
 
 export default function EventDetailsPage() {
     const { eventId } = useParams();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
-    const { data: scenaries, isLoading: isLoadingScenaries } = useEventSceneries(Number(eventId));
 
     const startDate = useMemo(() => {
         if (!event?.dateStart) {
@@ -41,6 +40,31 @@ export default function EventDetailsPage() {
 
         return `${startTime.join("")}z - ${endTime.join("")}z`
     }, [event]);
+
+    const sceneriesBySimulator = useMemo(() => {
+        if (!event?.airports) {
+            return null;
+        }
+
+        const simulatorMap: Map<string, Scenary[]> = new Map();
+
+        event.airports.forEach(airport => {
+            console.log(airport.sceneries);
+            airport.sceneries.forEach(scenary => {
+                console.log(scenary);
+                const currentSimulatorItems = simulatorMap.get(scenary.simulator);
+
+                if (currentSimulatorItems === undefined) {
+                    simulatorMap.set(scenary.simulator, [scenary]);
+                } else {
+                    currentSimulatorItems.push(scenary);
+                    simulatorMap.set(scenary.simulator, currentSimulatorItems);
+                }
+            });
+        });
+
+        return simulatorMap;
+    }, [event?.airports]);
 
     if (isLoadingEvent || !event) {
         return (
@@ -91,24 +115,20 @@ export default function EventDetailsPage() {
                 <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
 
                 <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
-                    {isLoadingScenaries && (
-                        <div className="relative">
+                    {/* {isLoadingScenaries && (
+                        <div className="relative w-full mt-5">
                             <LoadingIndicator />
                         </div>
-                    )}
-                    {scenaries && scenaries.map((scenary) => (
-                        <Fragment key={scenary.id}>
+                    )} */}
+                    {sceneriesBySimulator && Object.entries(sceneriesBySimulator).map(([simulator, sceneries]) => {
+                        <Fragment key={simulator}>
                             <VerticalInfoCard
-                                header={scenary.simulator.toUpperCase()}
-                                content={scenary.title}>
-                                <LinkButton href={scenary.link} content={(
-                                    <span className={`block px-8 py-2.5 text-center font-action text-xs font-semibold text-light-gray-2 dark:text-white truncate`}>
-                                        {scenary.license}
-                                    </span>
-                                )} />
+                                header={simulator.toUpperCase()}
+                                content="ABC">
+
                             </VerticalInfoCard>
                         </Fragment>
-                    ))}
+                    })}
                 </div>
             </div>
         </div>
