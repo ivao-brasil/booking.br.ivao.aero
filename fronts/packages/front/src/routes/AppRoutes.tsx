@@ -36,10 +36,10 @@ export const AppRoutes: FunctionComponent = () => {
                                 <Route index element={<EventDetailsPage />} />
                                 <Route path="slots" element={<SlotsPage />} />
                                 <Route path="my-slots" element={<UserSlotsPage />} />
+                                <Route path="book/:slotId" element={<ConfirmSlotPage />} />
                             </Route>
                             <Route path="/slot/scheduled" element={<SlotScheduledPage />} />
                             <Route path="/slot/confirmed" element={<SidebarLayout />} />
-                            <Route path="/slot/:slotId/confirm" element={<ConfirmSlotPage />} />
                         </Route>
                         <Route path="/404" element={<NotFoundPage />} />
                         <Route path="*" element={<Navigate to="/404" replace />} />

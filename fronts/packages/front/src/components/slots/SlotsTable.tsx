@@ -20,7 +20,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({ slots, onSlotBo
                     <th className="invisible w-10"></th>
                     <th className="px-3">Chegada</th>
                     <th className="px-3">EOBT</th>
-                    <th className="px-3">Stand</th>
+                    <th className="px-3">Posição</th>
                     <th className="invisible w-32"></th>
                 </tr>
             </thead>

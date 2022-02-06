@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEvent } from "hooks/useEvent";
 import { useEventSlots } from "hooks/useEventSlots";
 import { useSlotBookMutation } from "hooks/useSlotBookMutation";
@@ -13,12 +13,17 @@ import { ActionButton } from "components/button/Button";
 import { SlotTypeOptions } from "types/SlotFilter";
 import { Slot } from "types/Slot";
 
+interface LocationState {
+    hasError ?: boolean;
+}
+
 export default function SlotsPage() {
     const { eventId } = useParams();
+    const location = useLocation();
     const navigate = useNavigate();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
     const { data: slots, isLoading: isLoadingSlots, hasNextPage, isFetchingNextPage, fetchNextPage } = useEventSlots(Number(eventId));
-    const bookMutation = useSlotBookMutation();
+    const [hasBookingRequestError, setHasBookingRequestError] = useState(false);
 
     const [selectedSlotType, setSelectedSlotType] = useState(SlotTypeOptions.LANDING);
 
@@ -31,19 +36,23 @@ export default function SlotsPage() {
         return ([] as Slot[]).concat(...allPagesData);
     }, [slots]);
 
+    useEffect(() => {
+        const locationState = location.state as LocationState | null;
+
+        if (locationState?.hasError) {
+            setHasBookingRequestError(true);
+        }
+    }, [location.state]);
+
     const onSlotBook = (slotId: number) => {
-        bookMutation.mutate({ slotId, eventId: Number(eventId) });
+        navigate(`/event/${eventId}/book/${slotId}`);
+        return null;
     }
 
-    if (isLoadingEvent || isLoadingSlots || bookMutation.isLoading || !event) {
+    if (isLoadingEvent || isLoadingSlots || !event) {
         return (
             <LoadingIndicator />
         )
-    }
-
-    if (bookMutation.isSuccess) {
-        navigate("/slot/scheduled", { state: { slotId: bookMutation.variables } });
-        return null;
     }
 
     return (
@@ -59,13 +68,13 @@ export default function SlotsPage() {
 
             <ContentWrapper>
                 <SlotPageHeader />
-                {bookMutation.isError
+                {hasBookingRequestError
                     ? (
                         <BookInfoMessage
                             header="Não foi possível agendar esse voo..."
                             description="Esses dados podem não existir no nosso sistema ou já foram reservados por outro piloto."
                             type="error"
-                            onErrorReset={() => bookMutation.reset()}
+                            onErrorReset={() => setHasBookingRequestError(false)}
                         />
                     )
                     : (

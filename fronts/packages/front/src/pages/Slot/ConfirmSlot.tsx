@@ -4,10 +4,37 @@ import { FiAlertTriangle, FiCheck } from "react-icons/fi";
 import { Footer } from "components/Footer";
 import { Header, MutedText } from "components/typography/Typography";
 import { Logo } from "components/Logo";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSlotBookMutation } from "hooks/useSlotBookMutation";
+import { LoadingIndicator } from "components/LoadingIndicator";
+import { useEffect } from "react";
 
 export default function ConfirmSlot() {
+    const { eventId, slotId } = useParams();
+    const bookMutation = useSlotBookMutation();
     const navigate = useNavigate();
+
+    const bookSlot = () => {
+        bookMutation.mutate({ slotId: Number(slotId), eventId: Number(eventId) });
+    }
+
+    useEffect(() => {
+        if (bookMutation.isSuccess) {
+            navigate("/slot/scheduled", { state: { slotId: bookMutation.variables } });
+        }
+    }, [bookMutation.isSuccess]);
+
+    useEffect(() => {
+        if (bookMutation.isError) {
+            navigate(`/event/${eventId}/slots`, { state: { hasError: true } });
+        }
+    }, [bookMutation.isError]);
+
+    if (bookMutation.isLoading) {
+        return (
+            <LoadingIndicator />
+        )
+    }
 
     return (
         <div className="container flex flex-col min-h-screen">
@@ -25,7 +52,7 @@ export default function ConfirmSlot() {
                         </div>
                         <div className="mx-auto md:mx-0 mt-24 md:mt-12 w-full">
                             <div className="flex">
-                                <div className="bg-orange px-5 py-7 rounded-l-lg">
+                                <div className="bg-orange px-5 py-7 rounded-l-lg text-white">
                                     <FiAlertTriangle size={43} />
                                 </div>
                                 <p className="bg-brown/10 text-orange dark:text-white py-2 pl-4 pr-3 rounded-r-lg text-sm">
@@ -40,7 +67,8 @@ export default function ConfirmSlot() {
                                     <ActionButton
                                         content='Confirmar reserva'
                                         icon={<FiCheck size={20} />}
-                                        width='w-full' />
+                                        width='w-full'
+                                        onClick={() => bookSlot()} />
                                 </div>
                                 <div className='flex-1'>
                                     <ActionButton

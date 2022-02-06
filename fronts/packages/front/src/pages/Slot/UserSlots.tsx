@@ -8,7 +8,7 @@ import { ContentWrapper } from "components/slots/ContentWrapper";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
 import { UserSlotsSideInfos } from "components/slots/UserSlotsSideInfos";
 import { LoadingIndicator } from "components/LoadingIndicator";
-import { ActionButton, LinkButton } from "components/button/Button";
+import { ActionButton } from "components/button/Button";
 import { useAuthData } from "hooks/useAuthData";
 
 export default function UserSlots() {
@@ -50,27 +50,25 @@ export default function UserSlots() {
                                         gate={slot.gate}
                                         type={slot.type === "takeoff" ? BoardingPassType.DEPARTURE : BoardingPassType.ARIVAL}
                                         actions={
-                                            slot?.event?.dateEnd && today <= new Date(slot.event.dateEnd) && (
-                                                <div className="flex gap-4">
-                                                    <ActionButton
-                                                        backgroundColor="bg-red"
-                                                        content={
-                                                            <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
-                                                                Cancelar voo
-                                                            </span>
-                                                        }
-                                                        height="h-8" />
+                                            <div className="flex gap-4">
+                                                <ActionButton
+                                                    backgroundColor="bg-red"
+                                                    content={
+                                                        <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
+                                                            Cancelar voo
+                                                        </span>
+                                                    }
+                                                    height="h-8" />
 
-                                                    <LinkButton
-                                                        href="/slot/1/confirm"
-                                                        content={
-                                                            <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
-                                                                Confirmar voo
-                                                            </span>
-                                                        }
-                                                        height="h-8" />
-                                                </div>
-                                            )
+                                                <ActionButton
+                                                    content={
+                                                        <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
+                                                            Confirmar voo
+                                                        </span>
+                                                    }
+                                                    height="h-8" />
+                                            </div>
+
                                         } />
                                 </Fragment>
                             ))}
