@@ -1,17 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEvent } from "hooks/useEvent";
-import { useEventSlots } from "hooks/useEventSlots";
-import { useSlotBookMutation } from "hooks/useSlotBookMutation";
-import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
-import { SlotsTable } from "components/slots/SlotsTable";
-import { SlotPageHeader } from "components/slots/SlotPageHeader";
+import { ActionButton } from "components/button/Button";
+import { LoadingIndicator } from "components/LoadingIndicator";
 import { BookInfoMessage } from "components/slots/BookInfoMessage";
 import { ContentWrapper } from "components/slots/ContentWrapper";
-import { LoadingIndicator } from "components/LoadingIndicator";
-import { ActionButton } from "components/button/Button";
-import { SlotTypeOptions } from "types/SlotFilter";
+import { SlotPageHeader } from "components/slots/SlotPageHeader";
+import { SlotsTable } from "components/slots/SlotsTable";
+import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
+import { useEventSlots } from "hooks/slots/useEventSlots";
+import { useEvent } from "hooks/useEvent";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Slot } from "types/Slot";
+import { SlotTypeOptions } from "types/SlotFilter";
 
 interface LocationState {
     hasError ?: boolean;
@@ -45,7 +44,7 @@ export default function SlotsPage() {
     }, [location.state]);
 
     const onSlotBook = (slotId: number) => {
-        navigate(`/event/${eventId}/book/${slotId}`);
+        navigate(`/event/${eventId}/schedule/${slotId}`);
         return null;
     }
 

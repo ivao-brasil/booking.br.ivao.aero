@@ -6,7 +6,7 @@ import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator";
 import { getEventTypeName } from "types/Event";
 
-export default function EventsPage() {
+export default function EventsListPage() {
     const { data, isLoading, hasPreviousPage, hasNextPage, isFetchingNextPage, fetchNextPage } = useEvents();
     const totalFound = data?.pages[0].total || 0;
 

@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { useParams } from "react-router-dom";
 
 import { useEvent } from "hooks/useEvent";
-import { useUserSlots } from "hooks/useUserSlots";
+import { useUserSlots } from "hooks/slots/useUserSlots";
 import { BoardingPass, BoardingPassType } from "components/boarding/BoardingPass";
 import { ContentWrapper } from "components/slots/ContentWrapper";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
