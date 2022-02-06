@@ -1,4 +1,5 @@
 import { User } from './User';
+import { Airport } from './Airport';
 
 type EventTypes = "rfe" | "rfo" | "msa";
 
@@ -18,6 +19,7 @@ export interface Event {
   public: boolean;
   creator?: User;
   type: EventTypes;
+  airports: Airport[];
 }
 
 const eventTypesNames = {
