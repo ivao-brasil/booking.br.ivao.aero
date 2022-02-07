@@ -16,13 +16,13 @@ export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = 
                 <Logo />
             </div>
             <div className={`${image ? "flex xl:items-center" : ""}`}>
-                <div className="w-full pt-20 self-start md:max-w-130">
+                <div className="md:flex-[1_0_34rem] w-full 2xl-height:pt-[4.5rem] self-start">
                     <div className="flex flex-col items-center md:items-start">
                         {(isValidElement(header) ? header : <Header textSize="text-2xl md:text-3xl">{header}</Header>)}
-                        <div className="mt-8 lg:pr-1.5">
+                        <div className="mt-7 lg:pr-1.5">
                             {(isValidElement(description) ? description : <MutedText>{description}</MutedText>)}
                         </div>
-                        <div className="mx-auto md:mx-0 mt-24 md:mt-12">
+                        <div className="mx-auto md:mx-0 mt-24 md:mt-12 w-full">
                             {children}
                         </div>
                     </div>

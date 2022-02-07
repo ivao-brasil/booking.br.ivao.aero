@@ -1,18 +1,15 @@
 .header {
+  display: flex;
   width: 100%;
-}
-
-.header {
-  height: 65px;
   border-radius: 10px 10px 0 0;
+  padding: 16px 16px 16px 43px;
 }
 
-.header > div {
-  width: max-content;
-  padding: 17px 0px 16px 36px;
+.header > div:not(:first-child) {
+  margin-left: auto;
 }
 
-.header span {
+.header > div > span {
   text-transform: uppercase;
   font-family: var(--nunito);
   color: var(--white);
@@ -20,13 +17,13 @@
   align-items: center;
 }
 
-.header span:first-child {
+.header > div > span:first-child {
   font-size: 14px;
   line-height: 19px;
   font-weight: bold;
 }
 
-.header b header span:nth-child(2) {
+.header > div > span:not(:first-child) {
   font-size: 10px;
   line-height: 14px;
 }

@@ -91,12 +91,11 @@ services:
       - ./docker/nginx:/etc/nginx/conf.d
     ports:
       - 80:80
-      - 3000:3000
     depends_on:
       - api
       - front
       - admin
 
-networks: 
+networks:
     default:
         driver: "bridge"
