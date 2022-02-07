@@ -8,8 +8,8 @@ import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
 import { useEventSlots } from "hooks/slots/useEventSlots";
 import { useEvent } from "hooks/useEvent";
 import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Slot } from "types/Slot";
+import { createSearchParams, ParamKeyValuePair, useLocation, useNavigate, useParams } from "react-router-dom";
+import { PrivateSlotScheduleData, Slot } from "types/Slot";
 import { SlotTypeOptions } from "types/SlotFilter";
 
 interface LocationState {
@@ -43,9 +43,15 @@ export default function SlotsPage() {
         }
     }, [location.state]);
 
-    const onSlotBook = (slotId: number) => {
-        navigate(`/event/${eventId}/schedule/${slotId}`);
-        return null;
+    const onSlotBook = (slotId: number, slotData?: PrivateSlotScheduleData) => {
+        const scheduleUrl = `/event/${eventId}/schedule/${slotId}`;
+        if (slotData) {
+            const urlInitSlotData = Object.entries(slotData).map(([key, value]) => [String(key), value]) as ParamKeyValuePair[];
+            const schedulingUrlParams = createSearchParams(urlInitSlotData);
+            navigate(`${scheduleUrl}?${schedulingUrlParams.toString()}`);
+        } else {
+            navigate(scheduleUrl);
+        }
     }
 
     if (isLoadingEvent || isLoadingSlots || !event) {
