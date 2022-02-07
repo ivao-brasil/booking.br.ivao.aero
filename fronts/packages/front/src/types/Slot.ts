@@ -21,8 +21,8 @@ export interface Slot {
 }
 
 export interface PrivateSlotScheduleData {
-  "flightNumber": string;
-  "aircraftType": string;
-  "origin": string;
-  "destination": string;
+  flightNumber: string;
+  aircraftType: string;
+  origin: string;
+  destination: string;
 }

@@ -96,7 +96,8 @@ export default function EventDetailsPage() {
                             <LoadingIndicator />
                         </div>
                     )}
-                    {scenaries && scenaries.map((scenary) => (
+                    {/* TODO #63 */}
+                    {/* {scenaries && scenaries.map((scenary) => (
                         <Fragment key={scenary.id}>
                             <VerticalInfoCard
                                 header={scenary.simulator.toUpperCase()}
@@ -108,7 +109,7 @@ export default function EventDetailsPage() {
                                 )} />
                             </VerticalInfoCard>
                         </Fragment>
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </div>
