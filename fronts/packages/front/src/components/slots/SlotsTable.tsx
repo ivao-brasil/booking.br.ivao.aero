@@ -50,7 +50,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
     }
 
     return (
-        <table className="absolute border-separate text-center min-w-full" style={{ borderSpacing: "0 16px" }}>
+        <table className="border-separate text-center min-w-full" style={{ borderSpacing: "0 16px" }}>
             <thead>
                 <tr className="text-[12px] text-[#A0A0A0] dark:text-light-gray-5 text-center font-semibold leading-7 font-header text-sm whitespace-nowrap">
                     <th aria-label="Logo da companhia" className="invisible w-24"></th>
@@ -187,7 +187,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                 <tfoot>
                     <tr>
                         <td colSpan={100}>
-                            <div className="flex justify-center my-8">
+                            <div className="w-screen md:w-full flex justify-center my-8">
                                 {isFecthingMoreFlights
                                     ? (
                                         <div className="relative">

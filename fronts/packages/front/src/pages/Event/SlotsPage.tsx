@@ -1,7 +1,5 @@
-import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator";
 import { BookInfoMessage } from "components/slots/BookInfoMessage";
-import { ContentWrapper } from "components/slots/ContentWrapper";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
 import { SlotsTable } from "components/slots/SlotsTable";
 import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
@@ -72,7 +70,7 @@ export default function SlotsPage() {
                     onSlotTypeChange={(selectedType) => setSelectedSlotType(selectedType)} />
             </div>
 
-            <ContentWrapper>
+            <div className="flex-1 md:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
                 <SlotPageHeader />
                 {hasBookingRequestError
                     ? (
@@ -85,29 +83,31 @@ export default function SlotsPage() {
                     )
                     : (
                         <>
-                            <div className="relative mx-2 md:ml-8 md:mr-4 mt-4 overflow-x-auto h-screen md:h-slot-table scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded">
-                                {tableData
-                                    ? (
-                                        <SlotsTable
-                                            slots={tableData}
-                                            onSlotBook={onSlotBook}
-                                            hasMoreFlights={hasNextPage}
-                                            isFecthingMoreFlights={isFetchingNextPage}
-                                            onMoreFlightsRequested={() => fetchNextPage()}
-                                        />
-                                    )
-                                    : (
-                                        <BookInfoMessage
-                                            header="Parece que já não há mais nada para você aqui..."
-                                            description="Esses dados podem não existir no nosso sistema, verifique os filtros aplicados ou tente novamente mais tarde. "
-                                            type="warning"
-                                            onErrorReset={() => { }}
-                                        />
-                                    )}
+                            <div className="relative overflow-x-auto h-screen lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded">
+                                <div className="mx-2 md:ml-8 md:mr-4">
+                                    {tableData
+                                        ? (
+                                            <SlotsTable
+                                                slots={tableData}
+                                                onSlotBook={onSlotBook}
+                                                hasMoreFlights={hasNextPage}
+                                                isFecthingMoreFlights={isFetchingNextPage}
+                                                onMoreFlightsRequested={() => fetchNextPage()}
+                                            />
+                                        )
+                                        : (
+                                            <BookInfoMessage
+                                                header="Parece que já não há mais nada para você aqui..."
+                                                description="Esses dados podem não existir no nosso sistema, verifique os filtros aplicados ou tente novamente mais tarde. "
+                                                type="warning"
+                                                onErrorReset={() => { }}
+                                            />
+                                        )}
+                                </div>
                             </div>
                         </>
                     )}
-            </ContentWrapper>
+            </div>
         </div>
     );
 }

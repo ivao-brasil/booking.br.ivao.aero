@@ -68,7 +68,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ onFilte
                                     <FiFilter aria-hidden="true" />
                                 </button>
                                 {isFilterOpen && (
-                                    <div className="absolute -left-[15.6rem]">
+                                    <div className="absolute -left-[15.6rem] z-50">
                                         <Filter
                                             aircrafts={[]}
                                             airlines={[]}

@@ -10,7 +10,7 @@ interface UserSlotsSideInfosProps {
 
 export const UserSlotsSideInfos: FunctionComponent<UserSlotsSideInfosProps> = ({ pilotBriefing }) => {
     return (
-        <aside className="lex flex-row md:flex-col justify-evenly items-center flex-wrap px-6 pt-9 bg-white dark:bg-black h-full">
+        <aside className="px-6 pt-9 bg-white dark:bg-black h-full">
             <Header textSize="text-lg" textColor="text-blue dark:text-white">Meus voos</Header>
             <Subheader textSize="text-md" textColor="text-light-blue dark:text-white">Visualize seus agendamentos</Subheader>
             <div className="mt-12">
