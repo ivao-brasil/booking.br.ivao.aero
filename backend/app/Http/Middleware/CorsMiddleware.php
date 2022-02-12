@@ -16,12 +16,12 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $response = $next($request);
+        // $response = $next($request);
 
-        if ($response instanceof \Symfony\Component\HttpFoundation\StreamedResponse) {
-            return $response;
-        }
-        // return $next($request);
+        // if ($response instanceof \Symfony\Component\HttpFoundation\StreamedResponse) {
+        //     return $response;
+        // }
+        return $next($request);
 
         $headers = [
             'Access-Control-Allow-Origin' => '*',
