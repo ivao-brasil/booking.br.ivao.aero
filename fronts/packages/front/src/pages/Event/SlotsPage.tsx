@@ -13,7 +13,7 @@ import { PrivateSlotScheduleData, Slot } from "types/Slot";
 import { SlotTypeOptions } from "types/SlotFilter";
 
 interface LocationState {
-    hasError ?: boolean;
+    hasError?: boolean;
 }
 
 export default function SlotsPage() {
@@ -40,6 +40,7 @@ export default function SlotsPage() {
 
         if (locationState?.hasError) {
             setHasBookingRequestError(true);
+            window.history.replaceState({ hasError: false }, '');
         }
     }, [location.state]);
 
@@ -84,9 +85,17 @@ export default function SlotsPage() {
                     )
                     : (
                         <>
-                            <div className="mx-2 md:ml-8 md:mr-4 mt-4 overflow-x-auto">
+                            <div className="relative mx-2 md:ml-8 md:mr-4 mt-4 overflow-x-auto h-screen md:h-slot-table scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded">
                                 {tableData
-                                    ? <SlotsTable slots={tableData} onSlotBook={onSlotBook} />
+                                    ? (
+                                        <SlotsTable
+                                            slots={tableData}
+                                            onSlotBook={onSlotBook}
+                                            hasMoreFlights={hasNextPage}
+                                            isFecthingMoreFlights={isFetchingNextPage}
+                                            onMoreFlightsRequested={() => fetchNextPage()}
+                                        />
+                                    )
                                     : (
                                         <BookInfoMessage
                                             header="Parece que já não há mais nada para você aqui..."
@@ -96,19 +105,6 @@ export default function SlotsPage() {
                                         />
                                     )}
                             </div>
-                            {(tableData && hasNextPage) && (
-                                <div className="flex justify-center my-8">
-                                    {isFetchingNextPage
-                                        ? (
-                                            <div className="relative">
-                                                <LoadingIndicator />
-                                            </div>
-                                        )
-                                        : (
-                                            <ActionButton content="Carregar mais voos" backgroundFilled={false} onClick={() => fetchNextPage()} />
-                                        )}
-                                </div>
-                            )}
                         </>
                     )}
             </ContentWrapper>

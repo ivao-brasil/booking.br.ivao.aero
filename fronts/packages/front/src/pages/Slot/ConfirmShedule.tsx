@@ -10,7 +10,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { PrivateSlotScheduleData } from "types/Slot";
 import globe from './globe.svg';
 
-const PRIVATE_SLOT_URL_PARAMS = ["flightNumber", "aircraftType", "origin", "destination"];
+const PRIVATE_SLOT_URL_PARAMS = ["flightNumber", "aircraft", "origin", "destination"];
 
 export default function ConfirmSchedule() {
     const { eventId, slotId } = useParams();
@@ -25,7 +25,7 @@ export default function ConfirmSchedule() {
     const extractSlotParamsFromUrl = () => {
         const result: PrivateSlotScheduleData = {
             flightNumber: "",
-            aircraftType: "",
+            aircraft: "",
             origin: "",
             destination: ""
         };
@@ -59,13 +59,13 @@ export default function ConfirmSchedule() {
         if (bookMutation.isSuccess) {
             navigate("/slot/scheduled", { state: { slotId: bookMutation.variables } });
         }
-    }, [bookMutation.isSuccess]);
+    }, [bookMutation.isSuccess, bookMutation.variables, navigate]);
 
     useEffect(() => {
         if (bookMutation.isError) {
             navigate(`/event/${eventId}/slots`, { state: { hasError: true } });
         }
-    }, [bookMutation.isError]);
+    }, [bookMutation.isError, eventId, navigate]);
 
     if (bookMutation.isLoading) {
         return (
