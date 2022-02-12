@@ -16,7 +16,7 @@ export default function UserSlots() {
     const { data: slots, isLoading: isLoadingSlots, hasNextPage, isFetchingNextPage, fetchNextPage } = useUserSlots();
     const { data: user, isLoading: isLoadingUser } = useAuthData();
 
-    if (isLoadingEvent || isLoadingUser || !event || !user) {
+    if (isLoadingEvent || isLoadingUser || isLoadingSlots || !event || !user) {
         return (
             <LoadingIndicator />
         )
@@ -30,11 +30,6 @@ export default function UserSlots() {
                 <SlotPageHeader showFilter={false} />
                 <div className="h-screen lg:h-slot-table lg:mt-5 overflow-auto scrollbar-thin scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded">
                     <div className="max-w-[62rem] mx-auto">
-                        {isLoadingSlots && (
-                            <div className="relative">
-                                <LoadingIndicator />
-                            </div>
-                        )}
                         <div className="space-y-5">
                             {slots?.pages.map(slotPage => (
                                 <Fragment key={slotPage.page}>
@@ -74,7 +69,7 @@ export default function UserSlots() {
                                 </Fragment>
                             ))}
                         </div>
-                        {(hasNextPage) && (
+                        {hasNextPage && (
                             <div className="flex justify-center mt-8">
                                 {isFetchingNextPage
                                     ? (
