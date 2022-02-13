@@ -27,11 +27,6 @@
   cursor: pointer;
 }
 
-:global(.dark) .item .counter {
-  border-color: #282828;
-  background-color: #282828;
-}
-
 .item.completed {
   color: var(--blue);
   font-weight: 500;
@@ -39,10 +34,6 @@
 
 .item.completed .counter {
   background-color: var(--blue);
-}
-
-:global(.dark) .item.completed .counter {
-  background-color: #F9CC2C;
 }
 
 .item::after {
@@ -54,10 +45,7 @@
   left: -50%;
   top: 5px;
   z-index: 3;
-}
-
-:global(.dark) .item::after {
-  border-color: #282828;
+  transition: all 0.5s;
 }
 
 .item:first-child::after {
@@ -68,18 +56,7 @@
   border-bottom: 3px solid var(--blue);
 }
 
-:global(.dark) .item.completed::after {
-  border-color: #F9CC2C;
-}
-
 .legend {
   max-width: 36px;
   color: var(--silver);
-  font-family: var(--poppins);
-  font-size: 0.63rem;
-  line-height: 150%;
-}
-
-:global(.dark) .legend {
-  color: rgba(128, 128, 128, 0,8);
 }

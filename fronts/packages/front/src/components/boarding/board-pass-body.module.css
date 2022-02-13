@@ -2,12 +2,8 @@
   background: var(--white);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.02);
   border-radius: 0 0 10px 10px;
+  height: 197px;
   display: flex;
-}
-
-:global(.dark) .body {
-  background: var(--dark);
-  color: var(--white);
 }
 
 .body > div:first-child {
@@ -17,6 +13,7 @@
 .passengerInfo {
   padding-top: 11px;
   width: 100%;
+  height: 30px;
   display: flex;
   padding-left: 43px;
 }
@@ -24,12 +21,16 @@
 .passengerInfo > span {
   display: flex;
   flex-direction: column;
-  flex: 1 0 423px
+}
+
+.passengerInfo > span:nth-child(2) {
+  margin-left: 249px;
 }
 
 .passengerInfo span > span {
   font-family: var(--nunito);
   text-transform: uppercase;
+  color: var(--dark);
 }
 
 .passengerInfo > span > span:first-child {
@@ -46,27 +47,12 @@
 }
 
 .flightHeader {
-  position: relative;
   margin-top: 6px;
   margin-left: 36px;
   width: 717px;
   height: 20px;
   display: flex;
   align-items: center;
-}
-
-.flightHeader::after {
-  position: absolute;
-  left: 100%;
-
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left-width: 10px;
-  border-left-style: solid;
 }
 
 .flightHeader > span {
@@ -88,22 +74,26 @@
 }
 
 .flightInfo {
-  margin: 0 0 18px 43px;
+  line-height: 16px;
+  margin-left: 43px;
+  margin-top: 7px;
   font-family: var(--poppins);
   text-transform: uppercase;
+  color: var(--dark);
   display: flex;
+  font-weight: bold;
 }
 
 .flightInfo > div:first-child {
-  flex-basis: 205px;
+  width: 203px;
 }
 
 .flightInfo > div:nth-child(2) {
-  flex-basis: 218px;
+  width: 218px;
 }
 
 .flightInfo > div:nth-child(3) {
-  flex-basis: 242px;
+  width: 242px;
 }
 
 .dateInfo {
@@ -126,6 +116,7 @@
   line-height: 12px;
   display: flex;
   align-items: center;
+  color: var(--dark);
 }
 
 .dateInfo div > div:nth-child(2) {
@@ -142,7 +133,7 @@
 }
 
 .gateInfo > div:nth-child(2) {
-  margin-left: 125px;
+  margin-left: 130px;
 }
 
 .gateInfo div > div {
@@ -154,6 +145,7 @@
   line-height: 12px;
   display: flex;
   align-items: center;
+  color: var(--dark);
 }
 
 .gateInfo div > div:nth-child(2) {
@@ -173,24 +165,23 @@
   width: 270px;
   height: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  margin-top: auto;
+  padding-top: 14px;
 }
 
-.qrCodeInfo .infoText {
-  width: 158px;
+.qrCodeInfo .info {
+  height: 70px;
+  width: 150px;
   font-family: var(--nunito);
   font-weight: 800;
   font-size: 9.7px;
-  line-height: 13px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  color: var(--dark);
   border: 3px solid var(--dark);
   padding: 5px 7px 4px 6px;
-  text-transform: none;
-}
-
-:global(.dark) .qrCodeInfo .infoText {
-  border-color: var(--white);
 }
 
 .sideContent {
@@ -199,11 +190,8 @@
   width: 185px;
 }
 
-:global(.dark) .sideContent {
-  border-left-color: var(--white);
-}
-
 .sideContent .passengerInfoSideBar {
+  height: 30px;
   text-transform: uppercase;
   font-family: var(--nunito);
   font-style: normal;
@@ -211,6 +199,7 @@
   font-size: 10px;
   line-height: 14px;
   display: flex;
+  color: var(--dark);
   display: flex;
   flex-direction: column;
   padding-left: 22px;
@@ -229,7 +218,6 @@
   padding-right: 14px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
 }
 
 .sideContent .flightInfoSidebar > div {
@@ -242,6 +230,7 @@
   line-height: 19px;
   display: flex;
   align-items: center;
+  color: var(--dark);
 }
 
 .sideContent .flightInfoSidebar > div:nth-child(2) {
@@ -255,9 +244,11 @@
 }
 
 .dateInfoSidebar {
+  height: 28px;
   display: flex;
   margin-top: 9px;
   padding-left: 22px;
+  padding-top: 11px;
   padding-right: 14px;
   justify-content: space-between;
 }
@@ -269,6 +260,9 @@
   font-weight: 300;
   font-size: 9px;
   line-height: 12px;
+  display: flex;
+  align-items: center;
+  color: var(--dark);
 }
 
 .dateInfoSidebar div > div:nth-child(2) {
@@ -278,6 +272,7 @@
 }
 
 .seatInfo {
+  height: 28px;
   display: flex;
   margin-top: 9px;
   padding-left: 22px;
@@ -293,6 +288,9 @@
   font-weight: 300;
   font-size: 9px;
   line-height: 12px;
+  display: flex;
+  align-items: center;
+  color: var(--dark);
 }
 
 .seatInfo div > div:nth-child(2) {

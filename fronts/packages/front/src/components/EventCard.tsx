@@ -12,7 +12,7 @@ interface EventCardProps {
 }
 
 export const EventCard: FunctionComponent<EventCardProps> = ({ eventId, imageSrc, eventName, eventType, description, tbd = false }) => {
-    const MAX_DESC_LENGTH = 160;
+    const MAX_DESC_LENGTH = 200;
 
     return (
         <div className="flex flex-col w-72 font-header">

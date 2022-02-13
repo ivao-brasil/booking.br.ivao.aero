@@ -16,13 +16,8 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // $response = $next($request);
-
-        // if ($response instanceof \Symfony\Component\HttpFoundation\StreamedResponse) {
-        //     return $response;
-        // }
         return $next($request);
-
+        
         $headers = [
             'Access-Control-Allow-Origin' => '*',
             'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE, PATCH',
@@ -34,6 +29,8 @@ class CorsMiddleware
         if ($request->isMethod('OPTIONS')) {
             return response()->json('{"method":"OPTIONS"}', 200, $headers);
         }
+
+        $response = $next($request);
 
         foreach ($headers as $key => $value) {
             $response->header($key, $value);

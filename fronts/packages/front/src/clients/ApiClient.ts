@@ -3,7 +3,6 @@ import { User } from "types/User";
 import { Pagination } from "types/Pagination";
 import { Event } from "types/Event";
 import { Scenary } from 'types/Scenary';
-import { PrivateSlotScheduleData, Slot } from 'types/Slot';
 
 interface AuthResponse {
   jwt: string;
@@ -63,26 +62,6 @@ export class ApiClient {
   async getEventSceneries(eventId: number) {
     return this.axios
       .get<Scenary[]>(`/event/${eventId}/scenery`)
-      .then(response => response.data);
-  }
-
-  async getEventSlots(eventId: number, pageData: PaginateRequest = {}) {
-    const queryString = fromObjectToQueryString(pageData);
-    return this.axios
-      .get<Pagination<Slot>>(`/event/${eventId}/slot?${queryString}`)
-      .then(response => response.data);
-  }
-
-  async getUserSlots(pageData: PaginateRequest = {}) {
-    const queryString = fromObjectToQueryString(pageData);
-    return this.axios
-      .get<Pagination<Slot>>(`/slot/me?${queryString}`)
-      .then(response => response.data);
-  }
-
-  async bookSlot(slotId: number, privateSlotData?: PrivateSlotScheduleData) {
-    return this.axios
-      .patch<any>(`/slot/${slotId}/book`, privateSlotData)
       .then(response => response.data);
   }
 
