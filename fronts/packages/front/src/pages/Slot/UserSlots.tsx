@@ -10,7 +10,7 @@ import { LoadingIndicator } from "components/LoadingIndicator";
 import { ActionButton } from "components/button/Button";
 import { useAuthData } from "hooks/useAuthData";
 import { BookingStatus, Slot, SlotBookActions } from "types/Slot";
-import { FLIGHT_CONFIRM_MIN_DAYS, ONE_DAY } from "appConstants";
+import { FLIGHT_CONFIRM_MAX_DAYS, FLIGHT_CONFIRM_MIN_DAYS, ONE_DAY } from "appConstants";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 
 export default function UserSlots() {
@@ -22,7 +22,7 @@ export default function UserSlots() {
     const scheduleCancelMutation = useSlotBookMutation(SlotBookActions.CANCEL);
     const navigate = useNavigate();
 
-    const canConfirmFlights = useMemo(() => {
+    const hasEventStarted = useMemo(() => {
         if (!event) {
             return false;
         }
@@ -32,13 +32,21 @@ export default function UserSlots() {
 
         const dateDeltaMs = slotStartDate.getTime() - today.getTime();
 
-        if (dateDeltaMs < 0) {
-            // The event has already started
+        return dateDeltaMs < 0;
+    }, [event]);
+
+    const canConfirmFlights = useMemo(() => {
+        if (!event || hasEventStarted) {
             return false;
         }
 
+        const today = new Date();
+        const slotStartDate = new Date(event.dateStart);
+
+        const dateDeltaMs = slotStartDate.getTime() - today.getTime();
+
         const dateDeltaDays = dateDeltaMs / ONE_DAY;
-        return FLIGHT_CONFIRM_MIN_DAYS > dateDeltaDays;
+        return FLIGHT_CONFIRM_MAX_DAYS >= dateDeltaDays && FLIGHT_CONFIRM_MIN_DAYS <= dateDeltaDays;
     }, [event]);
 
     useEffect(() => {
@@ -80,6 +88,10 @@ export default function UserSlots() {
     }
 
     const availableActions = (slot: Slot) => {
+        if (hasEventStarted) {
+            return null;
+        }
+
         const cancelFlightAction = (
             <ActionButton
                 backgroundColor="bg-red"
@@ -118,6 +130,16 @@ export default function UserSlots() {
         } else {
             return (
                 <>
+                    <ActionButton
+                        backgroundColor="bg-red"
+                        content={
+                            <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
+                                Cancelar reserva
+                            </span>
+                        }
+                        height="h-8"
+                        onClick={() => onScheduleCancel(slot)}
+                    />
                     <ActionButton
                         backgroundColor="bg-[#4C4C4C]"
                         content={
