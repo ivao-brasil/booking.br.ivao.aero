@@ -49,7 +49,7 @@ export default function ConfirmSchedule() {
 
         if (isPrivateSlot()) {
             const privateSlotData = extractSlotParamsFromUrl();
-            bookMutation.mutate({ ...mutationParams, privateSlotData  });
+            bookMutation.mutate({ ...mutationParams, privateSlotData });
         } else {
             bookMutation.mutate(mutationParams);
         }
@@ -57,7 +57,12 @@ export default function ConfirmSchedule() {
 
     useEffect(() => {
         if (bookMutation.isSuccess) {
-            navigate("/slot/scheduled", { state: { slotId: bookMutation.variables } });
+            navigate("/slot/scheduled", {
+                state: {
+                    eventId: bookMutation.variables?.eventId
+                },
+                replace: true
+            });
         }
     }, [bookMutation.isSuccess, bookMutation.variables, navigate]);
 
