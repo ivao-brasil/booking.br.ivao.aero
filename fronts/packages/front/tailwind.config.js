@@ -17,11 +17,8 @@ module.exports = {
       boxShadow: {
         '3xl': '0px 0px 60px rgba(0, 0, 0, 0.05)',
       },
-      flex: {
-        'slot-table': '0 1 calc(100vh - 105px - 12px)'
-      },
-      maxHeight: {
-        'slot-table': 'calc(100vh - 105px - 12px)',
+      height: {
+        'slot-table': 'calc(100vh - 146px)',
       }
     },
     fontFamily: {

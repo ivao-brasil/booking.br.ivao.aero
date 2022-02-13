@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useMemo, useState } from "react";
-import { FiFilter, FiTrash } from "react-icons/fi";
+import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
 import { Filter, FilterState } from "components/filter/Filter";
-import { FlightSearchInput } from "components/FlightSearchInput";
+import { InputField } from "components/InputField";
 import { ActionButton } from "components/button/Button";
 
 interface SlotPageHeaderProps {
@@ -32,7 +32,12 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ onFilte
 
     return (
         <div className="flex items-center p-8 bg-white dark:bg-black">
-            <FlightSearchInput />
+            <InputField
+                icon={<FiSearch width={16} />}
+                type="search"
+                aria-label="Buscar voo"
+                placeholder="Buscar voo" />
+
             <span className="text-inherit ml-auto text-[12px]">{utcTime} UTC</span>
             {showFilter && (
                 <>
@@ -63,7 +68,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ onFilte
                                     <FiFilter aria-hidden="true" />
                                 </button>
                                 {isFilterOpen && (
-                                    <div className="absolute -left-[15.6rem]">
+                                    <div className="absolute -left-[15.6rem] z-50">
                                         <Filter
                                             aircrafts={[]}
                                             airlines={[]}

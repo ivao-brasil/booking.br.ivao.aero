@@ -6,29 +6,72 @@ import { Header, MutedText } from "components/typography/Typography";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 import { useEffect } from "react";
 import { FiAlertTriangle, FiCheck } from "react-icons/fi";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { PrivateSlotScheduleData } from "types/Slot";
 import globe from './globe.svg';
+
+const PRIVATE_SLOT_URL_PARAMS = ["flightNumber", "aircraft", "origin", "destination"];
 
 export default function ConfirmSchedule() {
     const { eventId, slotId } = useParams();
     const bookMutation = useSlotBookMutation();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
+    const isPrivateSlot = () => {
+        return PRIVATE_SLOT_URL_PARAMS.find(urlParamKey => searchParams.get(urlParamKey) !== null) !== undefined;
+    }
+
+    const extractSlotParamsFromUrl = () => {
+        const result: PrivateSlotScheduleData = {
+            flightNumber: "",
+            aircraft: "",
+            origin: "",
+            destination: ""
+        };
+
+        PRIVATE_SLOT_URL_PARAMS.forEach(urlParamKey => {
+            if (!(urlParamKey in result)) {
+                return;
+            }
+
+            const urlParamValue = searchParams.get(urlParamKey)?.toUpperCase();
+            result[urlParamKey as keyof PrivateSlotScheduleData] = urlParamValue || "";
+        });
+
+        return result;
+    }
+
     const bookSlot = () => {
-        bookMutation.mutate({ slotId: Number(slotId), eventId: Number(eventId) });
+        const mutationParams = {
+            slotId: Number(slotId),
+            eventId: Number(eventId),
+        }
+
+        if (isPrivateSlot()) {
+            const privateSlotData = extractSlotParamsFromUrl();
+            bookMutation.mutate({ ...mutationParams, privateSlotData });
+        } else {
+            bookMutation.mutate(mutationParams);
+        }
     }
 
     useEffect(() => {
         if (bookMutation.isSuccess) {
-            navigate("/slot/scheduled", { state: { slotId: bookMutation.variables } });
+            navigate("/slot/scheduled", {
+                state: {
+                    eventId: bookMutation.variables?.eventId
+                },
+                replace: true
+            });
         }
-    }, [bookMutation.isSuccess]);
+    }, [bookMutation.isSuccess, bookMutation.variables, navigate]);
 
     useEffect(() => {
         if (bookMutation.isError) {
             navigate(`/event/${eventId}/slots`, { state: { hasError: true } });
         }
-    }, [bookMutation.isError]);
+    }, [bookMutation.isError, eventId, navigate]);
 
     if (bookMutation.isLoading) {
         return (

@@ -1,19 +1,16 @@
 import { FunctionComponent, isValidElement, ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 import { Footer } from "components/Footer";
 import { Logo } from "components/Logo";
 import { Header, MutedText } from "components/typography/Typography";
-import { ActionButton } from "components/button/Button";
 
 interface SlotInformationLayoutProps {
     header?: ReactNode;
     description?: ReactNode;
     image?: ReactNode;
+    actions?: ReactNode;
 }
 
-export const SlotInformationLayout: FunctionComponent<SlotInformationLayoutProps> = ({ header, description, image, children }) => {
-    const navigate = useNavigate();
-
+export const SlotInformationLayout: FunctionComponent<SlotInformationLayoutProps> = ({ header, description, image, actions }) => {
     return (
         <div className="container flex flex-col min-h-screen">
             <div className="mt-10 md:mt-14">
@@ -28,7 +25,7 @@ export const SlotInformationLayout: FunctionComponent<SlotInformationLayoutProps
                     {(isValidElement(description) ? description : <MutedText textSize="text-[18px]">{description}</MutedText>)}
                 </div>
                 <div className="mt-[74px]">
-                    <ActionButton content="Voltar" width="w-44" backgroundColor="bg-[#858585] dark:bg-[#525252]" onClick={() => navigate(-1)} />
+                    {actions}
                 </div>
             </div>
             <Footer />

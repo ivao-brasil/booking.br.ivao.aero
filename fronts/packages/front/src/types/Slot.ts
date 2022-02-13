@@ -19,3 +19,10 @@ export interface Slot {
   event?: Event;
   flightNumber: string;
 }
+
+export interface PrivateSlotScheduleData {
+  flightNumber: string;
+  aircraft: string;
+  origin: string;
+  destination: string;
+}
