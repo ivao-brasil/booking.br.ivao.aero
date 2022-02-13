@@ -1,5 +1,5 @@
 import { Fragment, useMemo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FiHeadphones, FiMap } from "react-icons/fi";
 import { useEvent } from "hooks/useEvent";
 import { useEventSceneries } from "hooks/useEventSceneries";
@@ -7,12 +7,12 @@ import { LoadingIndicator } from "components/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
 import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LinkButton } from "components/button/Button";
+import { getEventTypeName } from "types/Event";
 
-export default function EventsPage() {
+export default function EventDetailsPage() {
     const { eventId } = useParams();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
-    const { data: scenaries } = useEventSceneries(Number(eventId));
-    const navigate = useNavigate();
+    const { data: scenaries, isLoading: isLoadingScenaries } = useEventSceneries(Number(eventId));
 
     const startDate = useMemo(() => {
         if (!event?.dateStart) {
@@ -42,21 +42,18 @@ export default function EventsPage() {
         return `${startTime.join("")}z - ${endTime.join("")}z`
     }, [event]);
 
-    if (isLoadingEvent) {
-        return <LoadingIndicator />
-    }
-
-    if (event === undefined) {
-        navigate("/404");
-        return null;
+    if (isLoadingEvent || !event) {
+        return (
+            <LoadingIndicator />
+        )
     }
 
     return (
-        <div className="xl:mt-16">
+        <div className="mt-[4.3rem]">
             <div className="flex flex-col md:flex-row">
                 <div>
                     <Header textSize="text-xl" textColor="text-blue dark:text-yellow">{event.eventName}</Header>
-                    <Subheader textSize="text-lg" textColor="text-light-blue dark:text-white">Real Flight Operations</Subheader>
+                    <Subheader textSize="text-lg" textColor="text-light-blue dark:text-white">{getEventTypeName(event.type)}</Subheader>
                 </div>
                 <div className="md:text-right md:ml-auto text-dark-gray-3 dark:text-light-gray-5">
                     <span className="block font-header text-[1.1rem] font-extrabold text-blue dark:text-white">SBGR</span>
@@ -89,28 +86,32 @@ export default function EventsPage() {
                 </div>
             </div>
 
-            {scenaries && scenaries.length > 0 && (
-                <div className="mt-7">
-                    <Header textSize="text-lg">Cenários</Header>
-                    <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
+            <div className="mt-7">
+                <Header textSize="text-lg">Cenários</Header>
+                <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
 
-                    <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
-                        {scenaries.map((scenary) => (
-                            <Fragment key={scenary.id}>
-                                <VerticalInfoCard
-                                    header={scenary.simulator.toUpperCase()}
-                                    content={scenary.title}>
-                                    <LinkButton href={scenary.link} content={(
-                                        <span className={`block px-8 py-2.5 text-center font-action text-sm font-semibold text-light-gray-2 dark:text-white truncate`}>
-                                            {scenary.license}
-                                        </span>
-                                    )} />
-                                </VerticalInfoCard>
-                            </Fragment>
-                        ))}
-                    </div>
+                <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
+                    {isLoadingScenaries && (
+                        <div className="relative">
+                            <LoadingIndicator />
+                        </div>
+                    )}
+                    {/* TODO #63 */}
+                    {/* {scenaries && scenaries.map((scenary) => (
+                        <Fragment key={scenary.id}>
+                            <VerticalInfoCard
+                                header={scenary.simulator.toUpperCase()}
+                                content={scenary.title}>
+                                <LinkButton href={scenary.link} content={(
+                                    <span className={`block px-8 py-2.5 text-center font-action text-xs font-semibold text-light-gray-2 dark:text-white truncate`}>
+                                        {scenary.license}
+                                    </span>
+                                )} />
+                            </VerticalInfoCard>
+                        </Fragment>
+                    ))} */}
                 </div>
-            )}
+            </div>
         </div>
     );
 }
