@@ -7,14 +7,14 @@ import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 import { useEffect } from "react";
 import { FiAlertTriangle, FiCheck } from "react-icons/fi";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { PrivateSlotScheduleData } from "types/Slot";
+import { PrivateSlotScheduleData, SlotBookActions } from "types/Slot";
 import globe from './globe.svg';
 
 const PRIVATE_SLOT_URL_PARAMS = ["flightNumber", "aircraft", "origin", "destination"];
 
 export default function ConfirmSchedule() {
     const { eventId, slotId } = useParams();
-    const bookMutation = useSlotBookMutation();
+    const bookMutation = useSlotBookMutation(SlotBookActions.BOOK);
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
