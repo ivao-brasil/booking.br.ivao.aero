@@ -80,9 +80,21 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async bookSlot(slotId: number, privateSlotData?: PrivateSlotScheduleData) {
+  async scheduleSlot(slotId: number, privateSlotData?: PrivateSlotScheduleData) {
     return this.axios
       .patch<any>(`/slot/${slotId}/book`, privateSlotData)
+      .then(response => response.data);
+  }
+
+  async cancelSchedule(slotId: number) {
+    return this.axios
+      .patch<any>(`/slot/${slotId}/cancel`)
+      .then(response => response.data);
+  }
+
+  async confirmSchedule(slotId: number) {
+    return this.axios
+      .patch<any>(`/slot/${slotId}/confirm`)
       .then(response => response.data);
   }
 

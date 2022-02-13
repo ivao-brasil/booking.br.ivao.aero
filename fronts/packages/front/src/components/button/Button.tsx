@@ -9,16 +9,19 @@ interface ActionButtonProps {
 	height?: string;
 	backgroundColor?: string;
 	iconBackgroundColor?: string;
+	disabled?: boolean;
 	onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 export const ActionButton: FunctionComponent<ActionButtonProps> = ({
 	content, icon, backgroundFilled = true,
 	backgroundColor = "bg-green", width = "w-fit", height = "h-14",
-	iconBackgroundColor, onClick
+	iconBackgroundColor, disabled, onClick
 }) => {
+	const classNames = `block ${backgroundFilled ? backgroundColor : ""} rounded-md ${width} ${height} ${disabled ? "cursor-not-allowed" : ""}`;
+
 	return (
-		<button className={`block ${backgroundFilled ? backgroundColor : ""} rounded-md ${width} ${height}`} onClick={onClick}>
+		<button className={classNames} onClick={onClick}>
 			<div className="flex items-center h-full">
 				{icon && (<ButtonIcon backgroundFilled={backgroundFilled} backgroundColor={iconBackgroundColor}>{icon}</ButtonIcon>)}
 				{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
@@ -61,7 +64,7 @@ interface LinkButtonProps extends Omit<ActionButtonProps, "onClick"> {
 export const LinkButton: FunctionComponent<LinkButtonProps> = ({
 	content, icon, href, backgroundFilled = true,
 	backgroundColor = "bg-green", width = "w-fit", height = "h-14",
-	iconBackgroundColor
+	iconBackgroundColor, disabled
 }) => {
 	const background = backgroundFilled ? backgroundColor : "";
 	const isExternalLink = href.indexOf("://") !== -1;
@@ -71,7 +74,7 @@ export const LinkButton: FunctionComponent<LinkButtonProps> = ({
 			{(isValidElement(content) ? content : <ButtonText textColor={backgroundFilled ? "text-white" : undefined}>{content}</ButtonText>)}
 		</div>
 	);
-	const classNames = `block ${background} rounded-md ${width} ${height}`;
+	const classNames = `block ${background} rounded-md ${width} ${height} ${disabled ? "cursor-not-allowed pointer-events-none" : ""}`;
 
 	if (isExternalLink) {
 		return (

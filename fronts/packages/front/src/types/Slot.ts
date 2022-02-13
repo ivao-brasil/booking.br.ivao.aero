@@ -6,6 +6,12 @@ export enum SlotType {
   LANDING = 'landing',
 }
 
+export enum BookingStatus {
+  FREE = 'free',
+  PREBOOKED = 'prebooked',
+  BOOKED = 'booked'
+}
+
 export interface Slot {
   id: number;
   origin: string;
@@ -18,6 +24,7 @@ export interface Slot {
   owner?: User;
   event?: Event;
   flightNumber: string;
+  bookingStatus: BookingStatus;
 }
 
 export interface PrivateSlotScheduleData {
@@ -25,4 +32,10 @@ export interface PrivateSlotScheduleData {
   aircraft: string;
   origin: string;
   destination: string;
+}
+
+export enum SlotBookActions {
+  BOOK,
+  CANCEL,
+  CONFIRM
 }
