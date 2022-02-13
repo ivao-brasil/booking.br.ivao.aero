@@ -4,7 +4,7 @@ import { SlotBookButton } from "./SlotBookButton";
 import { PrivateSlotScheduleData, Slot, SlotType } from "types/Slot";
 import { InputField } from "components/InputField";
 import { ActionButton } from "components/button/Button";
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 
 interface SlotsTableProps {
     slots: Slot[];

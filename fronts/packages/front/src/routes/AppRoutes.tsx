@@ -4,7 +4,7 @@ import { RequireAuth } from "components/RequireAuth";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 import { SplashPage } from "pages/SplashPage";
 import { NotFoundPage } from "pages/NotFoundPage";
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { SidebarLayout } from "layouts/SidebarLayout";
 
 const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));

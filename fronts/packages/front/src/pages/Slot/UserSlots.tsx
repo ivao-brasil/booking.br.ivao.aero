@@ -6,7 +6,7 @@ import { useEventUserSlots } from "hooks/slots/useEventUserSlots";
 import { BoardingPass, BoardingPassType } from "components/boarding/BoardingPass";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
 import { UserSlotsSideInfos } from "components/slots/UserSlotsSideInfos";
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { ActionButton } from "components/button/Button";
 import { useAuthData } from "hooks/useAuthData";
 import { BookingStatus, Slot, SlotBookActions } from "types/Slot";

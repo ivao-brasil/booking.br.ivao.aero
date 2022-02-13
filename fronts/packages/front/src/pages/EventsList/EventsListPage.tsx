@@ -3,7 +3,7 @@ import { EventListLayout } from "layouts/EventListLayout/EventListLayout";
 import { useEvents } from "hooks/useEventList";
 import { EventCard } from "components/EventCard";
 import { ActionButton } from "components/button/Button";
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { getEventTypeName } from "types/Event";
 
 export default function EventsListPage() {

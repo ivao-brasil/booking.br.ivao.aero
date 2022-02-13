@@ -1,4 +1,4 @@
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { BookInfoMessage } from "components/slots/BookInfoMessage";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
 import { SlotsTable } from "components/slots/SlotsTable";
