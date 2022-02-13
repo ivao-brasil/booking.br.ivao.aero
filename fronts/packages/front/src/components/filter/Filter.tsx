@@ -1,8 +1,7 @@
 import { Checkbox } from "components/checkbox/Checkbox";
 import { Progress } from "components/progress/Progress";
-import { forwardRef, FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import style from "./filter.module.css";
-
 export interface FilterProps {
   aircrafts: Array<string>;
   airlines: Array<string>;
@@ -23,17 +22,21 @@ export interface FilterState {
   onlyAvailableFlights: boolean;
 }
 
-export const Filter: FunctionComponent<FilterProps> = forwardRef<any, FilterProps>(({
+export const Filter: FunctionComponent<FilterProps> = ({
   onChange,
   airlines,
   aircrafts,
-}, ref) => {
+}) => {
   const [aircraft, setAircraft] = useState("");
   const [airline, setAirline] = useState("");
   const [flightDuration, setFlightDuration] = useState(
     FlightDuration.LESS_ONE_HOUR
   );
   const [onlyAvailableFlights, setOnlyAvailableFlights] = useState(false);
+
+  useEffect(() => {
+    onChange({ aircraft, airline, flightDuration, onlyAvailableFlights });
+  }, [aircraft, airline, flightDuration, onlyAvailableFlights, onChange]);
 
   const resetFilters = () => {
     setAircraft("");
@@ -43,7 +46,7 @@ export const Filter: FunctionComponent<FilterProps> = forwardRef<any, FilterProp
   };
 
   return (
-    <section className={style.filter} ref={ref}>
+    <section className={style.filter}>
       <header>Filtrar</header>
       <main>
         <div>
@@ -102,14 +105,9 @@ export const Filter: FunctionComponent<FilterProps> = forwardRef<any, FilterProp
           <button type="button" onClick={resetFilters}>
             Resetar filtros
           </button>
-          <button
-            type="button"
-            onClick={() => onChange({ aircraft, airline, flightDuration, onlyAvailableFlights })}
-          >
-            Aplicar filtros
-          </button>
+          <button type="button">Aplicar filtros</button>
         </div>
       </main>
     </section>
   );
-});
+};

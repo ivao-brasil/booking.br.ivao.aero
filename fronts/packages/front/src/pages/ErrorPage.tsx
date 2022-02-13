@@ -1,7 +1,7 @@
 import { Component, ReactNode, ErrorInfo } from 'react';
 import axios from 'axios';
 import { FiHome } from 'react-icons/fi';
-import { ActionButton } from "components/button/Button";
+import { LinkButton } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { LottieFile } from 'components/LottieFile';
 import { AuthContext } from 'context/AuthContext';
@@ -45,11 +45,6 @@ export class ErrorPage extends Component<any, ErrorPageState> {
     window.removeEventListener("unhandledrejection", this.unhandledPromiseCallback);
   }
 
-  onErrorReset = () => {
-    // Force tree rendering
-    window.location.href = "/";
-  }
-
   render(): ReactNode {
     if (!this.state.hasError) {
       return this.props.children;
@@ -60,7 +55,7 @@ export class ErrorPage extends Component<any, ErrorPageState> {
         header='Houston, we have a problem...'
         description='Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.'
         image={<LottieFile src="https://assets1.lottiefiles.com/packages/lf20_zf9mqyhk.json" />}>
-        <ActionButton icon={<FiHome size={20} />} content='Voltar ao início' onClick={this.onErrorReset} />
+        <LinkButton icon={<FiHome size={20} />} content='Voltar ao início' href='/' />
       </InformationalLayout>
     )
   }

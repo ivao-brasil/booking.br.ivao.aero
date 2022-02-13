@@ -9,7 +9,7 @@ import { Pagination } from 'types/Pagination';
 export const useEvents = (page = 1, perPage = 6) => {
 	const { apiClient } = useContext(IocContext);
 
-	const eventList = useInfiniteQuery<Pagination<Event>, AxiosError>('events', async ({ pageParam = page }) => {
+	const eventList = useInfiniteQuery<Pagination<Event>, AxiosError>('events', async ({ pageParam = page, }) => {
 		return await apiClient.getEvents({ page: pageParam, perPage });
 	}, {
 		staleTime: ONE_DAY,

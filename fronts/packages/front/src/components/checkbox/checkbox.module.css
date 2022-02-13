@@ -14,10 +14,6 @@
   width: 0;
 }
 
-.container input:focus {
-  box-shadow: none;
-}
-
 .checkmark {
   position: absolute;
   top: 0;
@@ -26,10 +22,6 @@
   width: 12px;
   background-color: var(--lightSilver);
   border-radius: 2.25px;
-}
-
-:global(.dark) .checkmark {
-  background-color: #282828;
 }
 
 .container:hover input ~ .checkmark {
@@ -51,8 +43,8 @@
 }
 
 .container .checkmark:after {
-  left: 5px;
-  top: 3px;
+  left: 4.25px;
+  top: 2px;
   width: 2px;
   height: 4px;
   border: solid var(--white);
