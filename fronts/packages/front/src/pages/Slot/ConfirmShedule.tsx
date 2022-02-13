@@ -1,6 +1,6 @@
 import { ActionButton } from "components/button/Button";
 import { Footer } from "components/Footer";
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { Logo } from "components/Logo";
 import { Header, MutedText } from "components/typography/Typography";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
@@ -61,8 +61,7 @@ export default function ConfirmSchedule() {
             navigate("/slot/scheduled", {
                 state: {
                     eventId: bookMutation.variables?.eventId
-                },
-                replace: true
+                }
             });
         }
     }, [bookMutation.isSuccess, bookMutation.variables, navigate]);

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { FiHeadphones, FiMap } from "react-icons/fi";
 import { useEvent } from "hooks/useEvent";
 import { useEventSceneries } from "hooks/useEventSceneries";
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
 import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LinkButton } from "components/button/Button";
@@ -90,14 +90,14 @@ export default function EventDetailsPage() {
                 <Header textSize="text-lg">Cenários</Header>
                 <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
 
-                <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
-                    {isLoadingScenaries && (
-                        <div className="relative">
-                            <LoadingIndicator />
-                        </div>
-                    )}
-                    {/* TODO #63 */}
-                    {/* {scenaries && scenaries.map((scenary) => (
+                {isLoadingScenaries && (
+                    <div className="relative mt-16">
+                        <LoadingIndicator />
+                    </div>
+                )}
+                {/* TODO #63 */}
+                {/* <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
+                        {scenaries && scenaries.map((scenary) => (
                         <Fragment key={scenary.id}>
                             <VerticalInfoCard
                                 header={scenary.simulator.toUpperCase()}
@@ -109,8 +109,8 @@ export default function EventDetailsPage() {
                                 )} />
                             </VerticalInfoCard>
                         </Fragment>
-                    ))} */}
-                </div>
+                    ))}
+                    </div> */}
             </div>
         </div>
     );
