@@ -35,7 +35,8 @@ export default function ConfirmSchedule() {
                 return;
             }
 
-            result[urlParamKey as keyof PrivateSlotScheduleData] = searchParams.get(urlParamKey) || "";
+            const urlParamValue = searchParams.get(urlParamKey)?.toUpperCase();
+            result[urlParamKey as keyof PrivateSlotScheduleData] = urlParamValue || "";
         });
 
         return result;
