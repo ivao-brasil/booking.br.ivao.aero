@@ -61,8 +61,7 @@ export default function ConfirmSchedule() {
             navigate("/slot/scheduled", {
                 state: {
                     eventId: bookMutation.variables?.eventId
-                },
-                replace: true
+                }
             });
         }
     }, [bookMutation.isSuccess, bookMutation.variables, navigate]);
