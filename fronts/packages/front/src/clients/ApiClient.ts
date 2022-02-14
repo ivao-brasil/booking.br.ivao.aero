@@ -3,7 +3,7 @@ import { User } from "types/User";
 import { Pagination } from "types/Pagination";
 import { Event } from "types/Event";
 import { Scenary } from 'types/Scenary';
-import { Slot } from 'types/Slot';
+import { PrivateSlotScheduleData, Slot } from 'types/Slot';
 
 interface AuthResponse {
   jwt: string;
@@ -80,9 +80,21 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async bookSlot(slotId: number) {
+  async scheduleSlot(slotId: number, privateSlotData?: PrivateSlotScheduleData) {
     return this.axios
-      .patch<any>(`/slot/${slotId}/book`)
+      .patch<any>(`/slot/${slotId}/book`, privateSlotData)
+      .then(response => response.data);
+  }
+
+  async cancelSchedule(slotId: number) {
+    return this.axios
+      .patch<any>(`/slot/${slotId}/cancel`)
+      .then(response => response.data);
+  }
+
+  async confirmSchedule(slotId: number) {
+    return this.axios
+      .patch<any>(`/slot/${slotId}/confirm`)
       .then(response => response.data);
   }
 

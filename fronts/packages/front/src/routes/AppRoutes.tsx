@@ -4,7 +4,7 @@ import { RequireAuth } from "components/RequireAuth";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 import { SplashPage } from "pages/SplashPage";
 import { NotFoundPage } from "pages/NotFoundPage";
-import { LoadingIndicator } from "components/LoadingIndicator";
+import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { SidebarLayout } from "layouts/SidebarLayout";
 
 const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));
@@ -17,6 +17,8 @@ const SlotsPage = lazy(() => import("pages/Event/SlotsPage"));
 const SlotScheduledPage = lazy(() => import("pages/Slot/SlotScheduled"));
 const UserSlotsPage = lazy(() => import("pages/Slot/UserSlots"));
 const ConfirmSchedulePage = lazy(() => import("pages/Slot/ConfirmShedule"));
+const SlotConfirmed = lazy(() => import("pages/Slot/SlotConfirmed"));
+const SlotCancelled = lazy(() => import("pages/Slot/SlotCancelled"));
 
 export const AppRoutes: FunctionComponent = () => {
     const { cookieConsent } = useContext(CookieConsentContext);
@@ -38,8 +40,11 @@ export const AppRoutes: FunctionComponent = () => {
                                 <Route path="my-slots" element={<UserSlotsPage />} />
                                 <Route path="schedule/:slotId" element={<ConfirmSchedulePage />} />
                             </Route>
-                            <Route path="/slot/scheduled" element={<SlotScheduledPage />} />
-                            <Route path="/slot/confirmed" element={<SidebarLayout />} />
+                            <Route path="/slot">
+                                <Route path="scheduled" element={<SlotScheduledPage />} />
+                                <Route path="confirmed" element={<SlotConfirmed />} />
+                                <Route path="cancelled" element={<SlotCancelled />} />
+                            </Route>
                         </Route>
                         <Route path="/404" element={<NotFoundPage />} />
                         <Route path="*" element={<Navigate to="/404" replace />} />

@@ -3,9 +3,9 @@ import { MutedText } from "components/typography/Typography";
 import { SlotInformationLayout } from "layouts/SlotInformationLayout";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import checkGreen from './check-green.svg';
+import trashRed from './trash-red.svg';
 
-export default function SlotScheduled() {
+export default function SlotCancelled() {
     const [eventId, setEventId] = useState<number>();
     const navigate = useNavigate();
     let { state: locationState } = useLocation();
@@ -22,13 +22,13 @@ export default function SlotScheduled() {
 
     return (
         <SlotInformationLayout
-            header="Voo agendado!"
+            header="Agendamento cancelado!"
             description={(
                 <MutedText textSize="text-[18px]">
-                    Você deverá confirmar a reserva entre <b>sete</b> e <b>três</b> dias antes da data do evento – seu agendamento será <b>cancelado</b> se você não confirmar o voo até 72 horas antes do horário do voo.
+                    Seu voo foi cancelado. Estamos tristes em vê-lo partir. Quem sabe em uma próxima oportunidade?
                 </MutedText>
             )}
-            image={<img width={183} height={183} src={checkGreen} alt="Símbolo confirmação agendamento" />}
+            image={<img width={183} height={183} src={trashRed} alt="Símbolo cancelamento agendamento" />}
             actions={
                 <LinkButton
                     content="Voltar"

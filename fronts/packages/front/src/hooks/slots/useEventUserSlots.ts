@@ -6,10 +6,10 @@ import { IocContext } from "context/IocContext";
 import { Slot } from "types/Slot";
 import { Pagination } from "types/Pagination";
 
-export function useUserSlots(page = 1, perPage = 25) {
+export function useEventUserSlots(eventId: number, page = 1, perPage = 25) {
 	const { apiClient } = useContext(IocContext);
 
-    const slots = useInfiniteQuery<Pagination<Slot>, AxiosError>(['userSlots'], async ({ pageParam = page }) => {
+    const slots = useInfiniteQuery<Pagination<Slot>, AxiosError>(['eventUserSlots', eventId], async ({ pageParam = page }) => {
 		return await apiClient.getUserSlots({ page: pageParam, perPage });
 	}, {
 		staleTime: ONE_DAY,
