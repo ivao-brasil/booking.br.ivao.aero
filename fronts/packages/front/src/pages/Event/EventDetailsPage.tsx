@@ -1,17 +1,27 @@
-import { Fragment, useMemo } from "react";
-import { useParams } from "react-router-dom";
-import { FiHeadphones, FiMap } from "react-icons/fi";
-import { useEvent } from "hooks/useEvent";
-import { useEventSceneries } from "hooks/useEventSceneries";
+import { LinkButton } from "components/button/Button";
+import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
 import { useEvent } from "hooks/useEvent";
-import { useEventSceneries } from "hooks/useEventSceneries";
 import { Fragment, useMemo } from "react";
 import { FiHeadphones, FiMap } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import { getEventTypeName } from "types/Event";
-import { Scenary } from "types/Scenary";
+import { Scenary, ScenarySimulators } from "types/Scenary";
+
+type EventScenaries = {
+    [simulator in ScenarySimulators]?: {
+        [key in "freeware" | "payware"]: Scenary[]
+    }
+}
+
+const scenaryCardContent: Record<ScenarySimulators, string> = {
+    "fs9": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
+    "fsx": "Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.",
+    "p3d": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
+    "xp11": "X-Plane 11 é o simulador detalhado, realista e moderno. Interface de usuário intuitiva, cockpits 3D, novos efeitos, som 3D, aeroportos vivos e cenário mundial.",
+    "msfs": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
+}
 
 export default function EventDetailsPage() {
     const { eventId } = useParams();
@@ -45,30 +55,31 @@ export default function EventDetailsPage() {
         return `${startTime.join("")}z - ${endTime.join("")}z`
     }, [event]);
 
-    const sceneriesBySimulator = useMemo(() => {
+    const eventScenaries = useMemo(() => {
         if (!event?.airports) {
-            return null;
+            return {};
         }
 
-        const simulatorMap: Map<string, Scenary[]> = new Map();
-
+        const scenaries: EventScenaries = {};
         event.airports.forEach(airport => {
-            console.log(airport.sceneries);
             airport.sceneries.forEach(scenary => {
-                console.log(scenary);
-                const currentSimulatorItems = simulatorMap.get(scenary.simulator);
-
-                if (currentSimulatorItems === undefined) {
-                    simulatorMap.set(scenary.simulator, [scenary]);
-                } else {
-                    currentSimulatorItems.push(scenary);
-                    simulatorMap.set(scenary.simulator, currentSimulatorItems);
+                if (!scenaries[scenary.simulator]) {
+                    scenaries[scenary.simulator] = {
+                        "freeware": [],
+                        "payware": []
+                    }
                 }
+
+                console.log(scenary.simulator);
+
+                scenaries[scenary.simulator]?.[scenary.license].push(scenary);
             });
         });
 
-        return simulatorMap;
+        return scenaries;
     }, [event?.airports]);
+
+    console.log(eventScenaries);
 
     if (isLoadingEvent || !event) {
         return (
@@ -118,23 +129,24 @@ export default function EventDetailsPage() {
                 <Header textSize="text-lg">Cenários</Header>
                 <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
 
-                {isLoadingScenaries && (
-                    <div className="relative mt-16">
-                        <LoadingIndicator />
-                    </div>
-                )}
-                {/* TODO #63 */}
-                {/* <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
-                        {scenaries && scenaries.map((scenary) => (
-                        <Fragment key={scenary.id}>
+                <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
+                    {Object.entries(eventScenaries).map(([simulator, scenariesByLicence]) => (
+                        <Fragment key={simulator}>
                             <VerticalInfoCard
                                 header={simulator.toUpperCase()}
-                                content="ABC">
-
+                                content={scenaryCardContent[simulator as ScenarySimulators]}>
+                                {scenariesByLicence["freeware"].map(scenary => (
+                                    <p>{scenary.title}</p>
+                                ))}
+                                {/* <LinkButton href={scenary.link} content={(
+                                    <span className={`block px-8 py-2.5 text-center font-action text-xs font-semibold text-light-gray-2 dark:text-white truncate`}>
+                                        {scenary.license}
+                                    </span>
+                                )} /> */}
                             </VerticalInfoCard>
                         </Fragment>
                     ))}
-                    </div> */}
+                </div>
             </div>
         </div>
     );
