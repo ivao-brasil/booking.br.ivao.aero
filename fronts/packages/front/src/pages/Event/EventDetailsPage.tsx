@@ -17,11 +17,11 @@ type EventScenaries = {
 }
 
 const scenaryCardContent: Record<ScenarySimulators, string> = {
-    "fs9": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
+    "fs9": "",
     "fsx": "Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.",
     "p3d": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
     "xp11": "X-Plane 11 é o simulador detalhado, realista e moderno. Interface de usuário intuitiva, cockpits 3D, novos efeitos, som 3D, aeroportos vivos e cenário mundial.",
-    "msfs": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
+    "msfs": "",
 }
 
 export default function EventDetailsPage() {
