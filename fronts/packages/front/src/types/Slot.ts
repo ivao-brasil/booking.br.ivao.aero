@@ -39,3 +39,8 @@ export enum SlotBookActions {
   CANCEL,
   CONFIRM
 }
+
+export function getSlotAirline(slot: Slot) {
+  return slot.flightNumber.slice(0, 3);
+}
+

@@ -98,6 +98,12 @@ export class ApiClient {
       .then(response => response.data);
   }
 
+  async getAirlineLogo(airline: string) {
+    return this.axios
+      .get<Blob>(`/logo/airline/${airline}`, { responseType: 'blob' })
+      .then(response => new Blob([response.data], { type: 'image/gif' }));
+  }
+
   public get token() {
     return this._token;
   }

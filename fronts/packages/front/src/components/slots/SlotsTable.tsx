@@ -1,16 +1,17 @@
 import { ChangeEvent, FunctionComponent, useEffect, useState } from "react";
 import { FaPlane } from "react-icons/fa";
 import { SlotBookButton } from "./SlotBookButton";
-import { PrivateSlotScheduleData, Slot, SlotType } from "types/Slot";
+import { getSlotAirline, PrivateSlotScheduleData, Slot, SlotType } from "types/Slot";
 import { InputField } from "components/InputField";
 import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 
 interface SlotsTableProps {
     slots: Slot[];
-    onSlotBook: (slotId: number, slotData?: PrivateSlotScheduleData) => void;
+    airlineImages?: Array<Blob | null>;
     hasMoreFlights?: boolean;
     isFecthingMoreFlights?: boolean;
+    onSlotBook: (slotId: number, slotData?: PrivateSlotScheduleData) => void;
     onMoreFlightsRequested?: () => void;
 }
 
@@ -24,8 +25,8 @@ interface FormValueMap {
 }
 
 export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
-    slots, onSlotBook, hasMoreFlights,
-    isFecthingMoreFlights, onMoreFlightsRequested
+    slots, airlineImages, hasMoreFlights,
+    isFecthingMoreFlights, onSlotBook, onMoreFlightsRequested
 }) => {
     const [formValues, setFormValues] = useState<FormValueMap>({});
 
@@ -73,7 +74,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
         <table className="border-separate text-center min-w-full" style={{ borderSpacing: "0 16px" }}>
             <thead>
                 <tr className="text-[12px] text-[#A0A0A0] dark:text-light-gray-5 text-center font-semibold leading-7 font-header text-sm whitespace-nowrap">
-                    <th aria-label="Logo da companhia" className="invisible w-24"></th>
+                    <th aria-label="Logo da companhia" className="invisible"></th>
                     <th className="px-3">Número do voo</th>
                     <th className="px-3">Aeronave</th>
                     <th className="px-3">Partida</th>
@@ -85,11 +86,22 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                 </tr>
             </thead>
             <tbody>
-                {slots.map((slot) => {
+                {slots.map((slot, idx) => {
                     return (
-                        <tr key={slot.id} className="pt-4 bg-white dark:bg-black shadow-md text-blue dark:text-white font-header font-semibold text-sm whitespace-nowrap">
+                        <tr
+                            key={slot.id}
+                            className="h-13 pt-4 bg-white dark:bg-black shadow-md text-blue dark:text-white font-header font-semibold text-sm whitespace-nowrap"
+                        >
                             <td className="p-0 rounded-l-lg bg-transparent">
-                                <img className="rounded-l-lg max-w-[96px]" width={96} height={60} src="https://via.placeholder.com/96x60" alt="Logo companhia GLO" />
+                                {airlineImages && airlineImages[idx] && (
+                                    <img
+                                        className="mx-auto rounded-l-lg"
+                                        width={96}
+                                        height={60}
+                                        src={URL.createObjectURL(airlineImages[idx] as Blob)}
+                                        alt={`Logo companhia ${getSlotAirline(slot)}`}
+                                    />
+                                )}
                             </td>
 
                             {isPrivateSlotAndBookable(slot)
