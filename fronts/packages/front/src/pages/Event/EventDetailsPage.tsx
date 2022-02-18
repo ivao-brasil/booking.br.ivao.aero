@@ -134,21 +134,28 @@ export default function EventDetailsPage() {
                         <Fragment key={simulator}>
                             <VerticalInfoCard
                                 header={simulator.toUpperCase()}
-                                content={scenaryCardContent[simulator as ScenarySimulators]}>
-                                <DropdownButton text="Freeware">
-                                    {scenariesByLicence["freeware"].map(scenary => (
-                                        <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
-                                            {scenary.title}
-                                        </a>
-                                    ))}
-                                </DropdownButton>
-                                <DropdownButton text="Payware">
-                                    {scenariesByLicence["payware"].map(scenary => (
-                                        <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
-                                            {scenary.title}
-                                        </a>
-                                    ))}
-                                </DropdownButton>
+                                content={scenaryCardContent[simulator as ScenarySimulators]}
+                            >
+                                <div className="flex justify-between">
+                                    {scenariesByLicence["freeware"].length > 0 && (
+                                        <DropdownButton text="Freeware">
+                                            {scenariesByLicence["freeware"].map(scenary => (
+                                                <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
+                                                    {scenary.title}
+                                                </a>
+                                            ))}
+                                        </DropdownButton>
+                                    )}
+                                    {scenariesByLicence["payware"].length > 0 && (
+                                        <DropdownButton text="Payware">
+                                            {scenariesByLicence["payware"].map(scenary => (
+                                                <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
+                                                    {scenary.title}
+                                                </a>
+                                            ))}
+                                        </DropdownButton>
+                                    )}
+                                </div>
                             </VerticalInfoCard>
                         </Fragment>
                     ))}

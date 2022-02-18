@@ -112,7 +112,7 @@ export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
             <ul
                 id={menuId}
                 role="menu"
-                className={`${isOpen ? "block" : "hidden"} absolute bg-light-gray-6 dark:bg-dark-gray-5 rounded z-20`}
+                className={`${isOpen ? "block" : "hidden"} absolute min-w-[5.5rem] max-w-[20rem] bg-light-gray-6 dark:bg-dark-gray-5 rounded z-20`}
                 aria-labelledby={buttonId}
             >
                 {Children.map(children, (child, idx) => {
