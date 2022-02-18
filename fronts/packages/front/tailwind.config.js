@@ -8,6 +8,7 @@ module.exports = {
         '2xl-height': { 'raw': '(min-height: 816px)' }
       },
       spacing: {
+        '13': '3.75rem',
         '54': '13.5rem',
         '130': '36rem'
       },

@@ -3,6 +3,7 @@ import { BookInfoMessage } from "components/slots/BookInfoMessage";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
 import { SlotsTable } from "components/slots/SlotsTable";
 import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
+import { useAirlineLogosFromSlots } from "hooks/slots/useAirlineLogosFromSlots";
 import { useEventSlots } from "hooks/slots/useEventSlots";
 import { useEvent } from "hooks/useEvent";
 import { useEffect, useMemo, useState } from "react";
@@ -41,6 +42,11 @@ export default function SlotsPage() {
             window.history.replaceState({ hasError: false }, '');
         }
     }, [location.state]);
+
+    const airlineLogoQueries = useAirlineLogosFromSlots(tableData || [] as Slot[]);
+    const airlineLogos = useMemo(() => {
+        return airlineLogoQueries.map(queryResult => queryResult.data || null);
+    }, [airlineLogoQueries]);
 
     const onSlotBook = (slotId: number, slotData?: PrivateSlotScheduleData) => {
         const scheduleUrl = `/event/${eventId}/schedule/${slotId}`;
@@ -89,6 +95,7 @@ export default function SlotsPage() {
                                         ? (
                                             <SlotsTable
                                                 slots={tableData}
+                                                airlineImages={airlineLogos}
                                                 onSlotBook={onSlotBook}
                                                 hasMoreFlights={hasNextPage}
                                                 isFecthingMoreFlights={isFetchingNextPage}
