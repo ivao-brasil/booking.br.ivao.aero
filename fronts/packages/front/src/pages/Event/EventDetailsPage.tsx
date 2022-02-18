@@ -1,4 +1,5 @@
 import { LinkButton } from "components/button/Button";
+import { DropdownButton } from "components/button/DropdownButton";
 import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
@@ -70,16 +71,12 @@ export default function EventDetailsPage() {
                     }
                 }
 
-                console.log(scenary.simulator);
-
                 scenaries[scenary.simulator]?.[scenary.license].push(scenary);
             });
         });
 
         return scenaries;
     }, [event?.airports]);
-
-    console.log(eventScenaries);
 
     if (isLoadingEvent || !event) {
         return (
@@ -95,7 +92,11 @@ export default function EventDetailsPage() {
                     <Subheader textSize="text-lg" textColor="text-light-blue dark:text-white">{getEventTypeName(event.type)}</Subheader>
                 </div>
                 <div className="md:text-right md:ml-auto text-dark-gray-3 dark:text-light-gray-5">
-                    <span className="block font-header text-[1.1rem] font-extrabold text-blue dark:text-white">SBGR</span>
+                    <span className="block font-header text-[1.1rem] font-extrabold text-blue dark:text-white">
+                        {event.airports.reduce<string[]>((acc, airport) => {
+                            return [...acc, airport.icao];
+                        }, []).join(", ")}
+                    </span>
                     <span className="block font-header">
                         {startDate}<br />
                         {timeRange}
@@ -135,14 +136,13 @@ export default function EventDetailsPage() {
                             <VerticalInfoCard
                                 header={simulator.toUpperCase()}
                                 content={scenaryCardContent[simulator as ScenarySimulators]}>
-                                {scenariesByLicence["freeware"].map(scenary => (
-                                    <p>{scenary.title}</p>
-                                ))}
-                                {/* <LinkButton href={scenary.link} content={(
-                                    <span className={`block px-8 py-2.5 text-center font-action text-xs font-semibold text-light-gray-2 dark:text-white truncate`}>
-                                        {scenary.license}
-                                    </span>
-                                )} /> */}
+                                <DropdownButton text="Freeware">
+                                    {scenariesByLicence["freeware"].map(scenary => (
+                                        <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
+                                            {scenary.title}
+                                        </a>
+                                    ))}
+                                </DropdownButton>
                             </VerticalInfoCard>
                         </Fragment>
                     ))}

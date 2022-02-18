@@ -1,6 +1,5 @@
 import { Airport } from './Airport';
 import { User } from './User';
-import { Airport } from './Airport';
 
 type EventTypes = "rfe" | "rfo" | "msa";
 
