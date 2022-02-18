@@ -1,7 +1,7 @@
 import { Children, FunctionComponent, useCallback, useEffect, useRef, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
-interface DropdownButton {
+interface DropdownButtonProps {
     text: string;
     buttonId?: string;
     menuId?: string;
@@ -15,7 +15,7 @@ enum KEY_CODES {
 
 const CLOSED_FOCUS_ITEM_IDX = -1;
 
-export const DropdownButton: FunctionComponent<DropdownButton> = ({
+export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
     text, children,
     buttonId = "dropdown", menuId = "dropdown-menu"
 }) => {
@@ -70,14 +70,15 @@ export const DropdownButton: FunctionComponent<DropdownButton> = ({
             return;
         }
 
-        rootElemRef.current.addEventListener("keydown", keyDownListener);
+        const rootElem = rootElemRef.current;
+        rootElem.addEventListener("keydown", keyDownListener);
 
         return () => {
-            if (rootElemRef.current) {
-                rootElemRef.current.removeEventListener("keydown", keyDownListener);
+            if (rootElem) {
+                rootElem.removeEventListener("keydown", keyDownListener);
             }
         }
-    }, [rootElemRef.current]);
+    }, [keyDownListener]);
 
     useEffect(() => {
         if (!isOpen && focusItemIdx !== CLOSED_FOCUS_ITEM_IDX) {
@@ -85,7 +86,7 @@ export const DropdownButton: FunctionComponent<DropdownButton> = ({
         }
 
         setfocusItemIdx(0);
-    }, [isOpen]);
+    }, [isOpen, focusItemIdx]);
 
     return (
         <div

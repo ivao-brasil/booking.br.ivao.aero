@@ -1,4 +1,3 @@
-import { LinkButton } from "components/button/Button";
 import { DropdownButton } from "components/button/DropdownButton";
 import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
@@ -138,6 +137,13 @@ export default function EventDetailsPage() {
                                 content={scenaryCardContent[simulator as ScenarySimulators]}>
                                 <DropdownButton text="Freeware">
                                     {scenariesByLicence["freeware"].map(scenary => (
+                                        <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
+                                            {scenary.title}
+                                        </a>
+                                    ))}
+                                </DropdownButton>
+                                <DropdownButton text="Payware">
+                                    {scenariesByLicence["payware"].map(scenary => (
                                         <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
                                             {scenary.title}
                                         </a>
