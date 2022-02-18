@@ -23,6 +23,6 @@ class EventAirport extends Model
 
     public function sceneries()
     {
-        return $this->hasOne(Scenery::class, 'icao', 'icao');
+        return $this->hasMany(Scenery::class, 'icao', 'icao');
     }
 }

@@ -1,18 +1,31 @@
-import { Fragment, useMemo } from "react";
-import { useParams } from "react-router-dom";
-import { FiHeadphones, FiMap } from "react-icons/fi";
-import { useEvent } from "hooks/useEvent";
-import { useEventSceneries } from "hooks/useEventSceneries";
+import { DropdownButton } from "components/button/DropdownButton";
+import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
-import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
-import { LinkButton } from "components/button/Button";
+import { useEvent } from "hooks/useEvent";
+import { Fragment, useMemo } from "react";
+import { FiHeadphones, FiMap } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 import { getEventTypeName } from "types/Event";
+import { Scenary, ScenarySimulators } from "types/Scenary";
+
+type EventScenaries = {
+    [simulator in ScenarySimulators]?: {
+        [key in "freeware" | "payware"]: Scenary[]
+    }
+}
+
+const scenaryCardContent: Record<ScenarySimulators, string> = {
+    "fs9": "",
+    "fsx": "Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.",
+    "p3d": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
+    "xp11": "X-Plane 11 é o simulador detalhado, realista e moderno. Interface de usuário intuitiva, cockpits 3D, novos efeitos, som 3D, aeroportos vivos e cenário mundial.",
+    "msfs": "",
+}
 
 export default function EventDetailsPage() {
     const { eventId } = useParams();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
-    const { data: scenaries, isLoading: isLoadingScenaries } = useEventSceneries(Number(eventId));
 
     const startDate = useMemo(() => {
         if (!event?.dateStart) {
@@ -42,6 +55,40 @@ export default function EventDetailsPage() {
         return `${startTime.join("")}z - ${endTime.join("")}z`
     }, [event]);
 
+    const eventScenaries = useMemo(() => {
+        if (!event?.airports) {
+            return {};
+        }
+
+        const scenaries: EventScenaries = {};
+        event.airports.forEach(airport => {
+            airport.sceneries.forEach(scenary => {
+                if (!scenaries[scenary.simulator]) {
+                    scenaries[scenary.simulator] = {
+                        "freeware": [],
+                        "payware": []
+                    }
+                }
+
+                scenaries[scenary.simulator]?.[scenary.license].push(scenary);
+            });
+        });
+
+        return scenaries;
+    }, [event?.airports]);
+
+    const renderScenaryLink = (scenary: Scenary) => (
+        <a
+            href={scenary.license}
+            key={scenary.id}
+            rel="noreferrer"
+            target="_blank"
+            title={scenary.title}
+        >
+            {scenary.title}
+        </a>
+    );
+
     if (isLoadingEvent || !event) {
         return (
             <LoadingIndicator />
@@ -56,7 +103,11 @@ export default function EventDetailsPage() {
                     <Subheader textSize="text-lg" textColor="text-light-blue dark:text-white">{getEventTypeName(event.type)}</Subheader>
                 </div>
                 <div className="md:text-right md:ml-auto text-dark-gray-3 dark:text-light-gray-5">
-                    <span className="block font-header text-[1.1rem] font-extrabold text-blue dark:text-white">SBGR</span>
+                    <span className="block font-header text-[1.1rem] font-extrabold text-blue dark:text-white">
+                        {event.airports.reduce<string[]>((acc, airport) => {
+                            return [...acc, airport.icao];
+                        }, []).join(", ")}
+                    </span>
                     <span className="block font-header">
                         {startDate}<br />
                         {timeRange}
@@ -90,27 +141,29 @@ export default function EventDetailsPage() {
                 <Header textSize="text-lg">Cenários</Header>
                 <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
 
-                {isLoadingScenaries && (
-                    <div className="relative mt-16">
-                        <LoadingIndicator />
-                    </div>
-                )}
-                {/* TODO #63 */}
-                {/* <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
-                        {scenaries && scenaries.map((scenary) => (
-                        <Fragment key={scenary.id}>
+                <div className="flex flex-col md:flex-row gap-7 flex-wrap mt-4">
+                    {Object.entries(eventScenaries).map(([simulator, scenariesByLicence]) => (
+                        <Fragment key={simulator}>
                             <VerticalInfoCard
-                                header={scenary.simulator.toUpperCase()}
-                                content={scenary.title}>
-                                <LinkButton href={scenary.link} content={(
-                                    <span className={`block px-8 py-2.5 text-center font-action text-xs font-semibold text-light-gray-2 dark:text-white truncate`}>
-                                        {scenary.license}
-                                    </span>
-                                )} />
+                                header={simulator.toUpperCase()}
+                                content={scenaryCardContent[simulator as ScenarySimulators]}
+                            >
+                                <div className="flex justify-between">
+                                    {scenariesByLicence["freeware"].length > 0 && (
+                                        <DropdownButton text="Freeware">
+                                            {scenariesByLicence["freeware"].map(scenary => renderScenaryLink(scenary))}
+                                        </DropdownButton>
+                                    )}
+                                    {scenariesByLicence["payware"].length > 0 && (
+                                        <DropdownButton text="Payware">
+                                            {scenariesByLicence["payware"].map(scenary => renderScenaryLink(scenary))}
+                                        </DropdownButton>
+                                    )}
+                                </div>
                             </VerticalInfoCard>
                         </Fragment>
                     ))}
-                    </div> */}
+                </div>
             </div>
         </div>
     );
