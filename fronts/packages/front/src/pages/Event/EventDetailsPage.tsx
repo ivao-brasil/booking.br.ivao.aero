@@ -77,6 +77,18 @@ export default function EventDetailsPage() {
         return scenaries;
     }, [event?.airports]);
 
+    const renderScenaryLink = (scenary: Scenary) => (
+        <a
+            href={scenary.license}
+            key={scenary.id}
+            rel="noreferrer"
+            target="_blank"
+            title={scenary.title}
+        >
+            {scenary.title}
+        </a>
+    );
+
     if (isLoadingEvent || !event) {
         return (
             <LoadingIndicator />
@@ -139,20 +151,12 @@ export default function EventDetailsPage() {
                                 <div className="flex justify-between">
                                     {scenariesByLicence["freeware"].length > 0 && (
                                         <DropdownButton text="Freeware">
-                                            {scenariesByLicence["freeware"].map(scenary => (
-                                                <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
-                                                    {scenary.title}
-                                                </a>
-                                            ))}
+                                            {scenariesByLicence["freeware"].map(scenary => renderScenaryLink(scenary))}
                                         </DropdownButton>
                                     )}
                                     {scenariesByLicence["payware"].length > 0 && (
                                         <DropdownButton text="Payware">
-                                            {scenariesByLicence["payware"].map(scenary => (
-                                                <a href={scenary.license} key={scenary.id} rel="noreferrer" target="_blank">
-                                                    {scenary.title}
-                                                </a>
-                                            ))}
+                                            {scenariesByLicence["payware"].map(scenary => renderScenaryLink(scenary))}
                                         </DropdownButton>
                                     )}
                                 </div>
