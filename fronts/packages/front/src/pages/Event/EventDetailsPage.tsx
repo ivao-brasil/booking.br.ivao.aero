@@ -129,7 +129,7 @@ export default function EventDetailsPage() {
                 <Header textSize="text-lg">Cenários</Header>
                 <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
 
-                <div className="flex flex-col md:flex-row gap-7 items-center md:items-start flex-wrap mt-4">
+                <div className="flex flex-col md:flex-row gap-7 flex-wrap mt-4">
                     {Object.entries(eventScenaries).map(([simulator, scenariesByLicence]) => (
                         <Fragment key={simulator}>
                             <VerticalInfoCard

@@ -93,6 +93,7 @@ export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
             ref={rootElemRef}
             onFocus={() => closeTimeout.current && clearTimeout(closeTimeout.current)}
             onBlur={() => closeTimeout.current = setTimeout(() => closeDropdown())}
+            className="relative"
         >
             <button
                 id={buttonId}
@@ -100,7 +101,7 @@ export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
                 aria-controls={menuId}
                 aria-expanded={isOpen}
                 aria-haspopup={true}
-                className="relative py-1 px-3 bg-green text-white rounded"
+                className="py-1 px-3 bg-green text-white rounded"
             >
                 <div className="flex items-center justify-between">
                     <span className="font-action font-semibold text-xs leading-4">
@@ -112,7 +113,7 @@ export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
             <ul
                 id={menuId}
                 role="menu"
-                className={`${isOpen ? "block" : "hidden"} absolute min-w-[5.5rem] max-w-[20rem] bg-light-gray-6 dark:bg-dark-gray-5 rounded z-20`}
+                className={`${isOpen ? "block" : "hidden"} absolute min-w-full max-w-[15rem] md:max-w-[20rem] max-h-44 overflow-y-auto bg-light-gray-6 dark:bg-dark-gray-5 rounded z-20`}
                 aria-labelledby={buttonId}
             >
                 {Children.map(children, (child, idx) => {
@@ -123,7 +124,7 @@ export const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
                     return (
                         <li
                             role="menuitem"
-                            className="py-1 px-2 hover:bg-light-gray-1 hover:dark:bg-dark-gray-3"
+                            className="py-1 px-2 hover:bg-light-gray-1 hover:dark:bg-dark-gray-3 truncate"
                             ref={(el: HTMLLIElement) => { childRefs.current[idx] = el; }}
                             tabIndex={-1}
                         >
