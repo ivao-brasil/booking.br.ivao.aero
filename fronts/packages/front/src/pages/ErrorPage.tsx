@@ -31,8 +31,9 @@ export class ErrorPage extends Component<any, ErrorPageState> {
     if (axios.isAxiosError(error)) {
       // TODO: Check the expired token via HTTP 403 error.
       // The backend is returning HTTP 500 with the string 'Expired token' as message
-      if (error.message === "Expired token") {
+      if (error.message === "Expired token" || error.response?.status === 401 || error.response?.status === 403) {
         this.context.refreshToken();
+        this.setState({ hasError: false });
       }
     }
   }

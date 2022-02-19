@@ -25,7 +25,7 @@ class EventFactory extends Factory
             'division' => 'BR',
             'dateStart' => $this->faker->dateTime(),
             'dateEnd' => $this->faker->dateTime(),
-            'eventName' => $this->faker->jobTitle(),
+            'eventName' => $this->faker->sentence(3),
             'privateSlots' => $this->faker->numberBetween(0, 1),
             'status' => $this->faker->randomElement(['created', 'scheduled', 'finished']),
             'createdBy' => 1,
