@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useMemo, useState } from "react";
+import { FormEvent, FunctionComponent, useEffect, useMemo, useState } from "react";
 import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
 import { Filter, FilterState } from "components/filter/Filter";
 import { InputField } from "components/InputField";
@@ -6,13 +6,15 @@ import { ActionButton } from "components/button/Button";
 
 interface SlotPageHeaderProps {
     showFilter?: boolean;
+    onFlightSearch?: (flightNumber: string) => void;
     onFilterChange?: (state: FilterState) => void;
 }
 
-export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ onFilterChange, showFilter = true }) => {
+export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ showFilter = true, onFlightSearch, onFilterChange }) => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [hasFlightFilter, setHasFlightFilter] = useState(false);
+    const [flightSearchValue, setflightSearchValue] = useState("");
 
     useEffect(() => {
         const timerInverval = setInterval(() => {
@@ -30,13 +32,28 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ onFilte
         return timeParts.join(":");
     }, [currentTime]);
 
+    const onFlightSearchSubmit = (evt: FormEvent<HTMLFormElement>) => {
+        evt.preventDefault();
+
+        if (!onFlightSearch) {
+            return;
+        }
+
+        onFlightSearch(flightSearchValue);
+    }
+
     return (
         <div className="flex items-center p-8 bg-white dark:bg-black">
-            <InputField
-                icon={<FiSearch width={16} />}
-                type="search"
-                aria-label="Buscar voo"
-                placeholder="Buscar voo" />
+            <form onSubmit={onFlightSearchSubmit}>
+                <InputField
+                    icon={<FiSearch width={16} />}
+                    type="search"
+                    aria-label="Buscar voo"
+                    placeholder="Buscar voo"
+                    value={flightSearchValue}
+                    onChange={(evt) => setflightSearchValue(evt.target.value)} />
+            </form>
+
 
             <span className="text-inherit ml-auto text-[12px]">{utcTime} UTC</span>
             {showFilter && (

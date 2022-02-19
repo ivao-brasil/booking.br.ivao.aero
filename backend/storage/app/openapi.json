@@ -543,7 +543,36 @@
                 "parameters": [
                     {
                         "name": "eventId",
-                        "in": "path"
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "flightNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "takeoff",
+                                "landing"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "private",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "summary": "Get Event slots info",

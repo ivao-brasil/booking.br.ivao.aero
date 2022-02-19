@@ -4,6 +4,7 @@ import { Pagination } from "types/Pagination";
 import { Event } from "types/Event";
 import { Scenary } from 'types/Scenary';
 import { PrivateSlotScheduleData, Slot } from 'types/Slot';
+import { SlotTypeOptions } from 'types/SlotFilter';
 
 interface AuthResponse {
   jwt: string;
@@ -47,7 +48,7 @@ export class ApiClient {
       });
   }
 
-  async getEvents(data: PaginateRequest = {}) {
+  async getEvents(data: PaginateRequest) {
     const queryString = fromObjectToQueryString(data);
     return this.axios
       .get<Pagination<Event>>(`/event?${queryString}`)
@@ -66,14 +67,33 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async getEventSlots(eventId: number, pageData: PaginateRequest = {}) {
-    const queryString = fromObjectToQueryString(pageData);
+  async getEventSlots(
+    eventId: number,
+    pageData: PaginateRequest,
+    slotType?: SlotTypeOptions | null,
+    flightNumber?: string | null,
+  ) {
+    let queryString = fromObjectToQueryString(pageData);
+
+    if (flightNumber) {
+      queryString += "&" + fromObjectToQueryString({ "flightNumber": flightNumber });
+    } else {
+      if (slotType === SlotTypeOptions.PRIVATE) {
+        queryString += "&" + fromObjectToQueryString({ "private": true });
+      } else if (slotType !== null && slotType !== undefined) {
+        queryString += "&" + fromObjectToQueryString({
+          "type": SlotTypeOptions[slotType].toLowerCase(),
+          "private": false
+        });
+      }
+    }
+
     return this.axios
       .get<Pagination<Slot>>(`/event/${eventId}/slot?${queryString}`)
       .then(response => response.data);
   }
 
-  async getUserSlots(pageData: PaginateRequest = {}) {
+  async getUserSlots(pageData: PaginateRequest) {
     const queryString = fromObjectToQueryString(pageData);
     return this.axios
       .get<Pagination<Slot>>(`/slot/me?${queryString}`)
