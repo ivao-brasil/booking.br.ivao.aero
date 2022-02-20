@@ -197,15 +197,22 @@ class SlotController extends Controller
 
     public function getMySlots(string $eventId, Request $request)
     {
+        /** @var \App\Models\User|null */
         $user = Auth::user();
 
         $perPage = (int)$request->query('perPage', 5,);
+        $queryFlightNumber = (string)$request->query("flightNumber");
+
+        $mySlots = Slot::with('event')
+            ->where('eventId', $eventId)
+            ->where('pilotId', $user->id);
+
+        if ($queryFlightNumber) {
+            $mySlots->where("flightNumber", $queryFlightNumber);
+        }
 
         return $this->paginationService->transform(
-            Slot::with('event')
-                ->where('eventId', $eventId)
-                ->where('pilotId', $user->id)
-                ->paginate($perPage > 25 ? 25 : $perPage)
+            $mySlots->paginate($perPage > 25 ? 25 : $perPage)
         );
     }
 
