@@ -6,20 +6,23 @@ import { IocContext } from "context/IocContext";
 import { Slot } from "types/Slot";
 import { Pagination } from "types/Pagination";
 
-export function useEventUserSlots(eventId: number, page = 1, perPage = 25) {
+export function useEventUserSlots(eventId: number, flightNumber?: string | null, page = 1, perPage = 25) {
 	const { apiClient } = useContext(IocContext);
 
-    const slots = useInfiniteQuery<Pagination<Slot>, AxiosError>(['eventUserSlots', eventId], async ({ pageParam = page }) => {
-		return await apiClient.getUserSlots(eventId, { page: pageParam, perPage });
-	}, {
-		staleTime: ONE_DAY,
-		getNextPageParam: (lastPage, _) => {
-			return (lastPage.page * lastPage.perPage) >= lastPage.total ? undefined : lastPage.page + 1;
+	const slots = useInfiniteQuery<Pagination<Slot>, AxiosError>(['eventUserSlots', eventId, (flightNumber ?? "")],
+		async ({ pageParam = page }) => {
+			return await apiClient.getUserSlots(eventId, { page: pageParam, perPage }, flightNumber);
 		},
-		getPreviousPageParam: (firstPage, _) => {
-			return firstPage.page === 0 ? undefined : firstPage.page - 1;
+		{
+			staleTime: ONE_DAY,
+			getNextPageParam: (lastPage, _) => {
+				return (lastPage.page * lastPage.perPage) >= lastPage.total ? undefined : lastPage.page + 1;
+			},
+			getPreviousPageParam: (firstPage, _) => {
+				return firstPage.page === 0 ? undefined : firstPage.page - 1;
+			}
 		}
-	});
+	);
 
-    return slots;
+	return slots;
 }

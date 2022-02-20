@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useEvent } from "hooks/useEvent";
@@ -14,13 +14,23 @@ import { FLIGHT_CONFIRM_MAX_DAYS, FLIGHT_CONFIRM_MIN_DAYS, ONE_DAY } from "appCo
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 
 export default function UserSlots() {
+    const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
+
     const { eventId } = useParams();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
-    const { data: slots, isLoading: isLoadingSlots, hasNextPage, isFetchingNextPage, fetchNextPage } = useEventUserSlots(Number(eventId));
     const { data: user, isLoading: isLoadingUser } = useAuthData();
     const scheduleConfirmMutation = useSlotBookMutation(SlotBookActions.CONFIRM);
     const scheduleCancelMutation = useSlotBookMutation(SlotBookActions.CANCEL);
     const navigate = useNavigate();
+
+    const {
+        data: slots,
+        isLoading: isLoadingSlots,
+        hasNextPage,
+        isFetchingNextPage,
+        fetchNextPage
+    } = useEventUserSlots(Number(eventId), searchedFlightNumber);
+
 
     const hasEventStarted = useMemo(() => {
         if (!event) {
@@ -77,6 +87,10 @@ export default function UserSlots() {
 
     const onScheduleCancel = (slot: Slot) => {
         scheduleCancelMutation.mutate({ slotId: slot.id, eventId: Number(eventId) });
+    }
+
+    const onFlightSearch = (flightNumber: string) => {
+        setSearchedFlightNumber(flightNumber);
     }
 
     if (isLoadingEvent || isLoadingUser || isLoadingSlots
@@ -160,7 +174,11 @@ export default function UserSlots() {
             <UserSlotsSideInfos pilotBriefing={event.pilotBriefing} />
 
             <div className="flex-1 md:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
-                <SlotPageHeader showFilter={false} />
+                <SlotPageHeader
+                    showFilter={false}
+                    searchedFlightNumber={searchedFlightNumber}
+                    onFlightSearch={onFlightSearch}
+                />
                 <div className="h-screen lg:h-slot-table lg:mt-5 overflow-auto scrollbar-thin scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded">
                     <div className="max-w-[62rem] mx-auto">
                         <div className="space-y-5">

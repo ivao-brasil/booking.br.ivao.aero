@@ -19,7 +19,7 @@ interface LocationState {
 export default function SlotsPage() {
     const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(SlotTypeOptions.LANDING);
     const [hasBookingRequestError, setHasBookingRequestError] = useState(false);
-    const [searchedFlightNumber, setsearchedFlightNumber] = useState<string | null>(null);
+    const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
     const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
 
     const { eventId } = useParams();
@@ -68,12 +68,12 @@ export default function SlotsPage() {
 
     const onSlotTypeChange = (newType: SlotTypeOptions) => {
         setSelectedSlotType(newType);
-        setsearchedFlightNumber(null);
+        setSearchedFlightNumber(null);
     }
 
     const onFlightSearch = (flightNumber: string) => {
         setSelectedSlotType(null);
-        setsearchedFlightNumber(flightNumber);
+        setSearchedFlightNumber(flightNumber);
     }
 
     const onSlotFilter = (filterState: Partial<FilterState>) => {
@@ -134,7 +134,7 @@ export default function SlotsPage() {
                                                 type="warning"
                                                 onErrorReset={() => {
                                                     setAppliedFilters({});
-                                                    setsearchedFlightNumber(null);
+                                                    setSearchedFlightNumber(null);
                                                     setSelectedSlotType(SlotTypeOptions.LANDING)
                                                 }}
                                             />

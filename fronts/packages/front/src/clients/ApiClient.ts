@@ -87,8 +87,13 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async getUserSlots(eventId: number, pageData: PaginateRequest) {
-    const queryString = fromObjectToQueryString(pageData);
+  async getUserSlots(eventId: number, pageData: PaginateRequest, flightNumber?: string | null) {
+    let queryString = fromObjectToQueryString(pageData);
+
+    if (flightNumber) {
+      queryString += "&" + fromObjectToQueryString({ "flightNumber": flightNumber });
+    }
+
     return this.axios
       .get<Pagination<Slot>>(`/event/${eventId}/slot/mine?${queryString}`)
       .then(response => response.data);
