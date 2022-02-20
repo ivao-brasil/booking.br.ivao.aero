@@ -13,7 +13,7 @@ interface IThemeContext {
 export const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 
 export const ThemeContextProvider: FunctionComponent = ({ children }) => {
-  const [themeVariant, setThemeVariant] = useState<ThemeVariants>(ThemeVariants.DARK);
+  const [themeVariant, setThemeVariant] = useState<ThemeVariants>(ThemeVariants.LIGHT);
   const LOCAL_STORAGE_KEY = "theme";
 
   const setVariant = useCallback((value: ThemeVariants) => {
