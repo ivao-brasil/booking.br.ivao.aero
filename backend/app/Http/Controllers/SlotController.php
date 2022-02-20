@@ -171,6 +171,14 @@ class SlotController extends Controller
 
         $queryParams = (array)$request->query();
         foreach ($queryParams as $param => $value) {
+            if ($param == "available") {
+                $slots = $slots
+                    ->doesntHave("owner")
+                    ->where("bookingStatus", "free");
+
+                continue;
+            }
+
             if (!in_array($param, Slot::$allowedQueryParams)) {
                 continue;
             }
@@ -187,16 +195,18 @@ class SlotController extends Controller
         );
     }
 
-    public function getMySlots(Request $request)
+    public function getMySlots(string $eventId, Request $request)
     {
         $user = Auth::user();
 
         $perPage = (int)$request->query('perPage', 5,);
 
-        return $this->paginationService->transform(Slot
-            ::with('event')
-            ->where('pilotId', $user->id)
-            ->paginate($perPage > 25 ? 25 : $perPage));
+        return $this->paginationService->transform(
+            Slot::with('event')
+                ->where('eventId', $eventId)
+                ->where('pilotId', $user->id)
+                ->paginate($perPage > 25 ? 25 : $perPage)
+        );
     }
 
     public function getTemplate()

@@ -35,19 +35,20 @@ export const Filter: FunctionComponent<FilterProps> = ({ appliedFilters = {}, on
   }
 
   const onFilterSubmit = () => {
-    // const filteredValues = Object.keys(filters)
-    //   .filter((key) => {
-    //     const objKey = key as keyof FilterState;
-
-    //     return filters[objKey] !== undefined && filters[objKey] !== "";
-    //   })
-    //   .reduce((acc, validKey) => {
-    //     const objKey = validKey as keyof FilterState;
-
-    //     return { ...acc, [objKey]: filters[objKey] };
-    //   }, {}) as Partial<FilterState>;
-
     onChange(filters);
+  }
+
+  const onAvailableCheckboxChange = (value: boolean) => {
+    if (!value) {
+      setFilters(prevState => {
+        delete prevState["available"];
+        return { ...prevState };
+      });
+
+      return;
+    }
+
+    setFilters(prevState => ({ ...prevState, "available": value }));
   }
 
   return (
@@ -101,9 +102,7 @@ export const Filter: FunctionComponent<FilterProps> = ({ appliedFilters = {}, on
         <div>
           <Checkbox
             value={filters.available ?? false}
-            onChange={(value) => {
-              setFilters(prevState => ({ ...prevState, "available": value }));
-            }}
+            onChange={onAvailableCheckboxChange}
           />
           <span>Exibir somente voos disponíveis</span>
         </div>

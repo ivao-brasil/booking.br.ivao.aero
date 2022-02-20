@@ -1,9 +1,9 @@
-import { FormEvent, FunctionComponent, useEffect, useMemo, useState } from "react";
-import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
+import { ActionButton } from "components/button/Button";
 import { Filter, FilterState } from "components/filter/Filter";
 import { InputField } from "components/InputField";
-import { ActionButton } from "components/button/Button";
 import { UTCClock } from "components/UTCClock";
+import { FormEvent, FunctionComponent, useState } from "react";
+import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
 
 interface SlotPageHeaderProps {
     showFilter?: boolean;

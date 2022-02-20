@@ -87,10 +87,10 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async getUserSlots(pageData: PaginateRequest) {
+  async getUserSlots(eventId: number, pageData: PaginateRequest) {
     const queryString = fromObjectToQueryString(pageData);
     return this.axios
-      .get<Pagination<Slot>>(`/slot/me?${queryString}`)
+      .get<Pagination<Slot>>(`/event/${eventId}/slot/mine?${queryString}`)
       .then(response => response.data);
   }
 
@@ -133,7 +133,6 @@ export class ApiClient {
     flightNumber?: string | null,
     filterState?: Partial<FilterState>
   ) {
-    console.log(filterState);
     let queryString = fromObjectToQueryString(pageData);
 
     if (flightNumber) {

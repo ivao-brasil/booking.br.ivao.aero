@@ -10,7 +10,7 @@ export function useEventUserSlots(eventId: number, page = 1, perPage = 25) {
 	const { apiClient } = useContext(IocContext);
 
     const slots = useInfiniteQuery<Pagination<Slot>, AxiosError>(['eventUserSlots', eventId], async ({ pageParam = page }) => {
-		return await apiClient.getUserSlots({ page: pageParam, perPage });
+		return await apiClient.getUserSlots(eventId, { page: pageParam, perPage });
 	}, {
 		staleTime: ONE_DAY,
 		getNextPageParam: (lastPage, _) => {

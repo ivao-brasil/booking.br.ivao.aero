@@ -30,7 +30,9 @@ class Slot extends Model
         'flightNumber',
         'aircraft',
         'type',
-        'private'
+        'private',
+        'origin',
+        'destination'
     ];
 
     public function owner()
