@@ -32,8 +32,14 @@
   background-color: #282828;
 }
 
-.container:hover input ~ .checkmark {
-  filter: brightness(90%);
+.container input:focus ~ .checkmark {
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #000;
+}
+
+:global(.dark) .container input:focus ~ .checkmark {
+  outline-color: #fff;
 }
 
 .container input:checked ~ .checkmark {

@@ -1,3 +1,4 @@
+import { FilterState } from "components/filter/Filter";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { BookInfoMessage } from "components/slots/BookInfoMessage";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
@@ -19,6 +20,7 @@ export default function SlotsPage() {
     const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(SlotTypeOptions.LANDING);
     const [hasBookingRequestError, setHasBookingRequestError] = useState(false);
     const [searchedFlightNumber, setsearchedFlightNumber] = useState<string | null>(null);
+    const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
 
     const { eventId } = useParams();
     const location = useLocation();
@@ -29,7 +31,7 @@ export default function SlotsPage() {
         data: slots,
         isLoading: isLoadingSlots,
         hasNextPage, isFetchingNextPage, fetchNextPage
-    } = useEventSlots(Number(eventId), selectedSlotType, searchedFlightNumber);
+    } = useEventSlots(Number(eventId), selectedSlotType, searchedFlightNumber, appliedFilters);
 
     const tableData = useMemo(() => {
         if (!slots) {
@@ -74,6 +76,10 @@ export default function SlotsPage() {
         setsearchedFlightNumber(flightNumber);
     }
 
+    const onSlotFilter = (filterState: Partial<FilterState>) => {
+        setAppliedFilters(filterState);
+    }
+
     if (isLoadingEvent || isLoadingSlots || !event) {
         return (
             <LoadingIndicator />
@@ -92,7 +98,10 @@ export default function SlotsPage() {
 
             <div className="flex-1 md:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
                 <SlotPageHeader
+                    appliedFilters={appliedFilters}
+                    searchedFlightNumber={searchedFlightNumber}
                     onFlightSearch={onFlightSearch}
+                    onFilterChange={onSlotFilter}
                 />
                 {hasBookingRequestError
                     ? (
@@ -107,7 +116,7 @@ export default function SlotsPage() {
                         <>
                             <div className="relative overflow-x-auto h-screen lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded">
                                 <div className="mx-2 md:ml-8 md:mr-4">
-                                    {tableData
+                                    {tableData?.length
                                         ? (
                                             <SlotsTable
                                                 slots={tableData}
@@ -123,7 +132,11 @@ export default function SlotsPage() {
                                                 header="Parece que já não há mais nada para você aqui..."
                                                 description="Esses dados podem não existir no nosso sistema, verifique os filtros aplicados ou tente novamente mais tarde. "
                                                 type="warning"
-                                                onErrorReset={() => { }}
+                                                onErrorReset={() => {
+                                                    setAppliedFilters({});
+                                                    setsearchedFlightNumber(null);
+                                                    setSelectedSlotType(SlotTypeOptions.LANDING)
+                                                }}
                                             />
                                         )}
                                 </div>

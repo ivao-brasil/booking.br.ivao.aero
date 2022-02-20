@@ -3,34 +3,22 @@ import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
 import { Filter, FilterState } from "components/filter/Filter";
 import { InputField } from "components/InputField";
 import { ActionButton } from "components/button/Button";
+import { UTCClock } from "components/UTCClock";
 
 interface SlotPageHeaderProps {
     showFilter?: boolean;
+    appliedFilters?: Partial<FilterState>;
+    searchedFlightNumber?: string | null;
     onFlightSearch?: (flightNumber: string) => void;
-    onFilterChange?: (state: FilterState) => void;
+    onFilterChange?: (state: Partial<FilterState>) => void;
 }
 
-export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ showFilter = true, onFlightSearch, onFilterChange }) => {
-    const [currentTime, setCurrentTime] = useState(new Date());
+export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
+    showFilter = true, appliedFilters = {}, searchedFlightNumber,
+    onFlightSearch, onFilterChange
+}) => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [hasFlightFilter, setHasFlightFilter] = useState(false);
-    const [flightSearchValue, setflightSearchValue] = useState("");
-
-    useEffect(() => {
-        const timerInverval = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
-
-        return () => clearInterval(timerInverval);
-    }, []);
-
-    const utcTime = useMemo(() => {
-        const timeParts = [currentTime.getUTCHours(), currentTime.getUTCMinutes(), currentTime.getUTCSeconds()].map((timePart => {
-            return timePart < 10 ? "0" + timePart : timePart.toString();
-        }));
-
-        return timeParts.join(":");
-    }, [currentTime]);
+    const [flightSearchValue, setflightSearchValue] = useState(searchedFlightNumber ?? "");
 
     const onFlightSearchSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
@@ -42,9 +30,19 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ showFil
         onFlightSearch(flightSearchValue);
     }
 
+    const onFiltersApplied = (filterState: Partial<FilterState>) => {
+        setIsFilterOpen(false);
+
+        if (!onFilterChange) {
+            return;
+        }
+
+        onFilterChange(filterState);
+    }
+
     return (
         <div className="flex items-center p-8 bg-white dark:bg-black">
-            <form onSubmit={onFlightSearchSubmit}>
+            <form onSubmit={onFlightSearchSubmit} className="w-36">
                 <InputField
                     icon={<FiSearch width={16} />}
                     type="search"
@@ -55,11 +53,11 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ showFil
             </form>
 
 
-            <span className="text-inherit ml-auto text-[12px]">{utcTime} UTC</span>
+            <UTCClock />
             {showFilter && (
                 <>
                     <span className="mx-3">|</span>
-                    {hasFlightFilter
+                    {Object.keys(appliedFilters ?? {}).length > 0
                         ? (
                             <ActionButton
                                 height="h-7"
@@ -71,7 +69,9 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ showFil
                                     </span>
                                 }
                                 icon={<FiTrash size={19} />}
-                                onClick={() => setHasFlightFilter(false)} />
+                                onClick={() => {
+                                    onFiltersApplied({});
+                                }} />
                         )
                         : (
                             <div className="relative">
@@ -87,13 +87,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({ showFil
                                 {isFilterOpen && (
                                     <div className="absolute -left-[15.6rem] z-50">
                                         <Filter
-                                            aircrafts={[]}
-                                            airlines={[]}
-                                            onChange={(state) => {
-                                                setHasFlightFilter(true);
-                                                setIsFilterOpen(false);
-                                                onFilterChange && onFilterChange(state);
-                                            }}
+                                            onChange={onFiltersApplied}
                                         />
                                     </div>
                                 )}

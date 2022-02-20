@@ -5,6 +5,7 @@ import { Event } from "types/Event";
 import { Scenary } from 'types/Scenary';
 import { PrivateSlotScheduleData, Slot } from 'types/Slot';
 import { SlotTypeOptions } from 'types/SlotFilter';
+import { FilterState } from 'components/filter/Filter';
 
 interface AuthResponse {
   jwt: string;
@@ -72,21 +73,14 @@ export class ApiClient {
     pageData: PaginateRequest,
     slotType?: SlotTypeOptions | null,
     flightNumber?: string | null,
+    filterState?: Partial<FilterState>
   ) {
-    let queryString = fromObjectToQueryString(pageData);
-
-    if (flightNumber) {
-      queryString += "&" + fromObjectToQueryString({ "flightNumber": flightNumber });
-    } else {
-      if (slotType === SlotTypeOptions.PRIVATE) {
-        queryString += "&" + fromObjectToQueryString({ "private": true });
-      } else if (slotType !== null && slotType !== undefined) {
-        queryString += "&" + fromObjectToQueryString({
-          "type": SlotTypeOptions[slotType].toLowerCase(),
-          "private": false
-        });
-      }
-    }
+    const queryString = this.getEventSlotsQuery(
+      pageData,
+      slotType,
+      flightNumber,
+      filterState
+    );
 
     return this.axios
       .get<Pagination<Slot>>(`/event/${eventId}/slot?${queryString}`)
@@ -131,5 +125,34 @@ export class ApiClient {
   public set token(value: string) {
     this._token = value;
     this.axios.defaults.headers.common['Authorization'] = `Bearer ${value}`;
+  }
+
+  private getEventSlotsQuery(
+    pageData: PaginateRequest,
+    slotType?: SlotTypeOptions | null,
+    flightNumber?: string | null,
+    filterState?: Partial<FilterState>
+  ) {
+    console.log(filterState);
+    let queryString = fromObjectToQueryString(pageData);
+
+    if (flightNumber) {
+      queryString += "&" + fromObjectToQueryString({ "flightNumber": flightNumber });
+    } else {
+      if (slotType === SlotTypeOptions.PRIVATE) {
+        queryString += "&" + fromObjectToQueryString({ "private": true });
+      } else if (slotType !== null && slotType !== undefined) {
+        queryString += "&" + fromObjectToQueryString({
+          "type": SlotTypeOptions[slotType].toLowerCase(),
+          "private": false
+        });
+      }
+
+      if (filterState) {
+        queryString += "&" + fromObjectToQueryString(filterState);
+      }
+    }
+
+    return queryString;
   }
 }
