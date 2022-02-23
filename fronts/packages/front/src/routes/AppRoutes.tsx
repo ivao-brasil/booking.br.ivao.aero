@@ -2,7 +2,7 @@ import { FunctionComponent, lazy, Suspense, useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "components/RequireAuth";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
-import { SplashPage } from "pages/SplashPage";
+import { SplashPage } from "pages/SplashPage/SplashPage";
 import { NotFoundPage } from "pages/NotFoundPage";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { SidebarLayout } from "layouts/SidebarLayout";

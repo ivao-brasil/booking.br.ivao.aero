@@ -5,16 +5,18 @@ import { Header, MutedText } from "components/typography/Typography";
 
 interface InformationalLayoutProps {
     header?: ReactNode;
+    alert?: ReactNode;
     description?: ReactNode;
     image?: ReactNode;
 }
 
-export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, children }) => {
+export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, alert, children }) => {
     return (
         <div className="container flex flex-col min-h-screen">
             <div className="mt-10 md:mt-14">
                 <Logo />
             </div>
+            {alert}
             <div className={`${image ? "flex xl:items-center" : ""}`}>
                 <div className="md:flex-[1_0_34rem] w-full 2xl-height:pt-[4.5rem] self-start">
                     <div className="flex flex-col items-center md:items-start">
