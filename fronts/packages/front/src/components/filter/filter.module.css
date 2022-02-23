@@ -39,7 +39,7 @@
 
 .filter main > div:nth-child(2) {
   margin-top: 19px;
-  height: 100px;
+  margin-bottom: 19px;
 }
 
 .filter main > div:nth-child(2) > span {

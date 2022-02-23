@@ -543,7 +543,59 @@
                 "parameters": [
                     {
                         "name": "eventId",
-                        "in": "path"
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "flightNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "takeoff",
+                                "landing"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "private",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "origin",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "destination",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "available",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean",
+                            "enum": [true]
+                        },
+                        "allowEmptyValue": true
                     }
                 ],
                 "summary": "Get Event slots info",
@@ -654,6 +706,62 @@
                 "responses": {
                     "201": {
                         "description": "Slot successfully created"
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
+        "/event/{eventId}/slot/mine": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Slot"
+                ],
+                "summary": "Get user slots to a given event",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Slot result",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/Slot"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "User not authenticated"
@@ -945,53 +1053,6 @@
                 }
             }
         },
-        "/slot/me": {
-            "get": {
-                "tags": [
-                    "Slot"
-                ],
-                "summary": "Get user slots for all events",
-                "security": [
-                    {
-                        "authentication": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Slot result",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "allOf": [
-                                        {
-                                            "$ref": "#/components/schemas/Pagination"
-                                        },
-                                        {
-                                            "type": "object",
-                                            "properties": {
-                                                "data": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "$ref": "#/components/schemas/Slot"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "User not authenticated"
-                    },
-                    "403": {
-                        "description": "Invalid permissions"
-                    }
-                }
-            }
-        },
-
         "/logo/airline/{icao}": {
             "get": {
                 "tags": [

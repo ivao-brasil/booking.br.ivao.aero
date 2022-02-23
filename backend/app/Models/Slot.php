@@ -26,6 +26,15 @@ class Slot extends Model
         'updated_at'
     ];
 
+    public static $allowedQueryParams = [
+        'flightNumber',
+        'aircraft',
+        'type',
+        'private',
+        'origin',
+        'destination'
+    ];
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'pilotId', 'id');

@@ -19,13 +19,13 @@ $router->group(['middleware' => 'auth', 'prefix' => '/event/{eventId}/slot'], fu
     $router->post('/', 'SlotController@create');
     $router->get('/', 'SlotController@list');
     $router->post('/many', 'SlotController@createMany');
+    $router->get('/mine', 'SlotController@getMySlots');
 });
 
 $router->group(['middleware' => 'auth', 'prefix' => '/slot'], function () use ($router) {
     $router->delete('/{slotId}', 'SlotController@delete');
     $router->put('/{slotId}', 'SlotController@update');
     $router->patch('/{slotId}/{action}', 'SlotController@book');
-    $router->get('/me', 'SlotController@getMySlots');
 });
 
 $router->group(['prefix' => '/slot'], function () use ($router) {

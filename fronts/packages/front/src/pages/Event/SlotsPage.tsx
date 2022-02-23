@@ -1,3 +1,4 @@
+import { FilterState } from "components/filter/Filter";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { BookInfoMessage } from "components/slots/BookInfoMessage";
 import { SlotPageHeader } from "components/slots/SlotPageHeader";
@@ -16,14 +17,21 @@ interface LocationState {
 }
 
 export default function SlotsPage() {
+    const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(SlotTypeOptions.LANDING);
+    const [hasBookingRequestError, setHasBookingRequestError] = useState(false);
+    const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
+    const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
+
     const { eventId } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
-    const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
-    const { data: slots, isLoading: isLoadingSlots, hasNextPage, isFetchingNextPage, fetchNextPage } = useEventSlots(Number(eventId));
-    const [hasBookingRequestError, setHasBookingRequestError] = useState(false);
 
-    const [selectedSlotType, setSelectedSlotType] = useState(SlotTypeOptions.LANDING);
+    const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
+    const {
+        data: slots,
+        isLoading: isLoadingSlots,
+        hasNextPage, isFetchingNextPage, fetchNextPage
+    } = useEventSlots(Number(eventId), selectedSlotType, searchedFlightNumber, appliedFilters);
 
     const tableData = useMemo(() => {
         if (!slots) {
@@ -36,7 +44,6 @@ export default function SlotsPage() {
 
     useEffect(() => {
         const locationState = location.state as LocationState | null;
-
         if (locationState?.hasError) {
             setHasBookingRequestError(true);
             window.history.replaceState({ hasError: false }, '');
@@ -59,6 +66,20 @@ export default function SlotsPage() {
         }
     }
 
+    const onSlotTypeChange = (newType: SlotTypeOptions) => {
+        setSelectedSlotType(newType);
+        setSearchedFlightNumber(null);
+    }
+
+    const onFlightSearch = (flightNumber: string) => {
+        setSelectedSlotType(null);
+        setSearchedFlightNumber(flightNumber);
+    }
+
+    const onSlotFilter = (filterState: Partial<FilterState>) => {
+        setAppliedFilters(filterState);
+    }
+
     if (isLoadingEvent || isLoadingSlots || !event) {
         return (
             <LoadingIndicator />
@@ -71,13 +92,17 @@ export default function SlotsPage() {
                 <SlotTypeFilter
                     eventName={event.eventName}
                     eventType={event.type}
-                    slotsQtdData={{ takeoff: 1, landing: 1, private: 2 }}
                     selectedSlotType={selectedSlotType}
-                    onSlotTypeChange={(selectedType) => setSelectedSlotType(selectedType)} />
+                    onSlotTypeChange={onSlotTypeChange} />
             </div>
 
             <div className="flex-1 md:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
-                <SlotPageHeader />
+                <SlotPageHeader
+                    appliedFilters={appliedFilters}
+                    searchedFlightNumber={searchedFlightNumber}
+                    onFlightSearch={onFlightSearch}
+                    onFilterChange={onSlotFilter}
+                />
                 {hasBookingRequestError
                     ? (
                         <BookInfoMessage
@@ -91,7 +116,7 @@ export default function SlotsPage() {
                         <>
                             <div className="relative overflow-x-auto h-screen lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded">
                                 <div className="mx-2 md:ml-8 md:mr-4">
-                                    {tableData
+                                    {tableData?.length
                                         ? (
                                             <SlotsTable
                                                 slots={tableData}
@@ -107,7 +132,11 @@ export default function SlotsPage() {
                                                 header="Parece que já não há mais nada para você aqui..."
                                                 description="Esses dados podem não existir no nosso sistema, verifique os filtros aplicados ou tente novamente mais tarde. "
                                                 type="warning"
-                                                onErrorReset={() => { }}
+                                                onErrorReset={() => {
+                                                    setAppliedFilters({});
+                                                    setSearchedFlightNumber(null);
+                                                    setSelectedSlotType(SlotTypeOptions.LANDING)
+                                                }}
                                             />
                                         )}
                                 </div>

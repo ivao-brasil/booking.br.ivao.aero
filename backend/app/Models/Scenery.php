@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\ScenaryFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Scenery extends Model
@@ -18,4 +19,9 @@ class Scenery extends Model
         'created_at',
         'updated_at'
     ];
+
+    public static function _factory()
+    {
+        return ScenaryFactory::new();
+    }
 }

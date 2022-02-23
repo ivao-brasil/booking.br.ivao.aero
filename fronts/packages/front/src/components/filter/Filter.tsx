@@ -1,12 +1,11 @@
 import { Checkbox } from "components/checkbox/Checkbox";
-import { Progress } from "components/progress/Progress";
-import { forwardRef, FunctionComponent, useState } from "react";
+import { InputField } from "components/InputField";
+import { ChangeEvent, FunctionComponent, useState } from "react";
 import style from "./filter.module.css";
 
 export interface FilterProps {
-  aircrafts: Array<string>;
-  airlines: Array<string>;
-  onChange: (state: FilterState) => void;
+  appliedFilters?: Partial<FilterState>;
+  onChange: (state: Partial<FilterState>) => void;
 }
 
 export enum FlightDuration {
@@ -19,81 +18,91 @@ export enum FlightDuration {
 export interface FilterState {
   aircraft: string;
   airline: string;
-  flightDuration: FlightDuration;
-  onlyAvailableFlights: boolean;
+  origin: string;
+  destination: string;
+  available: boolean;
 }
 
-export const Filter: FunctionComponent<FilterProps> = forwardRef<any, FilterProps>(({
-  onChange,
-  airlines,
-  aircrafts,
-}, ref) => {
-  const [aircraft, setAircraft] = useState("");
-  const [airline, setAirline] = useState("");
-  const [flightDuration, setFlightDuration] = useState(
-    FlightDuration.LESS_ONE_HOUR
-  );
-  const [onlyAvailableFlights, setOnlyAvailableFlights] = useState(false);
+export const Filter: FunctionComponent<FilterProps> = ({ appliedFilters = {}, onChange }) => {
+  const [filters, setFilters] = useState<Partial<FilterState>>(appliedFilters);
 
   const resetFilters = () => {
-    setAircraft("");
-    setAirline("");
-    setFlightDuration(FlightDuration.LESS_ONE_HOUR);
-    setOnlyAvailableFlights(false);
+    setFilters({});
   };
 
+  const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setFilters(prevState => ({ ...prevState, [evt.target.name]: evt.target.value }));
+  }
+
+  const onFilterSubmit = () => {
+    onChange(filters);
+  }
+
+  const onAvailableCheckboxChange = (value: boolean) => {
+    if (!value) {
+      setFilters(prevState => {
+        delete prevState["available"];
+        return { ...prevState };
+      });
+
+      return;
+    }
+
+    setFilters(prevState => ({ ...prevState, "available": value }));
+  }
+
   return (
-    <section className={style.filter} ref={ref}>
+    <section className={style.filter}>
       <header>Filtrar</header>
       <main>
         <div>
-          <select
-            value={aircraft}
-            onChange={(event) => setAircraft(event.target.value)}
-          >
-            <option value="" disabled hidden>
-              Aeronave
-            </option>
-            {aircrafts.map((aircraft) => (
-              <option key={aircraft} value={aircraft}>
-                {aircraft}
-              </option>
-            ))}
-          </select>
+          <label className="sr-only" htmlFor="aircraft-filter">Aeronave</label>
+          <InputField
+            placeholder="Aeronave"
+            id="aircraft-filter"
+            name="aircraft"
+            value={filters.aircraft ?? ""}
+            onChange={onInputChange}
+          />
 
-          <select
-            value={airline}
-            onChange={(event) => setAirline(event.target.value)}
-          >
-            <option value="" disabled hidden>
-              Companhia
-            </option>
-            {airlines.map((airline) => (
-              <option key={airline} value={airline}>
-                {airline}
-              </option>
-            ))}
-          </select>
+          <div className="ml-2">
+            <label className="sr-only" htmlFor="company-filter">Companhia</label>
+            <InputField
+              placeholder="Companhia"
+              id="company-filter"
+              name="airline"
+              value={filters.airline ?? ""}
+              onChange={onInputChange}
+            />
+          </div>
         </div>
 
-        <div>
-          <span>Duração do voo:</span>
-          <Progress
-            onChange={setFlightDuration}
-            steps={[
-              "Menor que 1 hora",
-              "Até 3 horas",
-              "Até 6 horas",
-              "Maior que 6 horas",
-            ]}
-            value={flightDuration}
+        <div className="flex px-[1.125rem]">
+          <label className="sr-only" htmlFor="origin-filter">Origem</label>
+          <InputField
+            placeholder="Origem"
+            id="origin-filter"
+            name="origin"
+            value={filters.origin ?? ""}
+            onChange={onInputChange}
           />
+
+          <div className="ml-2">
+            <label className="sr-only" htmlFor="destination-filter">Destino</label>
+            <InputField
+              placeholder="Destination"
+              id="destination-filter"
+              name="destination"
+              value={filters.destination ?? ""}
+              onChange={onInputChange}
+            />
+          </div>
         </div>
 
         <div>
           <Checkbox
-            value={onlyAvailableFlights}
-            onChange={(value) => setOnlyAvailableFlights(value)}
+            value={filters.available ?? false}
+            onChange={onAvailableCheckboxChange}
           />
           <span>Exibir somente voos disponíveis</span>
         </div>
@@ -104,7 +113,7 @@ export const Filter: FunctionComponent<FilterProps> = forwardRef<any, FilterProp
           </button>
           <button
             type="button"
-            onClick={() => onChange({ aircraft, airline, flightDuration, onlyAvailableFlights })}
+            onClick={() => onFilterSubmit()}
           >
             Aplicar filtros
           </button>
@@ -112,4 +121,4 @@ export const Filter: FunctionComponent<FilterProps> = forwardRef<any, FilterProp
       </main>
     </section>
   );
-});
+};

@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Event as ModelsEvent;
-use Database\Factories\EventFactory;
+use Database\Factories\EventAirportFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class EventAirport extends Model
@@ -24,5 +23,10 @@ class EventAirport extends Model
     public function sceneries()
     {
         return $this->hasMany(Scenery::class, 'icao', 'icao');
+    }
+
+    public static function _factory()
+    {
+        return EventAirportFactory::new();
     }
 }
