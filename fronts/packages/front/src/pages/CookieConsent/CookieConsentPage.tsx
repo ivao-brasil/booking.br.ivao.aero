@@ -4,8 +4,8 @@ import { ActionButton } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 
-import emoji from './crying_face.svg'
-import { LottieFile } from 'components/LottieFile';
+import emoji from './crying_face.svg';
+import cookies from './cookies.svg';
 
 export default function CookieConsentPage() {
   const { setCookieConsent } = useContext(CookieConsentContext);
@@ -15,7 +15,7 @@ export default function CookieConsentPage() {
       header='Utilizamos cookies para melhorar a sua experiência'
       description='Precisamos da sua autorização para continuar com a nossa maravilhosa receita de biscoitos de gengibre.'
       image={
-        <LottieFile src="https://assets.br.ivao.aero/lotties/cookies.json" />
+        <img className="w-[31.25rem]" alt="globe" src={cookies} width={500} height={500} />
       }>
       <div className='flex flex-col md:flex-row space-y-4 md:space-y-0'>
         <div className='flex-1'>

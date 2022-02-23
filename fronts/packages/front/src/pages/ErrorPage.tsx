@@ -3,8 +3,8 @@ import axios from 'axios';
 import { FiHome } from 'react-icons/fi';
 import { ActionButton } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
-import { LottieFile } from 'components/LottieFile';
 import { AuthContext } from 'context/AuthContext';
+import notFound from './not-found.svg';
 
 interface ErrorPageState {
   hasError: boolean
@@ -60,7 +60,8 @@ export class ErrorPage extends Component<any, ErrorPageState> {
       <InformationalLayout
         header='Houston, we have a problem...'
         description='Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.'
-        image={<LottieFile src="https://assets1.lottiefiles.com/packages/lf20_zf9mqyhk.json" />}>
+        image={<img className="w-[27.3rem]" alt="globe" src={notFound} width={437} height={480} />}
+      >
         <ActionButton icon={<FiHome size={20} />} content='Voltar ao início' onClick={this.onErrorReset} />
       </InformationalLayout>
     )
