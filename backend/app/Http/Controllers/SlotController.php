@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Slot;
 use App\Services\PaginationService;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -78,7 +79,7 @@ class SlotController extends Controller
         $user = Auth::user();
 
         if (!$slot) {
-            abort(404, 'Slot not founded');
+            abort(404, 'Slot not found');
         }
 
         $this->authorize('bookUpdate', $slot);
@@ -95,7 +96,25 @@ class SlotController extends Controller
                 $slot->fill($request->all());
             }
 
-            $slot->bookingStatus = 'prebooked';
+            /** @var \App\Models\Event */
+            $slotEvent = $slot->event;
+            /** @var \Carbon\Carbon */
+            $eventStartDate = $slotEvent->dateStart;
+            $now = Carbon::now();
+
+            if ($now->greaterThan($eventStartDate)) {
+                abort(403, "The slot can not be booked after the event starts");
+            }
+
+            $hoursBeforeStart = $now->diffInHours($eventStartDate, false);
+            $ignoreConfirmationHours = config('app.slot.ignore_slot_confirmation_hours');
+
+            if ($now->lessThanOrEqualTo($eventStartDate) && $ignoreConfirmationHours >= $hoursBeforeStart) {
+                $slot->bookingStatus = 'booked';
+            } else {
+                $slot->bookingStatus = 'prebooked';
+            }
+
             $slot->bookingTime = (new DateTime())->format("Y-m-d H:i:s");
 
             $user->slotsBooked()->save($slot);
@@ -112,10 +131,12 @@ class SlotController extends Controller
             $slot->bookingStatus = 'free';
             $slot->save();
         } else if ($action === "confirm") {
-            if ($slot->bookingStatus === "prebooked") {
-                $slot->bookingStatus = "booked";
-                $slot->save();
+            if ($slot->bookingStatus !== "prebooked") {
+                abort(400, "The slot is not prebooked");
             }
+
+            $slot->bookingStatus = "booked";
+            $slot->save();
         }
     }
 
