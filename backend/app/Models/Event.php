@@ -27,6 +27,16 @@ class Event extends Model
         'dateEnd' => 'datetime:Y-m-d\TH:i:sP'
     ];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'dateStart',
+        'dateEnd'
+    ];
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'createdBy', 'id');
