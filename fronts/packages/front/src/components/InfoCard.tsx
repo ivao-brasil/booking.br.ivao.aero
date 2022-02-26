@@ -29,7 +29,7 @@ export const HorizontalInfoCard: FunctionComponent<InfoCardProps> = ({ icon, hea
 );
 
 export const VerticalInfoCard: FunctionComponent<InfoCardProps> = ({ icon, header, content, children, iconBackground = "bg-blue" }) => (
-    <div className="flex flex-col max-w-[238px] px-5 py-6 bg-light-gray-4 dark:bg-dark-gray-2 rounded-md">
+    <div className="flex flex-col w-[238px] px-5 py-6 bg-light-gray-4 dark:bg-dark-gray-2 rounded-md">
         <div className="flex gap-5">
             {icon && (
                 <div className={`relative flex-initial w-12 p-6 rounded-sm ${iconBackground}`}>

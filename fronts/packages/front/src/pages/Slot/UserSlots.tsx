@@ -12,6 +12,9 @@ import { useAuthData } from "hooks/useAuthData";
 import { BookingStatus, Slot, SlotBookActions } from "types/Slot";
 import { FLIGHT_CONFIRM_MAX_DAYS, FLIGHT_CONFIRM_MIN_DAYS, ONE_DAY } from "appConstants";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
+import { useAirportInfoFromSlots } from "hooks/slots/useAirportInfoFromSlots";
+import { AirportDetails } from "types/AirportDetails";
+import { useFlatInfiniteData } from "hooks/useFlatInfiniteData";
 
 export default function UserSlots() {
     const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
@@ -31,6 +34,7 @@ export default function UserSlots() {
         fetchNextPage
     } = useEventUserSlots(Number(eventId), searchedFlightNumber);
 
+    const tableData = useFlatInfiniteData(slots);
 
     const hasEventStarted = useMemo(() => {
         if (!event) {
@@ -81,6 +85,31 @@ export default function UserSlots() {
         }
     }, [scheduleCancelMutation.isSuccess, scheduleCancelMutation.variables, navigate]);
 
+    const airportDetailsQueries = useAirportInfoFromSlots(tableData || [] as Slot[]);
+
+    const airportDetailsMap = useMemo(() => {
+        const result: Record<string, AirportDetails> = {};
+
+        airportDetailsQueries.forEach(queryResult => {
+            const { data } = queryResult;
+
+            if (!data) {
+                return;
+            }
+
+            result[data.icao] = data;
+        });
+
+        return result;
+    }, [airportDetailsQueries]);
+
+    const isLoadingAnyAirportData = useMemo(() => {
+        return airportDetailsQueries.some((airportQuery) => {
+            return airportQuery.isLoading;
+        });
+    }, [airportDetailsQueries]);
+
+
     const onScheduleConfirm = (slot: Slot) => {
         scheduleConfirmMutation.mutate({ slotId: slot.id, eventId: Number(eventId) });
     }
@@ -93,9 +122,23 @@ export default function UserSlots() {
         setSearchedFlightNumber(flightNumber);
     }
 
-    if (isLoadingEvent || isLoadingUser || isLoadingSlots
-        || scheduleConfirmMutation.isLoading || scheduleCancelMutation.isLoading
-        || !event || !user) {
+    const getAirportShortName = (airportDetails: AirportDetails) => {
+        let airportName = airportDetails.name;
+
+        // Initially the HQ API returns the airport name in the format:
+        // São Paulo/Guarulhos / Governador André Franco Montoro Intl
+        if (airportName.indexOf(" / ") !== -1) {
+            const [airportShortName, _] = airportName.split(" / ");
+            airportName = airportShortName;
+        }
+
+        return airportName;
+    };
+
+    if ((isLoadingEvent || isLoadingUser || isLoadingSlots)
+        || (scheduleConfirmMutation.isLoading || scheduleCancelMutation.isLoading)
+        || (isLoadingAnyAirportData)
+        || (!event || !user)) {
         return (
             <LoadingIndicator />
         );
@@ -170,10 +213,10 @@ export default function UserSlots() {
     }
 
     return (
-        <div className="flex flex-col md:flex-row h-full">
+        <div className="flex flex-col lg:flex-row h-full">
             <UserSlotsSideInfos pilotBriefing={event.pilotBriefing} />
 
-            <div className="flex-1 md:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
+            <div className="flex-1 lg:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
                 <SlotPageHeader
                     showFilter={false}
                     searchedFlightNumber={searchedFlightNumber}
@@ -184,24 +227,29 @@ export default function UserSlots() {
                         <div className="space-y-5">
                             {slots?.pages.map(slotPage => (
                                 <Fragment key={slotPage.page}>
-                                    {slotPage.data.map((slot) => (
-                                        <Fragment key={slot.id}>
-                                            <BoardingPass
-                                                user={{ firstName: user.firstName, lastName: user.lastName, vid: user.vid }}
-                                                origin={{ name: "PORTO ALEGRE", iata: "POA" }}
-                                                destination={{ name: "GUARULHOS", iata: "GRU" }}
-                                                callsign={slot.flightNumber}
-                                                slotDate={new Date()}
-                                                gate={slot.gate}
-                                                type={slot.type === "takeoff" ? BoardingPassType.DEPARTURE : BoardingPassType.ARIVAL}
-                                                actions={
-                                                    <div className="flex gap-4">
-                                                        {availableActions(slot)}
-                                                    </div>
+                                    {slotPage.data.map((slot) => {
+                                        const originDetails = airportDetailsMap[slot.origin];
+                                        const destinationDetails = airportDetailsMap[slot.destination];
 
-                                                } />
-                                        </Fragment>
-                                    ))}
+                                        return (
+                                            <Fragment key={slot.id}>
+                                                <BoardingPass
+                                                    user={{ firstName: user.firstName, lastName: user.lastName, vid: user.vid }}
+                                                    origin={{ name: getAirportShortName(originDetails), iata: originDetails.iata }}
+                                                    destination={{ name: getAirportShortName(destinationDetails), iata: destinationDetails.iata }}
+                                                    callsign={slot.flightNumber}
+                                                    slotDate={slot.slotTime}
+                                                    gate={slot.gate}
+                                                    type={slot.type === "takeoff" ? BoardingPassType.DEPARTURE : BoardingPassType.ARIVAL}
+                                                    eventStartDate={new Date(event.dateStart)}
+                                                    actions={(
+                                                        <div className="flex gap-4">
+                                                            {availableActions(slot)}
+                                                        </div>
+                                                    )} />
+                                            </Fragment>
+                                        );
+                                    })}
                                 </Fragment>
                             ))}
                         </div>

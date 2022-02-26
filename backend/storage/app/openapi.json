@@ -1101,7 +1101,49 @@
                     }
                 }
             }
-        }
+        },
+        "/airport/details/{icao}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "icao",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Airport"
+                ],
+                "summary": "Get the airport details from IVAO HQ API",
+                "security": [
+                    {
+                        "authentication": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Airport details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/AirportDetails"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not authenticated"
+                    },
+                    "403": {
+                        "description": "Invalid permissions"
+                    }
+                }
+            }
+        },
     },
     "components": {
         "securitySchemes": {
@@ -1293,6 +1335,62 @@
                     },
                     "public": {
                         "type": "boolean"
+                    }
+                }
+            },
+            "AirportDetails": {
+                "type": "object",
+                "properties": {
+                    "icao": {
+                        "type": "string"
+                    },
+                    "iata": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "countryId": {
+                        "type": "string"
+                    },
+                    "latitude": {
+                        "type": "number"
+                    },
+                    "longitude": {
+                        "type": "number"
+                    },
+                    "military": {
+                        "type": "boolean"
+                    },
+                    "faaCode": {
+                        "type": "string"
+                    },
+                    "atcCallsign": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "centerId": {
+                        "type": "string"
+                    },
+                    "firId": {
+                        "type": "string"
+                    },
+                    "elevation": {
+                        "type": "number"
+                    },
+                    "magnetic": {
+                        "type": "string"
+                    },
+                    "transitionAltitude": {
+                        "type": "number"
+                    },
+                    "web": {
+                        "type": "string"
                     }
                 }
             }

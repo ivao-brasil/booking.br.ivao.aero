@@ -6,6 +6,7 @@ import { Scenary } from 'types/Scenary';
 import { PrivateSlotScheduleData, Slot } from 'types/Slot';
 import { SlotTypeOptions } from 'types/SlotFilter';
 import { FilterState } from 'components/filter/Filter';
+import { AirportDetails } from 'types/AirportDetails';
 
 interface AuthResponse {
   jwt: string;
@@ -121,6 +122,12 @@ export class ApiClient {
     return this.axios
       .get<Blob>(`/logo/airline/${airline}`, { responseType: 'blob' })
       .then(response => new Blob([response.data], { type: response.headers["content-type"] }));
+  }
+
+  async getAirportDetails(icao: string) {
+    return this.axios
+      .get<AirportDetails>(`/airport/details/${icao}`)
+      .then(response => response.data);
   }
 
   public get token() {

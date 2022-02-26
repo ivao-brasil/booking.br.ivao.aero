@@ -5,12 +5,14 @@ import { getSlotAirline, PrivateSlotScheduleData, Slot, SlotType } from "types/S
 import { InputField } from "components/InputField";
 import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
+import { AirportDetails } from "types/AirportDetails";
 
 interface SlotsTableProps {
     slots: Slot[];
     airlineImages?: Array<Blob | null>;
     hasMoreFlights?: boolean;
     isFecthingMoreFlights?: boolean;
+    airportDetailsMap?: Record<string, AirportDetails>;
     onSlotBook: (slotId: number, slotData?: PrivateSlotScheduleData) => void;
     onMoreFlightsRequested?: () => void;
 }
@@ -25,7 +27,7 @@ interface FormValueMap {
 }
 
 export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
-    slots, airlineImages, hasMoreFlights,
+    slots, airlineImages, airportDetailsMap, hasMoreFlights,
     isFecthingMoreFlights, onSlotBook, onMoreFlightsRequested
 }) => {
     const [formValues, setFormValues] = useState<FormValueMap>({});
@@ -55,6 +57,28 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
     }
 
     const isPrivateSlotAndBookable = (slot: Slot) => slot.private && !slot.owner;
+
+    const getAirportFullName = (icao: string, detailsMap?: Record<string, AirportDetails>) => {
+        if (!detailsMap) {
+            return "";
+        }
+
+        const airportDetails = detailsMap[icao];
+
+        if (!airportDetails) {
+            return "";
+        }
+
+        let airportName = airportDetails.name;
+        // Initially the HQ API returns the airport name in the format:
+        // São Paulo/Guarulhos / Governador André Franco Montoro Intl
+        if (airportName.indexOf(" / ") !== -1) {
+            const [_, airportFullName] = airportName.split(" / ");
+            airportName = airportFullName;
+        }
+
+        return airportName;
+    };
 
     useEffect(() => {
         slots.forEach((slot) => {
@@ -87,6 +111,9 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
             </thead>
             <tbody>
                 {slots.map((slot, idx) => {
+                    const originAirportName = getAirportFullName(slot.origin, airportDetailsMap);
+                    const destinationAirportName = getAirportFullName(slot.destination, airportDetailsMap);
+
                     return (
                         <tr
                             key={slot.id}
@@ -146,7 +173,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                     </td>
                                 )}
 
-                            {isPrivateSlotAndBookable(slot) && slot.type !== SlotType.TAKEOFF
+                            {isPrivateSlotAndBookable(slot) && (slot.type !== SlotType.TAKEOFF || !slot.origin)
                                 ? (
                                     <td>
                                         <label htmlFor={`origin-${slot.id}`} className="sr-only">
@@ -164,7 +191,12 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 : (
                                     <td className="text-center px-3">
                                         <span className="font-header font-bold text-[18px] leading-6">{slot.origin || "ZZZZ"}</span>
-                                        <p className="font-action font-normal text-xs leading-3">TANCREDO NEVES INTL</p>
+                                        <p
+                                            className="w-32 mx-auto font-action font-normal text-xs leading-3 text-center truncate"
+                                            title={originAirportName}
+                                        >
+                                            {originAirportName}
+                                        </p>
                                     </td>
                                 )}
 
@@ -178,7 +210,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 </div>
                             </td>
 
-                            {isPrivateSlotAndBookable(slot) && slot.type !== SlotType.LANDING
+                            {isPrivateSlotAndBookable(slot) && (slot.type !== SlotType.LANDING || !slot.destination)
                                 ? (
                                     <td>
                                         <label htmlFor={`destination-${slot.id}`} className="sr-only">
@@ -196,11 +228,16 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 : (
                                     <td className="text-center px-3">
                                         <span className="font-header font-bold text-[18px] leading-6">{slot.destination || "ZZZZ"}</span>
-                                        <p className="font-action font-normal text-xs leading-3">TANCREDO NEVES INTL</p>
+                                        <p
+                                            className="w-32 mx-auto font-action font-normal text-xs leading-3 text-center truncate"
+                                            title={destinationAirportName}
+                                        >
+                                            {destinationAirportName}
+                                        </p>
                                     </td>
                                 )}
 
-                            <td className="px-3">{slot.slotTime}</td>
+                            <td className="px-3">{slot.slotTime}{slot.slotTime.endsWith("Z") ? "" : "Z"}</td>
                             <td className="px-3">{slot.gate}</td>
                             <td className="rounded-r-lg px-3">
                                 <div className="w-24 mx-auto">
