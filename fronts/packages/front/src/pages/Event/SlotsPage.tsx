@@ -8,6 +8,7 @@ import { useAirlineLogosFromSlots } from "hooks/slots/useAirlineLogosFromSlots";
 import { useAirportInfoFromSlots } from "hooks/slots/useAirportInfoFromSlots";
 import { useEventSlots } from "hooks/slots/useEventSlots";
 import { useEvent } from "hooks/useEvent";
+import { useFlatInfiniteData } from "hooks/useFlatInfiniteData";
 import { useEffect, useMemo, useState } from "react";
 import { createSearchParams, ParamKeyValuePair, useLocation, useNavigate, useParams } from "react-router-dom";
 import { AirportDetails } from "types/AirportDetails";
@@ -35,14 +36,7 @@ export default function SlotsPage() {
         hasNextPage, isFetchingNextPage, fetchNextPage
     } = useEventSlots(Number(eventId), selectedSlotType, searchedFlightNumber, appliedFilters);
 
-    const tableData = useMemo(() => {
-        if (!slots) {
-            return null;
-        }
-
-        const allPagesData = slots.pages.map(slotPage => slotPage.data.map(slot => slot));
-        return ([] as Slot[]).concat(...allPagesData);
-    }, [slots]);
+    const tableData = useFlatInfiniteData(slots);
 
     useEffect(() => {
         const locationState = location.state as LocationState | null;
@@ -110,8 +104,8 @@ export default function SlotsPage() {
     }
 
     return (
-        <div className="flex flex-col md:flex-row h-full">
-            <div className="md:max-w-[18rem]">
+        <div className="flex flex-col lg:flex-row h-full">
+            <div className="lg:max-w-[18rem]">
                 <SlotTypeFilter
                     eventName={event.eventName}
                     eventType={event.type}
@@ -119,7 +113,7 @@ export default function SlotsPage() {
                     onSlotTypeChange={onSlotTypeChange} />
             </div>
 
-            <div className="flex-1 md:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
+            <div className="flex-1 lg:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
                 <SlotPageHeader
                     appliedFilters={appliedFilters}
                     searchedFlightNumber={searchedFlightNumber}
@@ -138,7 +132,7 @@ export default function SlotsPage() {
                     : (
                         <>
                             <div className="relative overflow-x-auto h-screen lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded">
-                                <div className="mx-2 md:ml-8 md:mr-4">
+                                <div className="mx-2 lg:ml-8 lg:mr-4">
                                     {tableData?.length
                                         ? (
                                             <SlotsTable

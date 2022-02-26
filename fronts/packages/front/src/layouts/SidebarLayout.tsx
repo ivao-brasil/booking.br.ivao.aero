@@ -7,8 +7,8 @@ export const SidebarLayout: FunctionComponent = () => {
     const isAtEventDetailsPage = useMatch("/event/:eventId") !== null;
 
     return (
-        <div className="flex flex-col md:flex-row">
-            <div className="md:flex-none">
+        <div className="flex flex-col lg:flex-row">
+            <div className="lg:flex-none">
                 <EventSidebar />
             </div>
             <div className={`flex flex-col min-h-screen ${isAtEventDetailsPage ? "container" : "w-full"}`}>

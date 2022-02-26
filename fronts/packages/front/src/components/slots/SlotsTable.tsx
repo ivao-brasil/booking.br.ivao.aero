@@ -58,7 +58,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
 
     const isPrivateSlotAndBookable = (slot: Slot) => slot.private && !slot.owner;
 
-    const getAirportName = (icao: string, detailsMap?: Record<string, AirportDetails>) => {
+    const getAirportFullName = (icao: string, detailsMap?: Record<string, AirportDetails>) => {
         if (!detailsMap) {
             return "";
         }
@@ -111,8 +111,8 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
             </thead>
             <tbody>
                 {slots.map((slot, idx) => {
-                    const originAirportName = getAirportName(slot.origin, airportDetailsMap);
-                    const destinationAirportName = getAirportName(slot.destination, airportDetailsMap);
+                    const originAirportName = getAirportFullName(slot.origin, airportDetailsMap);
+                    const destinationAirportName = getAirportFullName(slot.destination, airportDetailsMap);
 
                     return (
                         <tr
@@ -173,7 +173,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                     </td>
                                 )}
 
-                            {isPrivateSlotAndBookable(slot) && slot.type !== SlotType.TAKEOFF
+                            {isPrivateSlotAndBookable(slot) && (slot.type !== SlotType.TAKEOFF || !slot.origin)
                                 ? (
                                     <td>
                                         <label htmlFor={`origin-${slot.id}`} className="sr-only">
@@ -210,7 +210,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 </div>
                             </td>
 
-                            {isPrivateSlotAndBookable(slot) && slot.type !== SlotType.LANDING
+                            {isPrivateSlotAndBookable(slot) && (slot.type !== SlotType.LANDING || !slot.destination)
                                 ? (
                                     <td>
                                         <label htmlFor={`destination-${slot.id}`} className="sr-only">

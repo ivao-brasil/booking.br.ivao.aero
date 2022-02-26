@@ -25,9 +25,10 @@ interface BoardingPassProps {
     iata: string;
   };
   callsign: string;
-  slotDate: Date;
+  slotDate: string;
   gate: string;
   type: BoardingPassType;
+  eventStartDate: Date;
   actions?: ReactNode;
 }
 
@@ -93,7 +94,7 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
   destination,
   gate,
   slotDate,
-  children,
+  eventStartDate,
   type,
 }) => {
   return (
@@ -127,7 +128,7 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
           </div>
           <div className="font-header mt-auto">
             <div className="font-light text-[0.56rem] leading-3">Data/Date</div>
-            <div className="text-sm">{formatDate(slotDate)}</div>
+            <div className="text-sm">{formatDate(eventStartDate)}</div>
           </div>
           <div className="font-header mt-auto">
             <div className="font-light text-[0.56rem] leading-3">posição/stand</div>
@@ -146,7 +147,7 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
             <div className="font-light text-[0.56rem] leading-3">
               {type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}
             </div>
-            <div className="text-[2rem] leading-[2.6rem] font-extrabold">{formatHour(slotDate)}</div>
+            <div className="text-[2rem] leading-[2.6rem] font-extrabold">{slotDate}</div>
           </div>
         </div>
         <div className="flex flex-col">
@@ -174,6 +175,7 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
   destination,
   slotDate,
   type,
+  eventStartDate
 }) => {
   return (
     <div className={bodyStyle.sideContent}>
@@ -196,13 +198,13 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
       <div className={bodyStyle.dateInfoSidebar}>
         <div>
           <div>Data/Date</div>
-          <div>{formatDate(slotDate)}</div>
+          <div>{formatDate(eventStartDate)}</div>
         </div>
         <div>
           <div>
             {type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}
           </div>
-          <div className="text-right">{formatHour(slotDate)}</div>
+          <div className="text-right">{slotDate}</div>
         </div>
       </div>
       <div className={bodyStyle.seatInfo}>
