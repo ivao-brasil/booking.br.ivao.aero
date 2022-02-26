@@ -5,10 +5,12 @@ import { SlotPageHeader } from "components/slots/SlotPageHeader";
 import { SlotsTable } from "components/slots/SlotsTable";
 import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
 import { useAirlineLogosFromSlots } from "hooks/slots/useAirlineLogosFromSlots";
+import { useAirportInfoFromSlots } from "hooks/slots/useAirportInfoFromSlots";
 import { useEventSlots } from "hooks/slots/useEventSlots";
 import { useEvent } from "hooks/useEvent";
 import { useEffect, useMemo, useState } from "react";
 import { createSearchParams, ParamKeyValuePair, useLocation, useNavigate, useParams } from "react-router-dom";
+import { AirportDetails } from "types/AirportDetails";
 import { PrivateSlotScheduleData, Slot } from "types/Slot";
 import { SlotTypeOptions } from "types/SlotFilter";
 
@@ -51,9 +53,30 @@ export default function SlotsPage() {
     }, [location.state]);
 
     const airlineLogoQueries = useAirlineLogosFromSlots(tableData || [] as Slot[]);
+
     const airlineLogos = useMemo(() => {
         return airlineLogoQueries.map(queryResult => queryResult.data || null);
     }, [airlineLogoQueries]);
+
+    const airportDetailsQueries = useAirportInfoFromSlots(tableData || [] as Slot[]);
+
+    const airportDetailsMap = useMemo(() => {
+        const result: Record<string, AirportDetails> = {};
+
+        airportDetailsQueries.forEach(queryResult => {
+            const { data } = queryResult;
+
+            if (!data) {
+                return;
+            }
+
+            result[data.icao] = data;
+        });
+
+        return result;
+    }, [airportDetailsQueries]);
+
+    console.log(airportDetailsMap);
 
     const onSlotBook = (slotId: number, slotData?: PrivateSlotScheduleData) => {
         const scheduleUrl = `/event/${eventId}/schedule/${slotId}`;
@@ -124,6 +147,7 @@ export default function SlotsPage() {
                                                 onSlotBook={onSlotBook}
                                                 hasMoreFlights={hasNextPage}
                                                 isFecthingMoreFlights={isFetchingNextPage}
+                                                airportDetailsMap={airportDetailsMap}
                                                 onMoreFlightsRequested={() => fetchNextPage()}
                                             />
                                         )

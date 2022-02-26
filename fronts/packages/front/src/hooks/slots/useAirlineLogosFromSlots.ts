@@ -21,7 +21,8 @@ export function useAirlineLogosFromSlots(slots: Slot[]) {
 
             return {
                 queryKey: ["airline_logo", airlineIcao],
-                queryFn: () => apiClient.getAirlineLogo(airlineIcao)
+                queryFn: () => apiClient.getAirlineLogo(airlineIcao),
+                useErrorBoundary: false
             }
         })
     );
