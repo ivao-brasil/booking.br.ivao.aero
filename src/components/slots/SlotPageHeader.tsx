@@ -2,7 +2,7 @@ import { ActionButton } from "components/button/Button";
 import { Filter, FilterState } from "components/filter/Filter";
 import { InputField } from "components/InputField";
 import { UTCClock } from "components/UTCClock";
-import { FormEvent, FunctionComponent, useState } from "react";
+import { FormEvent, FunctionComponent, useEffect, useState } from "react";
 import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
 
 interface SlotPageHeaderProps {
@@ -11,14 +11,21 @@ interface SlotPageHeaderProps {
     searchedFlightNumber?: string | null;
     onFlightSearch?: (flightNumber: string) => void;
     onFilterChange?: (state: Partial<FilterState>) => void;
+    onFilterStateChange?: (isOpen: boolean) => void;
 }
 
 export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
     showFilter = true, appliedFilters = {}, searchedFlightNumber,
-    onFlightSearch, onFilterChange
+    onFlightSearch, onFilterChange, onFilterStateChange
 }) => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [flightSearchValue, setflightSearchValue] = useState(searchedFlightNumber ?? "");
+
+    useEffect(() => {
+        if (onFilterStateChange) {
+            onFilterStateChange(isFilterOpen);
+        }
+    }, [isFilterOpen]);
 
     const onFlightSearchSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();

@@ -19,8 +19,8 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ eventId, imageSrc
             <div className="relative">
                 <img src={imageSrc}
                     alt={`${eventName} logo`}
-                    width="288px"
-                    height="192px"
+                    width={288}
+                    height={192}
                     className={`rounded-md w-full h-48 aspect-auto ${tbd ? "blur-sm" : ""}`} />
 
                 {tbd && (
