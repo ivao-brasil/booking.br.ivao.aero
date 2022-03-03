@@ -24,6 +24,7 @@ export default function SlotsPage() {
     const [hasBookingRequestError, setHasBookingRequestError] = useState(false);
     const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
     const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     const { eventId } = useParams();
     const location = useLocation();
@@ -70,8 +71,6 @@ export default function SlotsPage() {
         return result;
     }, [airportDetailsQueries]);
 
-    console.log(airportDetailsMap);
-
     const onSlotBook = (slotId: number, slotData?: PrivateSlotScheduleData) => {
         const scheduleUrl = `/event/${eventId}/schedule/${slotId}`;
         if (slotData) {
@@ -97,6 +96,8 @@ export default function SlotsPage() {
         setAppliedFilters(filterState);
     }
 
+    const scrollBarClassName = "lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded";
+
     if (isLoadingEvent || isLoadingSlots || !event) {
         return (
             <LoadingIndicator />
@@ -108,6 +109,7 @@ export default function SlotsPage() {
             <div className="lg:max-w-[18rem]">
                 <SlotTypeFilter
                     eventName={event.eventName}
+                    eventBanner={event.banner}
                     eventType={event.type}
                     selectedSlotType={selectedSlotType}
                     onSlotTypeChange={onSlotTypeChange} />
@@ -119,6 +121,7 @@ export default function SlotsPage() {
                     searchedFlightNumber={searchedFlightNumber}
                     onFlightSearch={onFlightSearch}
                     onFilterChange={onSlotFilter}
+                    onFilterStateChange={(state) => setIsFilterOpen(state)}
                 />
                 {hasBookingRequestError
                     ? (
@@ -131,7 +134,9 @@ export default function SlotsPage() {
                     )
                     : (
                         <>
-                            <div className="relative overflow-x-auto h-screen lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded">
+                            <div
+                                className={`relative overflow-x-auto h-screen ${scrollBarClassName} ${isFilterOpen ? "blur" : ""}`}
+                            >
                                 <div className="mx-2 lg:ml-8 lg:mr-4">
                                     {tableData?.length
                                         ? (

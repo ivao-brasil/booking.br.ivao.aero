@@ -20,6 +20,9 @@ module.exports = {
       },
       height: {
         'slot-table': 'calc(100vh - 146px)',
+      },
+      backgroundImage: {
+        'gradient-event-sidebar': 'linear-gradient(0deg, #282828 47.19%, rgba(40, 40, 40, 0.61) 84.56%)'
       }
     },
     fontFamily: {
