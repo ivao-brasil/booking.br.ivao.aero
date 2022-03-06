@@ -73,7 +73,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
         // Initially the HQ API returns the airport name in the format:
         // São Paulo/Guarulhos / Governador André Franco Montoro Intl
         if (airportName.indexOf(" / ") !== -1) {
-            const [_, airportFullName] = airportName.split(" / ");
+            const [, airportFullName] = airportName.split(" / ");
             airportName = airportFullName;
         }
 

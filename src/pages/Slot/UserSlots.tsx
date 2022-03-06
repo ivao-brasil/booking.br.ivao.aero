@@ -61,7 +61,7 @@ export default function UserSlots() {
 
         const dateDeltaDays = dateDeltaMs / ONE_DAY;
         return FLIGHT_CONFIRM_MAX_DAYS >= dateDeltaDays && FLIGHT_CONFIRM_MIN_DAYS <= dateDeltaDays;
-    }, [event]);
+    }, [event, hasEventStarted]);
 
     useEffect(() => {
         if (scheduleConfirmMutation.isSuccess) {
@@ -128,7 +128,7 @@ export default function UserSlots() {
         // Initially the HQ API returns the airport name in the format:
         // São Paulo/Guarulhos / Governador André Franco Montoro Intl
         if (airportName.indexOf(" / ") !== -1) {
-            const [airportShortName, _] = airportName.split(" / ");
+            const [airportShortName] = airportName.split(" / ");
             airportName = airportShortName;
         }
 

@@ -61,11 +61,6 @@ const formatDate = (date: Date) => {
   ].join(" ");
 };
 
-const formatHour = (date: Date) =>
-  [date.getUTCHours(), date.getUTCMinutes()]
-    .map((value) => value.toString().padStart(2, "0"))
-    .join("");
-
 const BoardingPassHeader: FunctionComponent<BoardingPassProps> = ({
   themeColor = defaultThemeColor,
   actions

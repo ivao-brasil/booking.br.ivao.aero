@@ -1,6 +1,6 @@
 import { ThemeContext, ThemeVariants } from "context/ThemeContext";
 import { FunctionComponent, MouseEventHandler, useContext } from "react";
-import { FiClipboard, FiCompass, FiGlobe, FiHome, FiInfo, FiLogOut, FiMoon, FiSun } from "react-icons/fi";
+import { FiClipboard, FiCompass, FiHome, FiInfo, FiLogOut, FiMoon, FiSun } from "react-icons/fi";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import { Logo } from "./Logo";
 

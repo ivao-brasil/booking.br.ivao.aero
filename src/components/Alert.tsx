@@ -1,33 +1,35 @@
-import { FunctionComponent, ReactNode, useState } from "react";
-import { FiAlertTriangle, FiXCircle } from "react-icons/fi";
+import { FunctionComponent, ReactNode } from "react";
 
 interface AlertProps {
+    icon: ReactNode;
+    title: string;
     content: ReactNode;
-    hasCloseButton?: boolean;
+    contentTextColor: string;
+    backgroundColors: {
+        icon: string;
+        title: string;
+        content: string;
+    };
 }
 
-export const Alert: FunctionComponent<AlertProps> = ({ content, hasCloseButton = false }) => {
-    const [isOpen, setIsOpen] = useState(true);
-
-    if (!isOpen) {
-        return null;
-    }
-
+export const Alert: FunctionComponent<AlertProps> = ({ title, icon, backgroundColors, contentTextColor, content }) => {
     return (
-        <div className="bg-yellow text-black p-4 rounded">
-            <div className="flex items-center">
-                <div className="mr-3">
-                    <FiAlertTriangle size={32} />
+        <div className="flex flex-col">
+            <div className="flex items-stretch text-white self-end">
+                <div className={`${backgroundColors.icon} p-3 rounded-tl`}>
+                    {icon}
                 </div>
-                <p>
-                    {content}
-                </p>
-                {hasCloseButton && (
-                    <button className="ml-auto" onClick={() => setIsOpen(false)}>
-                        <FiXCircle size={24} />
-                    </button>
-                )}
+                <div className={`${backgroundColors.title} py-2 px-6 md:px-13 rounded-tr`}>
+                    <strong className="relative top-[2px] font-black font-header">
+                        {title}
+                    </strong>
+                </div>
             </div>
+            <p
+                className={`${backgroundColors.content} p-2 rounded-b rounded-tl lg:max-w-[30.7rem] text-[0.87rem] font-header ${contentTextColor}`}
+            >
+                {content}
+            </p>
         </div>
     )
 }
