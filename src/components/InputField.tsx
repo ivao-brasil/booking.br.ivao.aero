@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react";
-import { FiSearch } from "react-icons/fi";
 
 type HtmlInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 

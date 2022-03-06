@@ -3,7 +3,7 @@ import { Header, MutedText } from "components/typography/Typography";
 import { ThemeContext, ThemeVariants } from "context/ThemeContext";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { FunctionComponent, useContext } from "react";
-import { FiSearch } from "react-icons/fi";
+import { FiAlertTriangle, FiSearch } from "react-icons/fi";
 import splashLightImage from './splash-light.svg';
 import splashDarkImage from './splash-dark.svg';
 import { Alert } from "components/Alert";
@@ -32,8 +32,15 @@ export const SplashPage: FunctionComponent = () => {
             }
             alert={
                 <Alert
-                    content='Este sistema está em fase "Beta" e algumas funcionalidades podem apresentar falhas.'
-                    hasCloseButton={true}
+                    title="SISTEMA EM BETA"
+                    content={
+                        <>
+                            O <strong>KRONOS</strong> é um sistema recem implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.
+                        </>
+                    }
+                    icon={<FiAlertTriangle size={20} />}
+                    backgroundColors={{ icon: "bg-orange/80", title: "bg-orange", content: "bg-orange/20" }}
+                    contentTextColor="text-orange"
                 />
             }
         >
