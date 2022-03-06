@@ -40,6 +40,12 @@ export enum SlotBookActions {
   CONFIRM
 }
 
+export interface SlotCountByType {
+  departure: number;
+  landing: number;
+  private: number;
+}
+
 export function getSlotAirline(slot: Slot) {
   return slot.flightNumber.slice(0, 3);
 }

@@ -3,7 +3,7 @@ import { User } from "types/User";
 import { Pagination } from "types/Pagination";
 import { Event } from "types/Event";
 import { Scenary } from 'types/Scenary';
-import { PrivateSlotScheduleData, Slot } from 'types/Slot';
+import { PrivateSlotScheduleData, Slot, SlotCountByType } from 'types/Slot';
 import { SlotTypeOptions } from 'types/SlotFilter';
 import { FilterState } from 'components/filter/Filter';
 import { AirportDetails } from 'types/AirportDetails';
@@ -127,6 +127,12 @@ export class ApiClient {
   async getAirportDetails(icao: string) {
     return this.axios
       .get<AirportDetails>(`/airport/details/${icao}`)
+      .then(response => response.data);
+  }
+
+  async getSlotCountByType(eventId: number) {
+    return this.axios
+      .get<SlotCountByType>(`/event/${eventId}/slot/count`)
       .then(response => response.data);
   }
 

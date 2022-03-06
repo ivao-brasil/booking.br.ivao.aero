@@ -7,6 +7,7 @@ import { SlotTypeFilter } from "components/slots/SlotTypeFilter";
 import { useAirlineLogosFromSlots } from "hooks/slots/useAirlineLogosFromSlots";
 import { useAirportInfoFromSlots } from "hooks/slots/useAirportInfoFromSlots";
 import { useEventSlots } from "hooks/slots/useEventSlots";
+import { useSlotCountByType } from "hooks/slots/useSlotCountByType";
 import { useEvent } from "hooks/useEvent";
 import { useFlatInfiniteData } from "hooks/useFlatInfiniteData";
 import { useEffect, useMemo, useState } from "react";
@@ -26,11 +27,12 @@ export default function SlotsPage() {
     const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-    const { eventId } = useParams();
+    let { eventId } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
 
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
+
     const {
         data: slots,
         isLoading: isLoadingSlots,
@@ -38,6 +40,8 @@ export default function SlotsPage() {
     } = useEventSlots(Number(eventId), selectedSlotType, searchedFlightNumber, appliedFilters);
 
     const tableData = useFlatInfiniteData(slots);
+
+    const slotCountByType = useSlotCountByType(Number(eventId));
 
     useEffect(() => {
         const locationState = location.state as LocationState | null;
@@ -112,6 +116,11 @@ export default function SlotsPage() {
                     eventBanner={event.banner}
                     eventType={event.type}
                     selectedSlotType={selectedSlotType}
+                    slotsQtdData={{
+                        departure: slotCountByType.data?.departure,
+                        landing: slotCountByType.data?.landing,
+                        private: slotCountByType.data?.private
+                     }}
                     onSlotTypeChange={onSlotTypeChange} />
             </div>
 

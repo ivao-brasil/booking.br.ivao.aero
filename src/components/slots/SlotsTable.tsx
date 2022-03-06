@@ -113,14 +113,15 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                 {slots.map((slot, idx) => {
                     const originAirportName = getAirportFullName(slot.origin, airportDetailsMap);
                     const destinationAirportName = getAirportFullName(slot.destination, airportDetailsMap);
+                    const hasAirlineImage = airlineImages && airlineImages[idx];
 
                     return (
                         <tr
                             key={slot.id}
                             className="h-13 pt-4 bg-white dark:bg-black shadow-md text-blue dark:text-white font-header font-semibold text-sm whitespace-nowrap"
                         >
-                            <td className="p-0 rounded-l-lg bg-white">
-                                {airlineImages && airlineImages[idx] && (
+                            <td className={`p-0 rounded-l-lg ${hasAirlineImage ? "bg-white" : ""}`}>
+                                {hasAirlineImage && (
                                     <img
                                         className="mx-auto rounded-l-lg"
                                         width={67}
