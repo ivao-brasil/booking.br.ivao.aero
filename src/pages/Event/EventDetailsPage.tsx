@@ -79,7 +79,7 @@ export default function EventDetailsPage() {
 
     const renderScenaryLink = (scenary: Scenary) => (
         <a
-            href={scenary.license}
+            href={scenary.link}
             key={scenary.id}
             rel="noreferrer"
             target="_blank"
