@@ -44,7 +44,7 @@ export const SplashPage: FunctionComponent = () => {
                 />
             }
         >
-            <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerarios' href="/events" />
+            <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerários' href="/events" />
         </InformationalLayout>
     )
 };
