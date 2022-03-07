@@ -35,7 +35,7 @@ export const SplashPage: FunctionComponent = () => {
                     title="SISTEMA EM BETA"
                     content={
                         <>
-                            O <strong>KRONOS</strong> é um sistema recem implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.
+                            O <strong>KRONOS</strong> é um sistema recém implantado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.
                         </>
                     }
                     icon={<FiAlertTriangle size={20} />}
@@ -44,7 +44,7 @@ export const SplashPage: FunctionComponent = () => {
                 />
             }
         >
-            <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerarios' href="/events" />
+            <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerários' href="/events" />
         </InformationalLayout>
     )
 };
