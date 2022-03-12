@@ -5,9 +5,9 @@ import { FilterCard } from "./FilterCard";
 import { getEventTypeName } from "types/Event";
 
 interface SlotsQtdData {
-    takeoff: number;
-    landing: number;
-    private: number;
+    departure?: number;
+    landing?: number;
+    private?: number;
 }
 
 interface SlotTypeFilterProps {
@@ -51,7 +51,7 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
 
                 <FilterCard
                     slotType={SlotTypeOptions.TAKEOFF}
-                    quantity={slotsQtdData?.takeoff}
+                    quantity={slotsQtdData?.departure}
                     onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF)}
                     active={selectedSlotType === SlotTypeOptions.TAKEOFF} />
 

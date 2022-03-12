@@ -14,11 +14,11 @@ export function useAirportInfoFromSlots(slots: Slot[]) {
                 return;
             }
 
-            if (airportMap[slot.origin] === undefined) {
+            if (airportMap[slot.origin] === undefined && slot.origin) {
                 airportMap[slot.origin] = true;
             }
 
-            if (airportMap[slot.destination] === undefined) {
+            if (airportMap[slot.destination] === undefined && slot.destination) {
                 airportMap[slot.destination] = true;
             }
         });
