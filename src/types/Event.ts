@@ -20,6 +20,8 @@ export interface Event {
   creator?: User;
   type: EventTypes;
   airports: Airport[];
+  has_started: boolean;
+  has_ended: boolean;
 }
 
 const eventTypesNames = {

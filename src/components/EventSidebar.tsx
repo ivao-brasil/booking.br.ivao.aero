@@ -1,4 +1,5 @@
 import { ThemeContext, ThemeVariants } from "context/ThemeContext";
+import { useEvent } from "hooks/useEvent";
 import { FunctionComponent, MouseEventHandler, useContext } from "react";
 import { FiClipboard, FiCompass, FiHome, FiInfo, FiLogOut, FiMoon, FiSun } from "react-icons/fi";
 import { NavLink, useLocation, useParams } from "react-router-dom";
@@ -64,6 +65,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
     const { themeVariant, setThemeVariant } = useContext(ThemeContext);
 
     const eventId = eventIdUrl || locationData?.eventId;
+    const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
 
     const ICON_SIZE = 28;
 
@@ -84,16 +86,20 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     title="Sobre o evento"
                     indexLink />
 
-                <SidebarLink
-                    href={`/event/${eventId}/slots`}
-                    icon={<FiCompass size={ICON_SIZE} />}
-                    title="Voos" />
+                {event?.has_started && (
+                    <>
+                        <SidebarLink
+                            href={`/event/${eventId}/slots`}
+                            icon={<FiCompass size={ICON_SIZE} />}
+                            title="Voos" />
 
-                <SidebarLink
-                    href={`/event/${eventId}/my-slots`}
-                    icon={<FiClipboard size={ICON_SIZE} />}
-                    title="Meus Voos"
-                    state={{ eventId }} />
+                        <SidebarLink
+                            href={`/event/${eventId}/my-slots`}
+                            icon={<FiClipboard size={ICON_SIZE} />}
+                            title="Meus Voos"
+                            state={{ eventId }} />
+                    </>
+                )}
 
                 {/* <SidebarLink
                     href={`/events`}
