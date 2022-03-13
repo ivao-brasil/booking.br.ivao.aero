@@ -16,12 +16,13 @@ interface SlotTypeFilterProps {
     eventBanner?: string;
     slotsQtdData?: SlotsQtdData;
     selectedSlotType?: SlotTypeOptions | null;
+    showPriveSlots?: boolean;
     onSlotTypeChange: (newType: SlotTypeOptions) => void;
 }
 
 export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
     eventName, eventType, eventBanner,
-    slotsQtdData, selectedSlotType, onSlotTypeChange
+    slotsQtdData, selectedSlotType, showPriveSlots = true, onSlotTypeChange
 }) => {
     const eventBannerGradient = "after:block after:bg-gradient-event-sidebar after:absolute after:w-full after:h-36";
 
@@ -55,11 +56,13 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
                     onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF)}
                     active={selectedSlotType === SlotTypeOptions.TAKEOFF} />
 
-                <FilterCard
-                    slotType={SlotTypeOptions.PRIVATE}
-                    quantity={slotsQtdData?.private}
-                    onClick={() => onSlotTypeChange(SlotTypeOptions.PRIVATE)}
-                    active={selectedSlotType === SlotTypeOptions.PRIVATE} />
+                {showPriveSlots && (
+                    <FilterCard
+                        slotType={SlotTypeOptions.PRIVATE}
+                        quantity={slotsQtdData?.private}
+                        onClick={() => onSlotTypeChange(SlotTypeOptions.PRIVATE)}
+                        active={selectedSlotType === SlotTypeOptions.PRIVATE} />
+                )}
             </div>
         </nav>
     );

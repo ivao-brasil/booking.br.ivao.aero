@@ -25,7 +25,7 @@ export interface Event {
 const eventTypesNames = {
   "rfe": "Real Flight Event",
   "rfo": "Real Flight Operations",
-  "mse": "Mega Slot Events"
+  "mse": "Mega Slot Event"
 }
 
 export function getEventTypeName(eventType: string) {

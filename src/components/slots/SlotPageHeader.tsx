@@ -2,7 +2,7 @@ import { ActionButton } from "components/button/Button";
 import { Filter, FilterState } from "components/filter/Filter";
 import { InputField } from "components/InputField";
 import { UTCClock } from "components/UTCClock";
-import { FormEvent, FunctionComponent, useEffect, useState } from "react";
+import { FormEvent, FunctionComponent, useEffect, useMemo, useState } from "react";
 import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
 
 interface SlotPageHeaderProps {
@@ -25,7 +25,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
         if (onFilterStateChange) {
             onFilterStateChange(isFilterOpen);
         }
-    }, [isFilterOpen]);
+    }, [isFilterOpen, onFilterStateChange]);
 
     const onFlightSearchSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
@@ -46,6 +46,10 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
 
         onFilterChange(filterState);
     }
+
+    const filterButtonBackground = useMemo(() => {
+        return isFilterOpen ? "bg-blue dark:bg-yellow rounded-b-none" : "bg-light-gray-4 dark:bg-dark-gray-2 text-blue dark:text-white"
+    }, [isFilterOpen]);
 
     return (
         <div className="flex items-center p-8 bg-white dark:bg-black">
@@ -71,7 +75,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
                                 backgroundColor="bg-red/10 dark:bg-red/50"
                                 iconBackgroundColor="bg-red"
                                 content={
-                                    <span className="font-action text-xs text-red dark:text-white p-2">
+                                    <span className="font-action text-xs p-2">
                                         Remover Filtros
                                     </span>
                                 }
@@ -82,17 +86,22 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
                         )
                         : (
                             <div className="relative">
-                                <button
-                                    className={`block p-2 rounded-md text-white ${isFilterOpen ? "bg-blue dark:bg-yellow rounded-b-none" : "bg-light-gray-4 text-blue dark:text-white dark:bg-dark-gray-2"}`}
-                                    aria-label="Abrir filtros"
+                                <ActionButton
+                                    height="h-7"
+                                    backgroundColor={filterButtonBackground}
+                                    iconBackgroundColor={filterButtonBackground}
+                                    content={
+                                        <span className={`font-action text-xs p-2 ${isFilterOpen ? "text-white" : ""}`}>
+                                            Filtrar tabela
+                                        </span>
+                                    }
+                                    icon={<FiFilter aria-hidden="true" />}
                                     onClick={() => setIsFilterOpen(prevState => !prevState)}
                                     aria-haspopup="true"
                                     aria-expanded={isFilterOpen}
-                                >
-                                    <FiFilter aria-hidden="true" />
-                                </button>
+                                />
                                 {isFilterOpen && (
-                                    <div className="absolute -left-[15.6rem] z-50">
+                                    <div className="absolute -left-[9.1rem] z-50">
                                         <Filter
                                             onChange={onFiltersApplied}
                                         />
