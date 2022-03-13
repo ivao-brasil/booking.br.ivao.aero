@@ -6,13 +6,15 @@ import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentConte
 
 import emoji from './crying_face.svg';
 import cookies from './cookies.svg';
+import { useTranslation } from 'react-i18next';
 
 export default function CookieConsentPage() {
   const { setCookieConsent } = useContext(CookieConsentContext);
+  const { t } = useTranslation();
 
   return (
     <InformationalLayout
-      header='Utilizamos cookies para melhorar a sua experiência'
+      header={t('home.message')}
       description='Precisamos da sua autorização para continuar com a nossa maravilhosa receita de biscoitos de gengibre.'
       image={
         <img className="w-[31.25rem]" alt="globe" src={cookies} width={500} height={500} />
