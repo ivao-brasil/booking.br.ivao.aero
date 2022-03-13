@@ -65,7 +65,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
     const { themeVariant, setThemeVariant } = useContext(ThemeContext);
 
     const eventId = eventIdUrl || locationData?.eventId;
-    const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
+    const { data: event } = useEvent(Number(eventId));
 
     const ICON_SIZE = 28;
 
