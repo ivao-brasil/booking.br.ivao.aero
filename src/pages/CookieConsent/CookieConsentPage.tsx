@@ -3,7 +3,7 @@ import { FiCheckCircle } from 'react-icons/fi';
 import { ActionButton } from "components/button/Button";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
-import { useText } from "hooks/useText";
+import { useText } from 'hooks/useText';
 
 import emoji from './crying_face.svg';
 import cookies from './cookies.svg';
