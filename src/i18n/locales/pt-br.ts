@@ -29,7 +29,7 @@ const ptBrTranslations: { translations: Translations } = {
         subtitle: 'Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.',
       },
       notFound: {
-        title: 'Seu voo para o Acre não foi encontrado...',
+        title: 'Vish... Essa página foi abduzida por aliens! 👽',
         subtitle: 'Acho que você chegou ao limite do universo. A página que você requisitou não foi encontrada.'
       }
     },
