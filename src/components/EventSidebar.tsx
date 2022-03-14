@@ -1,4 +1,5 @@
 import { ThemeContext, ThemeVariants } from "context/ThemeContext";
+import { useEvent } from "hooks/useEvent";
 import { FunctionComponent, MouseEventHandler, useContext } from "react";
 import { FiClipboard, FiCompass, FiHome, FiInfo, FiLogOut, FiMoon, FiSun } from "react-icons/fi";
 import { NavLink, useLocation, useParams } from "react-router-dom";
@@ -64,6 +65,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
     const { themeVariant, setThemeVariant } = useContext(ThemeContext);
 
     const eventId = eventIdUrl || locationData?.eventId;
+    const { data: event } = useEvent(Number(eventId));
 
     const ICON_SIZE = 28;
 
@@ -84,21 +86,20 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     title="Sobre o evento"
                     indexLink />
 
-                <SidebarLink
-                    href={`/event/${eventId}/slots`}
-                    icon={<FiCompass size={ICON_SIZE} />}
-                    title="Voos" />
+                {event?.has_started && (
+                    <>
+                        <SidebarLink
+                            href={`/event/${eventId}/slots`}
+                            icon={<FiCompass size={ICON_SIZE} />}
+                            title="Voos" />
 
-                <SidebarLink
-                    href={`/event/${eventId}/my-slots`}
-                    icon={<FiClipboard size={ICON_SIZE} />}
-                    title="Meus Voos"
-                    state={{ eventId }} />
-
-                <SidebarButton
-                    icon={themeVariant === ThemeVariants.LIGHT ? <FiMoon size={ICON_SIZE} /> : <FiSun size={ICON_SIZE} />}
-                    title="Alterar tema"
-                    onClick={() => setThemeVariant(themeVariant === ThemeVariants.DARK ? ThemeVariants.LIGHT : ThemeVariants.DARK)} />
+                        <SidebarLink
+                            href={`/event/${eventId}/my-slots`}
+                            icon={<FiClipboard size={ICON_SIZE} />}
+                            title="Meus Voos"
+                            state={{ eventId }} />
+                    </>
+                )}
 
                 {/* <SidebarLink
                     href={`/events`}
@@ -111,10 +112,17 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     title="Ver lista de eventos" />
             </div>
             <div className="my-auto lg:my-0 mx-auto lg:mx-0 ml-8 lg:ml-0 lg:mt-auto lg:mb-10">
-                <SidebarLink
-                    href={`/logout`}
-                    icon={<FiLogOut size={ICON_SIZE} />}
-                    title="Sair" />
+                <div className="flex items-center lg:items-stretch flex-row lg:flex-col lg:my-auto gap-8">
+                    <SidebarButton
+                        icon={themeVariant === ThemeVariants.LIGHT ? <FiMoon size={ICON_SIZE} /> : <FiSun size={ICON_SIZE} />}
+                        title="Alterar tema"
+                        onClick={() => setThemeVariant(themeVariant === ThemeVariants.DARK ? ThemeVariants.LIGHT : ThemeVariants.DARK)} />
+
+                    <SidebarLink
+                        href={`/logout`}
+                        icon={<FiLogOut size={ICON_SIZE} />}
+                        title="Sair" />
+                </div>
             </div>
         </nav>
     )
