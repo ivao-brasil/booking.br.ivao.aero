@@ -20,12 +20,14 @@ export interface Event {
   creator?: User;
   type: EventTypes;
   airports: Airport[];
+  has_started: boolean;
+  has_ended: boolean;
 }
 
 const eventTypesNames = {
   "rfe": "Real Flight Event",
   "rfo": "Real Flight Operations",
-  "mse": "Mega Slot Events"
+  "mse": "Mega Slot Event"
 }
 
 export function getEventTypeName(eventType: string) {

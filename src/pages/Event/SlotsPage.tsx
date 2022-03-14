@@ -116,6 +116,7 @@ export default function SlotsPage() {
                     eventBanner={event.banner}
                     eventType={event.type}
                     selectedSlotType={selectedSlotType}
+                    showPriveSlots={event.privateSlots === 1}
                     slotsQtdData={{
                         departure: slotCountByType.data?.departure,
                         landing: slotCountByType.data?.landing,

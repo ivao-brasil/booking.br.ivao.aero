@@ -14,7 +14,7 @@ export default function EventsListPage() {
         <EventListLayout>
             {isLoading ? <LoadingIndicator /> : (
                 <>
-                    <p className="font-header text-light-gray-2 dark:text-white text-center md:text-left"><b>{totalFound} eventos</b> encontrados</p>
+                    <p className="font-header text-light-gray-2 dark:text-white text-center md:text-left"><b>{totalFound} evento(s)</b> encontrado(s)</p>
                     <div className="mt-8 flex flex-col md:flex-row gap-12 xl:gap-24 items-center md:items-start flex-wrap">
                         {data?.pages.map(eventPage => (
                             <Fragment key={eventPage.page}>
@@ -27,7 +27,7 @@ export default function EventsListPage() {
                                                 eventName={event.eventName}
                                                 eventType={getEventTypeName(event.type)}
                                                 description={event.description}
-                                                tbd={event.status === "created"} />
+                                                tbd={!event.has_started} />
                                         </Fragment>
                                     )
 
