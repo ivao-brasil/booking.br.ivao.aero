@@ -2,7 +2,8 @@ export interface Translations {
   generics: {
     backToBeginning: string,
     back: string,
-    soon: string
+    soon: string,
+    see: string
   },
   footer: {
     copyrightMessage: string,

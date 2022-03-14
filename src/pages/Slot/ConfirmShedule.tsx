@@ -4,6 +4,7 @@ import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { Logo } from "components/Logo";
 import { Header, MutedText } from "components/typography/Typography";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
+import { useText } from "hooks/useText";
 import { useEffect } from "react";
 import { FiAlertTriangle, FiCheck } from "react-icons/fi";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -17,6 +18,7 @@ export default function ConfirmSchedule() {
     const bookMutation = useSlotBookMutation(SlotBookActions.BOOK);
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const { t } = useText();
 
     const isPrivateSlot = () => {
         return PRIVATE_SLOT_URL_PARAMS.find(urlParamKey => searchParams.get(urlParamKey) !== null) !== undefined;
@@ -86,10 +88,10 @@ export default function ConfirmSchedule() {
             <div className="flex xl:items-center gap-28">
                 <div className="md:flex-[1_0_36rem] w-full 2xl-height:pt-[4.5rem] self-start">
                     <div className="flex flex-col items-center md:items-start">
-                        <Header textSize="text-2xl md:text-3xl">Tem certeza que quer agendar o voo?</Header>
+                        <Header textSize="text-2xl md:text-3xl">{ t('notification.scheduleConfirmation.title') }</Header>
                         <div className="mt-7 lg:pr-1.5">
                             <MutedText textSize="text-[1.37rem]">
-                                Antes de confirmar o agendamento, verifique com atenção todos os detalhes do voo e se ele é o voo desejado.
+                                { t('notification.scheduleConfirmation.subtitle') }
                             </MutedText>
                         </div>
                         <div className="mx-auto md:mx-0 mt-24 md:mt-12 w-full">
@@ -98,16 +100,14 @@ export default function ConfirmSchedule() {
                                     <FiAlertTriangle size={43} />
                                 </div>
                                 <p className="bg-brown/10 text-orange dark:text-white py-2 pl-4 pr-3 rounded-r-lg text-sm">
-                                    Agendar não significa que a reserva foi confirmada, mas que o status do seu voo constará como <b><i>scheduled</i></b>.
-                                    Você deverá confirmar a reserva entre <b>sete</b> e <b>três dias</b> antes da data do evento – seu agendamento será <b>cancelado</b> se você
-                                    não confirmar o voo até 72 horas antes do horário do voo.
+                                    { t('notification.scheduleConfirmation.alert') }
                                 </p>
                             </div>
 
                             <div className='flex flex-col mt-12 md:flex-row space-y-4 md:space-y-0'>
                                 <div className='flex-1'>
                                     <ActionButton
-                                        content='Confirmar reserva'
+                                        content={ t('notification.scheduleConfirmation.button') }
                                         icon={<FiCheck size={20} />}
                                         width='w-full'
                                         onClick={() => bookSlot()} />
@@ -116,7 +116,7 @@ export default function ConfirmSchedule() {
                                     <ActionButton
                                         backgroundFilled={false}
                                         width='w-full'
-                                        content="Voltar"
+                                        content={ t('generics.back') }
                                         onClick={() => navigate(-1)}
                                     />
                                 </div>
