@@ -1,4 +1,6 @@
-const ptBrTranslations = {
+import { Translations } from "types/Translations";
+
+const ptBrTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Back to the beginning',
@@ -22,12 +24,12 @@ const ptBrTranslations = {
     },
     errors: {
       general: {
-        title: '',
-        subtitle: '',
+        title: 'Houston, we have a problem! 💥',
+        subtitle: 'We are sorry, but our systems indicate some failures on the navigation computer. Reload the page or try again later.',
       },
       notFound: {
-        title: '',
-        subtitle: ''
+        title: "Oh noo...We've lost our IRS",
+        subtitle: 'I think you reached the limit of our universe. The page you called for has not been found.'
       }
     },
     splash: {
@@ -102,11 +104,11 @@ const ptBrTranslations = {
       } 
     },
     notification: {
-      confirm: {
+      scheduleConfirmation: {
         title: 'Are you sure you want to schedule this flight?',
         subtitle: 'Before confirming, take a look at the details and make sure that this is the flight you want.',
         alert: 'Scheduling does not mean your flight is booked. You need to confirm your schedule between three to seven days before the event. Your schedule will be cancelled if you do not confirm at least 72 hours before the flight.',
-        bookButton: 'Schedule'
+        button: 'Schedule'
       },
       scheduled: {
         title: 'Flight Scheduled!',

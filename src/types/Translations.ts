@@ -34,6 +34,9 @@ export interface Translations {
     subtitle: string,
     explore: string
   },
+  events: {
+    found: string
+  },
   info: {
     pilotBriefing: {
       title: string,
@@ -98,11 +101,11 @@ export interface Translations {
     } 
   },
   notification: {
-    confirm: {
+    scheduleConfirmation: {
       title: string,
       subtitle: string,
       alert: string,
-      bookButton: string
+      button: string
     },
     scheduled: {
       title: string,

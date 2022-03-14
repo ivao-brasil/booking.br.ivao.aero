@@ -1,4 +1,6 @@
-const ptBrTranslations = {
+import { Translations } from "types/Translations";
+
+const ptBrTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Voltar ao início',
@@ -22,12 +24,12 @@ const ptBrTranslations = {
     },
     errors: {
       general: {
-        title: '',
-        subtitle: '',
+        title: 'Houston, temos um problema! 💥',
+        subtitle: 'Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.',
       },
       notFound: {
-        title: '',
-        subtitle: ''
+        title: 'Seu voo para o Acre não foi encontrado...',
+        subtitle: 'Acho que você chegou ao limite do universo. A página que você requisitou não foi encontrada.'
       }
     },
     splash: {
@@ -102,11 +104,11 @@ const ptBrTranslations = {
       } 
     },
     notification: {
-      confirm: {
-        title: '',
-        subtitle: '',
-        alert: '',
-        bookButton: ''
+      scheduleConfirmation: {
+        title: 'Tem certeza que quer agendar o voo?',
+        subtitle: 'Antes de confirmar o agendamento, verifique com atenção todos os detalhes do voo e se ele é o voo desejado.',
+        alert: 'Agendar não significa que a reserva foi confirmada, mas que o status do seu voo constará como scheduled. Você deverá confirmar a reserva entre sete e três dias antes da data do evento – seu agendamento será cancelado se você não confirmar o voo até 72 horas antes do horário do voo.',
+        button: 'Agendar'
       },
       scheduled: {
         title: 'Voo agendado!',
