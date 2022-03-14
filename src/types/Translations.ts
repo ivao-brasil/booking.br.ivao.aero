@@ -1,3 +1,5 @@
+import { StringMap } from "i18next"
+
 export interface Translations {
   generics: {
     backToBeginning: string,
@@ -36,7 +38,9 @@ export interface Translations {
     explore: string
   },
   events: {
-    found: string
+    found_zero: string,
+    found_one: string,
+    found_other: string
   },
   info: {
     pilotBriefing: {
@@ -81,6 +85,7 @@ export interface Translations {
     gate: string,
     bookFlight: string,
     filter: {
+      call: string,
       title: string,
       aircraft: string,
       airline: string,

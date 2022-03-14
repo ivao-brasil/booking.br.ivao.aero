@@ -5,8 +5,11 @@ import { EventCard } from "components/EventCard";
 import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { getEventTypeName } from "types/Event";
+import { useText } from "hooks/useText";
+import { Translations } from "types/Translations";
 
 export default function EventsListPage() {
+    const { t } = useText();
     const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useEvents();
     const totalFound = data?.pages[0].total || 0;
 
@@ -14,7 +17,9 @@ export default function EventsListPage() {
         <EventListLayout>
             {isLoading ? <LoadingIndicator /> : (
                 <>
-                    <p className="font-header text-light-gray-2 dark:text-white text-center md:text-left"><b>{totalFound} eventos</b> encontrados</p>
+                    <p className="font-header text-light-gray-2 dark:text-white text-center md:text-left">
+                            { t('events.found' as unknown as keyof Translations, {count: totalFound}) }
+                        </p>
                     <div className="mt-8 flex flex-col md:flex-row gap-12 xl:gap-24 items-center md:items-start flex-wrap">
                         {data?.pages.map(eventPage => (
                             <Fragment key={eventPage.page}>

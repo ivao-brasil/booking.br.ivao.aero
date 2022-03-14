@@ -39,7 +39,9 @@ const ptBrTranslations: { translations: Translations } = {
       explore: 'Explore Flights!'
     },
     events: {
-      found: '{{ eventsCount }} events found'
+      found_zero: 'No events here, check again later.',
+      found_one: '{{ count }} event found',
+      found_other: '{{ count }} events found'
     },
     info: {
       pilotBriefing: {
@@ -84,6 +86,7 @@ const ptBrTranslations: { translations: Translations } = {
       gate: 'Stand',
       bookFlight: 'Book Flight',
       filter: {
+        call: 'Filter Table',
         title: 'Filter',
         aircraft: 'Aircraft',
         airline: 'Airline',
