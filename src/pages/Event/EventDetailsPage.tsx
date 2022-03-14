@@ -5,7 +5,6 @@ import { Header, Subheader } from "components/typography/Typography";
 import { useEvent } from "hooks/useEvent";
 import { useText } from "hooks/useText";
 import { Fragment, useMemo } from "react";
-import { Translation } from "react-i18next";
 import { FiHeadphones, FiMap } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import { getEventTypeName } from "types/Event";
