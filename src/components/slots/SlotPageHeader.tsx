@@ -94,7 +94,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
                                     iconBackgroundColor={filterButtonBackground}
                                     content={
                                         <span className={`font-action text-xs p-2 ${isFilterOpen ? "text-white" : ""}`}>
-                                            Filtrar tabela
+                                            { t('flights.filter.call') }
                                         </span>
                                     }
                                     icon={<FiFilter aria-hidden="true" />}

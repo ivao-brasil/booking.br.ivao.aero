@@ -39,7 +39,9 @@ const ptBrTranslations: { translations: Translations } = {
       explore: 'Explorar Voos!'
     },
     events: {
-      found: '{{ eventsCount }} eventos encontrados'
+      found_zero: 'Nenhum evento encontrado. Volte aqui mais tarde.',
+      found_one: '{{ count }} evento encontrado',
+      found_other: '{{ count }} eventos encontrados'
     },
     info: {
       pilotBriefing: {
@@ -84,6 +86,7 @@ const ptBrTranslations: { translations: Translations } = {
       gate: 'Posição',
       bookFlight: 'Reservar voo',
       filter: {
+        call: 'Filtrar Tabela',
         title: 'Filtrar',
         aircraft: 'Aeronave',
         airline: 'Companhia',
