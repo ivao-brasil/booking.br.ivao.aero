@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --blue: #0d2c99;
+    --white: #ffffff;
+    --green: #2ec662;
+    --silver: #808080;
+    --lightSilver: #ebebeb;
+    --nunito: "Nunito Sans";
+    --poppins: "Poppins";
+    --dark: #282828;
+}
+
+body {
+    margin: 0;
+    text-rendering: optimizeLegibility;
+}

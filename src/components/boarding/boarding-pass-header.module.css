@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  padding: 16px 16px 16px 43px;
+}
+
+.header > div:not(:first-child) {
+  margin-left: auto;
+}
+
+.header > div > span {
+  text-transform: uppercase;
+  font-family: var(--nunito);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+
+.header > div > span:first-child {
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: bold;
+}
+
+.header > div > span:not(:first-child) {
+  font-size: 10px;
+  line-height: 14px;
+}
