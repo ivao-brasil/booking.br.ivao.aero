@@ -14,7 +14,7 @@ const ptBrTranslations: { translations: Translations } = {
     },
     beta: {
       title: 'Sistema em beta',
-      message: 'O KRONOS é um sistema recem implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.'
+      message: 'O 𝗞𝗥𝗢𝗡𝗢𝗦 é um sistema recem implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.'
     },
     cookies: {
       title: 'Utilizamos cookies para melhorar a sua experiência',
@@ -35,7 +35,7 @@ const ptBrTranslations: { translations: Translations } = {
     splash: {
       title: 'Experimente o melhor que a simulação aérea tem a oferecer',
       subtitle: 'Gerencie sua reserva de voos de uma maneira fácil, moderna e intuitiva.',
-      explore: 'Explorar itinerarios'
+      explore: 'Explorar Voos!'
     },
     events: {
       found: '{{ eventsCount }} eventos encontrados'

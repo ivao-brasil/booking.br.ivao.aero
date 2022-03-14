@@ -14,7 +14,7 @@ const ptBrTranslations: { translations: Translations } = {
     },
     beta: {
       title: 'BETA SYSTEM',
-      message: 'KRONOS is a recently launched system and is under constant development. We count on you to report any bugs you find 🐛.'
+      message: '𝗞𝗥𝗢𝗡𝗢𝗦 is a recently launched system and is under constant development. We count on you to report any bugs you find 🐛.'
     },
     cookies: {
       title: 'We use cookies to improve your experience',
@@ -35,7 +35,7 @@ const ptBrTranslations: { translations: Translations } = {
     splash: {
       title: 'Experience the best that flight simulation has to offer!',
       subtitle: 'Manage your bookings on a modern, fast and intuitive way.',
-      explore: 'Explore Opportunities!'
+      explore: 'Explore Flights!'
     },
     events: {
       found: '{{ eventsCount }} events found'
