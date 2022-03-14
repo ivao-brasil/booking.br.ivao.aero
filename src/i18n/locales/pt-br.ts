@@ -20,13 +20,15 @@ const ptBrTranslations = {
       authorizeUse: 'Autorizar o uso',
       continueWithout: 'Continuar sem cookies',
     },
-    error: {
-      title: 'Houston, we have a problem...',
-      subtitle: 'Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.'
-    },
-    notFound: {
-      title: 'Seu voo para Magrathea não foi encontrado...',
-      subtitle: 'Acho que você chegou ao limite do universo. A página que você requisitou não foi encontrada.'
+    errors: {
+      general: {
+        title: '',
+        subtitle: '',
+      },
+      notFound: {
+        title: '',
+        subtitle: ''
+      }
     },
     splash: {
       title: 'Experimente o melhor que a simulação aérea tem a oferecer',
@@ -100,6 +102,12 @@ const ptBrTranslations = {
       } 
     },
     notification: {
+      confirm: {
+        title: '',
+        subtitle: '',
+        alert: '',
+        bookButton: ''
+      },
       scheduled: {
         title: 'Voo agendado!',
         subtitle: 'Você deverá confirmar a reserva entre sete e três dias antes da data do evento – seu agendamento será cancelado se você não confirmar o voo até 72 horas antes do horário do voo.'
