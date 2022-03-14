@@ -6,7 +6,7 @@ const ptBrTranslations: { translations: Translations } = {
       backToBeginning: 'Back to the beginning',
       back: 'Back',
       soon: 'Coming soon...',
-      see: 'Visualizar'
+      see: 'See'
     },
     footer: {
       copyrightMessage: '© 2021 International Virtual Aviation Organisation - IVAO Brazil. All Rights Reserved.',

@@ -6,6 +6,7 @@ import { InputField } from "components/InputField";
 import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { AirportDetails } from "types/AirportDetails";
+import { useText } from "hooks/useText";
 
 interface SlotsTableProps {
     slots: Slot[];
@@ -30,6 +31,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
     slots, airlineImages, airportDetailsMap, hasMoreFlights,
     isFecthingMoreFlights, onSlotBook, onMoreFlightsRequested
 }) => {
+    const { t } = useText();
     const [formValues, setFormValues] = useState<FormValueMap>({});
 
     const handleLineInputChange = (slotId: number, evt: ChangeEvent<HTMLInputElement>) => {
@@ -99,13 +101,13 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
             <thead>
                 <tr className="text-[12px] text-[#A0A0A0] dark:text-light-gray-5 text-center font-semibold leading-7 font-header text-sm whitespace-nowrap">
                     <th aria-label="Logo da companhia" className="invisible min-w-[6rem] w-24"></th>
-                    <th className="px-3">Número do voo</th>
-                    <th className="px-3">Aeronave</th>
-                    <th className="px-3">Partida</th>
+                    <th className="px-3">{ t('flights.flightNumber') }</th>
+                    <th className="px-3">{ t('flights.filter.aircraft') }</th>
+                    <th className="px-3">{ t('flights.filter.origin') }</th>
                     <th className="invisible w-10"></th>
-                    <th className="px-3">Chegada</th>
-                    <th className="px-3">EOBT</th>
-                    <th className="px-3">Posição</th>
+                    <th className="px-3">{ t('flights.filter.destination') }</th>
+                    <th className="px-3">{ t('flights.eobt') }</th>
+                    <th className="px-3">{ t('flights.gate') }</th>
                     <th className="invisible w-32"></th>
                 </tr>
             </thead>
@@ -136,7 +138,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 ? (
                                     <td>
                                         <label htmlFor={`flightNumber-${slot.id}`} className="sr-only">
-                                            Número do voo
+                                            { t('flights.flightNumber') }
                                         </label>
                                         <InputField
                                             name="flightNumber"
@@ -157,13 +159,13 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 ? (
                                     <td>
                                         <label htmlFor={`aircraft-${slot.id}`} className="sr-only">
-                                            Tipo de aeronave
+                                            { t('flights.filter.aircraft') }
                                         </label>
                                         <InputField
                                             name="aircraft"
                                             id={`aircraft-${slot.id}`}
                                             type="text"
-                                            placeholder="Tipo de aeronave"
+                                            placeholder={ t('flights.filter.aircraft') }
                                             value={formValues[slot.id]?.aircraft || ""}
                                             onChange={(evt) => handleLineInputChange(slot.id, evt)} />
                                     </td>
@@ -178,13 +180,13 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 ? (
                                     <td>
                                         <label htmlFor={`origin-${slot.id}`} className="sr-only">
-                                            Origem
+                                        { t('flights.filter.origin') }
                                         </label>
                                         <InputField
                                             name="origin"
                                             id={`origin-${slot.id}`}
                                             type="text"
-                                            placeholder="Origem"
+                                            placeholder={ t('flights.filter.origin') }
                                             value={formValues[slot.id]?.origin || ""}
                                             onChange={(evt) => handleLineInputChange(slot.id, evt)} />
                                     </td>
@@ -215,13 +217,13 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 ? (
                                     <td>
                                         <label htmlFor={`destination-${slot.id}`} className="sr-only">
-                                            Destino
+                                            { t('flights.filter.destination') }
                                         </label>
                                         <InputField
                                             name="destination"
                                             id={`destination-${slot.id}`}
                                             type="text"
-                                            placeholder="Destino"
+                                            placeholder={ t('flights.filter.destination') }
                                             value={formValues[slot.id]?.destination || ""}
                                             onChange={(evt) => handleLineInputChange(slot.id, evt)} />
                                     </td>

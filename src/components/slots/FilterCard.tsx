@@ -1,6 +1,8 @@
+import { useText } from "hooks/useText";
 import { FunctionComponent } from "react";
 import { FaPlaneArrival, FaPlaneDeparture, FaUserClock } from "react-icons/fa";
 import { SlotTypeOptions } from "types/SlotFilter";
+import { Translations } from "types/Translations";
 
 interface FilterCardProps {
     active?: boolean;
@@ -11,22 +13,25 @@ interface FilterCardProps {
 }
 
 export const FilterCard: FunctionComponent<FilterCardProps> = ({ slotType, quantity, text, active, onClick }) => {
+    const { t } = useText();
+
     let cardTitle = "";
     let cardIcon = null;
 
     switch (slotType) {
         case SlotTypeOptions.LANDING:
-            cardTitle = "Chegadas"
+            //TODO Remove this junk code
+            cardTitle = t('flights.arrival' as unknown as keyof Translations, {count: quantity}) 
             cardIcon = <FaPlaneArrival />
             break;
 
         case SlotTypeOptions.TAKEOFF:
-            cardTitle = "Partidas"
+            cardTitle = t('flights.departure' as unknown as keyof Translations, {count: quantity}) 
             cardIcon = <FaPlaneDeparture />
             break;
 
         case SlotTypeOptions.PRIVATE:
-            cardTitle = "Slots Privados"
+            cardTitle = t('flights.privateSlots') 
             cardIcon = <FaUserClock />
             break;
     }
