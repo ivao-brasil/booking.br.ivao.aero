@@ -1,16 +1,21 @@
 import { Component, ReactNode, ErrorInfo } from 'react';
 import axios from 'axios';
 import { FiHome } from 'react-icons/fi';
-import { ActionButton } from "components/button/Button";
-import { InformationalLayout } from "layouts/InformationalLayout";
+import { ActionButton } from 'components/button/Button';
+import { InformationalLayout } from 'layouts/InformationalLayout';
 import { AuthContext } from 'context/AuthContext';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import notFound from './not-found.svg';
 
 interface ErrorPageState {
   hasError: boolean
 }
 
-export class ErrorPage extends Component<any, ErrorPageState> {
+interface ErrorPageProps extends WithTranslation {
+  t: (key: string) => string
+}
+
+class ErrorPageClass extends Component<ErrorPageProps, ErrorPageState> {
   static contextType = AuthContext;
   context!: React.ContextType<typeof AuthContext>
 
@@ -58,12 +63,15 @@ export class ErrorPage extends Component<any, ErrorPageState> {
 
     return (
       <InformationalLayout
-        header='Houston, we have a problem...'
-        description='Nossos sistemas indicam uma falha no computador de bordo. Recarregue a página ou tente novamente mais tarde.'
+        header={this.props.t('errors.general.title')}
+        description={this.props.t('errors.general.subtitle')}
         image={<img className="w-[27.3rem]" alt="globe" src={notFound} width={437} height={480} />}
       >
-        <ActionButton icon={<FiHome size={20} />} content='Voltar ao início' onClick={this.onErrorReset} />
+        <ActionButton icon={<FiHome size={20} />} content={this.props.t('generics.backToBeginning')} onClick={this.onErrorReset} />
       </InformationalLayout>
     )
   }
 }
+
+export const ErrorPage = withTranslation()(ErrorPageClass);
+

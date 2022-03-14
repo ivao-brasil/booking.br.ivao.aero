@@ -10,6 +10,7 @@ import { useEventSlots } from "hooks/slots/useEventSlots";
 import { useSlotCountByType } from "hooks/slots/useSlotCountByType";
 import { useEvent } from "hooks/useEvent";
 import { useFlatInfiniteData } from "hooks/useFlatInfiniteData";
+import { useText } from "hooks/useText";
 import { useEffect, useMemo, useState } from "react";
 import { createSearchParams, ParamKeyValuePair, useLocation, useNavigate, useParams } from "react-router-dom";
 import { AirportDetails } from "types/AirportDetails";
@@ -26,6 +27,7 @@ export default function SlotsPage() {
     const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
     const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const { t } = useText();
 
     let { eventId } = useParams();
     const location = useLocation();
@@ -136,8 +138,8 @@ export default function SlotsPage() {
                 {hasBookingRequestError
                     ? (
                         <BookInfoMessage
-                            header="Não foi possível agendar esse voo..."
-                            description="Esses dados podem não existir no nosso sistema ou já foram reservados por outro piloto."
+                            header={t('flights.error.unableToBook.title')}
+                            description={t('flights.error.unableToBook.subtitle')}
                             type="error"
                             onErrorReset={() => setHasBookingRequestError(false)}
                         />
@@ -162,8 +164,8 @@ export default function SlotsPage() {
                                         )
                                         : (
                                             <BookInfoMessage
-                                                header="Parece que já não há mais nada para você aqui..."
-                                                description="Esses dados podem não existir no nosso sistema, verifique os filtros aplicados ou tente novamente mais tarde. "
+                                                header={ t('flights.error.noFlightsFound.title') }
+                                                description={ t('flights.error.noFlightsFound.subtitle') }
                                                 type="warning"
                                                 onErrorReset={() => {
                                                     setAppliedFilters({});

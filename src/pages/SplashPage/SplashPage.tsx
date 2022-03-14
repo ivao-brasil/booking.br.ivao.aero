@@ -7,17 +7,19 @@ import { FiAlertTriangle, FiSearch } from "react-icons/fi";
 import splashLightImage from './splash-light.svg';
 import splashDarkImage from './splash-dark.svg';
 import { Alert } from "components/Alert";
+import { useText } from "hooks/useText";
 
 export const SplashPage: FunctionComponent = () => {
     const themeContext = useContext(ThemeContext);
+    const { t } = useText();
 
     return (
         <InformationalLayout
-            header={<Header textSize="text-2xl">Experimente o melhor que a simulação aérea tem a oferecer</Header>}
+            header={<Header textSize="text-2xl">{t('splash.title')}</Header>}
             description={
                 <>
                     <div className="md:w-[31rem]">
-                        <MutedText>Gerencie sua reserva de voos de uma maneira fácil, moderna e intuitiva.</MutedText>
+                        <MutedText>{t('splash.subtitle')}</MutedText>
                     </div>
                 </>
             }
@@ -32,19 +34,15 @@ export const SplashPage: FunctionComponent = () => {
             }
             alert={
                 <Alert
-                    title="SISTEMA EM BETA"
-                    content={
-                        <>
-                            O <strong>KRONOS</strong> é um sistema recém implantado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.
-                        </>
-                    }
+                    title={t('beta.title')}
+                    content={t('beta.message')}
                     icon={<FiAlertTriangle size={20} />}
                     backgroundColors={{ icon: "bg-orange/80", title: "bg-orange", content: "bg-orange/20" }}
                     contentTextColor="text-orange"
                 />
             }
         >
-            <LinkButton icon={<FiSearch size={20} />} content='Explorar itinerários' href="/events" />
+            <LinkButton icon={<FiSearch size={20} />} content={t('splash.explore')} href="/events" />
         </InformationalLayout>
     )
 };

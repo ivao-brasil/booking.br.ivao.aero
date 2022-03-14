@@ -2,6 +2,7 @@ import { ActionButton } from "components/button/Button";
 import { Filter, FilterState } from "components/filter/Filter";
 import { InputField } from "components/InputField";
 import { UTCClock } from "components/UTCClock";
+import { useText } from "hooks/useText";
 import { FormEvent, FunctionComponent, useEffect, useMemo, useState } from "react";
 import { FiFilter, FiSearch, FiTrash } from "react-icons/fi";
 
@@ -18,6 +19,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
     showFilter = true, appliedFilters = {}, searchedFlightNumber,
     onFlightSearch, onFilterChange, onFilterStateChange
 }) => {
+    const { t } = useText();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [flightSearchValue, setflightSearchValue] = useState(searchedFlightNumber ?? "");
 
@@ -57,8 +59,8 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
                 <InputField
                     icon={<FiSearch width={16} />}
                     type="search"
-                    aria-label="Buscar voo"
-                    placeholder="Buscar voo"
+                    aria-label= { t('flights.search') }
+                    placeholder= { t('flights.search') }
                     value={flightSearchValue}
                     onChange={(evt) => setflightSearchValue(evt.target.value)} />
             </form>
@@ -76,7 +78,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
                                 iconBackgroundColor="bg-red"
                                 content={
                                     <span className="font-action text-xs p-2">
-                                        Remover Filtros
+                                        { t('flights.filter.reset') }
                                     </span>
                                 }
                                 icon={<FiTrash size={19} />}

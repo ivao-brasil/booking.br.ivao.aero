@@ -11,6 +11,7 @@ interface InformationalLayoutProps {
 }
 
 export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, alert, children }) => {
+
     return (
         <div className="container flex flex-col min-h-screen">
             <div className="flex flex-col md:flex-row mt-10 md:mt-14">

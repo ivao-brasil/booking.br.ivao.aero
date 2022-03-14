@@ -15,6 +15,7 @@ import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 import { useAirportInfoFromSlots } from "hooks/slots/useAirportInfoFromSlots";
 import { AirportDetails } from "types/AirportDetails";
 import { useFlatInfiniteData } from "hooks/useFlatInfiniteData";
+import { useText } from "hooks/useText";
 
 export default function UserSlots() {
     const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
@@ -25,6 +26,7 @@ export default function UserSlots() {
     const scheduleConfirmMutation = useSlotBookMutation(SlotBookActions.CONFIRM);
     const scheduleCancelMutation = useSlotBookMutation(SlotBookActions.CANCEL);
     const navigate = useNavigate();
+    const { t } = useText();
 
     const {
         data: slots,
@@ -154,7 +156,7 @@ export default function UserSlots() {
                 backgroundColor="bg-red"
                 content={
                     <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
-                        Cancelar voo
+                        { t('myFlights.boardingPass.cancelFlight') }
                     </span>
                 }
                 height="h-8"
@@ -176,7 +178,7 @@ export default function UserSlots() {
                     <ActionButton
                         content={
                             <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
-                                Confirmar voo
+                                { t('myFlights.boardingPass.confirmFlight') }
                             </span>
                         }
                         height="h-8"
@@ -191,7 +193,7 @@ export default function UserSlots() {
                         backgroundColor="bg-red"
                         content={
                             <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white truncate">
-                                Cancelar reserva
+                                { t('myFlights.boardingPass.cancelFlight') }
                             </span>
                         }
                         height="h-8"
@@ -201,7 +203,7 @@ export default function UserSlots() {
                         backgroundColor="bg-[#4C4C4C]"
                         content={
                             <span className="block w-full px-8 py-2.5 text-xs text-center font-header font-bold text-white/20 truncate">
-                                Aguarde para confirmar o voo
+                                { t('myFlights.boardingPass.waitToConfirm') }
                             </span>
                         }
                         height="h-8"
