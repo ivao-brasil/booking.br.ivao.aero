@@ -134,7 +134,8 @@ const ptBrTranslations: { translations: Translations } = {
       boardingPass: {
         cancelFlight: 'Cancel Flight',
         confirmFlight: 'Confirm Flight',
-        disclaimer: 'To fly on the event, you must comply with all instructions made available on the pilot briefing.'
+        disclaimer: 'To fly on the event, you must comply with all instructions made available on the pilot briefing.',
+        waitToConfirm: 'Wait to confirm flight.'
       }
     }
   },

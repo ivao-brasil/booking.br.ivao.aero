@@ -131,7 +131,8 @@ export interface Translations {
     boardingPass: {
       cancelFlight: string,
       confirmFlight: string,
-      disclaimer: string
+      disclaimer: string,
+      waitToConfirm: string
     }
   }
 }
