@@ -3,11 +3,14 @@ import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { Header, Subheader } from "components/typography/Typography";
 import { useEvent } from "hooks/useEvent";
+import { useText } from "hooks/useText";
 import { Fragment, useMemo } from "react";
+import { Translation } from "react-i18next";
 import { FiHeadphones, FiMap } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import { getEventTypeName } from "types/Event";
 import { Scenary, ScenarySimulators } from "types/Scenary";
+import { Translations } from "types/Translations";
 
 type EventScenaries = {
     [simulator in ScenarySimulators]?: {
@@ -15,17 +18,10 @@ type EventScenaries = {
     }
 }
 
-const scenaryCardContent: Record<ScenarySimulators, string> = {
-    "fs9": "",
-    "fsx": "Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.",
-    "p3d": "Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.",
-    "xp11": "X-Plane 11 é o simulador detalhado, realista e moderno. Interface de usuário intuitiva, cockpits 3D, novos efeitos, som 3D, aeroportos vivos e cenário mundial.",
-    "msfs": "",
-}
-
 export default function EventDetailsPage() {
     const { eventId } = useParams();
     const { data: event, isLoading: isLoadingEvent } = useEvent(Number(eventId));
+    const { t } = useText();
 
     const startDate = useMemo(() => {
         if (!event?.dateStart) {
@@ -95,6 +91,7 @@ export default function EventDetailsPage() {
         )
     }
 
+   
     return (
         <div className="mt-[4.3rem]">
             <div className="flex flex-col md:flex-row">
@@ -123,30 +120,32 @@ export default function EventDetailsPage() {
                         <HorizontalInfoCard
                             icon={<FiMap size={25} />}
                             iconBackground="bg-blue"
-                            header="Briefing do Piloto"
-                            content="Este documento objetiva orientar os pilotos e tripulação sobre os procedimentos específicos esperados para este evento. A leitura é fundamental." />
+                            header={ t('info.pilotBriefing.title') }
+                            content={ t('info.pilotBriefing.description') } />
                     </a>
 
                     <a href={event.atcBooking} target="_blank" rel="noreferrer">
                         <HorizontalInfoCard
                             icon={<FiHeadphones size={25} />}
                             iconBackground="bg-green"
-                            header="Briefing do Controlador de Voo"
-                            content="Este documento objetiva orientar os controladores sobre os procedimentos específicos esperados para este evento. A leitura é fundamental." />
+                            header={ t('info.atcBriefing.title') }
+                            content={ t('info.atcBriefing.description') } />
                     </a>
                 </div>
             </div>
 
             <div className="mt-7">
-                <Header textSize="text-lg">Cenários</Header>
-                <Subheader>Encontre aqui os cenários recomendados para este evento.</Subheader>
+                <Header textSize="text-lg">{ t('info.sceneries.title') }</Header>
+                <Subheader>{ t('info.sceneries.description') }</Subheader>
 
                 <div className="flex flex-col md:flex-row gap-7 flex-wrap mt-4">
-                    {Object.entries(eventScenaries).map(([simulator, scenariesByLicence]) => (
+                    {Object.entries(eventScenaries).map(([simulator, scenariesByLicence]) => {
+                        const simulatorDescription = `info.sceneries.sims.${ simulator.toLowerCase() }.description` as unknown as keyof Translations;
+
                         <Fragment key={simulator}>
                             <VerticalInfoCard
                                 header={simulator.toUpperCase()}
-                                content={scenaryCardContent[simulator as ScenarySimulators]}
+                                content={ t(simulatorDescription) }
                             >
                                 <div className="flex justify-between">
                                     {scenariesByLicence["freeware"].length > 0 && (
@@ -162,7 +161,7 @@ export default function EventDetailsPage() {
                                 </div>
                             </VerticalInfoCard>
                         </Fragment>
-                    ))}
+                    })}
                 </div>
             </div>
         </div>
