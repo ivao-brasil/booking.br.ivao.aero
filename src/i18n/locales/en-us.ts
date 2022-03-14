@@ -29,7 +29,7 @@ const ptBrTranslations: { translations: Translations } = {
         subtitle: 'We are sorry, but our systems indicate some failures on the navigation computer. Reload the page or try again later.',
       },
       notFound: {
-        title: "Oh noo...We've lost our IRS",
+        title: "Oh noo...This page has been abducted by aliens! 👽",
         subtitle: 'I think you reached the limit of our universe. The page you called for has not been found.'
       }
     },
