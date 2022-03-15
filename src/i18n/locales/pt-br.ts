@@ -15,7 +15,7 @@ const ptBrTranslations: { translations: Translations } = {
     },
     beta: {
       title: 'Sistema em beta',
-      message: 'O 𝗞𝗥𝗢𝗡𝗢𝗦 é um sistema recem implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.'
+      message: 'O 𝗞𝗥𝗢𝗡𝗢𝗦 é um sistema recém-implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração para comunicar eventuais bugs 🐛.'
     },
     cookies: {
       title: 'Utilizamos cookies para melhorar a sua experiência',
