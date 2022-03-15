@@ -76,8 +76,10 @@ const ptBrTranslations: { translations: Translations } = {
     },
     flights: {
       search: 'Search Flights',
+      arrival_zero: 'Nenhuma chegada',
       arrival_one: 'Arrival',
       arrival_other: 'Arrivals',
+      departure_zero: 'Nenhuma partida',
       departure_one: 'Departure',
       departure_other: 'Departures',
       privateSlots: 'Private Slots',
