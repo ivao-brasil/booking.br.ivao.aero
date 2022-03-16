@@ -1,0 +1,44 @@
+on: push
+name: 🚀 Deploy to Stage
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 2
+
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'   
+        
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_REACT_APP_DEV: ${{ secrets.PRODUCTION_REACT_APP_DEV }}
+        envkey_REACT_APP_API_HOST: ${{ secrets.PRODUCTION_API_HOST }}
+        envkey_REACT_APP_LOGO_URL: ${{ secrets.PRODUCTION_REACT_APP_LOGO_URL }}
+        envkey_WDS_SOCKET_PATH: "/sockjs-node"
+        file_name: .env
+        fail_on_empty: false
+        
+    - name: Build Project
+      run: |
+        npm i --save date-fns@next @date-io/date-fns
+        yarn install
+        CI=false yarn build
+        
+    - name: List output files
+      run: find build/ -print
+      
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        server: ${{ secrets.PRODUCTION_FTP_HOST }}
+        username: ${{ secrets.PRODUCTION_FTP_USER }}
+        password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
+        local-dir: build/
+        server-dir: /
