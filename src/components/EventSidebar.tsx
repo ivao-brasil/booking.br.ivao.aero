@@ -86,7 +86,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     title="Sobre o evento"
                     indexLink />
 
-                {event?.has_started && (
+                {event?.status === 'scheduled' && (
                     <>
                         <SidebarLink
                             href={`/event/${eventId}/slots`}

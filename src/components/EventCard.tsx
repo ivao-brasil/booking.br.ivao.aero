@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { Subheader } from "./typography/Typography";
+import { useText } from 'hooks/useText';
 
 interface EventCardProps {
     eventId: number;
@@ -13,6 +14,7 @@ interface EventCardProps {
 
 export const EventCard: FunctionComponent<EventCardProps> = ({ eventId, imageSrc, eventName, eventType, description, tbd = false }) => {
     const MAX_DESC_LENGTH = 160;
+    const { t } = useText();
 
     return (
         <div className="flex flex-col w-72 font-header">
@@ -21,11 +23,11 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ eventId, imageSrc
                     alt={`${eventName} logo`}
                     width={288}
                     height={192}
-                    className={`rounded-md w-full h-48 aspect-auto ${tbd ? "blur-sm" : ""}`} />
+                    className={`rounded-md w-full h-48 aspect-auto ${tbd ? "blur" : ""}`} />
 
                 {tbd && (
                     <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-lg text-white">
-                        Em breve...
+                        {t('events.soon')}
                     </span>
                 )}
 

@@ -30,7 +30,7 @@ export default function EventsListPage() {
                                                 eventName={event.eventName}
                                                 eventType={getEventTypeName(event.type)}
                                                 description={event.description}
-                                                tbd={!event.has_started} />
+                                                tbd={event.status === "created"} />
                                         </Fragment>
                                     )
 

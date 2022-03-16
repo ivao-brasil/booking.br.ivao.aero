@@ -15,7 +15,7 @@ const ptBrTranslations: { translations: Translations } = {
     },
     beta: {
       title: 'Sistema em beta',
-      message: 'O 𝗞𝗥𝗢𝗡𝗢𝗦 é um sistema recem implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração com eventuais bugs 🐛.'
+      message: 'O 𝗞𝗥𝗢𝗡𝗢𝗦 é um sistema recém-implementado na divisão e em constante desenvolvimento. Contamos com a sua colaboração para comunicar eventuais bugs 🐛.'
     },
     cookies: {
       title: 'Utilizamos cookies para melhorar a sua experiência',
@@ -41,7 +41,8 @@ const ptBrTranslations: { translations: Translations } = {
     events: {
       found_zero: 'Nenhum evento encontrado. Volte aqui mais tarde.',
       found_one: '{{ count }} evento encontrado',
-      found_other: '{{ count }} eventos encontrados'
+      found_other: '{{ count }} eventos encontrados',
+      soon: 'Em breve...'
     },
     info: {
       pilotBriefing: {
