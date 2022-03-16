@@ -1,9 +1,9 @@
 on: push
-name: 🚀 Deploy to Stage
+name: 🚀 Deploy to Production
 jobs:
   Build-and-Deploy:
     name: FTP-Deploy-Action
-    if: github.ref == 'refs/heads/stage'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -18,9 +18,9 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
-        envkey_REACT_APP_DEV: ${{ secrets.STAGE_REACT_APP_DEV }}
-        envkey_REACT_APP_API_HOST: ${{ secrets.STAGE_API_HOST }}
-        envkey_REACT_APP_LOGO_URL: ${{ secrets.STAGE_REACT_APP_LOGO_URL }}
+        envkey_REACT_APP_DEV: ${{ secrets.PRODUCTION_REACT_APP_DEV }}
+        envkey_REACT_APP_API_HOST: ${{ secrets.PRODUCTION_API_HOST }}
+        envkey_REACT_APP_LOGO_URL: ${{ secrets.PRODUCTION_REACT_APP_LOGO_URL }}
         envkey_WDS_SOCKET_PATH: "/sockjs-node"
         file_name: .env
         fail_on_empty: false
@@ -37,8 +37,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
-        server: ${{ secrets.STAGE_FTP_HOST }}
-        username: ${{ secrets.STAGE_FTP_USER }}
-        password: ${{ secrets.STAGE_FTP_PASSWORD }}
+        server: ${{ secrets.PRODUCTION_FTP_HOST }}
+        username: ${{ secrets.PRODUCTION_FTP_USER }}
+        password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
         local-dir: build/
         server-dir: /
