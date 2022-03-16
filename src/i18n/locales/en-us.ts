@@ -41,7 +41,8 @@ const ptBrTranslations: { translations: Translations } = {
     events: {
       found_zero: 'No events here, check again later.',
       found_one: '{{ count }} event found',
-      found_other: '{{ count }} events found'
+      found_other: '{{ count }} events found',
+      soon: 'Soon...'
     },
     info: {
       pilotBriefing: {

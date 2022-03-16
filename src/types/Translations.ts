@@ -40,7 +40,8 @@ export interface Translations {
   events: {
     found_zero: string,
     found_one: string,
-    found_other: string
+    found_other: string,
+    soon: string
   },
   info: {
     pilotBriefing: {
