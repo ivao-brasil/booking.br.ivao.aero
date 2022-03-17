@@ -76,8 +76,10 @@ export interface Translations {
   },
   flights: {
     search: string,
+    arrival_zero: string, 
     arrival_one: string,
     arrival_other: string,
+    departure_zero: string,
     departure_one: string,
     departure_other: string,
     privateSlots: string,
