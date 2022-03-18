@@ -1,11 +1,12 @@
 import { FunctionComponent, lazy, Suspense, useContext } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { RequireAuth } from "components/RequireAuth";
+import { RequireAuthGuard } from "components/guards/RequireAuthGuard";
 import { ConsentAnwsers, CookieConsentContext } from "context/CookieConsentContext";
 import { SplashPage } from "pages/SplashPage/SplashPage";
 import { NotFoundPage } from "pages/NotFoundPage";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { SidebarLayout } from "layouts/SidebarLayout";
+import { ActiveEventGuard } from "components/guards/ActiveEventGuard";
 
 const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
@@ -32,13 +33,15 @@ export const AppRoutes: FunctionComponent = () => {
                     <>
                         <Route path="/" element={<SplashPage />} />
                         <Route path="login" element={<LoginPage />} />
-                        <Route element={<RequireAuth />}>
+                        <Route element={<RequireAuthGuard />}>
                             <Route path="/events" element={<EventsListPage />} />
-                            <Route path="/event/:eventId" element={<SidebarLayout />}>
-                                <Route index element={<EventDetailsPage />} />
-                                <Route path="slots" element={<SlotsPage />} />
-                                <Route path="my-slots" element={<UserSlotsPage />} />
-                                <Route path="schedule/:slotId" element={<ConfirmSchedulePage />} />
+                            <Route element={<ActiveEventGuard />}>
+                                <Route path="/event/:eventId" element={<SidebarLayout />}>
+                                    <Route index element={<EventDetailsPage />} />
+                                    <Route path="slots" element={<SlotsPage />} />
+                                    <Route path="my-slots" element={<UserSlotsPage />} />
+                                    <Route path="schedule/:slotId" element={<ConfirmSchedulePage />} />
+                                </Route>
                             </Route>
                             <Route path="/slot">
                                 <Route path="scheduled" element={<SlotScheduledPage />} />

@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import { Subheader } from "./typography/Typography";
+import { Subheader } from "../typography/Typography";
 import { useText } from 'hooks/useText';
 
 interface EventCardProps {
@@ -17,7 +17,7 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ eventId, imageSrc
     const { t } = useText();
 
     return (
-        <div className="flex flex-col w-72 font-header">
+        <div className={`flex flex-col w-72 font-header ${tbd ? "cursor-not-allowed" : ""}`}>
             <div className="relative">
                 <img src={imageSrc}
                     alt={`${eventName} logo`}
@@ -34,7 +34,11 @@ export const EventCard: FunctionComponent<EventCardProps> = ({ eventId, imageSrc
             </div>
 
             <h2 className="mt-3 text-blue dark:text-white text-[2rem] font-bold">
-                <Link to={`/event/${eventId}`}>{eventName}</Link>
+                {tbd ? (
+                    eventName
+                ) : (
+                    <Link to={`/event/${eventId}`}>{eventName}</Link>
+                )}
             </h2>
             <Subheader>{eventType}</Subheader>
             <p className="mt-3 text-light-gray-2 dark:text-light-gray-3 max-h-32">{description.substring(0, MAX_DESC_LENGTH) + "..."}</p>
