@@ -3,7 +3,7 @@ import { useEvent } from "hooks/useEvent";
 import { FunctionComponent, MouseEventHandler, useContext } from "react";
 import { FiClipboard, FiCompass, FiHome, FiInfo, FiLogOut, FiMoon, FiSun } from "react-icons/fi";
 import { NavLink, useLocation, useParams } from "react-router-dom";
-import { Logo } from "./Logo";
+import { Logo } from "../Logo";
 
 interface SidebarLinkProps {
     title: string;
@@ -86,20 +86,16 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
                     title="Sobre o evento"
                     indexLink />
 
-                {event?.status === 'scheduled' && (
-                    <>
-                        <SidebarLink
-                            href={`/event/${eventId}/slots`}
-                            icon={<FiCompass size={ICON_SIZE} />}
-                            title="Voos" />
+                <SidebarLink
+                    href={`/event/${eventId}/slots`}
+                    icon={<FiCompass size={ICON_SIZE} />}
+                    title="Voos" />
 
-                        <SidebarLink
-                            href={`/event/${eventId}/my-slots`}
-                            icon={<FiClipboard size={ICON_SIZE} />}
-                            title="Meus Voos"
-                            state={{ eventId }} />
-                    </>
-                )}
+                <SidebarLink
+                    href={`/event/${eventId}/my-slots`}
+                    icon={<FiClipboard size={ICON_SIZE} />}
+                    title="Meus Voos"
+                    state={{ eventId }} />
 
                 {/* <SidebarLink
                     href={`/events`}

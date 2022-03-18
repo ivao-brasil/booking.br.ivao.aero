@@ -90,7 +90,7 @@ export default function EventDetailsPage() {
         )
     }
 
-   
+
     return (
         <div className="mt-[4.3rem]">
             <div className="flex flex-col md:flex-row">
@@ -113,7 +113,9 @@ export default function EventDetailsPage() {
 
 
             <div className="flex flex-wrap justify-between mt-7 space-y-4 lg:space-y-0">
-                <p className="max-w-lg font-action text-justify">{event.description}</p>
+                <p className="max-w-lg font-action text-justify max-h-56 overflow-y-auto pr-3 scrollbar-thin scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded">
+                    {event.description}
+                </p>
                 <div className="flex flex-col gap-7">
                     <a href={event.pilotBriefing} target="_blank" rel="noreferrer">
                         <HorizontalInfoCard
