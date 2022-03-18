@@ -113,7 +113,7 @@ export default function EventDetailsPage() {
 
 
             <div className="flex flex-wrap justify-between mt-7 space-y-4 lg:space-y-0">
-                <p className="max-w-lg font-action text-justify max-h-56 overflow-y-auto pr-3 scrollbar-thin scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded">
+                <p className="max-w-lg font-action text-justify max-h-56 overflow-y-auto pr-3 pb-1 lg:pb-0 scrollbar-thin scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-black scrollbar-thumb-rounded">
                     {event.description}
                 </p>
                 <div className="flex flex-col gap-7">
