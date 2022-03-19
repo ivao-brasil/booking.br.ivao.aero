@@ -31,6 +31,38 @@ const ptBrTranslations: { translations: Translations } = {
       notFound: {
         title: 'Vish... Essa página foi abduzida por aliens! 👽',
         subtitle: 'Acho que você chegou ao limite do universo. A página que você requisitou não foi encontrada.'
+      },
+      admin: {
+        noAdmin: 'Você não tem privilégios de administrador.',
+        eventFinished: 'Esse evento foi finalizado e não pode ser alterado.',
+        wrongDivision: 'Esse evento não pertence a sua divisão.',
+        isActive: 'Esse evento está ativo e não pode ser alterado.',
+        updateAdmin: 'Você não pode alterar outro administrador.', 
+        updateYourself: 'Você não pode alterar a si mesmo.'
+      },
+      book: {
+        suspended: 'Você está suspenso no sistema e não pode reservar voos.',
+        notOwner: 'Você não é o dono desse slot.',
+        notActive: 'Esse evento não está ativo.',
+        tooEarly: 'Esse slot só pode ser confirmado 7 dias antes do início do evento.',
+        alreadyBusy: 'Você já tem um slot reservado nesse mesmo horário.',
+        hasStarted: 'Esse evento já começou.',
+        hasEnded: 'Esse evento já foi encerrado.',
+        notFound: 'Slot não encontrado.',
+        duplicateNumber: 'Já existe um voo com esse número.',
+        notPreBooked: 'Você não pode confirmar um slot que não está reservado.'
+      },
+      auth: {
+        error: 'Erro ao autenticar o usuário.'
+      },
+      event: {
+        notFound: 'Evento não encontrado.'
+      },
+      scenery: {
+        notFound: 'Cenário não encontrado.'
+      },
+      user: {
+        notFound: 'Usuário não encontrado.'
       }
     },
     splash: {
