@@ -1,3 +1,4 @@
+import { render } from "@testing-library/react";
 import { DropdownButton } from "components/button/DropdownButton";
 import { HorizontalInfoCard, VerticalInfoCard } from "components/InfoCard";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
@@ -90,7 +91,7 @@ export default function EventDetailsPage() {
         )
     }
 
-   
+
     return (
         <div className="mt-[4.3rem]">
             <div className="flex flex-col md:flex-row">
@@ -113,56 +114,56 @@ export default function EventDetailsPage() {
 
 
             <div className="flex flex-wrap justify-between mt-7 space-y-4 lg:space-y-0">
-                <p className="max-w-lg font-action text-justify">{event.description}</p>
+                <p className="max-w-lg font-action text-justify max-h-80 overflow-y-auto pr-3 pb-1 lg:pb-0 scrollbar-thin scrollbar-thumb-light-gray-5 dark:scrollbar-thumb-dark-gray-5 scrollbar-thumb-rounded">
+                    {event.description}
+                </p>
                 <div className="flex flex-col gap-7">
                     <a href={event.pilotBriefing} target="_blank" rel="noreferrer">
                         <HorizontalInfoCard
                             icon={<FiMap size={25} />}
                             iconBackground="bg-blue"
-                            header={ t('info.pilotBriefing.title') }
-                            content={ t('info.pilotBriefing.description') } />
+                            header={t('info.pilotBriefing.title')}
+                            content={t('info.pilotBriefing.description')} />
                     </a>
 
                     <a href={event.atcBooking} target="_blank" rel="noreferrer">
                         <HorizontalInfoCard
                             icon={<FiHeadphones size={25} />}
                             iconBackground="bg-green"
-                            header={ t('info.atcBriefing.title') }
-                            content={ t('info.atcBriefing.description') } />
+                            header={t('info.atcBriefing.title')}
+                            content={t('info.atcBriefing.description')} />
                     </a>
                 </div>
             </div>
 
             <div className="mt-7">
-                <Header textSize="text-lg">{ t('info.sceneries.title') }</Header>
-                <Subheader>{ t('info.sceneries.description') }</Subheader>
+                <Header textSize="text-lg">{t('info.sceneries.title')}</Header>
+                <Subheader>{t('info.sceneries.description')}</Subheader>
 
                 <div className="flex flex-col md:flex-row gap-7 flex-wrap mt-4">
                     {Object.entries(eventScenaries).map(([simulator, scenariesByLicence]) => {
-                        const simulatorDescription = `info.sceneries.sims.${ simulator.toLowerCase() }.description` as unknown as keyof Translations;
-
-                        <Fragment key={simulator}>
-                            <VerticalInfoCard
-                                header={simulator.toUpperCase()}
-                                content={ t(simulatorDescription) }
-                            >
-                                <div className="flex justify-between">
-                                    {scenariesByLicence["freeware"].length > 0 && (
-                                        <DropdownButton text="Freeware">
-                                            {scenariesByLicence["freeware"].map(scenary => renderScenaryLink(scenary))}
-                                        </DropdownButton>
-                                    )}
-                                    {scenariesByLicence["payware"].length > 0 && (
-                                        <DropdownButton text="Payware">
-                                            {scenariesByLicence["payware"].map(scenary => renderScenaryLink(scenary))}
-                                        </DropdownButton>
-                                    )}
-                                </div>
-                            </VerticalInfoCard>
-                        </Fragment>
+                        const simulatorDescription = `info.sceneries.sims.${simulator.toLowerCase()}.description` as unknown as keyof Translations;
+                        return (
+                            <Fragment key={simulator}>
+                                <VerticalInfoCard
+                                    header={simulator.toUpperCase()}
+                                    content={t(simulatorDescription)}
+                                >
+                                    <div className="flex justify-between">
+                                        {scenariesByLicence["freeware"].length > 0 && (
+                                            <DropdownButton text="Freeware">
+                                                {scenariesByLicence["freeware"].map(scenary => renderScenaryLink(scenary))}
+                                            </DropdownButton>)}
+                                        {scenariesByLicence["payware"].length > 0 &&
+                                            <DropdownButton text="Payware">
+                                                {scenariesByLicence["payware"].map(scenary => renderScenaryLink(scenary))}
+                                            </DropdownButton>}
+                                    </div>
+                                </VerticalInfoCard>
+                            </Fragment>)
                     })}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { EventListLayout } from "layouts/EventListLayout/EventListLayout";
 import { useEvents } from "hooks/useEventList";
-import { EventCard } from "components/EventCard";
+import { EventCard } from "components/event/EventCard";
 import { ActionButton } from "components/button/Button";
 import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { getEventTypeName } from "types/Event";

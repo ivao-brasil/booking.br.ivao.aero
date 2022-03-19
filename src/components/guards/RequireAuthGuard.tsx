@@ -2,11 +2,10 @@ import { FunctionComponent, useContext, useEffect } from "react";
 import { AuthContext } from "context/AuthContext";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
-export const RequireAuth: FunctionComponent = () => {
+export const RequireAuthGuard: FunctionComponent = () => {
     const { signed } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
-
 
     useEffect(() => {
         if (signed) {
