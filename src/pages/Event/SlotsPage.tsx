@@ -91,6 +91,14 @@ export default function SlotsPage() {
         return result;
     }, [airportDetailsQueries]);
 
+    const clearFlightNumberSearch = () => {
+        setAppliedFilters(prevFilters => {
+            const updatedFilters = {...prevFilters};
+            delete updatedFilters.flightNumber;
+            return updatedFilters;
+        });
+    }
+
     const onSlotBook = (slotId: number, slotData?: PrivateSlotScheduleData) => {
         const scheduleUrl = `/event/${eventId}/schedule/${slotId}`;
         if (slotData) {
@@ -104,12 +112,18 @@ export default function SlotsPage() {
 
     const onSlotTypeChange = (newType: SlotTypeOptions) => {
         setSelectedSlotType(newType);
-        setAppliedFilters({});
+        clearFlightNumberSearch();
     }
 
     const onFlightSearch = (flightNumber: string) => {
+        if (flightNumber === "") {
+            clearFlightNumberSearch();
+            setSelectedSlotType(DEFAULT_SELECTED_SLOT_TYPE);
+            return;
+        }
+
         setSelectedSlotType(null);
-        setAppliedFilters({ flightNumber })
+        setAppliedFilters({ flightNumber });
         setBookingRequestError({ hasError: false, errorMessage: undefined });
     }
 
@@ -159,7 +173,7 @@ export default function SlotsPage() {
                     onFlightSearch={onFlightSearch}
                     onFilterChange={onFilterStateChange}
                     onFilterStateChange={(state) => setIsFilterOpen(state)}
-                    showFilter={!scheduleRequest.hasError}
+                    showFilter={!scheduleRequest.hasError && !appliedFilters.flightNumber}
                 />
                 {scheduleRequest.hasError
                     ? (

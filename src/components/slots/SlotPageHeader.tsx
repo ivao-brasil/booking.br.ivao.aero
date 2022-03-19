@@ -35,7 +35,11 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
     }, [isFilterOpen]);
 
     const appliedFiltersCount = useMemo(() => {
-        return Object.keys(appliedFilters ?? {}).length;
+        return Object.keys(appliedFilters ?? {}).filter((key) => {
+            const objKey = key as keyof FilterState;
+
+            return appliedFilters[objKey] !== undefined && appliedFilters[objKey] !== null;
+        }).length;
     }, [appliedFilters]);
 
     const onFlightSearchSubmit = (evt: FormEvent<HTMLFormElement>) => {
