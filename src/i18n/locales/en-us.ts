@@ -31,6 +31,38 @@ const ptBrTranslations: { translations: Translations } = {
       notFound: {
         title: "Oh noo...This page has been abducted by aliens! 👽",
         subtitle: 'I think you reached the limit of our universe. The page you called for has not been found.'
+      },
+      admin: {
+        noAdmin: 'You are not an administrator.',
+        eventFinished: 'This event has ended and it cannot be edited.',
+        wrongDivision: 'This event is not from your division.',
+        isActive: 'This event is active and cannot be edited.',
+        updateAdmin: 'You cannot edit another administrator.', 
+        updateYourself: 'You cannot edit yourself.'
+      },
+      book: {
+        suspended: 'You are suspended from the system and cannot book.',
+        notOwner: 'You are not the owner of this slot.',
+        notActive: 'This event is not active.',
+        tooEarly: 'This slot can only be confirmed 7 days before the event.',
+        alreadyBusy: 'You already have a slot booked on the same time.',
+        hasStarted: 'This event already begun.',
+        hasEnded: 'This event already ended.',
+        notFound: 'Slot not found.',
+        duplicateNumber: 'There is already a flight with the same flight number.',
+        notPreBooked: 'You cannot confirm a slot which is not booked.'
+      },
+      auth: {
+        error: 'Error to authenticate user.'
+      },
+      event: {
+        notFound: 'Event not found.'
+      },
+      scenery: {
+        notFound: 'Scenery not found.'
+      },
+      user: {
+        notFound: 'User not found.'
       }
     },
     splash: {
