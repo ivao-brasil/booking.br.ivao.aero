@@ -16,14 +16,21 @@ import { createSearchParams, ParamKeyValuePair, useLocation, useNavigate, usePar
 import { AirportDetails } from "types/AirportDetails";
 import { PrivateSlotScheduleData, Slot } from "types/Slot";
 import { SlotTypeOptions } from "types/SlotFilter";
+import { Translations } from "types/Translations";
 
-interface LocationState {
+export interface SlotsPageLocationState {
     hasError?: boolean;
+    errorMessage?: string;
+}
+
+interface SlotBookError {
+    hasError: boolean;
+    errorMessage?: string;
 }
 
 export default function SlotsPage() {
     const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(SlotTypeOptions.LANDING);
-    const [hasBookingRequestError, setHasBookingRequestError] = useState(false);
+    const [scheduleRequest, setBookingRequestError] = useState<SlotBookError>({ hasError: false });
     const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
     const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
     const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -46,10 +53,16 @@ export default function SlotsPage() {
     const slotCountByType = useSlotCountByType(Number(eventId));
 
     useEffect(() => {
-        const locationState = location.state as LocationState | null;
-        if (locationState?.hasError) {
-            setHasBookingRequestError(true);
-            window.history.replaceState({ hasError: false }, '');
+        const locationState = location.state as SlotsPageLocationState | null;
+
+        if (!locationState) {
+            return;
+        }
+
+        if (locationState.hasError) {
+            setBookingRequestError({ hasError: true, errorMessage: locationState.errorMessage });
+            setSelectedSlotType(null);
+            window.history.replaceState({ hasError: false, errorMessage: null }, '');
         }
     }, [location.state]);
 
@@ -91,15 +104,24 @@ export default function SlotsPage() {
     const onSlotTypeChange = (newType: SlotTypeOptions) => {
         setSelectedSlotType(newType);
         setSearchedFlightNumber(null);
+        setAppliedFilters({});
     }
 
     const onFlightSearch = (flightNumber: string) => {
         setSelectedSlotType(null);
         setSearchedFlightNumber(flightNumber);
+        setBookingRequestError({ hasError: false });
     }
 
     const onSlotFilter = (filterState: Partial<FilterState>) => {
         setAppliedFilters(filterState);
+    }
+
+    const onScheduleErrorReset = () => {
+        setBookingRequestError({ hasError: false });
+        setAppliedFilters({});
+        setSearchedFlightNumber(null);
+        setSelectedSlotType(SlotTypeOptions.LANDING);
     }
 
     const scrollBarClassName = "lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded";
@@ -134,14 +156,18 @@ export default function SlotsPage() {
                     onFlightSearch={onFlightSearch}
                     onFilterChange={onSlotFilter}
                     onFilterStateChange={(state) => setIsFilterOpen(state)}
+                    showFilter={!scheduleRequest.hasError}
                 />
-                {hasBookingRequestError
+                {scheduleRequest.hasError
                     ? (
                         <BookInfoMessage
                             header={t('flights.error.unableToBook.title')}
-                            description={t('flights.error.unableToBook.subtitle')}
+                            description={t([
+                                `errors.${scheduleRequest.errorMessage}` as unknown as keyof Translations,
+                                'flights.error.unableToBook.subtitle'
+                            ])}
                             type="error"
-                            onErrorReset={() => setHasBookingRequestError(false)}
+                            onErrorReset={() => onScheduleErrorReset()}
                         />
                     )
                     : (
