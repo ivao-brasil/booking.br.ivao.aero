@@ -11,7 +11,7 @@ interface SlotPageHeaderProps {
     appliedFilters?: Partial<FilterState>;
     searchedFlightNumber?: string | null;
     onFlightSearch?: (flightNumber: string) => void;
-    onFilterChange?: (state: Partial<FilterState>) => void;
+    onFilterChange?: (state: Partial<FilterState>, filterKeyCount: number) => void;
     onFilterStateChange?: (isOpen: boolean) => void;
 }
 
@@ -28,6 +28,19 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
             onFilterStateChange(isFilterOpen);
         }
     }, [isFilterOpen, onFilterStateChange]);
+
+
+    const filterButtonBackground = useMemo(() => {
+        return isFilterOpen ? "bg-blue dark:bg-yellow rounded-b-none" : "bg-light-gray-4 dark:bg-dark-gray-2 text-blue dark:text-white"
+    }, [isFilterOpen]);
+
+    const appliedFiltersCount = useMemo(() => {
+        return Object.keys(appliedFilters ?? {}).filter((key) => {
+            const objKey = key as keyof FilterState;
+
+            return appliedFilters[objKey] !== undefined && appliedFilters[objKey] !== null;
+        }).length;
+    }, [appliedFilters]);
 
     const onFlightSearchSubmit = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
@@ -46,12 +59,8 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
             return;
         }
 
-        onFilterChange(filterState);
+        onFilterChange(filterState, appliedFiltersCount);
     }
-
-    const filterButtonBackground = useMemo(() => {
-        return isFilterOpen ? "bg-blue dark:bg-yellow rounded-b-none" : "bg-light-gray-4 dark:bg-dark-gray-2 text-blue dark:text-white"
-    }, [isFilterOpen]);
 
     return (
         <div className="flex items-center p-8 bg-white dark:bg-black">
@@ -70,7 +79,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
             {showFilter && (
                 <>
                     <span className="mx-3">|</span>
-                    {Object.keys(appliedFilters ?? {}).length > 0
+                    {appliedFiltersCount > 0 && !(appliedFiltersCount === 1 && appliedFilters.flightNumber)
                         ? (
                             <ActionButton
                                 height="h-7"
@@ -105,6 +114,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
                                 {isFilterOpen && (
                                     <div className="absolute -left-[9.1rem] z-50">
                                         <Filter
+                                            appliedFilters={appliedFilters}
                                             onChange={onFiltersApplied}
                                         />
                                     </div>

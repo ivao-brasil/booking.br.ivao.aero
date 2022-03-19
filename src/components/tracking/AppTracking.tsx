@@ -10,7 +10,7 @@ export const AppTracking: FunctionComponent = ({ children }) => {
 
     useEffect(() => {
         pageview(location.pathname + location.search);
-    }, [location]);
+    }, [location, pageview]);
 
     return (
         <>{children}</>
