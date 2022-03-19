@@ -173,7 +173,7 @@ export default function SlotsPage() {
                     onFlightSearch={onFlightSearch}
                     onFilterChange={onFilterStateChange}
                     onFilterStateChange={(state) => setIsFilterOpen(state)}
-                    showFilter={!scheduleRequest.hasError && !appliedFilters.flightNumber}
+                    showFilter={!scheduleRequest.hasError}
                 />
                 {scheduleRequest.hasError
                     ? (
