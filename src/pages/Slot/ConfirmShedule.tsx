@@ -79,7 +79,7 @@ export default function ConfirmSchedule() {
 
             navigate(`/event/${eventId}/slots`, { state });
         }
-    }, [bookMutation.isError, eventId, navigate]);
+    }, [bookMutation, eventId, navigate]);
 
     if (bookMutation.isLoading) {
         return (

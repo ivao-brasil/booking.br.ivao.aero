@@ -11,7 +11,6 @@ import { FilterState } from "components/filter/Filter";
 export function useEventSlots(
 	eventId: number,
 	slotType?: SlotTypeOptions | null,
-	flightNumber?: string | null,
 	filterState?: Partial<FilterState>,
 	page = 1,
 	perPage = 25,
@@ -19,9 +18,9 @@ export function useEventSlots(
 	const { apiClient } = useContext(IocContext);
 
 	const slots = useInfiniteQuery<Pagination<Slot>, AxiosError>(
-		['slots', eventId, (slotType ?? ""), (flightNumber ?? ""), (filterState ?? "")],
+		['slots', eventId, (slotType ?? ""), (filterState ?? {})],
 		async ({ pageParam = page, }) => {
-			return await apiClient.getEventSlots(eventId, { page: pageParam, perPage }, slotType, flightNumber, filterState);
+			return await apiClient.getEventSlots(eventId, { page: pageParam, perPage }, slotType, filterState);
 		},
 		{
 			staleTime: ONE_DAY,

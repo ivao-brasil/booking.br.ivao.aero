@@ -73,13 +73,11 @@ export class ApiClient {
     eventId: number,
     pageData: PaginateRequest,
     slotType?: SlotTypeOptions | null,
-    flightNumber?: string | null,
     filterState?: Partial<FilterState>
   ) {
     const queryString = this.getEventSlotsQuery(
       pageData,
       slotType,
-      flightNumber,
       filterState
     );
 
@@ -148,14 +146,11 @@ export class ApiClient {
   private getEventSlotsQuery(
     pageData: PaginateRequest,
     slotType?: SlotTypeOptions | null,
-    flightNumber?: string | null,
     filterState?: Partial<FilterState>
   ) {
     let queryString = fromObjectToQueryString(pageData);
 
-    if (flightNumber) {
-      queryString += "&" + fromObjectToQueryString({ "flightNumber": flightNumber });
-    } else {
+    if (!filterState?.flightNumber) {
       if (slotType === SlotTypeOptions.PRIVATE) {
         queryString += "&" + fromObjectToQueryString({ "private": true });
       } else if (slotType !== null && slotType !== undefined) {
@@ -164,10 +159,10 @@ export class ApiClient {
           "private": false
         });
       }
+    }
 
-      if (filterState) {
-        queryString += "&" + fromObjectToQueryString(filterState);
-      }
+    if (filterState) {
+      queryString += "&" + fromObjectToQueryString(filterState);
     }
 
     return queryString;

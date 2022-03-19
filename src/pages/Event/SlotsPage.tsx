@@ -28,10 +28,11 @@ interface SlotBookError {
     errorMessage?: string;
 }
 
+const DEFAULT_SELECTED_SLOT_TYPE = SlotTypeOptions.LANDING;
+
 export default function SlotsPage() {
-    const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(SlotTypeOptions.LANDING);
+    const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(DEFAULT_SELECTED_SLOT_TYPE);
     const [scheduleRequest, setBookingRequestError] = useState<SlotBookError>({ hasError: false });
-    const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
     const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const { t } = useText();
@@ -46,7 +47,7 @@ export default function SlotsPage() {
         data: slots,
         isLoading: isLoadingSlots,
         hasNextPage, isFetchingNextPage, fetchNextPage
-    } = useEventSlots(Number(eventId), selectedSlotType, searchedFlightNumber, appliedFilters);
+    } = useEventSlots(Number(eventId), selectedSlotType, appliedFilters);
 
     const tableData = useFlatInfiniteData(slots);
 
@@ -103,25 +104,27 @@ export default function SlotsPage() {
 
     const onSlotTypeChange = (newType: SlotTypeOptions) => {
         setSelectedSlotType(newType);
-        setSearchedFlightNumber(null);
         setAppliedFilters({});
     }
 
     const onFlightSearch = (flightNumber: string) => {
         setSelectedSlotType(null);
-        setSearchedFlightNumber(flightNumber);
-        setBookingRequestError({ hasError: false });
+        setAppliedFilters({ flightNumber })
+        setBookingRequestError({ hasError: false, errorMessage: undefined });
     }
 
-    const onSlotFilter = (filterState: Partial<FilterState>) => {
+    const onFilterStateChange = (filterState: Partial<FilterState>, filterKeyCount: number) => {
         setAppliedFilters(filterState);
+
+        if (filterKeyCount === 0 && selectedSlotType === null) {
+            setSelectedSlotType(DEFAULT_SELECTED_SLOT_TYPE);
+        }
     }
 
     const onScheduleErrorReset = () => {
-        setBookingRequestError({ hasError: false });
+        setBookingRequestError({ hasError: false, errorMessage: undefined });
         setAppliedFilters({});
-        setSearchedFlightNumber(null);
-        setSelectedSlotType(SlotTypeOptions.LANDING);
+        setSelectedSlotType(DEFAULT_SELECTED_SLOT_TYPE);
     }
 
     const scrollBarClassName = "lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded";
@@ -152,9 +155,9 @@ export default function SlotsPage() {
             <div className="flex-1 lg:max-h-screen w-full bg-[#F7F7F7] dark:bg-dark-gray-2">
                 <SlotPageHeader
                     appliedFilters={appliedFilters}
-                    searchedFlightNumber={searchedFlightNumber}
+                    searchedFlightNumber={appliedFilters.flightNumber}
                     onFlightSearch={onFlightSearch}
-                    onFilterChange={onSlotFilter}
+                    onFilterChange={onFilterStateChange}
                     onFilterStateChange={(state) => setIsFilterOpen(state)}
                     showFilter={!scheduleRequest.hasError}
                 />
@@ -193,11 +196,7 @@ export default function SlotsPage() {
                                                 header={ t('flights.error.noFlightsFound.title') }
                                                 description={ t('flights.error.noFlightsFound.subtitle') }
                                                 type="warning"
-                                                onErrorReset={() => {
-                                                    setAppliedFilters({});
-                                                    setSearchedFlightNumber(null);
-                                                    setSelectedSlotType(SlotTypeOptions.LANDING)
-                                                }}
+                                                onErrorReset={() => onScheduleErrorReset()}
                                             />
                                         )}
                                 </div>

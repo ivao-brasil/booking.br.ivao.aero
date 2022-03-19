@@ -17,6 +17,7 @@ export enum FlightDuration {
 }
 
 export interface FilterState {
+  flightNumber: string;
   aircraft: string;
   airline: string;
   origin: string;
