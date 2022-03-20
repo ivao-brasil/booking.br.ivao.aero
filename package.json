@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.11.4",
     "axios": "^0.24.0",
     "date-fns": "^2.28.0",
     "i18next": "^21.6.14",
@@ -15,6 +16,7 @@
     "react-ga": "^3.3.0",
     "react-i18next": "^11.15.7",
     "react-icons": "^4.3.1",
+    "react-popper": "^2.2.5",
     "react-query": "^3.34.7",
     "react-router-dom": "^6.1.1",
     "react-scripts": "^5.0.0"

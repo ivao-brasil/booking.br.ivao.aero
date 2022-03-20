@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { EventSidebar } from "components/event/EventSidebar";
+import { EventSidebar } from "components/event/sidebar/EventSidebar";
 import { Outlet, useMatch } from "react-router-dom";
 import { Footer } from "components/Footer";
 
