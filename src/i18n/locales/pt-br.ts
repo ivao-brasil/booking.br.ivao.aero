@@ -90,7 +90,7 @@ const ptBrTranslations: { translations: Translations } = {
         description: 'Encontre aqui os cenários recomendados para este evento.',
         sims: {
           fs9: {
-            description: 'Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.'
+            description: 'Microsoft Flight Simulator 2004: A Century of Flight é um videogame de simulação de vôo lançado em 2003 e faz parte da série de videogames Microsoft Flight Simulator.'
           },
           fsx: {
             description: 'Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.'
@@ -99,7 +99,7 @@ const ptBrTranslations: { translations: Translations } = {
             description: 'Prepar3D é uma plataforma de simulação visual que permite aos usuários criar cenários de treinamento em domínios de aviação, marítimo e terrestre.'
           },
           msfs: {
-            description: 'Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.'
+            description: 'MSFS 2020 é um jogo eletrônico de simulação de vôo desenvolvido pela Asobo Studio e publicado pela Xbox Game Studios para Microsoft Windows, Xbox One, Xbox Series X e S.'
           },
           xp11: {
             description: 'X-Plane 11 é o simulador detalhado, realista e moderno. Interface de usuário intuitiva, cockpits 3D, novos efeitos, som 3D, aeroportos vivos e cenário mundial.'

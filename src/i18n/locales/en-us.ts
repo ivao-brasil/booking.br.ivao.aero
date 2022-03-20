@@ -93,7 +93,7 @@ const ptBrTranslations: { translations: Translations } = {
             description: 'Microsoft Flight Simulator 2004: A Century of Flight is a flight simulation video game released in 2003, and is part of the Microsoft Flight Simulator video game series.'
           },
           fsx: {
-            description: 'Microsoft Flight Simulator X (abreviado como FSX) é um simulador de voo de 2006, originalmente desenvolvido pela Aces Game Studio e publicado pela Microsoft Game Studios para Microsoft Windows.'
+            description: 'Microsoft Flight Simulator X is a 2006 flight simulation video game originally developed by Aces Game Studio and published by Microsoft Game Studios for Microsoft Windows.'
           },
           p3d: {
             description: 'Prepar3D (pronounced “prepared”) is a visual simulation platform that allows users to create training scenarios across aviation, maritime and ground domains.'
@@ -102,7 +102,7 @@ const ptBrTranslations: { translations: Translations } = {
             description: 'Microsoft Flight Simulator (colloquially known as MS2020) is an amateur flight simulator developed by Asobo Studio and published by Xbox Game Studios. It is an entry in the Microsoft Flight Simulator series which began in 1982, and was preceded by Microsoft Flight Simulator X in 2006.'
           },
           xp11: {
-            description: 'X-Plane 11 is the detailed, realistic, and modern simulator you’ve been waiting for. '
+            description: 'X-Plane 11 is the detailed, realistic, and modern simulator you’ve been waiting for.'
           }
         },
       },
