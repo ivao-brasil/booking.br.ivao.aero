@@ -40,7 +40,7 @@ export const SidebarPopover: FunctionComponent<SidebarPopoverProps> = ({ text, i
             {isPopoverActive && (
                 <div
                     ref={setPopperElement}
-                    className="bg-blue dark:bg-dark-gray-2 w-[8.68rem] rounded-md text-white z-50"
+                    className="bg-blue dark:bg-dark-gray-2 w-[8.68rem] rounded-md text-white z-50 hidden md:block"
                     style={styles.popper}
                     {...divProps}
                     {...attributes.popper}

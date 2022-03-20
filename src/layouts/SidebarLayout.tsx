@@ -8,7 +8,7 @@ export const SidebarLayout: FunctionComponent = () => {
 
     return (
         <div className="flex flex-col lg:flex-row">
-            <div className="lg:flex-none lg:fixed lg:h-screen">
+            <div className="lg:flex-none lg:fixed lg:h-screen lg:z-50">
                 <EventSidebar />
             </div>
             <div className={`flex flex-col min-h-screen lg:ml-28 ${isAtEventDetailsPage ? "container xl:ml-auto" : "w-full"}`}>
