@@ -10,7 +10,6 @@ export const SidebarPopover: FunctionComponent<SidebarPopoverProps> = ({ text, i
     const [isPopoverActive, setIsPopoverActive] = useState(false);
     const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
     const [popperElement, setPopperElement] = useState<HTMLElement | null>(null);
-    const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null);
 
     const { styles, attributes, update } = usePopper(referenceElement, popperElement, {
         placement: "right",

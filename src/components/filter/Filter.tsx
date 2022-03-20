@@ -1,7 +1,7 @@
 import { Checkbox } from "components/checkbox/Checkbox";
 import { InputField } from "components/InputField";
 import { useText } from "hooks/useText";
-import { ChangeEvent, FunctionComponent, useState } from "react";
+import { ChangeEvent, FormEvent, FunctionComponent, useState } from "react";
 import style from "./filter.module.css";
 
 export interface FilterProps {
@@ -30,22 +30,35 @@ export const Filter: FunctionComponent<FilterProps> = ({ appliedFilters = {}, on
   const { t } = useText();
 
   const resetFilters = () => {
+    if (filters.flightNumber) {
+      setFilters(({ flightNumber }) => {
+        return { flightNumber };
+      });
+
+      onChange({ flightNumber: filters.flightNumber });
+      return;
+    }
+
     setFilters({});
+    onChange({});
   };
 
   const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setFilters(prevState => ({ ...prevState, [evt.target.name]: evt.target.value }));
   }
 
-  const onFilterSubmit = () => {
+  const onFilterSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+
     onChange(filters);
   }
 
   const onAvailableCheckboxChange = (value: boolean) => {
     if (!value) {
       setFilters(prevState => {
-        delete prevState["available"];
-        return { ...prevState };
+        const newFilters = {...prevState};
+        delete newFilters.available;
+        return newFilters;
       });
 
       return;
@@ -58,69 +71,68 @@ export const Filter: FunctionComponent<FilterProps> = ({ appliedFilters = {}, on
     <section className={style.filter}>
       <header>{ t('flights.filter.title') }</header>
       <main>
-        <div>
-          <label className="sr-only" htmlFor="aircraft-filter">{ t('flights.filter.aircraft') }</label>
-          <InputField
-            placeholder={ t('flights.filter.aircraft') }
-            id="aircraft-filter"
-            name="aircraft"
-            value={filters.aircraft ?? ""}
-            onChange={onInputChange}
-          />
-
-          <div className="ml-2">
-            <label className="sr-only" htmlFor="company-filter">{ t('flights.filter.airline') }</label>
+        <form onSubmit={onFilterSubmit}>
+          <div className={style.firstRow}>
+            <label className="sr-only" htmlFor="aircraft-filter">{ t('flights.filter.aircraft') }</label>
             <InputField
-              placeholder={ t('flights.filter.airline') }
-              id="company-filter"
-              name="airline"
-              value={filters.airline ?? ""}
+              placeholder={ t('flights.filter.aircraft') }
+              id="aircraft-filter"
+              name="aircraft"
+              value={filters.aircraft ?? ""}
               onChange={onInputChange}
             />
+
+            <div className="ml-2">
+              <label className="sr-only" htmlFor="company-filter">{ t('flights.filter.airline') }</label>
+              <InputField
+                placeholder={ t('flights.filter.airline') }
+                id="company-filter"
+                name="airline"
+                value={filters.airline ?? ""}
+                onChange={onInputChange}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="flex px-[1.125rem]">
-          <label className="sr-only" htmlFor="origin-filter">{ t('flights.filter.origin') }</label>
-          <InputField
-            placeholder={ t('flights.filter.origin') }
-            id="origin-filter"
-            name="origin"
-            value={filters.origin ?? ""}
-            onChange={onInputChange}
-          />
-
-          <div className="ml-2">
-            <label className="sr-only" htmlFor="destination-filter">{ t('flights.filter.destination') }</label>
+          <div className={style.secondRow}>
+            <label className="sr-only" htmlFor="origin-filter">{ t('flights.filter.origin') }</label>
             <InputField
-              placeholder={ t('flights.filter.destination') }
-              id="destination-filter"
-              name="destination"
-              value={filters.destination ?? ""}
+              placeholder={ t('flights.filter.origin') }
+              id="origin-filter"
+              name="origin"
+              value={filters.origin ?? ""}
               onChange={onInputChange}
             />
+
+            <div className="ml-2">
+              <label className="sr-only" htmlFor="destination-filter">{ t('flights.filter.destination') }</label>
+              <InputField
+                placeholder={ t('flights.filter.destination') }
+                id="destination-filter"
+                name="destination"
+                value={filters.destination ?? ""}
+                onChange={onInputChange}
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <Checkbox
-            value={filters.available ?? false}
-            onChange={onAvailableCheckboxChange}
-          />
-          <span>{ t('flights.filter.showAvailableOnly') }</span>
-        </div>
+          <div className={style.thirdRow}>
+            <Checkbox
+              value={filters.available ?? false}
+              onChange={onAvailableCheckboxChange}
+            />
+            <span>{ t('flights.filter.showAvailableOnly') }</span>
+          </div>
 
-        <div>
-          <button type="button" onClick={resetFilters}>
-          { t('flights.filter.reset') }
-          </button>
-          <button
-            type="button"
-            onClick={() => onFilterSubmit()}
-          >
-            { t('flights.filter.apply') }
-          </button>
-        </div>
+          <div className={style.fourthRow}>
+            <button type="reset" onClick={resetFilters} className={style.resetButton}>
+              { t('flights.filter.reset') }
+            </button>
+            <button type="submit" className={style.submitButton}>
+              { t('flights.filter.apply') }
+            </button>
+          </div>
+        </form>
       </main>
     </section>
   );
