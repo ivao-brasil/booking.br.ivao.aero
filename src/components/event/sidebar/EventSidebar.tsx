@@ -29,7 +29,7 @@ export const EventSidebar: FunctionComponent<EventSidebarProps> = ({ visible = t
 
     return (
         <nav className={`${visible ? "" : "hidden"} flex flex-row lg:flex-col w-full lg:w-28 h-full px-4 lg:px-0 bg-blue dark:bg-dark-gray-2 shadow-3xl overflow-x-auto`}>
-            <div className="hidden lg:block">
+            <div className="hidden lg:block mt-7">
                 <Logo sidebar={true} />
             </div>
 
