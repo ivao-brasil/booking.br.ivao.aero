@@ -27,7 +27,7 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
     return (
         <nav className="relative bg-white dark:bg-black">
             <div
-                className="hidden dark:block absolute rounded-md w-full h-48 opacity-10"
+                className="hidden dark:lg:block absolute rounded-md w-full h-48 opacity-10"
             >
                 <img src={eventBanner}
                     alt={`${eventName} logo`}

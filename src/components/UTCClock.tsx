@@ -20,6 +20,6 @@ export const UTCClock = () => {
     }, [currentTime]);
 
     return (
-        <span className="text-inherit ml-auto text-[12px]">{utcTime} UTC</span>
+        <span className="text-inherit text-[12px]">{utcTime} UTC</span>
     );
 }
