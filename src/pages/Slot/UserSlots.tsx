@@ -117,7 +117,8 @@ export default function UserSlots() {
     }
 
     const onScheduleCancel = (slot: Slot) => {
-        scheduleCancelMutation.mutate({ slotId: slot.id, eventId: Number(eventId) });
+        // eslint-disable-next-line no-restricted-globals
+        confirm(t('myFlights.boardingPass.cancelFlightConfirmation')) && scheduleCancelMutation.mutate({ slotId: slot.id, eventId: Number(eventId) });
     }
 
     const onFlightSearch = (flightNumber: string) => {
