@@ -36,7 +36,7 @@ export interface Translations {
       eventFinished: string,
       wrongDivision: string,
       isActive: string,
-      updateAdmin: string, 
+      updateAdmin: string,
       updateYourself: string
     },
     book: {
@@ -108,7 +108,7 @@ export interface Translations {
   },
   flights: {
     search: string,
-    arrival_zero: string, 
+    arrival_zero: string,
     arrival_one: string,
     arrival_other: string,
     departure_zero: string,
@@ -139,7 +139,7 @@ export interface Translations {
         title: string,
         subtitle: string
       },
-    } 
+    }
   },
   notification: {
     scheduleConfirmation: {
@@ -175,5 +175,13 @@ export interface Translations {
       disclaimer: string,
       waitToConfirm: string
     }
+  },
+  sidebarPanel: {
+    information: string,
+    flights: string,
+    myFlights: string,
+    changeTheme: string,
+    logout: string,
+    eventsHome: string
   }
 }

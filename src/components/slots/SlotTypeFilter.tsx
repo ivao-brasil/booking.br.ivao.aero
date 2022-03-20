@@ -24,18 +24,15 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
     eventName, eventType, eventBanner,
     slotsQtdData, selectedSlotType, showPriveSlots = true, onSlotTypeChange
 }) => {
-    const eventBannerGradient = "after:block after:bg-gradient-event-sidebar after:absolute after:w-full after:h-36";
-
     return (
         <nav className="relative bg-white dark:bg-black">
             <div
-                className={`hidden dark:block absolute rounded-md w-full h-48 opacity-10 z-10 ${eventBannerGradient}`}
+                className="hidden dark:block absolute rounded-md w-full h-48 opacity-10"
             >
                 <img src={eventBanner}
                     alt={`${eventName} logo`}
                     width={288}
-                    height={285}
-                    className="relative" />
+                    height={285} />
             </div>
 
             <div className="relative z-20 h-full flex flex-row md:flex-col justify-between md:justify-start items-center flex-wrap gap-8 px-6 pt-9">
