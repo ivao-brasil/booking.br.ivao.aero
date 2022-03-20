@@ -30,6 +30,38 @@ export interface Translations {
     notFound: {
       title: string,
       subtitle: string
+    },
+    admin: {
+      noAdmin: string,
+      eventFinished: string,
+      wrongDivision: string,
+      isActive: string,
+      updateAdmin: string, 
+      updateYourself: string
+    },
+    book: {
+      suspended: string,
+      notOwner: string,
+      notActive: string,
+      tooEarly: string,
+      alreadyBusy: string,
+      hasStarted: string,
+      hasEnded: string,
+      notFound: string,
+      duplicateNumber: string,
+      notPreBooked: string
+    },
+    auth: {
+      error: string
+    },
+    event: {
+      notFound: string
+    },
+    scenery: {
+      notFound: string
+    },
+    user: {
+      notFound: string
     }
   },
   splash: {

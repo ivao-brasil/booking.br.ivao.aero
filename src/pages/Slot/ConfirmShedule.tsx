@@ -5,6 +5,7 @@ import { Logo } from "components/Logo";
 import { Header, MutedText } from "components/typography/Typography";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 import { useText } from "hooks/useText";
+import { SlotsPageLocationState } from "pages/Event/SlotsPage";
 import { useEffect } from "react";
 import { FiAlertTriangle, FiCheck } from "react-icons/fi";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -70,9 +71,15 @@ export default function ConfirmSchedule() {
 
     useEffect(() => {
         if (bookMutation.isError) {
-            navigate(`/event/${eventId}/slots`, { state: { hasError: true } });
+            const errorMessage = bookMutation.error.response?.data.error.message;
+            const state: SlotsPageLocationState = {
+                hasError: true,
+                errorMessage: errorMessage
+            }
+
+            navigate(`/event/${eventId}/slots`, { state });
         }
-    }, [bookMutation.isError, eventId, navigate]);
+    }, [bookMutation, eventId, navigate]);
 
     if (bookMutation.isLoading) {
         return (
