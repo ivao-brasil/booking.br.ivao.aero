@@ -37,7 +37,7 @@ const ptBrTranslations: { translations: Translations } = {
         eventFinished: 'This event has ended and it cannot be edited.',
         wrongDivision: 'This event is not from your division.',
         isActive: 'This event is active and cannot be edited.',
-        updateAdmin: 'You cannot edit another administrator.', 
+        updateAdmin: 'You cannot edit another administrator.',
         updateYourself: 'You cannot edit yourself.'
       },
       book: {
@@ -140,7 +140,7 @@ const ptBrTranslations: { translations: Translations } = {
           title: 'We are unable to book this flight...',
           subtitle: 'The data might not exist in our system, or this flight has already been booked by another pilot.'
         },
-      } 
+      }
     },
     notification: {
       scheduleConfirmation: {
@@ -176,6 +176,14 @@ const ptBrTranslations: { translations: Translations } = {
         disclaimer: 'To fly on the event, you must comply with all instructions made available on the pilot briefing.',
         waitToConfirm: 'Wait to confirm flight.'
       }
+    },
+    sidebarPanel: {
+      information: 'General information',
+      flights: 'Search flights',
+      myFlights: 'My Flights',
+      changeTheme: 'Change current theme',
+      logout: 'Logout',
+      eventsHome: 'Go to event list'
     }
   },
 };

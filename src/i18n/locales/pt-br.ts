@@ -37,7 +37,7 @@ const ptBrTranslations: { translations: Translations } = {
         eventFinished: 'Esse evento foi finalizado e não pode ser alterado.',
         wrongDivision: 'Esse evento não pertence a sua divisão.',
         isActive: 'Esse evento está ativo e não pode ser alterado.',
-        updateAdmin: 'Você não pode alterar outro administrador.', 
+        updateAdmin: 'Você não pode alterar outro administrador.',
         updateYourself: 'Você não pode alterar a si mesmo.'
       },
       book: {
@@ -140,7 +140,7 @@ const ptBrTranslations: { translations: Translations } = {
           title: 'Não foi possível agendar esse voo...',
           subtitle: 'Esses dados podem não existir no nosso sistema ou já foram reservados por outro piloto.'
         },
-      } 
+      }
     },
     notification: {
       scheduleConfirmation: {
@@ -176,7 +176,15 @@ const ptBrTranslations: { translations: Translations } = {
         disclaimer: 'Para participar do evento você deve estar ciente e disposto a cumprir todas as orientações disponíveis no briefing do piloto',
         waitToConfirm: 'Aguarde para confirmar o voo.'
       }
-    }
+    },
+    sidebarPanel: {
+      information: 'Informações gerais',
+      flights: 'Procurar voos',
+      myFlights: 'Meus voos',
+      changeTheme: 'Mudar tema do painel',
+      logout: 'Sair',
+      eventsHome: 'Ver lista de eventos'
+    },
   },
 };
 
