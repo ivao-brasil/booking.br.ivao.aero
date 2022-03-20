@@ -29,7 +29,7 @@
   background-color: #1F1F1F;
 }
 
-.filter main > div:first-child {
+.firstRow {
   margin-top: 26px;
   display: flex;
   justify-content: space-between;
@@ -37,12 +37,33 @@
   padding-right: 18px;
 }
 
-.filter main > div:nth-child(2) {
+.firstRow > select {
+  font-family: var(--poppins);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--silver);
+  background: #ebebeb;
+  border-radius: 5px;
+  width: 49%;
+  border: 0;
+}
+
+:global(.dark) .firstRow > select {
+  color: rgba(215, 215, 220, 0,5);
+  background-color: #282828;
+}
+
+.secondRow {
+  display: flex;
+  padding-left: 18px;
+  padding-right: 18px;
   margin-top: 19px;
   margin-bottom: 19px;
 }
 
-.filter main > div:nth-child(2) > span {
+.secondRow > span {
   font-family: var(--poppins);
   font-size: 14px;
   line-height: 15px;
@@ -54,7 +75,7 @@
   padding-right: 18px;
 }
 
-.filter main > div:nth-child(3) {
+.thirdRow {
   display: flex;
   justify-content: flex-start;
   height: 16px;
@@ -63,7 +84,17 @@
   align-items: center;
 }
 
-.filter main > div:nth-child(4) {
+.thirdRow > span {
+  font-family: var(--poppins);
+  font-size: 8px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  color: var(--silver);
+  padding-left: 4px;
+}
+
+.fourthRow {
   margin-top: 24px;
   height: 25px;
   display: flex;
@@ -72,7 +103,7 @@
   padding-right: 18px;
 }
 
-.filter > main > div:nth-child(4) > button {
+.fourthRow > button {
   height: 25px;
   width: 46%;
   font-family: var(--poppins);
@@ -87,51 +118,23 @@
   cursor: pointer;
 }
 
-.filter > main > div:nth-child(4) > button:hover {
+.fourthRow > button:hover {
   transition: all 0.2s;
   filter: brightness(90%);
 }
 
-.filter > main > div:nth-child(4) > button:nth-child(2) {
+.fourthRow > .submitButton {
   color: var(--white);
   background-color: var(--green);
   font-weight: 600;
 }
 
-.filter > main > div:nth-child(4) > button:nth-child(1) {
+.fourthRow .resetButton {
   color: var(--silver);
   background-color: #ebebeb;
 }
 
-:global(.dark) .filter > main > div:nth-child(4) > button:nth-child(1) {
+:global(.dark) .fourthRow .resetButton {
   background-color: #373737;
   color: var(--white);
-}
-
-.filter main > div:nth-child(3) > span {
-  font-family: var(--poppins);
-  font-size: 8px;
-  line-height: 15px;
-  display: flex;
-  align-items: center;
-  color: var(--silver);
-  padding-left: 4px;
-}
-
-.filter main > div:first-child > select {
-  font-family: var(--poppins);
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 15px;
-  color: var(--silver);
-  background: #ebebeb;
-  border-radius: 5px;
-  width: 49%;
-  border: 0;
-}
-
-:global(.dark) .filter main > div:first-child > select {
-  color: rgba(215, 215, 220, 0,5);
-  background-color: #282828;
 }

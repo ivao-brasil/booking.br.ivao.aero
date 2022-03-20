@@ -172,6 +172,7 @@ const ptBrTranslations: { translations: Translations } = {
       },
       boardingPass: {
         cancelFlight: 'Cancelar voo',
+        cancelFlightConfirmation: 'Tem certeza que quer cancelar esse voo?',
         confirmFlight: 'Confirmar voo',
         disclaimer: 'Para participar do evento você deve estar ciente e disposto a cumprir todas as orientações disponíveis no briefing do piloto',
         waitToConfirm: 'Aguarde para confirmar o voo.'
