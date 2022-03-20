@@ -126,7 +126,7 @@ export default function EventDetailsPage() {
                             content={t('info.pilotBriefing.description')} />
                     </a>
 
-                    <a href={event.atcBooking} target="_blank" rel="noreferrer">
+                    <a href={event.atcBriefing} target="_blank" rel="noreferrer">
                         <HorizontalInfoCard
                             icon={<FiHeadphones size={25} />}
                             iconBackground="bg-green"
