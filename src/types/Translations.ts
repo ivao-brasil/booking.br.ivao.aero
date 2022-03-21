@@ -119,6 +119,7 @@ export interface Translations {
     eobt: string,
     gate: string,
     bookFlight: string,
+    loadMore: string,
     filter: {
       call: string,
       title: string,
