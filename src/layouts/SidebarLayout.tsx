@@ -11,7 +11,7 @@ export const SidebarLayout: FunctionComponent = () => {
             <div className="lg:flex-none lg:fixed lg:h-screen lg:z-50">
                 <EventSidebar />
             </div>
-            <div className={`flex flex-col min-h-screen lg:ml-28 ${isAtEventDetailsPage ? "container xl:ml-auto" : "w-full"}`}>
+            <div className={`flex flex-col min-h-screen ${isAtEventDetailsPage ? "container lg:ml-32 2xl:ml-auto" : "lg:ml-28 w-full"}`}>
                 <main className="h-full">
                     <Outlet />
                 </main>
