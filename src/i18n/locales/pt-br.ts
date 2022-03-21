@@ -120,6 +120,7 @@ const ptBrTranslations: { translations: Translations } = {
       eobt: 'EOBT',
       gate: 'Posição',
       bookFlight: 'Reservar voo',
+      loadMore: 'Carregar mais voos',
       filter: {
         call: 'Filtrar Tabela',
         title: 'Filtrar',
