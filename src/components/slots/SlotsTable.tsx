@@ -129,7 +129,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                         width={67}
                                         height={16}
                                         src={URL.createObjectURL(airlineImages[idx] as Blob)}
-                                        alt={`Logo companhia ${getSlotAirline(slot)}`}
+                                        alt={`Logo ${getSlotAirline(slot)}`}
                                     />
                                 )}
                             </td>
@@ -144,7 +144,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                             name="flightNumber"
                                             id={`flightNumber-${slot.id}`}
                                             type="text"
-                                            placeholder="Número do voo"
+                                            placeholder={t("flights.flightNumber")}
                                             value={formValues[slot.id]?.flightNumber || ""}
                                             onChange={(evt) => handleLineInputChange(slot.id, evt)} />
                                     </td>
@@ -192,11 +192,10 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                     </td>
                                 )
                                 : (
-                                    <td className="text-center px-3">
+                                    <td className="text-center px-3" title={originAirportName}>
                                         <span className="font-header font-bold text-[18px] leading-6">{slot.origin || "ZZZZ"}</span>
                                         <p
                                             className="w-32 mx-auto font-action font-normal text-xs leading-3 text-center truncate"
-                                            title={originAirportName}
                                         >
                                             {originAirportName}
                                         </p>
@@ -229,11 +228,10 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                     </td>
                                 )
                                 : (
-                                    <td className="text-center px-3">
+                                    <td className="text-center px-3" title={destinationAirportName}>
                                         <span className="font-header font-bold text-[18px] leading-6">{slot.destination || "ZZZZ"}</span>
                                         <p
                                             className="w-32 mx-auto font-action font-normal text-xs leading-3 text-center truncate"
-                                            title={destinationAirportName}
                                         >
                                             {destinationAirportName}
                                         </p>
@@ -246,7 +244,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                 <div className="w-24 mx-auto">
                                     {slot.owner
                                         ? <SlotBookButton content={slot.owner.vid} canBookFLight={false} />
-                                        : <SlotBookButton content="Reservar voo" onClick={() => handleSlotScheduling(slot.id)} />}
+                                        : <SlotBookButton content={t("flights.bookFlight")} onClick={() => handleSlotScheduling(slot.id)} />}
                                 </div>
                             </td>
                         </tr>
@@ -266,7 +264,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                     )
                                     : (
                                         <ActionButton
-                                            content="Carregar mais voos"
+                                            content={t("flights.loadMore")}
                                             backgroundFilled={false}
                                             onClick={() => onMoreFlightsRequested && onMoreFlightsRequested()}
                                         />
