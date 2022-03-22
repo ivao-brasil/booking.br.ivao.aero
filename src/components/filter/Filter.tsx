@@ -118,7 +118,7 @@ export const Filter: FunctionComponent<FilterProps> = ({ appliedFilters = {}, on
 
           <div className={style.thirdRow}>
             <Checkbox
-              value={filters.available ?? true}
+              value={filters.available ?? false}
               onChange={onAvailableCheckboxChange}
             />
             <span>{ t('flights.filter.showAvailableOnly') }</span>
