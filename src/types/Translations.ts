@@ -60,6 +60,9 @@ export interface Translations {
     scenery: {
       notFound: string
     },
+    aircraft: {
+      notFound: string
+    },
     user: {
       notFound: string
     }

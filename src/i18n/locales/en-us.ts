@@ -60,6 +60,9 @@ const ptBrTranslations: { translations: Translations } = {
       },
       scenery: {
         notFound: 'Scenery not found.'
+      },      
+      aircraft: {
+        notFound: 'Aircraft not found.'
       },
       user: {
         notFound: 'User not found.'
