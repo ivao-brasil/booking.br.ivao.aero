@@ -65,6 +65,9 @@ export interface Translations {
     },
     user: {
       notFound: string
+    },
+    airport: {
+      notFound: string
     }
   },
   splash: {

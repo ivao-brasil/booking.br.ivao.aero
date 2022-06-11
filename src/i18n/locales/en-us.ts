@@ -66,7 +66,10 @@ const ptBrTranslations: { translations: Translations } = {
       },
       user: {
         notFound: 'User not found.'
-      }
+      },
+      airport: {
+        notFound: 'We could not find the airport you are trying to fly from or to. Check the ICAO codes and try again.'
+      },
     },
     splash: {
       title: 'Experience the best that flight simulation has to offer!',
