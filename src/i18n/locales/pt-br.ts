@@ -66,7 +66,10 @@ const ptBrTranslations: { translations: Translations } = {
       },
       user: {
         notFound: 'Usuário não encontrado.'
-      }
+      },
+      airport: {
+        notFound: 'Não encontramos o aeroporto que você está tentando reservar. Confira o código ICAO e tente novamente.'
+      },
     },
     splash: {
       title: 'Experimente o melhor que a simulação aérea tem a oferecer',
