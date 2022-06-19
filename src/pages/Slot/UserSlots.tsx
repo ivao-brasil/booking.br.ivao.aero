@@ -10,7 +10,6 @@ import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { ActionButton } from "components/button/Button";
 import { useAuthData } from "hooks/useAuthData";
 import { BookingStatus, Slot, SlotBookActions } from "types/Slot";
-import { FLIGHT_CONFIRM_MAX_DAYS, FLIGHT_CONFIRM_MIN_DAYS, ONE_DAY } from "appConstants";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 import { useAirportInfoFromSlots } from "hooks/slots/useAirportInfoFromSlots";
 import { AirportDetails } from "types/AirportDetails";
