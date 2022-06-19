@@ -60,7 +60,7 @@ const ptBrTranslations: { translations: Translations } = {
       },
       scenery: {
         notFound: 'Scenery not found.'
-      },      
+      },
       aircraft: {
         notFound: 'Aircraft not found.'
       },
@@ -115,12 +115,8 @@ const ptBrTranslations: { translations: Translations } = {
     },
     flights: {
       search: 'Search Flights',
-      arrival_zero: 'Nenhuma chegada',
-      arrival_one: 'Arrival',
-      arrival_other: 'Arrivals',
-      departure_zero: 'Nenhuma partida',
-      departure_one: 'Departure',
-      departure_other: 'Departures',
+      arrivals: 'Arrivals',
+      departures: 'Departures',
       privateSlots: 'Private Slots',
       flightNumber: 'Flight Number',
       eobt: 'EOBT',
