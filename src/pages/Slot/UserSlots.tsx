@@ -10,7 +10,6 @@ import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { ActionButton } from "components/button/Button";
 import { useAuthData } from "hooks/useAuthData";
 import { BookingStatus, Slot, SlotBookActions } from "types/Slot";
-import { FLIGHT_CONFIRM_MAX_DAYS, FLIGHT_CONFIRM_MIN_DAYS, ONE_DAY } from "appConstants";
 import { useSlotBookMutation } from "hooks/slots/useSlotBookMutation";
 import { useAirportInfoFromSlots } from "hooks/slots/useAirportInfoFromSlots";
 import { AirportDetails } from "types/AirportDetails";
@@ -37,33 +36,6 @@ export default function UserSlots() {
     } = useEventUserSlots(Number(eventId), searchedFlightNumber);
 
     const tableData = useFlatInfiniteData(slots);
-
-    const hasEventStarted = useMemo(() => {
-        if (!event) {
-            return false;
-        }
-
-        const today = new Date();
-        const slotStartDate = new Date(event.dateStart);
-
-        const dateDeltaMs = slotStartDate.getTime() - today.getTime();
-
-        return dateDeltaMs < 0;
-    }, [event]);
-
-    const canConfirmFlights = useMemo(() => {
-        if (!event || hasEventStarted) {
-            return false;
-        }
-
-        const today = new Date();
-        const slotStartDate = new Date(event.dateStart);
-
-        const dateDeltaMs = slotStartDate.getTime() - today.getTime();
-
-        const dateDeltaDays = dateDeltaMs / ONE_DAY;
-        return FLIGHT_CONFIRM_MAX_DAYS >= dateDeltaDays && FLIGHT_CONFIRM_MIN_DAYS <= dateDeltaDays;
-    }, [event, hasEventStarted]);
 
     useEffect(() => {
         if (scheduleConfirmMutation.isSuccess) {
@@ -148,7 +120,7 @@ export default function UserSlots() {
     }
 
     const availableActions = (slot: Slot) => {
-        if (hasEventStarted) {
+        if (event.has_started) {
             return null;
         }
 
@@ -171,7 +143,7 @@ export default function UserSlots() {
                     {cancelFlightAction}
                 </>
             )
-        } else if (canConfirmFlights) {
+        } else if (event.can_confirm_slots) {
             return (
                 <>
                     {cancelFlightAction}

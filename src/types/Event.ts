@@ -22,6 +22,7 @@ export interface Event {
   airports: Airport[];
   has_started: boolean;
   has_ended: boolean;
+  can_confirm_slots: boolean;
 }
 
 const eventTypesNames = {
