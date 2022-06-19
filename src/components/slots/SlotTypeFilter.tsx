@@ -3,6 +3,9 @@ import { Header, Subheader } from "components/typography/Typography";
 import { SlotTypeOptions } from "types/SlotFilter";
 import { FilterCard } from "./FilterCard";
 import { getEventTypeName } from "types/Event";
+import { Translations } from "types/Translations";
+import { FaPlaneArrival, FaPlaneDeparture, FaUserClock } from "react-icons/fa";
+import { useText } from "hooks/useText";
 
 interface SlotsQtdData {
     departure?: number;
@@ -24,6 +27,8 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
     eventName, eventType, eventBanner,
     slotsQtdData, selectedSlotType, showPriveSlots = true, onSlotTypeChange
 }) => {
+    const { t } = useText();
+
     return (
         <nav className="relative bg-white dark:bg-black">
             <div
@@ -42,20 +47,23 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
                 </div>
 
                 <FilterCard
-                    slotType={SlotTypeOptions.LANDING}
+                    title={t('flights.arrivals' as unknown as keyof Translations)}
+                    icon={<FaPlaneArrival />}
                     quantity={slotsQtdData?.landing}
                     onClick={() => onSlotTypeChange(SlotTypeOptions.LANDING)}
                     active={selectedSlotType === SlotTypeOptions.LANDING} />
 
                 <FilterCard
-                    slotType={SlotTypeOptions.TAKEOFF}
+                    title={t('flights.departures' as unknown as keyof Translations)}
+                    icon={<FaPlaneDeparture />}
                     quantity={slotsQtdData?.departure}
                     onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF)}
                     active={selectedSlotType === SlotTypeOptions.TAKEOFF} />
 
                 {showPriveSlots && (
                     <FilterCard
-                        slotType={SlotTypeOptions.PRIVATE}
+                        title={t('flights.privateSlots' as unknown as keyof Translations)}
+                        icon={<FaUserClock />}
                         quantity={slotsQtdData?.private}
                         onClick={() => onSlotTypeChange(SlotTypeOptions.PRIVATE)}
                         active={selectedSlotType === SlotTypeOptions.PRIVATE} />
