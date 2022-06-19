@@ -38,33 +38,6 @@ export default function UserSlots() {
 
     const tableData = useFlatInfiniteData(slots);
 
-    const hasEventStarted = useMemo(() => {
-        if (!event) {
-            return false;
-        }
-
-        const today = new Date();
-        const slotStartDate = new Date(event.dateStart);
-
-        const dateDeltaMs = slotStartDate.getTime() - today.getTime();
-
-        return dateDeltaMs < 0;
-    }, [event]);
-
-    const canConfirmFlights = useMemo(() => {
-        if (!event || hasEventStarted) {
-            return false;
-        }
-
-        const today = new Date();
-        const slotStartDate = new Date(event.dateStart);
-
-        const dateDeltaMs = slotStartDate.getTime() - today.getTime();
-
-        const dateDeltaDays = dateDeltaMs / ONE_DAY;
-        return FLIGHT_CONFIRM_MAX_DAYS >= dateDeltaDays && FLIGHT_CONFIRM_MIN_DAYS <= dateDeltaDays;
-    }, [event, hasEventStarted]);
-
     useEffect(() => {
         if (scheduleConfirmMutation.isSuccess) {
             navigate("/slot/confirmed", {
@@ -148,7 +121,7 @@ export default function UserSlots() {
     }
 
     const availableActions = (slot: Slot) => {
-        if (hasEventStarted) {
+        if (event.has_started) {
             return null;
         }
 
@@ -171,7 +144,7 @@ export default function UserSlots() {
                     {cancelFlightAction}
                 </>
             )
-        } else if (canConfirmFlights) {
+        } else if (event.can_confirm_slots) {
             return (
                 <>
                     {cancelFlightAction}
