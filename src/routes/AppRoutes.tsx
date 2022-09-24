@@ -10,6 +10,7 @@ import { ActiveEventGuard } from "components/guards/ActiveEventGuard";
 
 const CookieConsentPage = lazy(() => import("pages/CookieConsent/CookieConsentPage"));
 const LoginPage = lazy(() => import("pages/LoginPage"));
+const LogoutPage = lazy(() => import("pages/LogoutPage"));
 const EventsListPage = lazy(() => import("pages/EventsList/EventsListPage"));
 
 const EventDetailsPage = lazy(() => import("pages/Event/EventDetailsPage"));
@@ -48,6 +49,7 @@ export const AppRoutes: FunctionComponent = () => {
                                 <Route path="confirmed" element={<SlotConfirmed />} />
                                 <Route path="cancelled" element={<SlotCancelled />} />
                             </Route>
+                            <Route path="logout" element={<LogoutPage />} />
                         </Route>
                         <Route path="/404" element={<NotFoundPage />} />
                         <Route path="*" element={<Navigate to="/404" replace />} />

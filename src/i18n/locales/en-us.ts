@@ -61,9 +61,15 @@ const ptBrTranslations: { translations: Translations } = {
       scenery: {
         notFound: 'Scenery not found.'
       },
+      aircraft: {
+        notFound: 'Aircraft not found.'
+      },
       user: {
         notFound: 'User not found.'
-      }
+      },
+      airport: {
+        notFound: 'We could not find the airport you are trying to fly from or to. Check the ICAO codes and try again.'
+      },
     },
     splash: {
       title: 'Experience the best that flight simulation has to offer!',
@@ -109,12 +115,8 @@ const ptBrTranslations: { translations: Translations } = {
     },
     flights: {
       search: 'Search Flights',
-      arrival_zero: 'Nenhuma chegada',
-      arrival_one: 'Arrival',
-      arrival_other: 'Arrivals',
-      departure_zero: 'Nenhuma partida',
-      departure_one: 'Departure',
-      departure_other: 'Departures',
+      arrivals: 'Arrivals',
+      departures: 'Departures',
       privateSlots: 'Private Slots',
       flightNumber: 'Flight Number',
       eobt: 'EOBT',

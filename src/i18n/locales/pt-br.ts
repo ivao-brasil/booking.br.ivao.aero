@@ -61,9 +61,15 @@ const ptBrTranslations: { translations: Translations } = {
       scenery: {
         notFound: 'Cenário não encontrado.'
       },
+      aircraft: {
+        notFound: 'Aeronave não encontrada.'
+      },
       user: {
         notFound: 'Usuário não encontrado.'
-      }
+      },
+      airport: {
+        notFound: 'Não encontramos o aeroporto que você está tentando reservar. Confira o código ICAO e tente novamente.'
+      },
     },
     splash: {
       title: 'Experimente o melhor que a simulação aérea tem a oferecer',
@@ -109,12 +115,8 @@ const ptBrTranslations: { translations: Translations } = {
     },
     flights: {
       search: 'Buscar voo',
-      arrival_zero: 'Nenhuma chegada',
-      arrival_one: 'Chegada',
-      arrival_other: 'Chegadas',
-      departure_zero: 'Nenhuma saída',
-      departure_one: 'Partida',
-      departure_other: 'Partidas',
+      arrivals: 'Chegadas',
+      departures: 'Partidas',
       privateSlots: 'Slots Privados',
       flightNumber: 'Número do Voo',
       eobt: 'EOBT',

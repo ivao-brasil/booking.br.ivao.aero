@@ -7,7 +7,3 @@ export const ONE_WEEK = 7 * ONE_DAY;
 export const ONE_MONTH = 30 * ONE_DAY;
 export const ONE_YEAR = 365 * ONE_DAY;
 
-// Máximo de dias antes do evento em que é permitido confirmar um voo
-export const FLIGHT_CONFIRM_MAX_DAYS = 7;
-// Mínimo de dias antes do evento em que é permitido confirmar um voo
-export const FLIGHT_CONFIRM_MIN_DAYS = 1;
