@@ -24,6 +24,7 @@ jobs:
         GENERATE_SOURCEMAP: false
         REACT_APP_API_HOST: ${{ secrets.PRODUCTION_API_HOST }}
         REACT_APP_LOGO_URL: ${{ secrets.PRODUCTION_REACT_APP_LOGO_URL }}
+        REACT_APP_ANALYTICS_TRACKING_ID: ${{ secrets.PRODUCTION_REACT_ANALYTICS_TRACKING_ID }}
       run: yarn build
 
     - name: 📂 Sync files
