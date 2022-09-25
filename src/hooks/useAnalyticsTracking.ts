@@ -1,6 +1,6 @@
 import { ConsentAnwsers, CookieConsentContext } from 'context/CookieConsentContext';
 import { useContext } from 'react';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { AnalyticsTracking } from 'types/AnalyticsTracking';
 import { Env } from "env";
 
@@ -25,11 +25,11 @@ export function useAnalyticsTracking(): AnalyticsTracking {
         },
 
         pageview: (pagePath: string) => {
-            ReactGA.pageview(pagePath);
+            ReactGA.send("pageview");
         },
 
         modalview: (name: string) => {
-            ReactGA.modalview(name);
+            ReactGA.send({ hitType: "pageview", page: `/modal/${name}` });
         },
 
         setDimension: <T>(dimension: T) => {
