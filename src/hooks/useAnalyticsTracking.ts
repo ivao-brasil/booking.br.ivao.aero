@@ -25,7 +25,7 @@ export function useAnalyticsTracking(): AnalyticsTracking {
         },
 
         pageview: (pagePath: string) => {
-            ReactGA.send("pageview");
+            ReactGA.send({ hitType: "pageview", page: pagePath });
         },
 
         modalview: (name: string) => {

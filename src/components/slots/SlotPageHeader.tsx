@@ -119,7 +119,7 @@ export const SlotPageHeader: FunctionComponent<SlotPageHeaderProps> = ({
                                         aria-expanded={isFilterOpen}
                                     />
                                     {isFilterOpen && (
-                                        <div className="absolute -left-[9.1rem] z-50">
+                                        <div className="absolute right-0 z-50">
                                             <Filter
                                                 appliedFilters={appliedFilters}
                                                 onChange={onFiltersApplied}

@@ -106,7 +106,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                     <th className="px-3">{ t('flights.filter.origin') }</th>
                     <th className="invisible w-10"></th>
                     <th className="px-3">{ t('flights.filter.destination') }</th>
-                    <th className="px-3">{ t('flights.eobt') }</th>
+                    <th className="px-3">EOBT/ETA</th>
                     <th className="px-3">{ t('flights.gate') }</th>
                     <th className="invisible w-32"></th>
                 </tr>
@@ -238,7 +238,10 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                                     </td>
                                 )}
 
-                            <td className="px-3">{slot.slotTime}{slot.slotTime.endsWith("Z") ? "" : "Z"}</td>
+                            <td className="px-3">
+                                <span>{slot.type === SlotType.TAKEOFF ? 'EOBT' : 'ETA'}:&nbsp;</span>
+                                <span>{slot.slotTime + (slot.slotTime.endsWith("Z") ? "" : "Z")}</span>
+                            </td>
                             <td className="px-3">{slot.gate}</td>
                             <td className="rounded-r-lg px-3">
                                 <div className="w-24 mx-auto">
