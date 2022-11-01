@@ -120,7 +120,7 @@ export default function UserSlots() {
     }
 
     const availableActions = (slot: Slot) => {
-        if (event.has_started) {
+        if (event.has_ended) {
             return null;
         }
 
