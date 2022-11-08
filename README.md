@@ -104,7 +104,7 @@ KRONOS implements out of the box the i18n pattern which detects the current user
 | Brazilian Portuguese  | `pt-BR`                                                              | ☑ merged/stable  | core team                            | `v1.0 - BETA` |
 | English               | `en-EN`                                                              | ☑ merged/stable  | core team                            |`v1.0 - BETA`  |
 | French                | `fr-FR`                                                              | ☑ merged/stable  | [@belmeg](https://github.com/belmeg) [@JordanKirkby](https://github.com/JordanKirkby)| `v1.1 - BETA` |
-| Spanish               | `es-ES`                                                              | 🆘 to be done    |                                      |               |
+| Spanish               | `es-ES`                                                              | 👷 In Progress   | [@joaotr3ze](https://github.com/joaotr3ze) |               |
 | German                | `de-DE`                                                              | 👷 In Progress   | [@aldobenitez](https://github.com/aldobenitez)|               |
 | Italian               | `it-IT`                                                              | 🆘 to be done    |                                      |               |
 
