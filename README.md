@@ -1,48 +1,108 @@
-# Getting Started with Create React App
+![Logo](https://imgur.com/cCHAe36.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# KRONOS - Booking Client
 
-## Available Scripts
+The client side of KRONOS, the ultimate tool for RFE, MSE, RFO events in IVAO. Built like a tank with a great developer experience.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Themes - Dark & Light
+- Multiple Events at the same time
+- Clean and modern UI
+- UpToDate developement stack
+- Contribuition System
+- Multiple Languages
+- Suspension System
+- Flight confirmation flow
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Demo
 
-### `npm test`
+A simple demo of the system in action.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Demo](https://imgur.com/8uts6Ec.png)
+## Environment variables
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+A simple demo of the system in action.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [ ] Have a Github organization setup for your division. [Github Docs: Creating a new organization](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/creating-a-new-organization-from-scratch)
+- [ ] Fork this repository to your IVAO Organization. Note: make sure you only fork it to a IVAO related account due to NDA obligations.
+- [ ] Create your subdomain for client. We strongly recomend you use this pattern url: `booking.{XX}.ivao.aero`, also add a redirect domain
+- [ ] Enable Github Actions in the Actions tab.
+- [ ] Add at least the required environment variable in your repo's secrets in the settings page.
+- [ ] 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To run this project, you will need to add the following environment variables to your forked repository secrets.
 
-### `npm run eject`
+| Secret variable name                     | example value                        | use case                                                                  | required |
+| ---------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------- | ---------|
+| `PRODUCTION_FTP_HOST`                    | `ftp.{XX}.ivao.aero`                 | Tells the CI/CD flow the server it will transfer files to. Keep in mind IVAO's divisional servers have a standard url pattern. | ☑ |
+| `PRODUCTION_FTP_USER`                    | `booking@booking.{XX}.ivao.aero`     |                                                                           | ☑
+| `PRODUCTION_FTP_PASSWORD`                | A hash password. We strongly recommend you use the generated password from cPanel. |                                                                           | ☑
+| `PRODUCTION_API_HOST`                    | `https://api.booking.{XX}.ivao.aero` | Informs the application the path for the back-end of the system, the API. | ☑        |
+| `PRODUCTION_REACT_APP_LOGO_URL`          | The url of the division's logo. Preferably in SVG. | Informs the application the logo it should use. It fallbacks to the Brazilian division logo | ❌ |
+| `PRODUCTION_REACT_ANALYTICS_TRACKING_ID` | `UA-000000-2` | Generated in Google Analytics to tell Analytics which account and property to send data to. | ❌ |
+| `REACT_APP_LOGO_SIDEBAR_LIGHT`           | The url of the division's symbol logo (the small IVAO Icon with flag). Preferably in SVG. |  Informs the application the logo it should use in the sidebar while in light mode. It fallbacks to the Brazilian division logo | ❌ |
+| `REACT_APP_LOGO_SIDEBAR_DARK`            | The url of the division's symbol logo (the small IVAO Icon with flag). Preferably in SVG. |  Informs the application the logo it should use in the sidebar while in dark mode. It fallbacks to the Brazilian division logo | ❌ |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Roadmap
+This is a ongoing project, with big space for enhancement. In the other hand, the core team is unable to develop this project solo. We count you other divisions to help maintain, develop and imporve this system. Check some requests bellow and if you wish to contribute, check the [Contribute Section]()
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Improve browser support
+- Improve bording pass component 
+- Improve mobile version support
+- Add a choose language option
+- Add theme variations options
+- Enhance the Flight Filter Component
+- Add a dedicated changelog in the system.
+- Add other languages support. [Current Supported Languages]()
+- Enforce a code pattern within all codebase.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Core developement team
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [@joelson-c](https://github.com/joelson-c)
+- [@ruymon](https://github.com/ruymon)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-a
+## Instalação
+
+Instale my-project com npm
+
+```bash
+  npm install my-project
+  cd my-project
+```
+    
+## Contributing
+
+Contributions are always welcome!
+
+See `contributing.md` for ways to get started.
+
+Please adhere to this project's `code of conduct`.
+
+
+## Currently used by
+
+KRONOS suit is up and running in the following divisions:
+
+- [IVAO Brazil](http://kronos.br.ivao.aero/)
+- [IVAO Portugal](https://kronos.pt.ivao.aero/)
+- [IVAO Algeria](https://booking.dz.ivao.aero/)
+- [IVAO North America](https://booking.xa.ivao.aero/)
+
+## Translations
+KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find important to, each time more, have other languages in our codebase to guarantee full coverage of IVAO's diverse user base. 
+
+| Language              | [i18n code](https://www.andiamo.co.uk/resources/iso-language-codes/) | status            | acknowledgement                      | since         |
+| --------------------- | -------------------------------------------------------------------- | ----------------- | ------------------------------------ | ------------- |
+| Brazilian Portuguese  | `pt-BR`                                                              | ☑ merged/stable  | core team                            | `v1.0 - BETA` |
+| English               | `en-EN`                                                              | ☑ merged/stable  | core team                            |`v1.0 - BETA`  |
+| French                | `fr-FR`                                                              | 🟪 merged testing | [@belmeg](https://github.com/belmeg) | `v1.1 - BETA` |
+| Spanish               | `es-ES`                                                              | 🆘 to be done    |                                      |               |
+| German                | `de-DE`                                                              | 🆘 to be done    |                                      |               |
+| Italian               | `it-IT`                                                              | 🆘 to be done    |                                      |               |
