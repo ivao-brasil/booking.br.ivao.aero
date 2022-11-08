@@ -78,7 +78,7 @@ const frFrTranslations: { translations: Translations } = {
     },
     events: {
       found_zero: 'Aucun évenement pour le moment, revenez plus tard.',
-      found_one: '{{ count }} évenements trouvés.',
+      found_one: '{{ count }} évenement trouvés.',
       found_other: '{{ count }} évenements trouvés',
       soon: 'Bientôt...'
     },
