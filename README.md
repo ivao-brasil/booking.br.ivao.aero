@@ -97,7 +97,7 @@ KRONOS suit is up and running in the following divisions:
 - [IVAO North America](https://booking.xa.ivao.aero/)
 
 ## Translations
-KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find important to, each time more, have other languages in our codebase to guarantee full coverage of IVAO's diverse user base. 
+KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find important to, each time more, have other languages in our codebase to guarantee full coverage of IVAO's diverse user base. To create a translation checkout this [step by step documentation](#creatingATranslation).
 
 | Language              | [i18n code](https://www.andiamo.co.uk/resources/iso-language-codes/) | status            | acknowledgement                      | since         |
 | --------------------- | -------------------------------------------------------------------- | ----------------- | ------------------------------------ | ------------- |
@@ -108,13 +108,25 @@ KRONOS implements out of the box the i18n pattern which detects the current user
 | German                | `de-DE`                                                              | 🟪 merged/testing | [@aldobenitez](https://github.com/aldobenitez)| `v1.2 - BETA` |
 | Italian               | `it-IT`                                                              | 🆘 to be done    |                                      |               |
 
-## Translation Documentation
-Translations are done in 4 easy to follow steps.  
+### <a name="creatingATranslation" /> Creating a translation
+KRONOS was built to support multiple languages, in addition it is also very extandable and easy to add new translations. This process is done in a couple of steps as shown bellow.
 
-- [ ] Go to `../src/i18n/locales/` folder and copy the en-us.ts file and rename to the language you will be translating [see Language Codes for correct naming procedure](https://www.andiamo.co.uk/resources/iso-language-codes/)
-- [ ] On line 3 and the final line of your new language translation, change `const enUsTranslations` to represent your new language.  Example `const ruRUTranslations` if you were translating to Russian.  For simplicity sakes we will use Russian for the rest of the tutorial.
+> ⚠️  Before we start: Make sure you are in your divisions forked repo. You are unable to edit files in the brazilian core codebase.
+
+1. Once in your forked repo, [create a new branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/managing-branches#creating-a-branch) based on the main branch and name it `feat/xxTranslation`. Keep in mind `xx` is a placeholder for the language code. See [language codes](https://www.andiamo.co.uk/resources/iso-language-codes/) for correct naming procedure. For example, if I am creating a russian translation I'd name my branch `feat/ruTranslation`.
+
+2. After setting up a parallel branch, open the repo and locate the `../src/i18n/locales/` folder and duplicate the `en-us.ts` file. This will be the boilerplate for your translation. Next, rename the `en-us-copy.ts` to the language you will be translating. Once again, for demonstration purposes, if I am creating a russian translation I'd rename this file to `ru-ru.ts`. It is verry important to point out that not always the code will be a duplicate os the language's initials, hence why we strongly recommend you verify the correct [language codes](https://www.andiamo.co.uk/resources/iso-language-codes/).
+
+3. Open the recently created and renamed file and rename the const variable on line 3 to represent your new language. Example: `const ruRUTranslations` if you were translating to Russian. For simplicity sakes we will use Russian for the rest of the tutorial.
+
+**Example:**
+
+> 📝 See the example bellow to understand the variable renaming process.
 
 ```js 
+
+// BEFORE:
+
 import { Translations } from "types/Translations";
 
 const enUsTranslations: { translations: Translations } = { // 👈 Change this 
@@ -124,25 +136,42 @@ const enUsTranslations: { translations: Translations } = { // 👈 Change this
 };
 
 export default enUsTranslations; // 👈 Change this 
+
+
+// AFTER:
+
+import { Translations } from "types/Translations";
+
+const ruRuTranslations: { translations: Translations } = {
+  translations: {
+    // Translations here
+  },
+};
+
+export default ruRuTranslations;
 ```
 
-- [ ] In the `../src/i18b/locales/` folder, edit the index.ts file to add your newly created translation.
+
+4. After exporting your translation, open the `index.ts` file in the `../src/i18b/locales/` directory to import and invoke your newly created translation.
+
+> 📝 Check the example bellow.
 
 ```js
 import ptBrTranslations from './pt-br'
 import enUsTranslations from './en-us'
 import frFrTranslations from './fr-fr' // add line below
-import ruRuTranslations from './ru-ru' // 👈 Like this 
+import ruRuTranslations from './ru-ru' // 👈 Import your translation file like so.
 
 const resources = {
   'pt-BR': ptBrTranslations,
   'en-US': enUsTranslations,
-  'ru-RU': ruRuTranslations,  // 👈 Add line like this 
-  'fr-FR': frFrTranslations  // 👈 Make sure formatting stays the same without a comma at the end
+  'ru-RU': ruRuTranslations,  // 👈 Invoke your translation by adding a line like this.
+  'fr-FR': frFrTranslations  // ⚠ Make sure formatting stays the same. Last items don't have commas.
 }
 
 export default resources
 ```
 
-- [ ] You have done the easy part, now you have to complete your translations in your newly created translation file.  The only translation in the whole file that should not be changed is `{{  count  }}` that appears twice in a row in this document.
-- [ ] Once completed, create a merge request for review.
+5. You have done the easy part 🎉, now you have to complete your translations in your newly created translation file. The only translation in the whole file that should not be changed is `{{  count  }}` that appears twice in a row in this document.
+
+6. Once completed, make sure to read your work and verify for typos or context. Once you are confident, create a pull request to the official codebase and wait for review.
