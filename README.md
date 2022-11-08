@@ -52,7 +52,7 @@ This is a ongoing project, with big space for enhancement. In the other hand, th
 - Add theme variations options
 - Enhance the Flight Filter Component
 - Add a dedicated changelog in the system.
-- Add other languages support. [Current Supported Languages]()
+- Add other languages support. [Current Supported Languages](#currentlySupportedLanguages)
 - Enforce a code pattern within all codebase.
 - Add Xplane 12 scenery container
 
@@ -92,6 +92,8 @@ KRONOS suit is up and running in the following divisions:
 
 ## Translations
 KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find important to, each time more, have other languages in our codebase to guarantee full coverage of IVAO's diverse user base. To create a translation checkout this [step by step documentation](#creatingATranslation).
+
+### <a name="currentlySupportedLanguages" /> Currently supported languages
 
 | Language              | [i18n code](https://www.andiamo.co.uk/resources/iso-language-codes/) | status            | acknowledgement                      | since         |
 | --------------------- | -------------------------------------------------------------------- | ----------------- | ------------------------------------ | ------------- |
