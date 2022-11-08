@@ -91,7 +91,7 @@ KRONOS suit is up and running in the following divisions:
 - [IVAO North America](https://booking.xa.ivao.aero/)
 
 ## Translations
-KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find important to, each time more, have other languages in our codebase to guarantee full coverage of IVAO's diverse user base. To create a translation checkout this [step by step documentation](#creatingATranslation).
+KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find it important to add other languages overtime to our codebase to guarantee full coverage of IVAO's diverse user base. To create a translation checkout this [step by step documentation](#creatingATranslation).
 
 ### <a name="currentlySupportedLanguages" /> Currently supported languages
 
