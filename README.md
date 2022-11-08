@@ -138,7 +138,7 @@ const resources = {
   'pt-BR': ptBrTranslations,
   'en-US': enUsTranslations,
   'ru-RU': ruRuTranslations,  // 👈 Add line like this 
-  'fr-FR': frFrTranslations  
+  'fr-FR': frFrTranslations  // 👈 Make sure formatting stays the same without a comma at the end
 }
 
 export default resources
