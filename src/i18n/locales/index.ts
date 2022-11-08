@@ -5,7 +5,7 @@ import frFrTranslations from './fr-fr'
 const resources = {
   'pt-BR': ptBrTranslations,
   'en-US': enUsTranslations,
-  'fr-FR': ptBrTranslations
+  'fr-FR': frFrTranslations
 }
 
 export default resources
