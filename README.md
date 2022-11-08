@@ -15,8 +15,6 @@ The client side of KRONOS, the ultimate tool for RFE, MSE, RFO events in IVAO. B
 - Suspension System
 - Flight confirmation flow
 
-## Environment variables
-
 ## Installation
 
 A simple demo of the system in action.
@@ -26,8 +24,9 @@ A simple demo of the system in action.
 - [ ] Create your subdomain for client. We strongly recomend you use this pattern url: `booking.{XX}.ivao.aero`, also add a redirect domain
 - [ ] Enable Github Actions in the Actions tab.
 - [ ] Add at least the required environment variable in your repo's secrets in the settings page.
-- [ ] 
 
+
+### Environment variables
 To run this project, you will need to add the following environment variables to your forked repository secrets.
 
 | Secret variable name                     | example value                        | use case                                                                  | required |
