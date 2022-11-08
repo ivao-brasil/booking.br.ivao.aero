@@ -57,7 +57,7 @@ This is a ongoing project, with big space for enhancement. In the other hand, th
 - Add Xplane 12 scenery container
 
 
-## Core developement team
+## Core development team
 Currently, the KRONOS development is led by a small dedicated team at IVAO BR Division. They guide the project's development, define priorities, and review external contributions. The core team will not be restricted to the IVAO BR web team only. We understand that any contributor with decent engagement in the project should also become a core team member. On the other hand, we request that applications are made only after filling in the requirements below.
 
 ### Core team members
