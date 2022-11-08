@@ -1,6 +1,6 @@
 import { Translations } from "types/Translations";
 
-const ptBrTranslations: { translations: Translations } = {
+const enUsTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Back to the beginning',
@@ -158,7 +158,7 @@ const ptBrTranslations: { translations: Translations } = {
       },
       booked: {
         title: 'Flight Booked!',
-        subtitle: 'Your flight has been confirmed sucesfully. Get your flight plan and aircraft ready, make sure you comply with your timing and gate number and, most important of all: have fun!',
+        subtitle: 'Your flight has been confirmed successfully. Get your flight plan and aircraft ready, make sure you comply with your timing and gate number and, most important of all: have fun!',
       },
       cancelled: {
         title: 'Schedule Cancelled!',
@@ -192,4 +192,4 @@ const ptBrTranslations: { translations: Translations } = {
   },
 };
 
-export default ptBrTranslations;
+export default enUsTranslations;
