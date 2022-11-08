@@ -3,13 +3,13 @@ import { Translations } from "types/Translations";
 const deDeTranslations: { translations: Translations } = {
   translations: {
     generics: {
-      backToBeginning: 'zurück zum Anfang',
+      backToBeginning: 'Zurück',
       back: 'Zurück',
       soon: 'Demnächst...',
-      see: 'öffnen'
+      see: 'Öffnen'
     },
     footer: {
-      copyrightMessage: '© 2022 International Virtual Aviation Organisation - IVAO Brazil. All Rights Reserved.',
+      copyrightMessage: '© 2022 International Virtual Aviation Organisation - IVAO Brazil. Alle Rechte vorbehalten.',
       privacyPolicyName: 'Datenschutz-Bestimmungen',
       termsOfUseName: 'Nutzungsbedingungen',
     },
