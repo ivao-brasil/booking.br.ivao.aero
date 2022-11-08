@@ -18,14 +18,14 @@ const esEsTranslations: { translations: Translations } = {
       message: '𝗞𝗥𝗢𝗡𝗢𝗦 is a recently launched system and is under constant development. We count on you to report any bugs you find 🐛.'
     },
     cookies: {
-      title: 'We use cookies to improve your experience',
+      title: 'Usamos cookies para mejorar tu experiencia',
       subtitle: 'We need your permission to keep on making our wonderful gingersnaps!',
       authorizeUse: 'Allow us to use cookies',
       continueWithout: 'Continue without cookies',
     },
     errors: {
       general: {
-        title: 'Houston, we have a problem! 💥',
+        title: 'Houston, tenemos un problema! 💥',
         subtitle: 'We are sorry, but our systems indicate some failures on the navigation computer. Reload the page or try again later.',
       },
       notFound: {
@@ -33,7 +33,7 @@ const esEsTranslations: { translations: Translations } = {
         subtitle: 'I think you reached the limit of our universe. The page you called for has not been found.'
       },
       admin: {
-        noAdmin: 'You are not an administrator.',
+        noAdmin: 'No eres un administrador.',
         eventFinished: 'This event has ended and it cannot be edited.',
         wrongDivision: 'This event is not from your division.',
         isActive: 'This event is active and cannot be edited.',
@@ -43,29 +43,29 @@ const esEsTranslations: { translations: Translations } = {
       book: {
         suspended: 'You are suspended from the system and cannot book.',
         notOwner: 'You are not the owner of this slot.',
-        notActive: 'This event is not active.',
+        notActive: 'Este evento no está activo.',
         tooEarly: 'This slot can only be confirmed 7 days before the event.',
         alreadyBusy: 'You already have a slot booked on the same time.',
-        hasStarted: 'This event already begun.',
-        hasEnded: 'This event already ended.',
+        hasStarted: 'Este evento ya empezó.',
+        hasEnded: 'Este evento ya se terminó.',
         notFound: 'Slot not found.',
         duplicateNumber: 'There is already a flight with the same flight number.',
         notPreBooked: 'You cannot confirm a slot which is not booked.'
       },
       auth: {
-        error: 'Error to authenticate user.'
+        error: 'Error al autenticar el usuario.'
       },
       event: {
-        notFound: 'Event not found.'
+        notFound: 'Evento no encontrado.'
       },
       scenery: {
-        notFound: 'Scenery not found.'
+        notFound: 'Escenario no encontrado.'
       },
       aircraft: {
-        notFound: 'Aircraft not found.'
+        notFound: 'Aeronave no encontrada.'
       },
       user: {
-        notFound: 'User not found.'
+        notFound: 'Usuario no encontrado.'
       },
       airport: {
         notFound: 'We could not find the airport you are trying to fly from or to. Check the ICAO codes and try again.'
@@ -124,70 +124,70 @@ const esEsTranslations: { translations: Translations } = {
       bookFlight: 'Book Flight',
       loadMore: 'Load more flights',
       filter: {
-        call: 'Filter Table',
-        title: 'Filter',
-        aircraft: 'Aircraft',
-        airline: 'Airline',
-        origin: 'Origin',
+        call: 'Tabla de filtros',
+        title: 'Filtro',
+        aircraft: 'Aeronave',
+        airline: 'Aerolinea',
+        origin: 'Origen',
         destination: 'Destination',
-        showAvailableOnly: 'Show only available flights',
-        reset: 'Reset Filters',
-        apply: 'Apply Filters'
+        showAvailableOnly: 'Mostrar solo vuelos disponibles',
+        reset: 'Limpiar filtros',
+        apply: 'Aplicar filtros'
       },
       error: {
         noFlightsFound: {
-          title: 'Too late 😓... Looks like there is nothing else here for you...',
-          subtitle: 'The data might not exist in our system. Check the applied filters or try again later.'
+          title: 'Demasiado tarde 😓... Parece que aquí no hay más nada para ti...',
+          subtitle: 'Es posible que los datos no existan en nuestro sistema. Compruebe los filtros aplicados o intentente nuevamente más tarde.'
         },
         unableToBook: {
-          title: 'We are unable to book this flight...',
-          subtitle: 'The data might not exist in our system, or this flight has already been booked by another pilot.'
+          title: 'No podemos reservar este vuelo...',
+          subtitle: 'Es posible que los datos no existan en nuestro sistema, o que este vuelo ya haya sido reservado por otro piloto.'
         },
       }
     },
     notification: {
       scheduleConfirmation: {
-        title: 'Are you sure you want to schedule this flight?',
-        subtitle: 'Before confirming, take a look at the details and make sure that this is the flight you want.',
-        alert: 'Scheduling does not mean your flight is booked. You need to confirm your schedule between three to seven days before the event. Your schedule will be cancelled if you do not confirm at least 72 hours before the flight.',
+        title: '¿Estás seguro de que quieres reservar este vuelo?',
+        subtitle: 'Antes de confirmar, mira los detalles, y asegúrate de que ese es el vuelo que deseas.',
+        alert: 'La programación no significa que su vuelo esté reservado. Debe confirmar su horario entre tres y siete días antes del evento. Su horario será cancelado si no confirma, en al menos, 72 horas antes del vuelo.',
         button: 'Schedule'
       },
       scheduled: {
-        title: 'Flight Scheduled!',
-        subtitle: 'Remember: you must confirm the schedule between three to seven days before the event. Your schedule will be cancelled if you do not confirm at least 72 hours before the flight.'
+        title: 'Vuelo Reservado!',
+        subtitle: 'Recuerda: debes confirmar el horario entre tres a siete días antes del evento. Su horario será cancelado si no confirma, en al menos, 72 horas antes del vuelo.'
       },
       booked: {
-        title: 'Flight Booked!',
-        subtitle: 'Your flight has been confirmed successfully. Get your flight plan and aircraft ready, make sure you comply with your timing and gate number and, most important of all: have fun!',
+        title: 'Vuelo Reservado!',
+        subtitle: 'Su vuelo ha sido confirmado con éxito. Prepara tu plan de vuelo y aeronave, asegúrate de cumplir con tu tiempo y número de puerta y, lo más importante de todo: ¡diviértete!',
       },
       cancelled: {
-        title: 'Schedule Cancelled!',
-        subtitle: 'Your schedule has been cancelled. We are sorry to see you go... Maybe another time?'
+        title: 'Reserva Cancelada!',
+        subtitle: 'Su horario ha sido cancelado. Sentimos que te hayas ido... ¿Quizás en otro momento?'
       }
     },
     myFlights: {
-      title: 'My flights',
-      subtitle: 'See your whole schedule',
-      search: 'Find Schedule',
+      title: 'Mis vuelos',
+      subtitle: 'Tus reservas',
+      search: 'Encontrar reserva',
       pilotBriefing: {
-        title: 'Pilot Briefing',
-        description: 'This document provides guidance for pilots and cabin crew about specific procedures for this event. Reading it is required.',
+        title: 'Briefing de Piloto',
+        description: 'Este documento proporciona orientación para pilotos y tripulantes de cabina sobre procedimientos específicos para este evento. Leerlo es obligatorio.',
       },
       boardingPass: {
-        cancelFlight: 'Cancel Flight',
-        cancelFlightConfirmation: 'Are you sure you want to cancel this flight?',
-        confirmFlight: 'Confirm Flight',
-        disclaimer: 'To fly on the event, you must comply with all instructions made available on the pilot briefing.',
-        waitToConfirm: 'Wait to confirm flight.'
+        cancelFlight: 'Cancelar Vuelo',
+        cancelFlightConfirmation: '¿Estás seguro que deseas cancelar este vuelo?',
+        confirmFlight: 'Confirmar el vuelo',
+        disclaimer: 'Para volar en el evento, debes cumplir con todas las instrucciones disponibles en el briefing de piloto.',
+        waitToConfirm: 'Espere para confirmar el vuelo'
       }
     },
     sidebarPanel: {
-      information: 'General information',
-      flights: 'Search flights',
-      myFlights: 'My Flights',
-      changeTheme: 'Change current theme',
-      logout: 'Logout',
-      eventsHome: 'Go to event list'
+      information: 'Información general',
+      flights: 'Buscar vuelos',
+      myFlights: 'Mis vuelos',
+      changeTheme: 'Cambiar el tema actual',
+      logout: 'Cerrar sesión',
+      eventsHome: 'Ir a la lista de Eventos'
     }
   },
 };
