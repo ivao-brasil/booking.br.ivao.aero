@@ -15,12 +15,6 @@ The client side of KRONOS, the ultimate tool for RFE, MSE, RFO events in IVAO. B
 - Suspension System
 - Flight confirmation flow
 
-
-## Demo
-
-A simple demo of the system in action.
-
-![Demo](https://imgur.com/8uts6Ec.png)
 ## Environment variables
 
 ## Installation
@@ -172,6 +166,23 @@ const resources = {
 export default resources
 ```
 
-5. You have done the easy part 🎉, now you have to complete your translations in your newly created translation file. The only translation in the whole file that should not be changed is `{{  count  }}` that appears twice in a row in this document.
+5. You have done the easy part 🎉, now you have to complete your translations in your newly created translation file. The translation file is based on a key: value structure. You must **never** change the key, only the value.
+
+> 📝 Key and value structure example.
+
+```ts
+import { Translations } from "types/Translations";
+
+const ruRuTranslations: { translations: Translations } = {
+  translations: {
+    key: 'value' // Only edit the value inside the quotes.
+  },
+};
+
+export default ruRuTranslations;
+
+``` 
+
+**Note:** Sometimes you will see this `{{  count  }}` syntax in between the text. This is a placeholder for a variable and it must **never** be edited. Also, sometimes, you will have keys that are accompanied by a `_one` or `_other` suffix. This is a syntax for when the translation should be singular or plural.
 
 6. Once completed, make sure to read your work and verify for typos or context. Once you are confident, create a pull request to the official codebase and wait for review.
