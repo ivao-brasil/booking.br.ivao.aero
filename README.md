@@ -65,11 +65,11 @@ Currently, the KRONOS development is led by a small dedicated team at IVAO BR Di
 - [@ruymon](https://github.com/ruymon)
 
 ### Core team requirements
-Has had a decent engagement and contribution history
-Understand the codebase architecture
-Is an active IVAO Staff member with a valid NDA
-Has a deep understanding of the code review process and the current branch system
-Has knowledge of the stack used 
+- [ ] Has had a decent engagement and contribution history
+- [ ] Understand the codebase architecture
+- [ ] Is an active IVAO Staff member with a valid NDA
+- [ ] Has a deep understanding of the code review process and the current branch system
+- [ ] Has knowledge of the stack used 
 
 ### Core team application process
 If you feel you are a suit for the core team, feel accessible to ping @Web on Discord, and we will be happy to chat! 🙂
