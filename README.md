@@ -112,7 +112,7 @@ KRONOS implements out of the box the i18n pattern which detects the current user
 Translations are done in 4 easy to follow steps.  
 
 - [ ] Go to `../src/i18n/locales/` folder and copy the en-us.ts file and rename to the language you will be translating [see Language Codes for correct naming procedure](https://www.andiamo.co.uk/resources/iso-language-codes/)
-- [ ] On line 3 and the final line of your new language translation, change `const enUsTranslations` to represent your new language.  Example `const ruRUTranslations` if you were translating to Russian
+- [ ] On line 3 and the final line of your new language translation, change `const enUsTranslations` to represent your new language.  Example `const ruRUTranslations` if you were translating to Russian.  For simplicity sakes we will use Russian for the rest of the tutorial.
 
 ```js 
 import { Translations } from "types/Translations";
@@ -126,5 +126,23 @@ const enUsTranslations: { translations: Translations } = { // 👈 Change this
 export default enUsTranslations; // 👈 Change this 
 ```
 
-- [ ] 
-- [ ] 
+- [ ] In the `../src/i18b/locales/` folder, edit the index.ts file to add your newly created translation.
+
+```js
+import ptBrTranslations from './pt-br'
+import enUsTranslations from './en-us'
+import frFrTranslations from './fr-fr' // add line below
+import frFrTranslations from './ru-ru' // 👈 Like this 
+
+const resources = {
+  'pt-BR': ptBrTranslations,
+  'en-US': enUsTranslations,
+  'en-US': ruRuTranslations,  // 👈 Add line like this 
+  'fr-FR': frFrTranslations  
+}
+
+export default resources
+```
+
+- [ ] You have done the easy part, now you have to complete your translations in your newly created translation file.
+- [ ] Once completed, created a merge request for review.
