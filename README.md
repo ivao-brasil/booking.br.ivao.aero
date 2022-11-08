@@ -105,7 +105,7 @@ KRONOS implements out of the box the i18n pattern which detects the current user
 | Italian               | `it-IT`                                                              | 🆘 to be done    |                                      |               |
 
 ### <a name="creatingATranslation" /> Creating a translation
-KRONOS was built to support multiple languages, in addition it is also very extandable and easy to add new translations. This process is done in a couple of steps as shown bellow.
+KRONOS was built to support multiple languages, in addition it is also very expandable and easy to add new translations. This process is done in a couple of steps as shown bellow.
 
 > ⚠️  Before we start: Make sure you are in your divisions forked repo. You are unable to edit files in the brazilian core codebase.
 
