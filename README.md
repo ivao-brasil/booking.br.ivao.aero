@@ -145,4 +145,4 @@ export default resources
 ```
 
 - [ ] You have done the easy part, now you have to complete your translations in your newly created translation file.
-- [ ] Once completed, created a merge request for review.
+- [ ] Once completed, create a merge request for review.
