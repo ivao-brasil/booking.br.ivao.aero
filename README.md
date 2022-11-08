@@ -58,9 +58,21 @@ This is a ongoing project, with big space for enhancement. In the other hand, th
 
 
 ## Core developement team
+Currently, the KRONOS development is led by a small dedicated team at IVAO BR Division. They guide the project's development, define priorities, and review external contributions. The core team will not be restricted to the IVAO BR web team only. We understand that any contributor with decent engagement in the project should also become a core team member. On the other hand, we request that applications are made only after filling in the requirements below.
 
+### Core team members
 - [@joelson-c](https://github.com/joelson-c)
 - [@ruymon](https://github.com/ruymon)
+
+### Core team requirements
+Has had a decent engagement and contribution history
+Understand the codebase architecture
+Is an active IVAO Staff member with a valid NDA
+Has a deep understanding of the code review process and the current branch system
+Has knowledge of the stack used 
+
+### Core team application process
+If you feel you are a suit for the core team, feel accessible to ping @Web on Discord, and we will be happy to chat! 🙂
 
 
 ## Instalação
