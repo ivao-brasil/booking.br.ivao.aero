@@ -132,12 +132,12 @@ export default enUsTranslations; // 👈 Change this
 import ptBrTranslations from './pt-br'
 import enUsTranslations from './en-us'
 import frFrTranslations from './fr-fr' // add line below
-import frFrTranslations from './ru-ru' // 👈 Like this 
+import ruRuTranslations from './ru-ru' // 👈 Like this 
 
 const resources = {
   'pt-BR': ptBrTranslations,
   'en-US': enUsTranslations,
-  'en-US': ruRuTranslations,  // 👈 Add line like this 
+  'ru-RU': ruRuTranslations,  // 👈 Add line like this 
   'fr-FR': frFrTranslations  
 }
 
