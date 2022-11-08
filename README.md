@@ -103,7 +103,28 @@ KRONOS implements out of the box the i18n pattern which detects the current user
 | --------------------- | -------------------------------------------------------------------- | ----------------- | ------------------------------------ | ------------- |
 | Brazilian Portuguese  | `pt-BR`                                                              | ☑ merged/stable  | core team                            | `v1.0 - BETA` |
 | English               | `en-EN`                                                              | ☑ merged/stable  | core team                            |`v1.0 - BETA`  |
-| French                | `fr-FR`                                                              | 🟪 merged testing | [@belmeg](https://github.com/belmeg) | `v1.1 - BETA` |
+| French                | `fr-FR`                                                              | ☑ merged/stable  | [@belmeg](https://github.com/belmeg) [@JordanKirkby](https://github.com/JordanKirkby)| `v1.1 - BETA` |
 | Spanish               | `es-ES`                                                              | 🆘 to be done    |                                      |               |
-| German                | `de-DE`                                                              | 🆘 to be done    |                                      |               |
+| German                | `de-DE`                                                              | 👷 In Progress   | [@aldobenitez](https://github.com/aldobenitez)|               |
 | Italian               | `it-IT`                                                              | 🆘 to be done    |                                      |               |
+
+## Translation Documentation
+Translations are done in 4 easy to follow steps.  
+
+- [ ] Go to `../src/i18n/locales/` folder and copy the en-us.ts file and rename to the language you will be translating [see Language Codes for correct naming procedure](https://www.andiamo.co.uk/resources/iso-language-codes/)
+- [ ] On line 3 and the final line of your new language translation, change `const enUsTranslations` to represent your new language.  Example `const ruRUTranslations` if you were translating to Russian
+
+```js 
+import { Translations } from "types/Translations";
+
+const enUsTranslations: { translations: Translations } = { // 👈 Change this 
+  translations: {
+    // Translations here
+  },
+};
+
+export default enUsTranslations; // 👈 Change this 
+```
+
+- [ ] 
+- [ ] 
