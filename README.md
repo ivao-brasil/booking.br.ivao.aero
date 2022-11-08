@@ -60,6 +60,7 @@ This is a ongoing project, with big space for enhancement. In the other hand, th
 - Add a dedicated changelog in the system.
 - Add other languages support. [Current Supported Languages]()
 - Enforce a code pattern within all codebase.
+- Add Xplane 12 scenery container
 
 
 ## Core developement team
