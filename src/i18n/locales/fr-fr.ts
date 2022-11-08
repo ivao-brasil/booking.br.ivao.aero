@@ -149,12 +149,12 @@ const frFrTranslations: { translations: Translations } = {
       scheduleConfirmation: {
         title: 'Êtes-vous sûr de vouloir programmer ce vol?',
         subtitle: 'Avant de confirmer, regardez les détails et soyez sûrs que c\'est un vol que vous voulez.',
-        alert: 'La programmation ne signifie pas que le vol est réservé. Vous devez confirmer votre programmation entre 3 et 7 jours avant l\'évenement. Votre réservation sera annulée si vous ne me confirmez pas 72h avant le vol.',
+        alert: 'La programmation ne signifie pas que le vol est réservé. Vous devez confirmer votre programmation entre 3 et 7 jours avant l\'évenement. Votre réservation sera annulée si vous ne le confirmez pas 72h avant le vol.',
         button: 'Programmer'
       },
       scheduled: {
         title: 'Vol programmé!',
-        subtitle: 'Rappel: vous devez confirmer votre programmation entre 3 et 7 jours avant l\'évenement. Votre réservation sera annulée si vous ne me confirmez pas 72h avant le vol.'
+        subtitle: 'Rappel: vous devez confirmer votre programmation entre 3 et 7 jours avant l\'évenement. Votre réservation sera annulée si vous ne le confirmez pas 72h avant le vol.'
       },
       booked: {
         title: 'Vol réservé!',
@@ -178,7 +178,7 @@ const frFrTranslations: { translations: Translations } = {
         cancelFlightConfirmation: 'Êtes vous sûr de vouloir annuler ce vol?',
         confirmFlight: 'Confirmer le vol',
         disclaimer: 'Pour voler lors de cet évenement, vous devez être en accords avec les instructions rendues disponibles dans le briefing du pilote.',
-        waitToConfirm: 'Attendre pour confirmer le vol.'
+        waitToConfirm: 'Attendez pour confirmer le vol.'
       }
     },
     sidebarPanel: {
