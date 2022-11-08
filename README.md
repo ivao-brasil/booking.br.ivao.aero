@@ -144,5 +144,5 @@ const resources = {
 export default resources
 ```
 
-- [ ] You have done the easy part, now you have to complete your translations in your newly created translation file.
+- [ ] You have done the easy part, now you have to complete your translations in your newly created translation file.  The only translation in the whole file that should not be changed is `{{  count  }}` that appears twice in a row in this document.
 - [ ] Once completed, create a merge request for review.
