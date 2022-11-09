@@ -6,51 +6,51 @@ const esEsTranslations: { translations: Translations } = {
       backToBeginning: 'Volver al inicio',
       back: 'Volver',
       soon: 'Pronto...',
-      see: 'See'
+      see: 'Ver'
     },
     footer: {
       copyrightMessage: '© 2021 International Virtual Aviation Organisation - IVAO Brazil. All Rights Reserved.',
-      privacyPolicyName: 'Privacy Policy',
-      termsOfUseName: 'Terms of Use',
+      privacyPolicyName: 'Politica de Privacidad',
+      termsOfUseName: 'Terminos de uso',
     },
     beta: {
       title: 'SISTEMA EN BETA',
-      message: '𝗞𝗥𝗢𝗡𝗢𝗦 is a recently launched system and is under constant development. We count on you to report any bugs you find 🐛.'
+      message: '𝗞𝗥𝗢𝗡𝗢𝗦 Esto es un nuevo sistema lanzado recientemente y está en constante desarrollo. Contamos contigo para reportar cualquier error que encuentres 🐛.'
     },
     cookies: {
       title: 'Usamos cookies para mejorar tu experiencia',
-      subtitle: 'We need your permission to keep on making our wonderful gingersnaps!',
-      authorizeUse: 'Allow us to use cookies',
-      continueWithout: 'Continue without cookies',
+      subtitle: '¡Necesitamos su permiso para seguir haciendo uso nuestros cookies!',
+      authorizeUse: 'Autorizanos a usar nuestras cookies',
+      continueWithout: 'Continuar sin cookies',
     },
     errors: {
       general: {
         title: 'Houston, tenemos un problema! 💥',
-        subtitle: 'We are sorry, but our systems indicate some failures on the navigation computer. Reload the page or try again later.',
+        subtitle: 'Lo sentimos, pero nuestros sistemas indican algunas fallas en la computadora de navegación. Vuelve a cargar la página o intenta lo más tarde.',
       },
       notFound: {
-        title: "Oh noo...This page has been abducted by aliens! 👽",
-        subtitle: 'I think you reached the limit of our universe. The page you called for has not been found.'
+        title: "Oh noo... ¡Esta página ha sido secuestrada por extraterrestres! 👽",
+        subtitle: 'Creo que llegaste al límite de nuestro universo. No se ha encontrado la página que buscas'
       },
       admin: {
         noAdmin: 'No eres un administrador.',
-        eventFinished: 'This event has ended and it cannot be edited.',
-        wrongDivision: 'This event is not from your division.',
-        isActive: 'This event is active and cannot be edited.',
-        updateAdmin: 'You cannot edit another administrator.',
-        updateYourself: 'You cannot edit yourself.'
+        eventFinished: 'Este evento ha finalizado y no se puede editar.',
+        wrongDivision: 'Este evento no es de su división.',
+        isActive: 'Este evento está activo y no se puede editar.',
+        updateAdmin: 'No puedes Editarlo, es de otro Administrador.',
+        updateYourself: 'No puedes Editarlo.'
       },
       book: {
-        suspended: 'You are suspended from the system and cannot book.',
-        notOwner: 'You are not the owner of this slot.',
+        suspended: 'Estás suspendido del sistema y no puedes reservar.',
+        notOwner: 'No tienes permiso para estar aqui.',
         notActive: 'Este evento no está activo.',
-        tooEarly: 'This slot can only be confirmed 7 days before the event.',
-        alreadyBusy: 'You already have a slot booked on the same time.',
+        tooEarly: 'Debes confirmar 7 dias antes del evento',
+        alreadyBusy: 'Ya has reservado',
         hasStarted: 'Este evento ya empezó.',
         hasEnded: 'Este evento ya se terminó.',
-        notFound: 'Slot not found.',
-        duplicateNumber: 'There is already a flight with the same flight number.',
-        notPreBooked: 'You cannot confirm a slot which is not booked.'
+        notFound: 'No encontrado',
+        duplicateNumber: 'Ya existe un vuelo con el mismo número.',
+        notPreBooked: 'Primero debes Reservar'
       },
       auth: {
         error: 'Error al autenticar el usuario.'
@@ -68,68 +68,68 @@ const esEsTranslations: { translations: Translations } = {
         notFound: 'Usuario no encontrado.'
       },
       airport: {
-        notFound: 'We could not find the airport you are trying to fly from or to. Check the ICAO codes and try again.'
+        notFound: 'No pudimos encontrar el aeropuerto desde o hacia el que intenta volar. Verifique los códigos ICAO y vuelva a intentarlo.'
       },
     },
     splash: {
-      title: 'Experience the best that flight simulation has to offer!',
-      subtitle: 'Manage your bookings on a modern, fast and intuitive way.',
-      explore: 'Explore Flights!'
+      title: '¡Experimenta lo mejor que la simulación de vuelo tiene para ofrecer!',
+      subtitle: 'Gestiona tus reservas de una forma moderna, rápida e intuitiva.',
+      explore: '¡Explora!'
     },
     events: {
-      found_zero: 'No events here, check again later.',
+      found_zero: 'No hay eventos aquí, vuelva a consultar más tarde.',
       found_one: '{{ count }} evento encontrado',
       found_other: '{{ count }} eventos encontrados',
-      soon: 'Soon...'
+      soon: 'Pronto...'
     },
     info: {
       pilotBriefing: {
-        title: 'Pilot Briefing',
-        description: 'This document provides guidance for pilots and cabin crew about specific procedures for this event. Reading it is required.',
+        title: 'Briefing de Piloto',
+        description: 'Este documento proporciona orientación para pilotos y tripulantes de cabina sobre procedimientos específicos para este evento. Leerlo es obligatorio.',
       },
       atcBriefing: {
-        title: 'ATC Briefing',
-        description: 'This document provides guidance for air traffic controllers about specific procedures for this event. Reading it is required.',
+        title: 'Briefing de ATC',
+        description: 'Este documento proporciona orientación para los controladores de tránsito aéreo sobre los procedimientos específicos para este evento. Leerlo es obligatorio.',
       },
       sceneries: {
-        title: 'Sceneries',
-        description: 'Here you can find recommended sceneries for this event.',
+        title: 'Escenarios',
+        description: 'Aquí puedes encontrar escenarios recomendados para este evento.',
         sims: {
           fs9: {
-            description: 'Microsoft Flight Simulator 2004: A Century of Flight is a flight simulation video game released in 2003, and is part of the Microsoft Flight Simulator video game series.'
+            description: 'Microsoft Flight Simulator 2004: A Century of Flight es un simulador de vuelo lanzado en 2003 y forma parte de la serie de simuladores Microsoft Flight Simulator..'
           },
           fsx: {
-            description: 'Microsoft Flight Simulator X is a 2006 flight simulation video game originally developed by Aces Game Studio and published by Microsoft Game Studios for Microsoft Windows.'
+            description: 'Microsoft Flight Simulator Xes un simulador de vuelo de 2006 desarrollado originalmente por Aces Game Studio y publicado por Microsoft Game Studios para Microsoft Windows.'
           },
           p3d: {
-            description: 'Prepar3D (pronounced “prepared”) is a visual simulation platform that allows users to create training scenarios across aviation, maritime and ground domains.'
+            description: 'Prepar3D  es una plataforma de simulación visual que permite a los usuarios crear escenarios de entrenamiento en los dominios de aviación, marítimo y terrestre.'
           },
           msfs: {
-            description: 'Microsoft Flight Simulator (colloquially known as MS2020) is an amateur flight simulator developed by Asobo Studio and published by Xbox Game Studios. It is an entry in the Microsoft Flight Simulator series which began in 1982, and was preceded by Microsoft Flight Simulator X in 2006.'
+            description: 'Microsoft Flight Simulator (coloquialmente conocido como MS2020) es un simulador de vuelo amateur desarrollado por Asobo Studio y publicado por Xbox Game Studios. Es una entrada en la serie Microsoft Flight Simulator que comenzó en 1982 y fue precedida por Microsoft Flight Simulator X en 2006.'
           },
           xp11: {
-            description: 'X-Plane 11 is the detailed, realistic, and modern simulator you’ve been waiting for.'
+            description: 'X-Plane 11 es el simulador detallado, realista y moderno que estabas esperando.'
           }
         },
       },
     },
     flights: {
-      search: 'Search Flights',
-      arrivals: 'Arrivals',
-      departures: 'Departures',
-      privateSlots: 'Private Slots',
-      flightNumber: 'Flight Number',
+      search: 'Buscar vuelos',
+      arrivals: 'Llegadas',
+      departures: 'Salidas',
+      privateSlots: 'Zona VIP',
+      flightNumber: 'Numero de Vuelo',
       eobt: 'EOBT',
-      gate: 'Stand',
-      bookFlight: 'Book Flight',
-      loadMore: 'Load more flights',
+      gate: 'Puerta',
+      bookFlight: 'Libro de Vuelo',
+      loadMore: 'Mas Vuelos',
       filter: {
         call: 'Tabla de filtros',
         title: 'Filtro',
         aircraft: 'Aeronave',
         airline: 'Aerolinea',
         origin: 'Origen',
-        destination: 'Destination',
+        destination: 'Destino',
         showAvailableOnly: 'Mostrar solo vuelos disponibles',
         reset: 'Limpiar filtros',
         apply: 'Aplicar filtros'
