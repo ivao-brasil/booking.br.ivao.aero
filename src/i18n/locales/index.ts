@@ -1,13 +1,15 @@
-import ptBrTranslations from './pt-br'
-import enUsTranslations from './en-us'
-import frFrTranslations from './fr-fr'
 import deDeTranslations from './de-de'
+import enUsTranslations from './en-us'
+import esEsTranslations from './es-es'
+import frFrTranslations from './fr-fr'
+import ptBrTranslations from './pt-br'
 
 const resources = {
-  'pt-BR': ptBrTranslations,
+  'de-DE': deDeTranslations,
   'en-US': enUsTranslations,
+  'es-ES': esEsTranslations,
   'fr-FR': frFrTranslations,
-  'de-DE': deDeTranslations
+  'pt-BR': ptBrTranslations
 }
 
 export default resources
