@@ -15,14 +15,6 @@ The client side of KRONOS, the ultimate tool for RFE, MSE, RFO events in IVAO. B
 - Suspension System
 - Flight confirmation flow
 
-
-## Demo
-
-A simple demo of the system in action.
-
-![Demo](https://imgur.com/8uts6Ec.png)
-## Environment variables
-
 ## Installation
 
 A simple demo of the system in action.
@@ -32,8 +24,9 @@ A simple demo of the system in action.
 - [ ] Create your subdomain for client. We strongly recomend you use this pattern url: `booking.{XX}.ivao.aero`, also add a redirect domain
 - [ ] Enable Github Actions in the Actions tab.
 - [ ] Add at least the required environment variable in your repo's secrets in the settings page.
-- [ ] 
 
+
+### Environment variables
 To run this project, you will need to add the following environment variables to your forked repository secrets.
 
 | Secret variable name                     | example value                        | use case                                                                  | required |
@@ -58,15 +51,27 @@ This is a ongoing project, with big space for enhancement. In the other hand, th
 - Add theme variations options
 - Enhance the Flight Filter Component
 - Add a dedicated changelog in the system.
-- Add other languages support. [Current Supported Languages]()
+- Add other languages support. [Current Supported Languages](#currentlySupportedLanguages)
 - Enforce a code pattern within all codebase.
 - Add Xplane 12 scenery container
 
 
-## Core developement team
+## Core development team
+Currently, the KRONOS development is led by a small dedicated team at IVAO BR Division. They guide the project's development, define priorities, and review external contributions. The core team will not be restricted to the IVAO BR web team only. We understand that any contributor with decent engagement in the project should also become a core team member. On the other hand, we request that applications are made only after filling in the requirements below.
 
+### Core team members
 - [@joelson-c](https://github.com/joelson-c)
 - [@ruymon](https://github.com/ruymon)
+
+### Core team requirements
+- [ ] Has had a decent engagement and contribution history
+- [ ] Understand the codebase architecture
+- [ ] Is an active IVAO Staff member with a valid NDA
+- [ ] Has a deep understanding of the code review process and the current branch system
+- [ ] Has knowledge of the stack used 
+
+### Core team application process
+If you feel you are a suit for the core team, feel accessible to ping @Web on Discord, and we will be happy to chat! 🙂
 
 
 ## Instalação
@@ -97,24 +102,38 @@ KRONOS suit is up and running in the following divisions:
 - [IVAO North America](https://booking.xa.ivao.aero/)
 
 ## Translations
-KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find important to, each time more, have other languages in our codebase to guarantee full coverage of IVAO's diverse user base. 
+KRONOS implements out of the box the i18n pattern which detects the current users location and provides him a json file throughout the whole application. We find it important to add other languages overtime to our codebase to guarantee full coverage of IVAO's diverse user base. To create a translation checkout this [step by step documentation](#creatingATranslation).
+
+### <a name="currentlySupportedLanguages" /> Currently supported languages
 
 | Language              | [i18n code](https://www.andiamo.co.uk/resources/iso-language-codes/) | status            | acknowledgement                      | since         |
 | --------------------- | -------------------------------------------------------------------- | ----------------- | ------------------------------------ | ------------- |
 | Brazilian Portuguese  | `pt-BR`                                                              | ☑ merged/stable  | core team                            | `v1.0 - BETA` |
 | English               | `en-EN`                                                              | ☑ merged/stable  | core team                            |`v1.0 - BETA`  |
 | French                | `fr-FR`                                                              | ☑ merged/stable  | [@belmeg](https://github.com/belmeg) [@JordanKirkby](https://github.com/JordanKirkby)| `v1.1 - BETA` |
-| Spanish               | `es-ES`                                                              | 👷 In Progress   | [@joaotr3ze](https://github.com/joaotr3ze) |               |
+| Spanish               | `es-ES`                                                              | 👷 In Progress   | [@joaotr3ze](https://github.com/joaotr3ze)  [@jesusadrianmartinez](https://github.com/jesusadrianmartinez) | `v1.2 - BETA` |
 | German                | `de-DE`                                                              | 🟪 merged/testing | [@aldobenitez](https://github.com/aldobenitez)| `v1.2 - BETA` |
 | Italian               | `it-IT`                                                              | 🆘 to be done    |                                      |               |
 
-## Translation Documentation
-Translations are done in 4 easy to follow steps.  
+### <a name="creatingATranslation" /> Creating a translation
+KRONOS was built to support multiple languages, in addition it is also very expandable and easy to add new translations. This process is done in a couple of steps as shown bellow.
 
-- [ ] Go to `../src/i18n/locales/` folder and copy the en-us.ts file and rename to the language you will be translating [see Language Codes for correct naming procedure](https://www.andiamo.co.uk/resources/iso-language-codes/)
-- [ ] On line 3 and the final line of your new language translation, change `const enUsTranslations` to represent your new language.  Example `const ruRUTranslations` if you were translating to Russian.  For simplicity sakes we will use Russian for the rest of the tutorial.
+> ⚠️  Before we start: Make sure you are in your divisions forked repo. You are unable to edit files in the brazilian core codebase.
+
+1. Once in your forked repo, [create a new branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/managing-branches#creating-a-branch) based on the main branch and name it `feat/xxTranslation`. Keep in mind `xx` is a placeholder for the language code. See [language codes](https://www.andiamo.co.uk/resources/iso-language-codes/) for correct naming procedure. For example, if I am creating a russian translation I'd name my branch `feat/ruTranslation`.
+
+2. After setting up a parallel branch, open the repo and locate the `../src/i18n/locales/` folder and duplicate the `en-us.ts` file. This will be the boilerplate for your translation. Next, rename the `en-us-copy.ts` to the language you will be translating. Once again, for demonstration purposes, if I am creating a russian translation I'd rename this file to `ru-ru.ts`. It is verry important to point out that not always the code will be a duplicate os the language's initials, hence why we strongly recommend you verify the correct [language codes](https://www.andiamo.co.uk/resources/iso-language-codes/).
+
+3. Open the recently created and renamed file and rename the const variable on line 3 to represent your new language. Example: `const ruRUTranslations` if you were translating to Russian. For simplicity sakes we will use Russian for the rest of the tutorial.
+
+**Example:**
+
+> 📝 See the example bellow to understand the variable renaming process.
 
 ```js 
+
+// BEFORE:
+
 import { Translations } from "types/Translations";
 
 const enUsTranslations: { translations: Translations } = { // 👈 Change this 
@@ -124,25 +143,59 @@ const enUsTranslations: { translations: Translations } = { // 👈 Change this
 };
 
 export default enUsTranslations; // 👈 Change this 
+
+
+// AFTER:
+
+import { Translations } from "types/Translations";
+
+const ruRuTranslations: { translations: Translations } = {
+  translations: {
+    // Translations here
+  },
+};
+
+export default ruRuTranslations;
 ```
 
-- [ ] In the `../src/i18b/locales/` folder, edit the index.ts file to add your newly created translation.
+
+4. After exporting your translation, open the `index.ts` file in the `../src/i18b/locales/` directory to import and invoke your newly created translation.
+
+> 📝 Check the example bellow.
 
 ```js
 import ptBrTranslations from './pt-br'
 import enUsTranslations from './en-us'
 import frFrTranslations from './fr-fr' // add line below
-import ruRuTranslations from './ru-ru' // 👈 Like this 
+import ruRuTranslations from './ru-ru' // 👈 Import your translation file like so.
 
 const resources = {
   'pt-BR': ptBrTranslations,
   'en-US': enUsTranslations,
-  'ru-RU': ruRuTranslations,  // 👈 Add line like this 
-  'fr-FR': frFrTranslations  // 👈 Make sure formatting stays the same without a comma at the end
+  'ru-RU': ruRuTranslations,  // 👈 Invoke your translation by adding a line like this.
+  'fr-FR': frFrTranslations  // ⚠ Make sure formatting stays the same. Last items don't have commas.
 }
 
 export default resources
 ```
 
-- [ ] You have done the easy part, now you have to complete your translations in your newly created translation file.  The only translation in the whole file that should not be changed is `{{  count  }}` that appears twice in a row in this document.
-- [ ] Once completed, create a merge request for review.
+5. You have done the easy part 🎉, now you have to complete your translations in your newly created translation file. The translation file is based on a key: value structure. You must **never** change the key, only the value.
+
+> 📝 Key and value structure example.
+
+```ts
+import { Translations } from "types/Translations";
+
+const ruRuTranslations: { translations: Translations } = {
+  translations: {
+    key: 'value' // Only edit the value inside the quotes.
+  },
+};
+
+export default ruRuTranslations;
+
+``` 
+
+**Note:** Sometimes you will see this `{{  count  }}` syntax in between the text. This is a placeholder for a variable and it must **never** be edited. Also, sometimes, you will have keys that are accompanied by a `_one` or `_other` suffix. This is a syntax for when the translation should be singular or plural.
+
+6. Once completed, make sure to read your work and verify for typos or context. Once you are confident, create a pull request to the official codebase and wait for review.
