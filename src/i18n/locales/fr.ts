@@ -1,6 +1,6 @@
 import { Translations } from "types/Translations";
 
-const frFrTranslations: { translations: Translations } = {
+const frTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Retourner au début',
@@ -192,4 +192,4 @@ const frFrTranslations: { translations: Translations } = {
   },
 };
 
-export default frFrTranslations;
+export default frTranslations;

@@ -1,6 +1,6 @@
 import { Translations } from "types/Translations";
 
-const enUsTranslations: { translations: Translations } = {
+const enTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Back to the beginning',
@@ -192,4 +192,4 @@ const enUsTranslations: { translations: Translations } = {
   },
 };
 
-export default enUsTranslations;
+export default enTranslations;

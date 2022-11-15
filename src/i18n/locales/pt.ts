@@ -1,6 +1,6 @@
 import { Translations } from "types/Translations";
 
-const ptBrTranslations: { translations: Translations } = {
+const ptTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Voltar ao início',
@@ -192,4 +192,4 @@ const ptBrTranslations: { translations: Translations } = {
   },
 };
 
-export default ptBrTranslations;
+export default ptTranslations;

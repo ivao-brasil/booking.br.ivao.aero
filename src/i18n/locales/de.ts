@@ -1,6 +1,6 @@
 import { Translations } from "types/Translations";
 
-const deDeTranslations: { translations: Translations } = {
+const deTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Zurück',
@@ -192,4 +192,4 @@ const deDeTranslations: { translations: Translations } = {
   },
 };
 
-export default deDeTranslations;
+export default deTranslations;

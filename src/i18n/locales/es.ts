@@ -1,6 +1,6 @@
 import { Translations } from "types/Translations";
 
-const esEsTranslations: { translations: Translations } = {
+const esTranslations: { translations: Translations } = {
   translations: {
     generics: {
       backToBeginning: 'Volver al inicio',
@@ -192,4 +192,4 @@ const esEsTranslations: { translations: Translations } = {
   },
 };
 
-export default esEsTranslations;
+export default esTranslations;
