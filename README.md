@@ -120,9 +120,9 @@ KRONOS was built to support multiple languages, in addition it is also very expa
 
 > ⚠️  Before we start: Make sure you are in your divisions forked repo. You are unable to edit files in the brazilian core codebase.
 
-1. Once in your forked repo, [create a new branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/managing-branches#creating-a-branch) based on the main branch and name it `feat/xxTranslation`. Keep in mind `xx` is a placeholder for the language code. See [language codes](https://www.andiamo.co.uk/resources/iso-language-codes/) for correct naming procedure. For example, if I am creating a russian translation I'd name my branch `feat/ruTranslation`.
+1. Once in your forked repo, [create a new branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/managing-branches#creating-a-branch) based on the main branch and name it `feat/xxTranslation`. Keep in mind `xx` is a placeholder for the language code. See [IETF Language Codes](https://en.wikipedia.org/wiki/IETF_language_tag) for correct naming procedure. For example, if I am creating a russian translation I'd name my branch `feat/ruTranslation`.
 
-2. After setting up a parallel branch, open the repo and locate the `../src/i18n/locales/` folder and duplicate the `en-us.ts` file. This will be the boilerplate for your translation. Next, rename the `en-us-copy.ts` to the language you will be translating. Once again, for demonstration purposes, if I am creating a russian translation I'd rename this file to `ru-ru.ts`. It is verry important to point out that not always the code will be a duplicate os the language's initials, hence why we strongly recommend you verify the correct [language codes](https://www.andiamo.co.uk/resources/iso-language-codes/).
+2. After setting up a parallel branch, open the repo and locate the `../src/i18n/locales/` folder and duplicate the `en.ts` file. This will be the boilerplate for your translation. Next, rename the `en-copy.ts` to the language you will be translating. Once again, for demonstration purposes, if I am creating a russian translation I'd rename this file to `ru.ts`. It is verry important to point out that not always the code will be a duplicate os the language's initials, hence why we strongly recommend you verify the correct [IETF Language Codes](https://en.wikipedia.org/wiki/IETF_language_tag).
 
 3. Open the recently created and renamed file and rename the const variable on line 3 to represent your new language. Example: `const ruRUTranslations` if you were translating to Russian. For simplicity sakes we will use Russian for the rest of the tutorial.
 
@@ -136,26 +136,26 @@ KRONOS was built to support multiple languages, in addition it is also very expa
 
 import { Translations } from "types/Translations";
 
-const enUsTranslations: { translations: Translations } = { // 👈 Change this 
+const enTranslations: { translations: Translations } = { // 👈 Change this 
   translations: {
     // Translations here
   },
 };
 
-export default enUsTranslations; // 👈 Change this 
+export default enTranslations; // 👈 Change this 
 
 
 // AFTER:
 
 import { Translations } from "types/Translations";
 
-const ruRuTranslations: { translations: Translations } = {
+const ruTranslations: { translations: Translations } = {
   translations: {
     // Translations here
   },
 };
 
-export default ruRuTranslations;
+export default ruTranslations;
 ```
 
 
@@ -164,16 +164,16 @@ export default ruRuTranslations;
 > 📝 Check the example bellow.
 
 ```js
-import ptBrTranslations from './pt-br'
-import enUsTranslations from './en-us'
-import frFrTranslations from './fr-fr' // add line below
-import ruRuTranslations from './ru-ru' // 👈 Import your translation file like so.
+import ptTranslations from './pt'
+import enTranslations from './en'
+import frTranslations from './fr' // add line below
+import ruTranslations from './ru'// 👈 Import your translation file like so.
 
 const resources = {
-  'pt-BR': ptBrTranslations,
-  'en-US': enUsTranslations,
-  'ru-RU': ruRuTranslations,  // 👈 Invoke your translation by adding a line like this.
-  'fr-FR': frFrTranslations  // ⚠ Make sure formatting stays the same. Last items don't have commas.
+  'pt': ptTranslations,
+  'en': enTranslations,
+  'ru': ruTranslations,  // 👈 Invoke your translation by adding a line like this.
+  'fr': frTranslations  // ⚠ Make sure formatting stays the same. Last items don't have commas.
 }
 
 export default resources
@@ -186,13 +186,13 @@ export default resources
 ```ts
 import { Translations } from "types/Translations";
 
-const ruRuTranslations: { translations: Translations } = {
+const ruTranslations: { translations: Translations } = {
   translations: {
     key: 'value' // Only edit the value inside the quotes.
   },
 };
 
-export default ruRuTranslations;
+export default ruTranslations;
 
 ``` 
 
