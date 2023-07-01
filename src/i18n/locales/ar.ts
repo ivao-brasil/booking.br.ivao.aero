@@ -1,12 +1,12 @@
 import { Translations } from "types/Translations";
 
-const enTranslations: { translations: Translations } = {
+const arTranslations: { translations: Translations } = {
   translations: {
     generics: {
-      backToBeginning: 'Back to the beginning',
-      back: 'Back',
-      soon: 'Coming soon...',
-      see: 'See'
+      backToBeginning: 'الرجوع إلى البداية',
+      back: 'الرجوع',
+      soon: 'قريباً ...',
+      see: 'أنظر'
     },
     footer: {
       copyrightMessage: '© 2021 International Virtual Aviation Organisation - IVAO Brazil. All Rights Reserved.',
@@ -14,182 +14,182 @@ const enTranslations: { translations: Translations } = {
       termsOfUseName: 'Terms of Use',
     },
     beta: {
-      title: 'BETA SYSTEM',
-      message: '𝗞𝗥𝗢𝗡𝗢𝗦 is a recently launched system and is under constant development. We count on you to report any bugs you find 🐛.'
+      title: 'النظام قيد التطوير',
+      message: '𝗞𝗥𝗢𝗡𝗢𝗦 هو نظام تم إطلاقه مؤخرًا وهو قيد التطوير المستمر. نحن نعتمد عليك للإبلاغ عن أي أخطاء تجدونها 🐛.'
     },
     cookies: {
-      title: 'We use cookies to improve your experience',
-      subtitle: 'We need your permission to keep on making our wonderful gingersnaps!',
-      authorizeUse: 'Allow us to use cookies',
-      continueWithout: 'Continue without cookies',
+      title: 'نحن نسخدم الكوكيز لتحسين تجربتك بشكل أفضل',
+      subtitle: 'نحن بحاجة الى إذنك للاستمرار في تحسين تجربتك الرائعة معنا',
+      authorizeUse: 'السماح للكوكيز',
+      continueWithout: 'الاستمرار دون استخدام الكوكيز',
     },
     errors: {
       general: {
-        title: 'Houston, we have a problem! 💥',
-        subtitle: 'We are sorry, but our systems indicate some failures on the navigation computer. Reload the page or try again later.',
+        title: 'المعذرة توجد مشكلة',
+        subtitle: 'نحن آسفون ، لكن أنظمتنا تشير إلى بعض الأعطال في كمبيوتر الملاحة. أعد تحميل الصفحة أو حاول مرة أخرى لاحقًا.',
       },
       notFound: {
-        title: "Oh noo...This page has been abducted by aliens! 👽",
-        subtitle: 'I think you reached the limit of our universe. The page you called for has not been found.'
+        title: "المعذرة, هذه الصفحة غير موجودة",
+        subtitle: 'يجرى التاكد من الرابط للوصول الى الصفحة المطلوبة لطفاً'
       },
       admin: {
-        noAdmin: 'You are not an administrator.',
-        eventFinished: 'This event has ended and it cannot be edited.',
-        wrongDivision: 'This event is not from your division.',
-        isActive: 'This event is active and cannot be edited.',
-        updateAdmin: 'You cannot edit another administrator.',
-        updateYourself: 'You cannot edit yourself.'
+        noAdmin: 'ليست لديك صلاحية الوصول',
+        eventFinished: 'انتهى هذا الايفنت لا يمكنك تعديله',
+        wrongDivision: 'هذا الايفنت ليس في قسمك',
+        isActive: 'هذا الايفنت نشط الان, لايمكنك تعديله الان',
+        updateAdmin: 'لا يمكنك تعديل مسؤول آخر',
+        updateYourself: 'لا يمكنك تعديل نفسك !'
       },
       book: {
-        suspended: 'You are suspended from the system and cannot book.',
-        notOwner: 'You are not the owner of this slot.',
-        notActive: 'This event is not active.',
-        tooEarly: 'This slot can only be confirmed 7 days before the event.',
-        alreadyBusy: 'You already have a slot booked on the same time.',
-        hasStarted: 'This event already begun.',
-        hasEnded: 'This event already ended.',
-        notFound: 'Slot not found.',
-        duplicateNumber: 'There is already a flight with the same flight number.',
-        notPreBooked: 'You cannot confirm a slot which is not booked.'
+        suspended: 'أنت محظور من النظام ولا يمكنك الحجز.',
+        notOwner: 'انت لست المسؤول عن هذه الرحلة المفتوحة',
+        notActive: 'هذا الايفنت ليس نشط بعد !',
+        tooEarly: 'لا يمكنك حجز هذه الرحلة المفتوحة الا قبل 7 ايام من الايفنت!',
+        alreadyBusy: 'بالفعل لديك رحلة مفتوحة في نفس الوقت',
+        hasStarted: 'لقد بدأ الايفنت بالفعل',
+        hasEnded: 'لقد انتهى الايفنت',
+        notFound: 'الرحلة المفتوحة غير موجودة',
+        duplicateNumber: 'توجد بالفعل رحلة طيران بنفس رقم الرحلة الحالية !!',
+        notPreBooked: 'لا يمكنك تأكيد حجز رحلة غير محجوزة بالاصل'
       },
       auth: {
-        error: 'Error to authenticate user.'
+        error: 'خطأ في مصادقة المستخدم.'
       },
       event: {
-        notFound: 'Event not found.'
+        notFound: 'الايفنت غير موجود'
       },
       scenery: {
-        notFound: 'Scenery not found.'
+        notFound: 'المطار غير موجود'
       },
       aircraft: {
-        notFound: 'Aircraft not found.'
+        notFound: 'الطائرة غير موجودة'
       },
       user: {
-        notFound: 'User not found.'
+        notFound: 'المستخدم غير موجود'
       },
       airport: {
-        notFound: 'We could not find the airport you are trying to fly from or to. Check the ICAO codes and try again.'
+        notFound: 'لم نتمكن من العثور على المطار الذي تحاول الطيران منه أو إليه. تحقق من رموز منظمة الطيران المدني الدولي وحاول مرة أخرى.'
       },
     },
     splash: {
-      title: 'Experience the best that flight simulation has to offer!',
-      subtitle: 'Manage your bookings on a modern, fast and intuitive way.',
-      explore: 'Explore Flights!'
+      title: 'جرب أفضل ما تقدمه محاكاة الطيران!',
+      subtitle: 'قم بإدارة حجوزاتك للطيران بطريقة حديثة وسريعة',
+      explore: 'استكشف الرحلات!'
     },
     events: {
-      found_zero: 'No events here, check again later.',
-      found_one: '{{ count }} event found',
-      found_other: '{{ count }} events found',
-      soon: 'Soon...'
+      found_zero: 'لا توجد ايفنتات هنا ، تحقق مرة أخرى لاحقًا.',
+      found_one: '{{ count }} ايفنت',
+      found_other: '{{ count }} ايفنتات',
+      soon: 'قريباً...'
     },
     info: {
       pilotBriefing: {
-        title: 'Pilot Briefing',
-        description: 'This document provides guidance for pilots and cabin crew about specific procedures for this event. Reading it is required.',
+        title: 'توجيهات للطيارين',
+        description: 'توفر هذه الوثيقة إرشادات أو توجيهات للطيارين وطاقم الطائرة حول الإجراءات المحددة لهذا الايفنت. القراءة مطلوبة.',
       },
       atcBriefing: {
-        title: 'ATC Briefing',
-        description: 'This document provides guidance for air traffic controllers about specific procedures for this event. Reading it is required.',
+        title: 'توجيهات للمراقبين الجويين',
+        description: 'توفر هذه الوثيقة إرشادات لمراقبي الحركة الجوية حول إجراءات محددة لهذا الايفنت. القراءة مطلوبة.',
       },
       sceneries: {
-        title: 'Sceneries',
-        description: 'Here you can find recommended sceneries for this event.',
+        title: 'ملفات المطارات',
+        description: 'هنا يمكنك أن تجد ملفات المطارات الموصى بها لهذا الايفنت.',
         sims: {
           fs9: {
-            description: 'Microsoft Flight Simulator 2004: A Century of Flight is a flight simulation video game released in 2003, and is part of the Microsoft Flight Simulator video game series.'
+            description: 'Microsoft Flight Simulator 2004: A Century of Flight هي لعبة فيديو لمحاكاة الطيران تم إصدارها في 2003 ، وهي جزء من سلسلة ألعاب فيديو Microsoft Flight Simulator.'
           },
           fsx: {
-            description: 'Microsoft Flight Simulator X is a 2006 flight simulation video game originally developed by Aces Game Studio and published by Microsoft Game Studios for Microsoft Windows.'
+            description: 'Microsoft Flight Simulator X هي لعبة فيديو لمحاكاة الطيران لعام 2006 تم تطويرها في الأصل بواسطة Aces Game Studio ونشرتها Microsoft Game Studios لـ Microsoft Windows.'
           },
           p3d: {
-            description: 'Prepar3D (pronounced “prepared”) is a visual simulation platform that allows users to create training scenarios across aviation, maritime and ground domains.'
+            description: 'Prepar3D  عبارة عن منصة محاكاة بصرية تتيح للمستخدمين إنشاء سيناريوهات طيران تدريب عبر مجالات الطيران والبحرية والأرض.'
           },
           msfs: {
-            description: 'Microsoft Flight Simulator (colloquially known as MS2020) is an amateur flight simulator developed by Asobo Studio and published by Xbox Game Studios. It is an entry in the Microsoft Flight Simulator series which began in 1982, and was preceded by Microsoft Flight Simulator X in 2006.'
+            description: 'Microsoft Flight Simulator (المعروف باسم MS2020) هو محاكي طيران للهواة تم تطويره بواسطة Asobo Studio ونشره Xbox Game Studios. إنه إدخال في سلسلة Microsoft Flight Simulator التي بدأت في عام 1982 ، وسبقها Microsoft Flight Simulator X في عام 2006.'
           },
           xp11: {
-            description: 'X-Plane 11 is the detailed, realistic, and modern simulator you’ve been waiting for.'
+            description: ' X-Plane هو محاكي واقعي نسبيا للطيران حيث يمكن للاعبين الجلوس وراء ضوابط أكثر من عشر طائرات (وبعض طائرات الهليكوبتر)، بدءا من الطائرات الخاصة البسيطة إلى طائرة بوينغ Boeing أو حتى طائرة حربية مزودة بصواريخ. يمكن للاعبين المشاركة في أكثر من 20 مهمة وتحدي حيث سيكون علديهم القيام بمهام مختلفة جدا'
           }
         },
       },
     },
     flights: {
-      search: 'Search Flights',
-      arrivals: 'Arrivals',
-      departures: 'Departures',
-      privateSlots: 'Private Slots',
-      flightNumber: 'Flight Number',
-      eobt: 'EOBT',
-      gate: 'Stand',
-      bookFlight: 'Book Flight',
-      loadMore: 'Load more flights',
+      search: 'البحث عن الرحلات',
+      arrivals: 'الوصول',
+      departures: 'المغادرة',
+      privateSlots: 'الرحلات المفتوحة',
+      flightNumber: 'رقم الرحلة',
+      eobt: 'وقت المغادرة',
+      gate: 'البوابة',
+      bookFlight: 'حجز الرحلة',
+      loadMore: 'تحميل المزيد من الرحلات',
       filter: {
-        call: 'Filter Table',
-        title: 'Filter',
-        aircraft: 'Aircraft',
-        airline: 'Airline',
-        origin: 'Origin',
-        destination: 'Destination',
-        showAvailableOnly: 'Show only available flights',
-        reset: 'Reset Filters',
-        apply: 'Apply Filters'
+        call: 'فلتره الجدول',
+        title: 'فلتره',
+        aircraft: 'الطائرة',
+        airline: 'الشركة/الخطوط',
+        origin: 'الاصل',
+        destination: 'الوجهه',
+        showAvailableOnly: 'عرض الرحلات المتاحة فقط',
+        reset: 'إعادة ضبط الفلتره',
+        apply: 'تطبيق الفلتره'
       },
       error: {
         noFlightsFound: {
-          title: 'Too late 😓... Looks like there is nothing else here for you...',
-          subtitle: 'The data might not exist in our system. Check the applied filters or try again later.'
+          title: 'لقد فات الوقت .. لايوجد رحلات للحجز',
+          subtitle: 'قد لا تكون البيانات موجودة في نظامنا. تحقق من الفلتره المطبقة أو حاول مرة أخرى لاحقًا.'
         },
         unableToBook: {
-          title: 'We are unable to book this flight...',
-          subtitle: 'The data might not exist in our system, or this flight has already been booked by another pilot.'
+          title: 'لا يمكننا حجز هذه الرحلة ...',
+          subtitle: 'قد لا تكون البيانات موجودة في نظامنا ، أو تم حجز هذه الرحلة بالفعل من قبل طيار آخر.'
         },
       }
     },
     notification: {
       scheduleConfirmation: {
-        title: 'Are you sure you want to schedule this flight?',
-        subtitle: 'Before confirming, take a look at the details and make sure that this is the flight you want.',
-        alert: 'Scheduling does not mean your flight is booked. You need to confirm your schedule between three to seven days before the event. Your schedule will be cancelled if you do not confirm at least 72 hours before the flight.',
-        button: 'Schedule'
+        title: 'هل أنت متأكد أنك تريد تحديد موعد هذه الرحلة؟',
+        subtitle: 'قبل التأكيد ، ألق نظرة على التفاصيل وتأكد من أن هذه هي الرحلة التي تريدها.',
+        alert: 'لا تعني الجدولة حجز رحلتك. تحتاج إلى تأكيد الجدول الزمني الخاص بك بين ثلاثة إلى سبعة أيام قبل الحدث. سيتم إلغاء جدولك الزمني إذا لم تؤكد ما لا يقل عن 72 ساعة قبل الرحلة.',
+        button: 'جدوله'
       },
       scheduled: {
-        title: 'Flight Scheduled!',
-        subtitle: 'Remember: you must confirm the schedule between three to seven days before the event. Your schedule will be cancelled if you do not confirm at least 72 hours before the flight.'
+        title: 'الرحلة مجدولة',
+        subtitle: 'تذكر: يجب عليك تأكيد الجدول الزمني بين ثلاثة إلى سبعة أيام قبل الحدث. سيتم إلغاء جدولك الزمني إذا لم تؤكد ما لا يقل عن 72 ساعة قبل الرحلة.'
       },
       booked: {
-        title: 'Flight Booked!',
-        subtitle: 'Your flight has been confirmed successfully. Get your flight plan and aircraft ready, make sure you comply with your timing and gate number and, most important of all: have fun!',
+        title: 'الرحلة محجوزة',
+        subtitle: 'تم تأكيد رحلتك بنجاح. جهز خطة رحلتك وطائرتك ، وتأكد من التزامك بالتوقيت ورقم البوابة ، والأهم من ذلك كله: استمتع!',
       },
       cancelled: {
-        title: 'Schedule Cancelled!',
-        subtitle: 'Your schedule has been cancelled. We are sorry to see you go... Maybe another time?'
+        title: 'اًلغيت جدولة الرحلة',
+        subtitle: 'تم إلغاء جدولة رحلتك. نحن آسفون لرحيلك ...'
       }
     },
     myFlights: {
-      title: 'My flights',
-      subtitle: 'See your whole schedule',
-      search: 'Find Schedule',
+      title: 'رحلاتي',
+      subtitle: 'رؤية الجدول الزمني للرحلات الخاص بك بأكمله',
+      search: 'ايجاد رحلة مجدولة مسبقاً',
       pilotBriefing: {
-        title: 'Pilot Briefing',
-        description: 'This document provides guidance for pilots and cabin crew about specific procedures for this event. Reading it is required.',
+        title: 'توجيهات الطياريين',
+        description: 'توفر هذه الوثيقة إرشادات للطيارين وطاقم الطائرة حول الإجراءات المحددة لهذا الحدث. القراءة مطلوبة.',
       },
       boardingPass: {
-        cancelFlight: 'Cancel Flight',
-        cancelFlightConfirmation: 'Are you sure you want to cancel this flight?',
-        confirmFlight: 'Confirm Flight',
-        disclaimer: 'To fly on the event, you must comply with all instructions made available on the pilot briefing.',
-        waitToConfirm: 'Wait to confirm flight.'
+        cancelFlight: 'الغاء الرحلة',
+        cancelFlightConfirmation: 'هل انت متاكد من الغاء الرحلة ؟',
+        confirmFlight: 'تأكيد الرحلة',
+        disclaimer: 'للطيران في هذا الايفنت ، يجب عليك الامتثال لجميع التعليمات أو التوجيهات المتاحة في توجيهات الطياريين.',
+        waitToConfirm: 'انتظر لتأكيد الرحلة'
       }
     },
     sidebarPanel: {
-      information: 'General information',
-      flights: 'Search flights',
-      myFlights: 'My Flights',
-      changeTheme: 'Change current theme',
-      logout: 'Logout',
-      eventsHome: 'Go to event list'
+      information: 'معلومات عامة',
+      flights: 'البحث عن الرحلات',
+      myFlights: 'رحلاتي',
+      changeTheme: 'تغيير شكل الموقع',
+      logout: 'تسجيل الخروج',
+      eventsHome: 'الذهاب الى قائمة الايفنتات'
     }
   },
 };
 
-export default enTranslations;
+export default arTranslations;
