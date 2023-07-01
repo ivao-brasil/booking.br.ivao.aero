@@ -3,7 +3,7 @@ import enTranslations from './en'
 import esTranslations from './es'
 import frTranslations from './fr'
 import ptTranslations from './pt'
-import ptTranslations from './ar'
+import arTranslations from './ar'
 
 const resources = {
   'de': deTranslations,
