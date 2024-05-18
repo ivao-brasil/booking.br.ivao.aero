@@ -2,6 +2,7 @@ import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { useContext, useEffect } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import {Env} from "../env";
 
 export default function LoginPage() {
     const [urlParams] = useSearchParams();
@@ -43,9 +44,8 @@ export default function LoginPage() {
             locationState = location.state;
         }
 
-        const ivaoLoginUrl = "https://login.ivao.aero/index.php?url={url}";
         const baseUrl = window.location.href;
-        let loginUrl = ivaoLoginUrl.replace("{url}", `${baseUrl}`);
+        let loginUrl = `${Env.AUTHORIZATION_SERVER}?url=${baseUrl}`;
 
         const redirectPath = locationState?.from?.pathname;
         if (redirectPath) {

@@ -36,6 +36,7 @@
     "@types/react-i18next": "^8.1.0",
     "@types/react-router-dom": "^5.3.2",
     "autoprefixer": "^10.4.0",
+    "express": "^4.19.2",
     "jest-canvas-mock": "^2.3.1",
     "msw": "^0.36.3",
     "postcss": "^8.4.5",
@@ -46,6 +47,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:local": "set NODE_ENV=development && npm start & npm run start:mock",
+    "start:mock": "node mock-server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
