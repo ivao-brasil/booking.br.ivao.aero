@@ -12,7 +12,7 @@ let envVariables = {
 
 if (activeEnv === 'development') {
     envVariables = {
-        API_HOST: process.env.REACT_APP_API_HOST || 'http://localhost.ivao.aero:8080/api',
+        API_HOST: process.env.REACT_APP_API_HOST || 'http://localhost:3003/api',
         LOGO_LIGHT: process.env.REACT_APP_LOGO_LIGHT || 'https://assets.br.ivao.aero/logos/kronos_light.svg',
         LOGO_DARK: process.env.REACT_APP_LOGO_DARK || 'https://assets.br.ivao.aero/logos/kronos_dark.svg',
         LOGO_SIDEBAR_LIGHT: process.env.REACT_APP_LOGO_SIDEBAR_LIGHT || 'https://assets.br.ivao.aero/logos/symbol_white.svg',
@@ -21,8 +21,5 @@ if (activeEnv === 'development') {
         AUTHORIZATION_SERVER: process.env.REACT_APP_AUTHORIZATION_SERVER || 'http://localhost:3003/login'
     }
 }
-
-console.log('Active environment:', activeEnv);
-console.log('Environment variables:', envVariables);
 
 export const Env = envVariables;

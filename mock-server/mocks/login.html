@@ -19,7 +19,7 @@
         }
         else {
             document.getElementById('url').innerText = params.get('url');
-            document.getElementById('urlRedirection').value = `${params.get('url')}?IVAOTOKEN=MOCKTOKEN123`;
+            document.getElementById('urlRedirection').value = `${params.get('url')}&IVAOTOKEN=MOCKTOKEN123`;
             document.getElementById('login').addEventListener('click', function() {
                 document.querySelector('form').submit();
             });

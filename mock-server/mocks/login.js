@@ -8,5 +8,11 @@ module.exports = {
             const destination = decodeURIComponent(req.query.urlRedirection);
             res.redirect(destination);
         });
+        
+        app.post('/api/auth', (req, res) => {
+            res.send({
+                jwt: "MOCK_JWT"
+            });
+        });
     }
 }
