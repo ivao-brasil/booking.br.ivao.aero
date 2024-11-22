@@ -24,4 +24,6 @@ yarn-error.log*
 src/env.ts
 .env
 
-.idea
+# IDEs
+/.vscode
+/.idea
