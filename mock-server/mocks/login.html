@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mock OAuth Login Page</title>
+</head>
+<body>
+    <h1>Mock OAuth Login Page</h1>
+    <p>Click the button below to simulate a successful login.</p>
+    <button id="login">Login</button>
+    <p>the URL parameter is: <span id="url">NOT SET</span></p>
+    <form action="./complete-login">
+        <input type="hidden" id="urlRedirection" name="urlRedirection" value="" />
+    </form>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has('url')) {
+            alert('URL parameter is missing');
+        }
+        else {
+            document.getElementById('url').innerText = params.get('url');
+            document.getElementById('urlRedirection').value = `${params.get('url')}&IVAOTOKEN=MOCKTOKEN123`;
+            document.getElementById('login').addEventListener('click', function() {
+                document.querySelector('form').submit();
+            });
+        }
+    </script>
+</body>
+</html>
