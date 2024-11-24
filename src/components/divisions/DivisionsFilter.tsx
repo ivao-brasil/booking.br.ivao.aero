@@ -11,20 +11,24 @@ import {
   DropdownMenuTrigger,
 } from "lib/components/ui/dropdown-menu";
 import { Filter } from "lucide-react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 
 export const DivisionsFilter: FunctionComponent = () => {
   const { data: divisions, isLoading } = useDivisions();
-  const selectedDivisions: string[] = [];
   const { t } = useText();
+  const [isOpen, setIsOpen] = useState(false)
+
+  const [selectedDivisions, setSelectedDivisions] = useState<string[]>([])
 
   const handleDivisionToggle = (divisionId: string) => {
-    if (selectedDivisions.includes(divisionId)) {
-      selectedDivisions.splice(selectedDivisions.indexOf(divisionId), 1);
-    } else {
-      selectedDivisions.push(divisionId);
-    }
-  };
+    setSelectedDivisions((prev:any) =>
+      prev.includes(divisionId)
+        ? prev.filter((id:string) => id !== divisionId)
+        : [...prev, divisionId]
+    )
+    setTimeout(() => setIsOpen(true), 1);
+  }
+
 
   return (
     <div>
@@ -32,14 +36,14 @@ export const DivisionsFilter: FunctionComponent = () => {
         <LoadingIndicator />
       ) : (
         <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+            <DropdownMenuTrigger asChild className="float-right">
               <Button variant="outline">
                 <Filter className="mr-2 h-4 w-4" />
                 {t('divisionsFilter.filterDivisions')} ({selectedDivisions.length})
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align="end" className="w-56 bg-light-gray-3 dark:bg-dark-gray-4 dark:text-white">
               <DropdownMenuLabel>{t('divisionsFilter.selectDivisions')}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {divisions?.map((division) => (
