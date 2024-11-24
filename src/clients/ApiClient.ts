@@ -7,6 +7,7 @@ import { PrivateSlotScheduleData, Slot, SlotCountByType } from 'types/Slot';
 import { SlotTypeOptions } from 'types/SlotFilter';
 import { FilterState } from 'components/filter/Filter';
 import { AirportDetails } from 'types/AirportDetails';
+import { Division } from 'types/Division';
 
 interface AuthResponse {
   jwt: string;
@@ -48,6 +49,10 @@ export class ApiClient {
           suspended: Boolean(response.data.suspended),
         };
       });
+  }
+
+  async getDivisions(): Promise<Division[]> {
+    return this.axios.get<any>("/divisions").then((response) => response.data.data);
   }
 
   async getEvents(data: PaginateRequest) {
