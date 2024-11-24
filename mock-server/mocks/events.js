@@ -1,6 +1,6 @@
 module.exports = {
   build: (app) => {
-    app.get("/api/divisions/BR/events", (_req, res) => {
+    app.get("/api/event", (_req, res) => {
       res.send({
         data: [
           {
