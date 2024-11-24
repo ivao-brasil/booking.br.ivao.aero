@@ -5,11 +5,9 @@ module.exports = {
         data: [
           {
             id: "BR",
-            logoUrl: "https://www.ivao.aero/publrelat/branding/svg_logos/br.svg"
           },
           {
             id: "FR",
-            logoUrl: "https://www.ivao.aero/publrelat/branding/svg_logos/fr.svg"
           }
         ],
       });

@@ -1,11 +1,14 @@
-import { StringMap } from "i18next"
-
 export interface Translations {
   generics: {
     backToBeginning: string,
     back: string,
     soon: string,
     see: string
+  },
+  divisions: any,
+  divisionsFilter: {
+    selectDivisions: string,
+    filterDivisions: string
   },
   footer: {
     copyrightMessage: string,
