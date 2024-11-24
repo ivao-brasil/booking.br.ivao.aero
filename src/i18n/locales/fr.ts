@@ -1,6 +1,8 @@
 import { Translations } from "types/Translations";
 
-const frTranslations: { translations: Translations } = {
+const frTranslations: { translations: Translations, englishName: string, nativeName: string } = {
+  englishName: 'French',
+  nativeName: 'Français',
   translations: {
     generics: {
       backToBeginning: 'Retourner au début',
