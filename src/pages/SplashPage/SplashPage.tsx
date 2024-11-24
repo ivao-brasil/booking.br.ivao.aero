@@ -3,11 +3,11 @@ import { Header, MutedText } from "components/typography/Typography";
 import { ThemeContext, ThemeVariants } from "context/ThemeContext";
 import { InformationalLayout } from "layouts/InformationalLayout";
 import { FunctionComponent, useContext } from "react";
-import { FiAlertTriangle, FiSearch } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import splashLightImage from './splash-light.svg';
 import splashDarkImage from './splash-dark.svg';
-import { Alert } from "components/Alert";
 import { useText } from "hooks/useText";
+import { LanguagesSelector } from "components/LanguagesSelector";
 
 export const SplashPage: FunctionComponent = () => {
     const themeContext = useContext(ThemeContext);
@@ -32,15 +32,9 @@ export const SplashPage: FunctionComponent = () => {
                     height={420}
                 />
             }
-            alert={
-                <Alert
-                    title={t('beta.title')}
-                    content={t('beta.message')}
-                    icon={<FiAlertTriangle size={20} />}
-                    backgroundColors={{ icon: "bg-orange/80", title: "bg-orange", content: "bg-orange/20" }}
-                    contentTextColor="text-orange"
-                />
-            }
+            options={[
+                <LanguagesSelector />
+            ]}
         >
             <LinkButton icon={<FiSearch size={20} />} content={t('splash.explore')} href="/events" />
         </InformationalLayout>

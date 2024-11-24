@@ -7,15 +7,24 @@ interface InformationalLayoutProps {
     header?: ReactNode;
     alert?: ReactNode;
     description?: ReactNode;
+    options?: [ReactNode];
     image?: ReactNode;
 }
 
-export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, alert, children }) => {
+export const InformationalLayout: FunctionComponent<InformationalLayoutProps> = ({ header, description, image, alert, options, children }) => {
 
     return (
         <div className="container flex flex-col min-h-screen">
             <div className="flex flex-col md:flex-row mt-10 md:mt-14">
                 <Logo />
+                {options && (
+                    <div className="flex flex-row items-center justify-center md:justify-end md:ml-auto">
+                        {options.map((option, index) => (
+                            <div key={index} className="mx-2 md:mx-4">
+                                {option}
+                            </div>
+                        ))}
+                    </div>)}
                 <div className="my-3 md:my-0 md:ml-20 lg:ml-auto">
                     {alert}
                 </div>
