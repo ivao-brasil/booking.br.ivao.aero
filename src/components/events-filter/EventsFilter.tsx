@@ -11,9 +11,10 @@ import {
   DropdownMenuTrigger,
 } from "lib/components/ui/dropdown-menu";
 import { Filter } from "lucide-react";
+import styles from "./EventsFilter.module.css";
 import { FunctionComponent, useState } from "react";
 
-export const DivisionsFilter: FunctionComponent = () => {
+export const EventsFilter: FunctionComponent = () => {
   const { data: divisions, isLoading } = useDivisions();
   const { t } = useText();
   const [isOpen, setIsOpen] = useState(false)
@@ -31,7 +32,7 @@ export const DivisionsFilter: FunctionComponent = () => {
 
 
   return (
-    <div>
+    <div className={styles.filtercontainer}>
       {isLoading ? (
         <LoadingIndicator />
       ) : (

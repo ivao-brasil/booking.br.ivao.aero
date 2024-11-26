@@ -8,7 +8,13 @@ module.exports = {
           },
           {
             id: "FR",
-          }
+          },
+          {
+            id: "DE",
+          },
+          {
+            id: "ES",
+          },
         ],
       });
     });
