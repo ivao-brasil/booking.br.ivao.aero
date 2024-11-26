@@ -13,6 +13,7 @@ import {
 import { Filter } from "lucide-react";
 import styles from "./EventsFilter.module.css";
 import { FunctionComponent, useState } from "react";
+import clsx from "clsx";
 
 export const EventsFilter: FunctionComponent = () => {
   const { data: divisions, isLoading } = useDivisions();
@@ -32,7 +33,7 @@ export const EventsFilter: FunctionComponent = () => {
 
 
   return (
-    <div className={styles.filtercontainer}>
+    <div className={clsx(styles.filtercontainer, "mb-4")}>
       {isLoading ? (
         <LoadingIndicator />
       ) : (
