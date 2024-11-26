@@ -7,7 +7,7 @@ import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
 import { getEventTypeName } from "types/Event";
 import { useText } from "hooks/useText";
 import { Translations } from "types/Translations";
-import { DivisionsFilter } from "components/divisions/DivisionsFilter";
+import { EventsFilter } from "components/events-filter/EventsFilter";
 
 export default function EventsListPage() {
   const { t } = useText();
@@ -17,7 +17,7 @@ export default function EventsListPage() {
 
   return (
     <EventListLayout>
-      <DivisionsFilter></DivisionsFilter>
+      <EventsFilter></EventsFilter>
       {isLoading ? (
         <LoadingIndicator />
       ) : (
