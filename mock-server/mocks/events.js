@@ -89,6 +89,9 @@ module.exports = {
             updated_at: "2022-01-01T17:18:54.000000Z",
           },
         ],
+        total: 4,
+        perPage: 15,
+        page: 1
       });
     });
   },
