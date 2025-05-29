@@ -79,54 +79,54 @@ module.exports = {
       });
     });
 
-    app.get('/api/event/:id', (req, res) => {
-      const eventId = parseInt(req.params.id, 10);
+    app.get('/api/event/2', (req, res) => {
       res.send({
-        "id": eventId,
+        "id": 2,
         "division": "BR",
-        "dateStart": "2025-06-15T18:00:00+00:00",
-        "dateEnd": "2025-06-15T22:00:06+00:00",
-        "eventName": "Southern Capitals MSE",
-        "privateSlots": 1,
+        "dateStart": "2025-04-13T19:00:40+00:00",
+        "dateEnd": "2026-04-13T23:00:26+00:00",
+        "eventName": "Brasília RFO 2025",
+        "privateSlots": 0,
         "status": "scheduled",
-        "createdBy": 196,
-        "description": "TBA",
-        "banner": "https://forum.ivao.aero/proxy.php?image=https%3A%2F%2Flive.staticflickr.com%2F65535%2F53665551281_1e0dd53954_o.png&hash=e58bf5fa40f2e967776fa9ff372213",
-        "atcBooking": "https://tools.ivao.aero/event/BR/",
-        "atcBriefing": "https://ivao.aero",
-        "pilotBriefing": "https://ivao.aero",
+        "createdBy": 19,
+        "description": "Brasília Real Flight Operations 2025",
+        "banner": "https://admin.br.ivao.aero/storage/images/MleniXywXbXw6nH9TcVnjghsWaWfbsIqRJBSMNZw.png",
+        "atcBooking": "https://tools.ivao.aero/event/BR",
+        "atcBriefing": "https://wiki.br.ivao.aero/pt-br/atcops/mops/sbbs/briefing-brasilia-rfo",
+        "pilotBriefing": "https://forum.ivao.aero/forums/eventos.758/",
         "public": 0,
-        "created_at": "2025-05-18T16:03:23.000000Z",
-        "updated_at": "2025-05-25T06:17:12.000000Z",
-        "type": "mse",
+        "created_at": "2025-03-05T23:31:00.000000Z",
+        "updated_at": "2025-04-13T13:31:21.000000Z",
+        "type": "rfo",
         "allowBookingAfterStart": 0,
-        "has_started": false,
-        "has_ended": false,
+        "has_started": true,
+        "has_ended": true,
         "can_confirm_slots": false,
         "airports": [
           {
-            "id": 311,
-            "eventId": 37,
-            "icao": "SBCT",
-            "created_at": "2025-05-25T06:17:12.000000Z",
-            "updated_at": "2025-05-25T06:17:12.000000Z",
-            "sceneries": []
-          },
-          {
-            "id": 312,
-            "eventId": 37,
-            "icao": " SBFL",
-            "created_at": "2025-05-25T06:17:12.000000Z",
-            "updated_at": "2025-05-25T06:17:12.000000Z",
-            "sceneries": []
-          },
-          {
-            "id": 313,
-            "eventId": 37,
-            "icao": " SBPA",
-            "created_at": "2025-05-25T06:17:12.000000Z",
-            "updated_at": "2025-05-25T06:17:12.000000Z",
-            "sceneries": []
+            "id": 298,
+            "eventId": 2,
+            "icao": "SBBR",
+            "created_at": "2025-04-13T13:31:21.000000Z",
+            "updated_at": "2025-04-13T13:31:21.000000Z",
+            "sceneries": [
+              {
+                "id": 19,
+                "title": "AxScenery",
+                "license": "freeware",
+                "link": "https://axscenery.com/sbbr-5-0-brasilia/",
+                "simulator": "xp11",
+                "icao": "SBBR"
+              },
+              {
+                "id": 20,
+                "title": "Flightsim.to",
+                "license": "freeware",
+                "link": "https://flightsim.to/file/63131/braslia-international-airport-sbbr",
+                "simulator": "msfs",
+                "icao": "SBBR"
+              }
+            ]
           }
         ]
       });
