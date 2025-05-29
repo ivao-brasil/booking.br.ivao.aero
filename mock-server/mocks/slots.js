@@ -816,5 +816,59 @@ module.exports = {
       });
     });
     app.patch('/api/slot/3444/book', (req, res) => res.status(204).send());
+
+    app.get('/api/event/:id/slot/mine', (req, res) => {
+      res.send({
+        "data": [
+          {
+            "id": 3504,
+            "flightNumber": "GLO1756",
+            "origin": "SBBR",
+            "destination": "SBCT",
+            "type": "takeoff",
+            "private": 0,
+            "slotTime": "1925",
+            "gate": "10",
+            "aircraft": "B738",
+            "pilotId": 1049,
+            "eventId": 36,
+            "bookingTime": "2025-05-29T03:24:37+00:00",
+            "bookingStatus": "prebooked",
+            "flight_time": 4464,
+            "distance": 585,
+            "timestamps": {
+              "departure": 1744572340,
+              "arrival": 1744576804
+            },
+            "event": {
+              "id": 36,
+              "division": "BR",
+              "dateStart": "2026-04-13T19:00:40+00:00",
+              "dateEnd": "2026-04-13T23:00:26+00:00",
+              "eventName": "Bras\u00edlia RFO 2025",
+              "privateSlots": 0,
+              "status": "scheduled",
+              "createdBy": 19,
+              "description": "Bras\u00edlia Real Flight Operations 2025",
+              "banner": "https:\/\/admin.br.ivao.aero\/storage\/images\/MleniXywXbXw6nH9TcVnjghsWaWfbsIqRJBSMNZw.png",
+              "atcBooking": "https:\/\/tools.ivao.aero\/event\/BR",
+              "atcBriefing": "https:\/\/wiki.br.ivao.aero\/pt-br\/atcops\/mops\/sbbs\/briefing-brasilia-rfo",
+              "pilotBriefing": "https:\/\/forum.ivao.aero\/forums\/eventos.758\/",
+              "public": 0,
+              "created_at": "2025-03-05T23:31:00.000000Z",
+              "updated_at": "2025-04-13T13:31:21.000000Z",
+              "type": "rfo",
+              "allowBookingAfterStart": 0,
+              "has_started": false,
+              "has_ended": false,
+              "can_confirm_slots": false
+            }
+          }
+        ],
+        "page": 1,
+        "perPage": 25,
+        "total": 1
+      });
+    });
   }
 }

@@ -24,8 +24,8 @@ module.exports = {
           {
             "id": 2,
             "division": "WS",
-            "dateStart": "2022-03-16T07:17:11+00:00",
-            "dateEnd": "2022-03-19T05:48:10+00:00",
+            "dateStart": "2025-03-16T07:17:11+00:00",
+            "dateEnd": "2025-03-19T05:48:10+00:00",
             "eventName": "Insulation Worker",
             "privateSlots": 0,
             "status": "scheduled",
@@ -83,7 +83,7 @@ module.exports = {
       res.send({
         "id": 2,
         "division": "BR",
-        "dateStart": "2025-04-13T19:00:40+00:00",
+        "dateStart": "2026-04-13T19:00:40+00:00",
         "dateEnd": "2026-04-13T23:00:26+00:00",
         "eventName": "Brasília RFO 2025",
         "privateSlots": 0,
