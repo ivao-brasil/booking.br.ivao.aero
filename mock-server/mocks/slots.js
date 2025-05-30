@@ -12,7 +12,7 @@ module.exports = {
             "origin": "MPTO",
             "destination": "SBBR",
             "type": "landing",
-            "private": 0,
+            "private": 1,
             "slotTime": "1900",
             "gate": "2",
             "aircraft": "B738",
@@ -26,18 +26,7 @@ module.exports = {
               "departure": 1744552372,
               "arrival": 1744570840
             },
-            "owner": {
-              "id": 1348,
-              "vid": "123456",
-              "firstName": "FIRST",
-              "lastName": "LAST",
-              "atcRating": 4,
-              "pilotRating": 4,
-              "division": "BR",
-              "country": "BR",
-              "admin": 0,
-              "suspended": 0
-            }
+            "owner": null
           },
           {
             "id": 3419,
