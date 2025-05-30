@@ -1,10 +1,10 @@
-import { Component, ReactNode, ErrorInfo } from 'react';
+import {Component, ReactNode, ErrorInfo} from 'react';
 import axios from 'axios';
-import { FiHome } from 'react-icons/fi';
-import { ActionButton } from 'components/button/Button';
-import { InformationalLayout } from 'layouts/InformationalLayout';
-import { AuthContext } from 'context/AuthContext';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import {FiHome} from 'react-icons/fi';
+import {ActionButton} from 'components/button/Button';
+import {InformationalLayout} from 'layouts/InformationalLayout';
+import {AuthContext} from 'context/AuthContext';
+import {withTranslation, WithTranslation} from 'react-i18next';
 import notFound from './not-found.svg';
 
 interface ErrorPageState {
@@ -20,16 +20,16 @@ class ErrorPageClass extends Component<ErrorPageProps, ErrorPageState> {
   context!: React.ContextType<typeof AuthContext>
 
   private unhandledPromiseCallback = (_: any) => {
-    this.setState({ hasError: true });
+    this.setState({hasError: true});
   };
 
   constructor(props: any) {
     super(props);
-    this.state = { hasError: false };
+    this.state = {hasError: false};
   }
 
   static getDerivedStateFromError(_: any) {
-    return { hasError: true };
+    return {hasError: true};
   }
 
   componentDidCatch(error: Error, _: ErrorInfo) {
@@ -38,7 +38,7 @@ class ErrorPageClass extends Component<ErrorPageProps, ErrorPageState> {
       // The backend is returning HTTP 500 with the string 'Expired token' as message
       if (error.message === "Expired token" || error.response?.status === 401 || error.response?.status === 403) {
         this.context.refreshToken();
-        this.setState({ hasError: false });
+        this.setState({hasError: false});
       }
     }
   }
@@ -65,9 +65,10 @@ class ErrorPageClass extends Component<ErrorPageProps, ErrorPageState> {
       <InformationalLayout
         header={this.props.t('errors.general.title')}
         description={this.props.t('errors.general.subtitle')}
-        image={<img className="w-[27.3rem]" alt="globe" src={notFound} width={437} height={480} />}
+        image={<img className="w-[27.3rem]" alt="globe" src={notFound} width={437} height={480}/>}
       >
-        <ActionButton icon={<FiHome size={20} />} content={this.props.t('generics.backToBeginning')} onClick={this.onErrorReset} />
+        <ActionButton icon={<FiHome size={20}/>} content={this.props.t('generics.backToBeginning')}
+                      onClick={this.onErrorReset}/>
       </InformationalLayout>
     )
   }
