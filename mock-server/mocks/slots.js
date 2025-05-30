@@ -33,8 +33,8 @@ module.exports = {
             "flightNumber": "GLO1721",
             "origin": "SBRB",
             "destination": "SBBR",
-            "type": "landing",
-            "private": 0,
+            "type": "takeoff",
+            "private": 1,
             "slotTime": "1900",
             "gate": "9",
             "aircraft": "B38M",
@@ -48,26 +48,15 @@ module.exports = {
               "departure": 1744560833,
               "arrival": 1744570840
             },
-            "owner": {
-              "id": 514,
-              "vid": "123456",
-              "firstName": "FIRST",
-              "lastName": "LAST",
-              "atcRating": 2,
-              "pilotRating": 7,
-              "division": "IT",
-              "country": "IT",
-              "admin": 0,
-              "suspended": 0
-            }
+            "owner": null
           },
           {
             "id": 3418,
             "flightNumber": "AZU4745",
-            "origin": "SBKP",
+            "origin": null,
             "destination": "SBBR",
             "type": "landing",
-            "private": 0,
+            "private": 1,
             "slotTime": "1900",
             "gate": "19",
             "aircraft": "E295",
@@ -81,26 +70,15 @@ module.exports = {
               "departure": 1744567385,
               "arrival": 1744570840
             },
-            "owner": {
-              "id": 987,
-              "vid": "123456",
-              "firstName": "FIRST",
-              "lastName": "LAST",
-              "atcRating": 4,
-              "pilotRating": 5,
-              "division": "CO",
-              "country": "CO",
-              "admin": 0,
-              "suspended": 0
-            }
+            "owner": null
           },
           {
             "id": 3444,
             "flightNumber": "PTB2321",
             "origin": "SBRP",
-            "destination": "SBBR",
-            "type": "landing",
-            "private": 0,
+            "destination": null,
+            "type": "takeoff",
+            "private": 1,
             "slotTime": "2035",
             "gate": "12",
             "aircraft": "AT76",
@@ -118,14 +96,14 @@ module.exports = {
           },
           {
             "id": 3421,
-            "flightNumber": "TAM3841",
-            "origin": "SBSN",
-            "destination": "SBBR",
+            "flightNumber": null,
+            "origin": null,
+            "destination": null,
             "type": "landing",
-            "private": 0,
+            "private": 1,
             "slotTime": "1915",
             "gate": "27",
-            "aircraft": "A319",
+            "aircraft": null,
             "pilotId": 1078,
             "eventId": 36,
             "bookingTime": "2025-04-11T13:57:13+00:00",
@@ -136,18 +114,7 @@ module.exports = {
               "departure": 1744564504,
               "arrival": 1744571740
             },
-            "owner": {
-              "id": 1078,
-              "vid": "123456",
-              "firstName": "FIRST",
-              "lastName": "LAST",
-              "atcRating": 6,
-              "pilotRating": 5,
-              "division": "BR",
-              "country": "BR",
-              "admin": 1,
-              "suspended": 0
-            }
+            "owner": null
           },
           {
             "id": 3422,
