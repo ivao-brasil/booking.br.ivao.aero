@@ -8,7 +8,7 @@ export function useAirlineLogosFromSlots(slots: Slot[]) {
 
     return useQueries(
         slots.map(slot => {
-            if (slot.private && !slot.flightNumber) {
+            if (!slot.flightNumber) {
                 return {
                     queryKey: ["private_logo"],
                     queryFn: () => Promise.resolve(null)

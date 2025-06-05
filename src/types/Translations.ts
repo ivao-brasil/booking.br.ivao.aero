@@ -116,7 +116,7 @@ export interface Translations {
     search: string,
     arrivals: string,
     departures: string,
-    privateSlots: string,
+    departureArrival: string,
     flightNumber: string,
     eobt: string,
     gate: string,

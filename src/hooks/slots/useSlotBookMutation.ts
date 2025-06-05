@@ -4,22 +4,22 @@ import { useContext } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { ApiErrorResponse } from "types/ApiBase";
 import { Pagination } from "types/Pagination";
-import { PrivateSlotScheduleData, Slot, SlotBookActions } from "types/Slot";
+import { SlotScheduleData, Slot, SlotBookActions } from "types/Slot";
 
 interface SlotBookMutationVariables {
     slotId: number;
     eventId: number;
-    privateSlotData?: PrivateSlotScheduleData;
+    slotData?: SlotScheduleData;
 }
 
 export function useSlotBookMutation(action: SlotBookActions) {
     const { apiClient } = useContext(IocContext);
     const queryClient = useQueryClient();
 
-    const bookingMutation = useMutation<any, AxiosError<ApiErrorResponse>, SlotBookMutationVariables>(({ slotId, privateSlotData }) => {
+    const bookingMutation = useMutation<any, AxiosError<ApiErrorResponse>, SlotBookMutationVariables>(({ slotId, slotData }) => {
         switch (action) {
             case SlotBookActions.BOOK:
-                return apiClient.scheduleSlot(slotId, privateSlotData);
+                return apiClient.scheduleSlot(slotId, slotData);
             case SlotBookActions.CANCEL:
                 return apiClient.cancelSchedule(slotId);
             case SlotBookActions.CONFIRM:
