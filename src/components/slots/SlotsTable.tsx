@@ -1,7 +1,7 @@
 import {ChangeEvent, FunctionComponent, useEffect, useState} from "react";
 import {FaPlane} from "react-icons/fa";
 import {SlotBookButton} from "./SlotBookButton";
-import {getSlotAirline, SlotScheduleData, Slot, SlotType} from "types/Slot";
+import {getSlotAirline, Slot, SlotScheduleData, SlotType} from "types/Slot";
 import {InputField} from "components/InputField";
 import {ActionButton} from "components/button/Button";
 import {LoadingIndicator} from "components/LoadingIndicator/LoadingIndicator";
@@ -63,7 +63,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
     onSlotBook(slotId, formValues[slotId]);
   }
 
-  const isPrivateSlotAndBookable = (slot: Slot) => slot.private && !slot.owner;
+  const isBookable = (slot: Slot) => !slot.owner;
 
   const getAirportFullName = (icao: string, detailsMap?: Record<string, AirportDetails>) => {
     if (!detailsMap) {
@@ -77,8 +77,6 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
     }
 
     let airportName = airportDetails.name;
-    // Initially the HQ API returns the airport name in the format:
-    // São Paulo/Guarulhos / Governador André Franco Montoro Intl
     if (airportName.indexOf(" / ") !== -1) {
       const [, airportFullName] = airportName.split(" / ");
       airportName = airportFullName;
@@ -89,13 +87,14 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
 
   useEffect(() => {
     slots.forEach((slot) => {
-      if (!isPrivateSlotAndBookable(slot)) {
+      if (!isBookable(slot)) {
         return;
       }
 
-      if (slot.type === SlotType.LANDING) {
+      if (!slot.isFixedDestination) {
         updateFormValues(slot.id, "destination", slot.destination);
-      } else if (slot.type === SlotType.TAKEOFF) {
+      }
+      if (!slot.isFixedOrigin) {
         updateFormValues(slot.id, "origin", slot.origin);
       }
     });
@@ -140,7 +139,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
               )}
             </td>
 
-            {isPrivateSlotAndBookable(slot) && !slot.flightNumber
+            {isBookable(slot) && !slot.flightNumber
               ? (
                 <td>
                   <label htmlFor={`flightNumber-${slot.id}`} className="sr-only">
@@ -161,7 +160,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                 </td>
               )}
 
-            {isPrivateSlotAndBookable(slot) && !slot.aircraft
+            {isBookable(slot) && !slot.aircraft
               ? (
                 <td>
                   <label htmlFor={`aircraft-${slot.id}`} className="sr-only">
@@ -182,7 +181,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
                 </td>
               )}
 
-            {isPrivateSlotAndBookable(slot) && slot.type !== SlotType.TAKEOFF && !slot.origin
+            {isBookable(slot) && !slot.isFixedOrigin
               ? (
                 <td>
                   <label htmlFor={`origin-${slot.id}`} className="sr-only">
@@ -218,7 +217,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
               </div>
             </td>
 
-            {isPrivateSlotAndBookable(slot) && slot.type !== SlotType.LANDING && !slot.destination
+            {isBookable(slot) && !slot.isFixedDestination
               ? (
                 <td>
                   <label htmlFor={`destination-${slot.id}`} className="sr-only">
@@ -251,8 +250,8 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
             <td className="px-3">{slot.gate}</td>
             <td className="rounded-r-lg px-3">
               <div className="w-24 mx-auto">
-                {slot.owner
-                  ? <SlotBookButton content={slot.owner.vid} canBookFLight={false}/>
+                {!isBookable(slot)
+                  ? <SlotBookButton content={slot.owner!.vid} canBookFLight={false}/>
                   : <SlotBookButton content={t("flights.bookFlight")} onClick={() => handleSlotScheduling(slot.id)}/>}
               </div>
             </td>
