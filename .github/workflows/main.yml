@@ -39,3 +39,11 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: build/
         server-dir: ${{ secrets.SERVER_DIR }}
+        exclude: |
+          .git*
+          .github
+          node_modules
+          .DS_Store
+          .vscode
+          .idea
+          mock-server
