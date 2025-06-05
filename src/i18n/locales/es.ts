@@ -117,7 +117,7 @@ const esTranslations: { translations: Translations } = {
       search: 'Buscar vuelos',
       arrivals: 'Llegadas',
       departures: 'Salidas',
-      privateSlots: 'Zona VIP',
+      departureArrival: 'Llegadas y Salidas',
       flightNumber: 'Numero de Vuelo',
       eobt: 'EOBT',
       gate: 'Puerta',

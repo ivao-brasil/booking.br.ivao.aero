@@ -14,7 +14,7 @@ import {useText} from "hooks/useText";
 import {useEffect, useMemo, useState} from "react";
 import {createSearchParams, ParamKeyValuePair, useLocation, useNavigate, useParams} from "react-router-dom";
 import {AirportDetails} from "types/AirportDetails";
-import {PrivateSlotScheduleData, Slot} from "types/Slot";
+import {SlotScheduleData, Slot} from "types/Slot";
 import {SlotTypeOptions} from "types/SlotFilter";
 import {Translations} from "types/Translations";
 
@@ -99,7 +99,7 @@ export default function SlotsPage() {
     });
   }
 
-  const onSlotBook = (slotId: number, slotData?: PrivateSlotScheduleData) => {
+  const onSlotBook = (slotId: number, slotData?: SlotScheduleData) => {
     const scheduleUrl = `/event/${eventId}/schedule/${slotId}`;
     if (slotData) {
       const urlInitSlotData = Object.entries(slotData).map(([key, value]) => [String(key), value]) as ParamKeyValuePair[];
@@ -157,11 +157,10 @@ export default function SlotsPage() {
           eventBanner={event.banner}
           eventType={event.type}
           selectedSlotType={selectedSlotType}
-          showPriveSlots={event.privateSlots === 1}
           slotsQtdData={{
             departure: slotCountByType.data?.departure,
             landing: slotCountByType.data?.landing,
-            private: slotCountByType.data?.private
+            departureLanding: slotCountByType.data?.departureLanding
           }}
           onSlotTypeChange={onSlotTypeChange}/>
       </div>

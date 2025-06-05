@@ -3,7 +3,7 @@ import { User } from "types/User";
 import { Pagination } from "types/Pagination";
 import { Event } from "types/Event";
 import { Scenary } from 'types/Scenary';
-import { PrivateSlotScheduleData, Slot, SlotCountByType } from 'types/Slot';
+import { SlotScheduleData, Slot, SlotCountByType } from 'types/Slot';
 import { SlotTypeOptions } from 'types/SlotFilter';
 import { FilterState } from 'components/filter/Filter';
 import { AirportDetails } from 'types/AirportDetails';
@@ -98,9 +98,9 @@ export class ApiClient {
       .then(response => response.data);
   }
 
-  async scheduleSlot(slotId: number, privateSlotData?: PrivateSlotScheduleData) {
+  async scheduleSlot(slotId: number, slotData?: SlotScheduleData) {
     return this.axios
-      .patch<any>(`/slot/${slotId}/book`, privateSlotData)
+      .patch<any>(`/slot/${slotId}/book`, slotData)
       .then(response => response.data);
   }
 
@@ -151,9 +151,7 @@ export class ApiClient {
     let queryString = fromObjectToQueryString(pageData);
 
     if (!filterState?.flightNumber) {
-      if (slotType === SlotTypeOptions.PRIVATE) {
-        queryString += "&" + fromObjectToQueryString({ "private": true });
-      } else if (slotType !== null && slotType !== undefined) {
+      if (slotType !== null && slotType !== undefined) {
         queryString += "&" + fromObjectToQueryString({
           "type": SlotTypeOptions[slotType].toLowerCase(),
           "private": false

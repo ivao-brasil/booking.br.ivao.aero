@@ -9,7 +9,7 @@ import {SlotsPageLocationState} from "pages/Event/SlotsPage";
 import {useEffect} from "react";
 import {FiAlertTriangle, FiCheck} from "react-icons/fi";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {PrivateSlotScheduleData, SlotBookActions} from "types/Slot";
+import {SlotScheduleData, SlotBookActions} from "types/Slot";
 import globe from './globe.svg';
 
 const PRIVATE_SLOT_URL_PARAMS = ["flightNumber", "aircraft", "origin", "destination"];
@@ -26,7 +26,7 @@ export default function ConfirmSchedule() {
   }
 
   const extractSlotParamsFromUrl = () => {
-    const result: PrivateSlotScheduleData = {
+    const result: SlotScheduleData = {
       flightNumber: "",
       aircraft: "",
       origin: "",
@@ -39,7 +39,7 @@ export default function ConfirmSchedule() {
       }
 
       const urlParamValue = searchParams.get(urlParamKey)?.toUpperCase();
-      result[urlParamKey as keyof PrivateSlotScheduleData] = urlParamValue || "";
+      result[urlParamKey as keyof SlotScheduleData] = urlParamValue || "";
     });
 
     return result;
@@ -50,13 +50,7 @@ export default function ConfirmSchedule() {
       slotId: Number(slotId),
       eventId: Number(eventId),
     }
-
-    if (isPrivateSlot()) {
-      const privateSlotData = extractSlotParamsFromUrl();
-      bookMutation.mutate({...mutationParams, privateSlotData});
-    } else {
-      bookMutation.mutate(mutationParams);
-    }
+    bookMutation.mutate({...mutationParams, slotData: extractSlotParamsFromUrl()});
   }
 
   useEffect(() => {

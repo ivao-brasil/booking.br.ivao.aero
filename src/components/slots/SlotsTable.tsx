@@ -1,7 +1,7 @@
 import {ChangeEvent, FunctionComponent, useEffect, useState} from "react";
 import {FaPlane} from "react-icons/fa";
 import {SlotBookButton} from "./SlotBookButton";
-import {getSlotAirline, PrivateSlotScheduleData, Slot, SlotType} from "types/Slot";
+import {getSlotAirline, SlotScheduleData, Slot, SlotType} from "types/Slot";
 import {InputField} from "components/InputField";
 import {ActionButton} from "components/button/Button";
 import {LoadingIndicator} from "components/LoadingIndicator/LoadingIndicator";
@@ -14,7 +14,7 @@ interface SlotsTableProps {
   hasMoreFlights?: boolean;
   isFecthingMoreFlights?: boolean;
   airportDetailsMap?: Record<string, AirportDetails>;
-  onSlotBook: (slotId: number, slotData?: PrivateSlotScheduleData) => void;
+  onSlotBook: (slotId: number, slotData?: SlotScheduleData) => void;
   onMoreFlightsRequested?: () => void;
 }
 
@@ -40,10 +40,10 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
   const [formValues, setFormValues] = useState<FormValueMap>({});
 
   const handleLineInputChange = (slotId: number, evt: ChangeEvent<HTMLInputElement>) => {
-    updateFormValues(slotId, evt.target.name as keyof PrivateSlotScheduleData, evt.target.value);
+    updateFormValues(slotId, evt.target.name as keyof SlotScheduleData, evt.target.value);
   }
 
-  const updateFormValues = (slotId: number, key: keyof PrivateSlotScheduleData, value: string) => {
+  const updateFormValues = (slotId: number, key: keyof SlotScheduleData, value: string) => {
     setFormValues(prevState => {
       if (prevState === undefined) {
         prevState = {};
