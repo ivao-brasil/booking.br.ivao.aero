@@ -16,15 +16,18 @@ export enum BookingStatus {
 export interface Slot {
   id: number;
   origin: string;
+  isFixedOrigin: boolean;
   destination: string;
+  isFixedDestination: boolean;
   type: SlotType;
-  private: boolean;
   slotTime: string;
   gate: string;
   aircraft: string;
+  isFixedAicraft: boolean;
   owner?: User;
   event?: Event;
   flightNumber: string;
+  isFixedFlightNumber: boolean;
   bookingStatus: BookingStatus;
 }
 
