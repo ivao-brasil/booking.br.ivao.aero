@@ -50,27 +50,32 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
           <Subheader textSize="text-md"
                      textColor="text-light-blue dark:text-white">{getEventTypeName(eventType)}</Subheader>
         </div>
+        {slotsQtdData?.landing! > 0 && (
+          <FilterCard
+            title={t('flights.arrivals' as unknown as keyof Translations)}
+            icon={<FaPlaneArrival/>}
+            quantity={slotsQtdData?.landing}
+            onClick={() => onSlotTypeChange(SlotTypeOptions.LANDING)}
+            active={selectedSlotType === SlotTypeOptions.LANDING}/>
+        )}
 
-        <FilterCard
-          title={t('flights.arrivals' as unknown as keyof Translations)}
-          icon={<FaPlaneArrival/>}
-          quantity={slotsQtdData?.landing}
-          onClick={() => onSlotTypeChange(SlotTypeOptions.LANDING)}
-          active={selectedSlotType === SlotTypeOptions.LANDING}/>
+        {slotsQtdData?.departure! > 0 && (
+          <FilterCard
+            title={t('flights.departures' as unknown as keyof Translations)}
+            icon={<FaPlaneDeparture/>}
+            quantity={slotsQtdData?.departure}
+            onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF)}
+            active={selectedSlotType === SlotTypeOptions.TAKEOFF}/>
+        )}
 
-        <FilterCard
-          title={t('flights.departures' as unknown as keyof Translations)}
-          icon={<FaPlaneDeparture/>}
-          quantity={slotsQtdData?.departure}
-          onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF)}
-          active={selectedSlotType === SlotTypeOptions.TAKEOFF}/>
-
-        <FilterCard
-          title={t('flights.departureArrival' as unknown as keyof Translations)}
-          icon={<FaUserClock/>}
-          quantity={slotsQtdData?.departureLanding}
-          onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF_LANDING)}
-          active={selectedSlotType === SlotTypeOptions.TAKEOFF_LANDING}/>
+        {slotsQtdData?.departureLanding! > 0 && (
+          <FilterCard
+            title={t('flights.departureArrival' as unknown as keyof Translations)}
+            icon={<FaUserClock/>}
+            quantity={slotsQtdData?.departureLanding}
+            onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF_LANDING)}
+            active={selectedSlotType === SlotTypeOptions.TAKEOFF_LANDING}/>
+        )}
       </div>
     </nav>
   );
