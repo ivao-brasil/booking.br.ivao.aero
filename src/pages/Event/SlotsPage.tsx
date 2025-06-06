@@ -28,10 +28,10 @@ interface SlotBookError {
   errorMessage?: string;
 }
 
-const DEFAULT_SELECTED_SLOT_TYPE = SlotTypeOptions.LANDING;
+let defaultSelectedSlot = SlotTypeOptions.LANDING;
 
 export default function SlotsPage() {
-  const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(DEFAULT_SELECTED_SLOT_TYPE);
+  const [selectedSlotType, setSelectedSlotType] = useState<SlotTypeOptions | null>(defaultSelectedSlot);
   const [scheduleRequest, setBookingRequestError] = useState<SlotBookError>({hasError: false});
   const [appliedFilters, setAppliedFilters] = useState<Partial<FilterState>>({});
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -52,6 +52,19 @@ export default function SlotsPage() {
   const tableData = useFlatInfiniteData(slots);
 
   const slotCountByType = useSlotCountByType(Number(eventId));
+
+  useEffect(() => {
+    if(slotCountByType.data?.landing! > 0) {
+      defaultSelectedSlot = SlotTypeOptions.LANDING;
+    }
+    else if(slotCountByType.data?.departure! > 0) {
+      defaultSelectedSlot = SlotTypeOptions.TAKEOFF;
+    }
+    else if(slotCountByType.data?.departureLanding! > 0) {
+      defaultSelectedSlot = SlotTypeOptions.TAKEOFF_LANDING;
+    }
+    setSelectedSlotType(defaultSelectedSlot);
+  }, [slotCountByType.data]);
 
   useEffect(() => {
     const locationState = location.state as SlotsPageLocationState | null;
@@ -118,7 +131,7 @@ export default function SlotsPage() {
   const onFlightSearch = (flightNumber: string) => {
     if (flightNumber === "") {
       clearFlightNumberSearch();
-      setSelectedSlotType(DEFAULT_SELECTED_SLOT_TYPE);
+      setSelectedSlotType(defaultSelectedSlot);
       return;
     }
 
@@ -131,14 +144,14 @@ export default function SlotsPage() {
     setAppliedFilters(filterState);
 
     if (filterKeyCount === 0 && selectedSlotType === null) {
-      setSelectedSlotType(DEFAULT_SELECTED_SLOT_TYPE);
+      setSelectedSlotType(defaultSelectedSlot);
     }
   }
 
   const onScheduleErrorReset = () => {
     setBookingRequestError({hasError: false, errorMessage: undefined});
     setAppliedFilters({});
-    setSelectedSlotType(DEFAULT_SELECTED_SLOT_TYPE);
+    setSelectedSlotType(defaultSelectedSlot);
   }
 
   const scrollBarClassName = "lg:h-slot-table lg:mt-5 lg:scrollbar-thin lg:scrollbar-thumb-light-gray-5 lg:dark:scrollbar-thumb-black lg:scrollbar-thumb-rounded";
