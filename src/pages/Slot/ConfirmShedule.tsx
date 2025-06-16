@@ -12,7 +12,7 @@ import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {SlotScheduleData, SlotBookActions} from "types/Slot";
 import globe from './globe.svg';
 
-const PRIVATE_SLOT_URL_PARAMS = ["flightNumber", "aircraft", "origin", "destination"];
+const SLOT_URL_PARAMS = ["flightNumber", "aircraft", "origin", "destination"];
 
 export default function ConfirmSchedule() {
   const {eventId, slotId} = useParams();
@@ -20,10 +20,6 @@ export default function ConfirmSchedule() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const {t} = useText();
-
-  const isPrivateSlot = () => {
-    return PRIVATE_SLOT_URL_PARAMS.find(urlParamKey => searchParams.get(urlParamKey) !== null) !== undefined;
-  }
 
   const extractSlotParamsFromUrl = () => {
     const result: SlotScheduleData = {
@@ -33,7 +29,7 @@ export default function ConfirmSchedule() {
       destination: ""
     };
 
-    PRIVATE_SLOT_URL_PARAMS.forEach(urlParamKey => {
+    SLOT_URL_PARAMS.forEach(urlParamKey => {
       if (!(urlParamKey in result)) {
         return;
       }

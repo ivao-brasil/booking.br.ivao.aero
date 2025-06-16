@@ -23,7 +23,7 @@ export interface Slot {
   slotTime: string;
   gate: string;
   aircraft: string;
-  isFixedAicraft: boolean;
+  isFixedAircraft: boolean;
   owner?: User;
   event?: Event;
   flightNumber: string;
