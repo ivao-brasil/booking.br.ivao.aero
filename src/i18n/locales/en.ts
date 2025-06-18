@@ -117,7 +117,7 @@ const enTranslations: { translations: Translations } = {
       search: 'Search Flights',
       arrivals: 'Arrivals',
       departures: 'Departures',
-      privateSlots: 'Private Slots',
+      departureArrival: 'Departure and Arrival',
       flightNumber: 'Flight Number',
       eobt: 'EOBT',
       gate: 'Stand',

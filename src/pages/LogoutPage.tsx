@@ -1,19 +1,19 @@
-import { LoadingIndicator } from "components/LoadingIndicator/LoadingIndicator";
-import { useContext, useEffect } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import {LoadingIndicator} from "components/LoadingIndicator/LoadingIndicator";
+import {useContext, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../context/AuthContext";
 
 export default function LogoutPage() {
-    const { signOut } = useContext(AuthContext);
-    const navigate = useNavigate();
+  const {signOut} = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        signOut();
+  useEffect(() => {
+    signOut();
 
-        navigate("/");
-    }, [signOut, navigate]);
+    navigate("/");
+  }, [signOut, navigate]);
 
-    return (
-        <LoadingIndicator />
-    );
+  return (
+    <LoadingIndicator/>
+  );
 }

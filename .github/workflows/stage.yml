@@ -1,36 +1,50 @@
 on:
   push:
-      branches:
-        - stage
+    branches:
+      - stage
 
 name: 🚀 Deploy to Stage
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: Stage
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '14.x'
-        cache: 'yarn'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.20.8'
+          cache: 'yarn'
 
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-    - name: Build Project
-      env:
-        CI: false
-        REACT_APP_API_HOST: ${{ secrets.STAGE_API_HOST }}
-        REACT_APP_LOGO_URL: ${{ secrets.STAGE_REACT_APP_LOGO_URL }}
-        REACT_APP_ANALYTICS_TRACKING_ID: ${{ secrets.STAGE_REACT_ANALYTICS_TRACKING_ID }}
-      run: yarn build
+      - name: Build Project
+        env:
+          CI: false
+          GENERATE_SOURCEMAP: false
+          REACT_APP_API_HOST: ${{ secrets.API_HOST }}
+          REACT_APP_LOGO_URL: ${{ secrets.PRODUCTION_REACT_APP_LOGO_URL }}
+          REACT_APP_ANALYTICS_TRACKING_ID: ${{ secrets.PRODUCTION_REACT_ANALYTICS_TRACKING_ID }}
+          REACT_APP_LOGO_SIDEBAR_LIGHT: ${{ secrets.REACT_APP_LOGO_SIDEBAR_LIGHT }}
+          REACT_APP_LOGO_SIDEBAR_DARK: ${{ secrets.REACT_APP_LOGO_SIDEBAR_DARK }}
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
-      with:
-        server: ${{ secrets.STAGE_FTP_HOST }}
-        username: ${{ secrets.STAGE_FTP_USER }}
-        password: ${{ secrets.STAGE_FTP_PASSWORD }}
-        local-dir: build/
-        server-dir: /
+        run: yarn build
+
+      - name: 📂 Sync files
+        if: ${{ env.IS_DEPLOYMENT_ENABLED == 'true' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: build/
+          server-dir: ${{ secrets.SERVER_DIR }}
+          exclude: |
+            .git*
+            .github
+            node_modules
+            .DS_Store
+            .vscode
+            .idea
+            mock-server

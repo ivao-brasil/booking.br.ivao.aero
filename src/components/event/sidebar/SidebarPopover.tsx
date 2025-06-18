@@ -56,13 +56,7 @@ export const SidebarPopover: FunctionComponent<SidebarPopoverProps> = ({ text, i
                 </div>
             )}
 
-            {cloneElement(children, {
-                ref: setReferenceElement,
-                onMouseEnter: () => setIsPopoverActive(true),
-                onFocus: () => setIsPopoverActive(true),
-                onMouseLeave: () => setIsPopoverActive(false),
-                onBlur: () => setIsPopoverActive(false),
-            })}
+            {cloneElement(children)}
         </>
     );
 };

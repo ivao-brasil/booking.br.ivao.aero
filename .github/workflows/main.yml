@@ -8,11 +8,12 @@ name: 🚀 Deploy to Production
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: Production
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
-        node-version: '14.x'
+        node-version: '18.20.8'
         cache: 'yarn'
 
     - name: Install dependencies
@@ -22,7 +23,7 @@ jobs:
       env:
         CI: false
         GENERATE_SOURCEMAP: false
-        REACT_APP_API_HOST: ${{ secrets.PRODUCTION_API_HOST }}
+        REACT_APP_API_HOST: ${{ secrets.API_HOST }}
         REACT_APP_LOGO_URL: ${{ secrets.PRODUCTION_REACT_APP_LOGO_URL }}
         REACT_APP_ANALYTICS_TRACKING_ID: ${{ secrets.PRODUCTION_REACT_ANALYTICS_TRACKING_ID }}
         REACT_APP_LOGO_SIDEBAR_LIGHT: ${{ secrets.REACT_APP_LOGO_SIDEBAR_LIGHT }}
@@ -31,10 +32,19 @@ jobs:
       run: yarn build
 
     - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      if: ${{ env.IS_DEPLOYMENT_ENABLED == 'true' }}
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ${{ secrets.PRODUCTION_FTP_HOST }}
-        username: ${{ secrets.PRODUCTION_FTP_USER }}
-        password: ${{ secrets.PRODUCTION_FTP_PASSWORD }}
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
         local-dir: build/
-        server-dir: /
+        server-dir: ${{ secrets.SERVER_DIR }}
+        exclude: |
+          .git*
+          .github
+          node_modules
+          .DS_Store
+          .vscode
+          .idea
+          mock-server

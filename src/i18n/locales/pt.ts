@@ -117,7 +117,7 @@ const ptTranslations: { translations: Translations } = {
       search: 'Buscar voo',
       arrivals: 'Chegadas',
       departures: 'Partidas',
-      privateSlots: 'Slots Privados',
+      departureArrival: 'Chegadas e Partidas',
       flightNumber: 'Número do Voo',
       eobt: 'EOBT',
       gate: 'Posição',

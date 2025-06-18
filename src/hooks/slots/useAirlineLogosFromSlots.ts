@@ -6,11 +6,9 @@ import { getSlotAirline, Slot } from "types/Slot";
 export function useAirlineLogosFromSlots(slots: Slot[]) {
     const { apiClient } = useContext(IocContext);
 
-    const airlineLogos = useQueries(
+    return useQueries(
         slots.map(slot => {
-            // Don't try to fetch airline logos for private flights
-            // as we don't have an callsign list to ignore (ex: PTABC).
-            if (slot.private) {
+            if (!slot.flightNumber) {
                 return {
                     queryKey: ["private_logo"],
                     queryFn: () => Promise.resolve(null)
@@ -26,6 +24,4 @@ export function useAirlineLogosFromSlots(slots: Slot[]) {
             }
         })
     );
-
-    return airlineLogos;
 }
