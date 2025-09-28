@@ -8,6 +8,7 @@ let envVariables = {
   LOGO_SIDEBAR_DARK: process.env.REACT_APP_LOGO_SIDEBAR_DARK || 'https://assets.br.ivao.aero/logos/symbol_white.svg',
   ANALYTICS_TRACKING_ID: process.env.REACT_APP_ANALYTICS_TRACKING_ID || '',
   IVAO_API_SERVER: process.env.IVAO_API_SERVER || 'https://api.ivao.aero',
+  CLIENT_ID: process.env.REACT_APP_CLIENT_ID || '',
 };
 
 if (activeEnv === 'development') {
@@ -19,6 +20,7 @@ if (activeEnv === 'development') {
     LOGO_SIDEBAR_DARK: process.env.REACT_APP_LOGO_SIDEBAR_DARK || 'https://assets.br.ivao.aero/logos/symbol_white.svg',
     ANALYTICS_TRACKING_ID: process.env.REACT_APP_ANALYTICS_TRACKING_ID || '',
     IVAO_API_SERVER: process.env.IVAO_API_SERVER || 'http://localhost:3003',
+    CLIENT_ID: process.env.REACT_APP_CLIENT_ID || '',
   }
 }
 

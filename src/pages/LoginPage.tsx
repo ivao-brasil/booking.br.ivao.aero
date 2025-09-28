@@ -2,6 +2,7 @@ import {LoadingIndicator} from "components/LoadingIndicator/LoadingIndicator";
 import {useContext, useEffect} from "react";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 import {AuthContext} from "../context/AuthContext";
+import {Env} from "../env";
 
 export default function LoginPage() {
   const [urlParams] = useSearchParams();
@@ -37,15 +38,15 @@ export default function LoginPage() {
       locationState = location.state;
     }
 
-    const baseUrl = window.location.href;
-    let loginUrl = `${openIdInfo?.authorizationEndpoint}?client_id=&redirect_uri=${encodeURIComponent(baseUrl)}`;
+    const urlQueryParams = new URLSearchParams();
+    urlQueryParams.set("client_id", Env.CLIENT_ID);
+    urlQueryParams.set("redirect_uri",
+      encodeURIComponent(`${window.location.href}?redirect=${locationState?.from?.pathname || "/"}`));
+    urlQueryParams.set("response_type", "code");
+    urlQueryParams.set("scope", "profile");
+    urlQueryParams.set("response_mode", "query");
 
-    const redirectPath = locationState?.from?.pathname;
-    if (redirectPath) {
-      loginUrl += "?redirect=" + redirectPath;
-    }
-
-    window.location.href = loginUrl;
+    window.location.href = urlQueryParams.toString();
   }, [signIn, token, location.state, openIdInfo, ivaoAuthCode]);
 
   return (
