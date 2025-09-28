@@ -7,7 +7,7 @@ let envVariables = {
   LOGO_SIDEBAR_DARK: process.env.REACT_APP_LOGO_SIDEBAR_DARK || 'https://assets.br.ivao.aero/logos/symbol_white.svg',
   ANALYTICS_TRACKING_ID: process.env.REACT_APP_ANALYTICS_TRACKING_ID || '',
   IVAO_KRONOS_API_SERVER: process.env.IVAO_KRONOS_API_HOST || '',
-  IVAO_API_SERVER: process.env.IVAO_API_HOST || 'https://api.ivao.aero',
+  IVAO_API_SERVER: process.env.IVAO_API_HOST || '',
   CLIENT_ID: process.env.CLIENT_ID || '',
 };
 
