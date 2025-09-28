@@ -8,7 +8,7 @@ interface IIocContext {
 }
 
 const axiosInstance = axios.create({
-  baseURL: Env.API_HOST
+  baseURL: Env.IVAO_KRONOS_API_SERVER
 });
 
 export const IocContext = createContext<IIocContext>({} as IIocContext);

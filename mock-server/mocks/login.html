@@ -14,12 +14,12 @@
     </form>
     <script>
         const params = new URLSearchParams(window.location.search);
-        if (!params.has('url')) {
+        if (!params.has('redirect_uri')) {
             alert('URL parameter is missing');
         }
         else {
-            document.getElementById('url').innerText = params.get('url');
-            document.getElementById('urlRedirection').value = `${params.get('url')}&IVAOTOKEN=MOCKTOKEN123`;
+            document.getElementById('url').innerText = params.get('redirect_uri');
+            document.getElementById('urlRedirection').value = `${params.get('redirect_uri')}&IVAOTOKEN=MOCKTOKEN123`;
             document.getElementById('login').addEventListener('click', function() {
                 document.querySelector('form').submit();
             });

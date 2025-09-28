@@ -9,6 +9,7 @@ import jwtDecode from "jwt-decode";
 import { IocContext } from "./IocContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCallback } from "react";
+import { Env } from "env";
 
 interface IAuthContext {
   signed: boolean;
@@ -16,6 +17,12 @@ interface IAuthContext {
   signIn: (ivaoToken: string) => Promise<void>;
   signOut: () => void;
   refreshToken: () => void;
+  openIdInfo?: {
+    authorizationEndpoint: string;
+    tokenEndpoint: string;
+    userInfoEndpoint: string;
+    jwksUri: string;
+  }
 }
 
 interface TokenData {
@@ -26,9 +33,10 @@ interface TokenData {
 export const AuthContext = createContext<IAuthContext>({
   signed: false,
   token: "",
+  openIdInfo: undefined,
   signIn: (_: string) => Promise.reject(),
   signOut: () => { },
-  refreshToken: () => { }
+  refreshToken: () => { },
 });
 
 export const AuthProvider: FunctionComponent = ({ children }) => {
@@ -36,6 +44,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [token, setToken] = useState<string>(localStorage.getItem("token") || "");
+  const [openIdInfo, setOpenIdInfo] = useState<IAuthContext["openIdInfo"]>();
 
   const signIn = useCallback(async (ivaoToken: string) => {
     const { jwt } = await authClient.auth(ivaoToken);
@@ -52,6 +61,23 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     signOut();
     navigate("/login", { state: { from: location } });
   }, [navigate, signOut, location]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(`${Env.IVAO_API_SERVER}/.well-known/openid-configuration`);
+        const data = await response.json();
+        setOpenIdInfo({
+          authorizationEndpoint: data.authorization_endpoint,
+          tokenEndpoint: data.token_endpoint,
+          userInfoEndpoint: data.userinfo_endpoint,
+          jwksUri: data.jwks_uri,
+        });
+      } catch (error) {
+        console.error("Error fetching OpenID:", error);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (!token) {
@@ -76,6 +102,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         refreshToken,
         signed: !!token,
         token,
+        openIdInfo,
       }}
     >
       {children}
