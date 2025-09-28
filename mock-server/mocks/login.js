@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     build: (app) => {
-        app.get('/login', (req, res) => {
+        app.get('/authorize', (req, res) => {
             res.sendfile('mock-server/mocks/login.html');
         });
 
