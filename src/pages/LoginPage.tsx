@@ -38,7 +38,7 @@ export default function LoginPage() {
       locationState = location.state;
     }
 
-    const urlQueryParams = new URLSearchParams();
+    const urlQueryParams = new URLSearchParams(openIdInfo.authorizationEndpoint);
     urlQueryParams.set("client_id", Env.CLIENT_ID);
     urlQueryParams.set("redirect_uri",
       encodeURIComponent(`${window.location.href}?redirect=${locationState?.from?.pathname || "/"}`));
