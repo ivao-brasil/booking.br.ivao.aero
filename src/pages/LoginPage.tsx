@@ -6,7 +6,7 @@ import {Env} from "../env";
 
 export default function LoginPage() {
   const [urlParams] = useSearchParams();
-  const ivaoAuthCode = urlParams.get("IVAOTOKEN");
+  const ivaoAuthCode = urlParams.get("code");
 
   const {signIn, signed, token, openIdInfo} = useContext(AuthContext);
   const location = useLocation();
