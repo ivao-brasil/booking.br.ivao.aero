@@ -23,9 +23,9 @@ jobs:
       env:
         CI: false
         GENERATE_SOURCEMAP: false
-        IVAO_KRONOS_API_HOST: ${{ secrets.IVAO_KRONOS_API_HOST }}
-        IVAO_API_HOST: ${{ secrets.IVAO_API_HOST }}
-        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        REACT_APP_IVAO_KRONOS_API_HOST: ${{ secrets.IVAO_KRONOS_API_HOST }}
+        REACT_APP_IVAO_API_HOST: ${{ secrets.IVAO_API_HOST }}
+        REACT_APP_CLIENT_ID: ${{ secrets.CLIENT_ID }}
         REACT_APP_LOGO_URL: ${{ secrets.PRODUCTION_REACT_APP_LOGO_URL }}
         REACT_APP_ANALYTICS_TRACKING_ID: ${{ secrets.PRODUCTION_REACT_ANALYTICS_TRACKING_ID }}
         REACT_APP_LOGO_SIDEBAR_LIGHT: ${{ secrets.REACT_APP_LOGO_SIDEBAR_LIGHT }}
