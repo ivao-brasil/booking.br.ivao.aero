@@ -33,16 +33,11 @@ export default function LoginPage() {
       return;
     }
 
-    let locationState: { from?: Location } | null = null;
-    if (typeof location.state === "object") {
-      locationState = location.state;
-    }
-
     const urlQueryParams = new URLSearchParams();
     urlQueryParams.set("client_id", Env.CLIENT_ID);
     urlQueryParams.set(
       "redirect_uri",
-      encodeURI(`${window.location.href}?redirect=${locationState?.from?.pathname || "/"}`));
+      encodeURI(`${window.location.href}`));
     urlQueryParams.set("response_type", "code");
     urlQueryParams.set("scope", "profile");
     urlQueryParams.set("response_mode", "query");
