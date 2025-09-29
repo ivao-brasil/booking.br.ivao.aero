@@ -42,7 +42,7 @@ export default function LoginPage() {
     urlQueryParams.set("client_id", Env.CLIENT_ID);
     urlQueryParams.set(
       "redirect_uri",
-      encodeURIComponent(`${window.location.href}?redirect=${locationState?.from?.pathname || "/"}`));
+      encodeURI(`${window.location.href}?redirect=${locationState?.from?.pathname || "/"}`));
     urlQueryParams.set("response_type", "code");
     urlQueryParams.set("scope", "profile");
     urlQueryParams.set("response_mode", "query");
