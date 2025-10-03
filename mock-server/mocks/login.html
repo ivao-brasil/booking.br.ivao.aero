@@ -19,7 +19,7 @@
         }
         else {
             document.getElementById('url').innerText = params.get('redirect_uri');
-            document.getElementById('urlRedirection').value = `${params.get('redirect_uri')}&code=MOCKTOKEN123`;
+            document.getElementById('urlRedirection').value = `${params.get('redirect_uri')}?code=MOCKTOKEN123`;
             document.getElementById('login').addEventListener('click', function() {
                 document.querySelector('form').submit();
             });
