@@ -7,6 +7,7 @@ import { SlotScheduleData, Slot, SlotCountByType } from 'types/Slot';
 import { SlotTypeOptions } from 'types/SlotFilter';
 import { FilterState } from 'components/filter/Filter';
 import { AirportDetails } from 'types/AirportDetails';
+import {Env} from "../env";
 
 interface AuthResponse {
   jwt: string;
@@ -32,7 +33,10 @@ export class ApiClient {
   }
 
   async auth(ivaoToken: string) {
-    const payload = { "ivao-token": ivaoToken }
+    const payload = {
+      "ivaoToken": ivaoToken,
+      "clientHost": Env.CLIENT_URL
+    }
     const { data } = await this.axios.post<AuthResponse>("/auth", payload)
     this.token = data.jwt;
     return data
