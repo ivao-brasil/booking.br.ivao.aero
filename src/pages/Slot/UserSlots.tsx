@@ -218,7 +218,7 @@ export default function UserSlots() {
                           origin={{name: getAirportShortName(originDetails), iata: originDetails.iata}}
                           destination={{name: getAirportShortName(destinationDetails), iata: destinationDetails.iata}}
                           callsign={slot.flightNumber}
-                          slotDate={slot.slotTime}
+                          slotDate={slot.etobOrigin ? slot.etobOrigin.toDateString() : slot.etibDestination.toDateString()}
                           gate={slot.gate}
                           type={slot.type === "takeoff" ? BoardingPassType.DEPARTURE : BoardingPassType.ARIVAL}
                           eventStartDate={new Date(event.dateStart)}
