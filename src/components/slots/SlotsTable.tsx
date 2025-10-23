@@ -244,7 +244,7 @@ export const SlotsTable: FunctionComponent<SlotsTableProps> = ({
               )}
 
             <td className="px-3">
-              <span>{slot.type === SlotType.TAKEOFF ? 'EOBT' : 'ETA'}:&nbsp;</span>
+              <span>{slot.etibDestination ? 'EIBT' : 'EOBT'}:&nbsp;</span>
               <span>{slot.etobOrigin ? slot.etobOrigin : slot.etibDestination}</span>
             </td>
             <td className="px-3">{slot.gate}</td>
