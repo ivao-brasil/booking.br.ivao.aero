@@ -19,13 +19,13 @@ export interface Slot {
   isFixedOrigin: boolean;
   destination: string;
   isFixedDestination: boolean;
-  etibOrigin: Date;
+  etaOrigin: Date;
   isFixedEtibOrigin: boolean;
-  etobOrigin: Date;
+  eobtOrigin: Date;
   isFixedEtobOrigin: boolean;
-  etibDestination: Date;
+  etaDestination: Date;
   isFixedEtibDestination: boolean;
-  etobDestination: Date;
+  eobtDestination: Date;
   isFixedEtobDestination: boolean;
   type: SlotType;
   gate: string;
