@@ -173,11 +173,7 @@ export default function SlotsPage() {
           eventBanner={event.banner}
           eventType={event.type}
           selectedSlotType={selectedSlotType}
-          slotsQtdData={{
-            departure: slotCountByType.data?.departure,
-            landing: slotCountByType.data?.landing,
-            departureLanding: slotCountByType.data?.departureLanding
-          }}
+          slotsQtdData={slotCountByType.data}
           onSlotTypeChange={onSlotTypeChange}/>
       </div>
 
