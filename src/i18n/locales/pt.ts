@@ -118,6 +118,7 @@ const ptTranslations: { translations: Translations } = {
       arrivals: 'Chegadas',
       departures: 'Partidas',
       departureArrival: 'Chegadas e Partidas',
+      private: 'Privado',
       flightNumber: 'Número do Voo',
       eobt: 'EOBT',
       gate: 'Posição',

@@ -118,6 +118,7 @@ const esTranslations: { translations: Translations } = {
       arrivals: 'Llegadas',
       departures: 'Salidas',
       departureArrival: 'Llegadas y Salidas',
+      private: 'Privado',
       flightNumber: 'Numero de Vuelo',
       eobt: 'EOBT',
       gate: 'Puerta',

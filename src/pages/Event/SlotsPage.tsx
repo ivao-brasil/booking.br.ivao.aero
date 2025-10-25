@@ -63,6 +63,9 @@ export default function SlotsPage() {
     else if(slotCountByType.data?.departureLanding! > 0) {
       defaultSelectedSlot = SlotTypeOptions.TAKEOFF_LANDING;
     }
+    else if(slotCountByType.data?.privateDeparture! > 0 || slotCountByType.data?.privateLanding! > 0) {
+      defaultSelectedSlot = SlotTypeOptions.PRIVATE;
+    }
     setSelectedSlotType(defaultSelectedSlot);
   }, [slotCountByType.data]);
 
@@ -170,11 +173,7 @@ export default function SlotsPage() {
           eventBanner={event.banner}
           eventType={event.type}
           selectedSlotType={selectedSlotType}
-          slotsQtdData={{
-            departure: slotCountByType.data?.departure,
-            landing: slotCountByType.data?.landing,
-            departureLanding: slotCountByType.data?.departureLanding
-          }}
+          slotsQtdData={slotCountByType.data}
           onSlotTypeChange={onSlotTypeChange}/>
       </div>
 

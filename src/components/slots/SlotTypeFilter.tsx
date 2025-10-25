@@ -11,6 +11,8 @@ interface SlotsQtdData {
   departure?: number;
   landing?: number;
   departureLanding?: number;
+  privateDeparture?: number;
+  privateLanding?: number;
 }
 
 interface SlotTypeFilterProps {
@@ -75,6 +77,15 @@ export const SlotTypeFilter: FunctionComponent<SlotTypeFilterProps> = ({
             quantity={slotsQtdData?.departureLanding}
             onClick={() => onSlotTypeChange(SlotTypeOptions.TAKEOFF_LANDING)}
             active={selectedSlotType === SlotTypeOptions.TAKEOFF_LANDING}/>
+        )}
+
+        {(slotsQtdData?.privateDeparture! > 0 || slotsQtdData?.privateLanding! > 0) && (
+          <FilterCard
+            title={t('flights.private' as unknown as keyof Translations)}
+            icon={<FaUserClock/>}
+            quantity={slotsQtdData?.privateDeparture! + slotsQtdData?.privateLanding!}
+            onClick={() => onSlotTypeChange(SlotTypeOptions.PRIVATE)}
+            active={selectedSlotType === SlotTypeOptions.PRIVATE}/>
         )}
       </div>
     </nav>

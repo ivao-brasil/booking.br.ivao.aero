@@ -51,6 +51,8 @@ export interface SlotCountByType {
   departure: number;
   landing: number;
   departureLanding: number;
+  privateDeparture: number;
+  privateLanding: number;
 }
 
 export function getSlotAirline(slot: Slot) {
