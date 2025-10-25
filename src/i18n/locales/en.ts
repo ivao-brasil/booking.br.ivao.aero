@@ -118,6 +118,7 @@ const enTranslations: { translations: Translations } = {
       arrivals: 'Arrivals',
       departures: 'Departures',
       departureArrival: 'Departure and Arrival',
+      private: 'Private',
       flightNumber: 'Flight Number',
       eobt: 'EOBT',
       gate: 'Stand',

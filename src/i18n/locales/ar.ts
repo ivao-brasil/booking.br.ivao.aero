@@ -119,6 +119,7 @@ const arTranslations: { translations: Translations } = {
       departures: 'المغادرة',
       flightNumber: 'رقم الرحلة',
       departureArrival: 'المغادرة والوصول',
+      private: 'خاص',
       eobt: 'وقت المغادرة',
       gate: 'البوابة',
       bookFlight: 'حجز الرحلة',

@@ -1,5 +1,3 @@
-import { StringMap } from "i18next"
-
 export interface Translations {
   generics: {
     backToBeginning: string,
@@ -117,6 +115,7 @@ export interface Translations {
     arrivals: string,
     departures: string,
     departureArrival: string,
+    private: string,
     flightNumber: string,
     eobt: string,
     gate: string,
