@@ -1,6 +1,6 @@
-import { AppRoutes } from "routes/AppRoutes";
-import { ErrorPage } from 'pages/ErrorPage';
-import { AppTracking } from "components/tracking/AppTracking";
+import { AppRoutes } from "./routes/AppRoutes";
+import { ErrorPage } from './pages/ErrorPage';
+import { AppTracking } from "./components/tracking/AppTracking";
 
 export const App = () => {
   return (

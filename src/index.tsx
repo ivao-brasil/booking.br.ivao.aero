@@ -1,8 +1,7 @@
-import {ONE_DAY} from 'appConstants';
-import {AuthProvider} from 'context/AuthContext';
-import {CookieConsentProvider} from 'context/CookieConsentContext';
-import {IocProvider} from 'context/IocContext';
-import {ThemeContextProvider} from 'context/ThemeContext';
+import {AuthProvider} from '@/context/AuthContext';
+import {CookieConsentProvider} from './context/CookieConsentContext';
+import {IocProvider} from './context/IocContext';
+import {ThemeContextProvider} from './context/ThemeContext';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {QueryClient, QueryClientProvider} from 'react-query';
@@ -11,6 +10,7 @@ import {App} from './App';
 import './i18n';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import {ONE_DAY} from "./appConstants";
 
 const queryClient = new QueryClient({
   defaultOptions: {
