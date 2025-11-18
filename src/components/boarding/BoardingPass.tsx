@@ -140,7 +140,8 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
           </div>
           <div className="font-header mt-auto">
             <div className="font-light text-[0.56rem] leading-3">
-              {type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}
+              {/*{type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}*/}
+              EOBT/ETA (UTC)
             </div>
             <div className="text-[2rem] leading-[2.6rem] font-extrabold">{slotDate}</div>
           </div>
