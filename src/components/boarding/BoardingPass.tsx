@@ -1,21 +1,14 @@
 import QrCode from "qrcode.react";
-import { FunctionComponent, ReactNode } from "react";
+import {FunctionComponent, ReactNode} from "react";
 import bodyStyle from "./board-pass-body.module.css";
 import headerStyle from "./boarding-pass-header.module.css";
-import { IoAirplaneOutline } from "react-icons/io5";
-
-export enum BoardingPassType {
-  DEPARTURE,
-  ARIVAL,
-}
+import {IoAirplaneOutline} from "react-icons/io5";
+import {Slot, SlotType} from "../../types/Slot";
 
 interface BoardingPassProps {
+  slot: Slot,
   themeColor?: string;
-  user: {
-    firstName: string;
-    lastName: string;
-    vid: string;
-  };
+  actions?: ReactNode;
   origin: {
     name: string;
     iata: string;
@@ -24,42 +17,23 @@ interface BoardingPassProps {
     name: string;
     iata: string;
   };
-  callsign: string;
-  slotDate: string;
-  gate: string;
-  type: BoardingPassType;
-  eventStartDate: Date;
-  actions?: ReactNode;
 }
 
 const defaultThemeColor = "#0d2c99";
 
-const formatDate = (date: Date) => {
-  const months = [
-    "JAN",
-    "FEV",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OUT",
-    "NOV",
-    "DEC",
-  ];
+const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC"
+});
 
-  const day = date.getUTCDate();
-  const month = date.getUTCMonth();
-  const year = date.getUTCFullYear();
-
-  return [
-    day.toString().padStart(2, "0"),
-    months[month],
-    year.toString().substring(2),
-  ].join(" ");
-};
+const timeFormatter = new Intl.DateTimeFormat("en-GB", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+  timeZone: "UTC"
+});
 
 const BoardingPassHeader: FunctionComponent<BoardingPassProps> = ({
   themeColor = defaultThemeColor,
@@ -83,14 +57,9 @@ const BoardingPassHeader: FunctionComponent<BoardingPassProps> = ({
 
 const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
   themeColor = defaultThemeColor,
-  user,
-  callsign,
+  slot,
   origin,
-  destination,
-  gate,
-  slotDate,
-  eventStartDate,
-  type,
+  destination
 }) => {
   return (
     <div>
@@ -98,13 +67,13 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
         <span>
           <span>Nome/Name</span>
           <span>
-            {user.lastName}, {user.firstName}
+            {slot.owner!.lastName}, {slot.owner!.firstName}
           </span>
         </span>
 
         <span>
           <span>Localizador</span>
-          <span>{user.vid}</span>
+          <span>{slot.owner!.vid}</span>
         </span>
       </div>
 
@@ -112,9 +81,9 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
         style={{ backgroundColor: themeColor, color: themeColor }}
         className={bodyStyle.flightHeader}
       >
-        <span>de/from</span>
-        <span>voo/flight</span>
-        <span>destino/arrival</span>
+        <span>from</span>
+        <span>flight</span>
+        <span>arrival</span>
       </div>
       <div className={bodyStyle.flightInfo}>
         <div className="flex flex-col">
@@ -122,28 +91,27 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
             {origin.name}/{origin.iata}
           </div>
           <div className="font-header mt-auto">
-            <div className="font-light text-[0.56rem] leading-3">Data/Date</div>
-            <div className="text-sm">{formatDate(eventStartDate)}</div>
+            <div className="font-light text-[0.56rem] leading-3">Data</div>
+            <div className="text-sm">{dateFormatter.format(new Date(slot.slotTime)).toUpperCase()}</div>
           </div>
           <div className="font-header mt-auto">
-            <div className="font-light text-[0.56rem] leading-3">posição/stand</div>
-            <div className="text-[2rem] leading-[2.6rem] font-extrabold">{gate}</div>
+            <div className="font-light text-[0.56rem] leading-3">stand</div>
+            <div className="text-[2rem] leading-[2.6rem] font-extrabold">{slot.gate}</div>
           </div>
         </div>
         <div className="flex flex-col">
           <div className="font-action font-semibold">
-            {callsign}
+            {slot.flightNumber}
           </div>
           <div className="font-header mt-auto">
-            <div className="font-light text-[0.56rem] leading-3">Grupo/Group</div>
+            <div className="font-light text-[0.56rem] leading-3">Group</div>
             <div className="text-sm">G1</div>
           </div>
           <div className="font-header mt-auto">
             <div className="font-light text-[0.56rem] leading-3">
-              {/*{type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}*/}
-              EOBT/ETA (UTC)
+              {slot.slotTimeReference === SlotType.EOBT ? "EOBT(UTC)" : "ETA(UTC)"}
             </div>
-            <div className="text-[2rem] leading-[2.6rem] font-extrabold">{slotDate}</div>
+            <div className="text-[2rem] leading-[2.6rem] font-extrabold">{timeFormatter.format(new Date(slot.slotTime))}</div>
           </div>
         </div>
         <div className="flex flex-col">
@@ -165,20 +133,16 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
 };
 
 const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
-  user,
+  slot,
   origin,
-  callsign,
   destination,
-  slotDate,
-  type,
-  eventStartDate
 }) => {
   return (
     <div className={bodyStyle.sideContent}>
       <div className={bodyStyle.passengerInfoSideBar}>
-        <div>nome/name</div>
+        <div>name</div>
         <div>
-          {user.lastName}, {user.firstName}
+          {slot.owner!.lastName}, {slot.owner!.firstName}
         </div>
       </div>
       <div className={bodyStyle.flightInfoSidebar}>
@@ -187,29 +151,29 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
           <div>
             <IoAirplaneOutline size={17} />
           </div>
-          <div>{callsign}</div>
+          <div>{slot.flightNumber}</div>
         </div>
         <div>{destination.iata}</div>
       </div>
       <div className={bodyStyle.dateInfoSidebar}>
         <div>
-          <div>Data/Date</div>
-          <div>{formatDate(eventStartDate)}</div>
+          <div>Date</div>
+          <div>{dateFormatter.format(new Date(slot.slotTime)).toUpperCase()}</div>
         </div>
         <div>
           <div>
-            {type === BoardingPassType.DEPARTURE ? "EOBT(UTC)" : "ETA(UTC)"}
+            {slot.slotTimeReference === SlotType.EOBT ? "EOBT(UTC)" : "ETA(UTC)"}
           </div>
-          <div className="text-right">{slotDate}</div>
+          <div className="text-right">{timeFormatter.format(new Date(slot.slotTime))}</div>
         </div>
       </div>
       <div className={bodyStyle.seatInfo}>
         <div>
-          <div>Grupo/Group</div>
+          <div>Group</div>
           <div>G1</div>
         </div>
         <div>
-          <div>Assento/Seat</div>
+          <div>Seat</div>
           <div className="text-right">1A</div>
         </div>
       </div>

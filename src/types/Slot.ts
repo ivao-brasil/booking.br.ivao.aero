@@ -2,9 +2,8 @@ import { User } from './User';
 import { Event } from './Event';
 
 export enum SlotType {
-  TAKEOFF = 'takeoff',
-  LANDING = 'landing',
-  TAKEOFF_LANDING = 'departureLanding'
+  EOBT = 'eobt',
+  ETA = 'eta'
 }
 
 export enum BookingStatus {
@@ -21,7 +20,7 @@ export interface Slot {
   isFixedDestination: boolean;
   slotTime: Date;
   isFixedSlotTime: boolean;
-  type: SlotType;
+  slotTimeReference: SlotType;
   gate: string;
   aircraft: string;
   isFixedAircraft: boolean;

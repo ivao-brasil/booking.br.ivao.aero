@@ -6,8 +6,8 @@ type EventTypes = "rfe" | "rfo" | "msa";
 export interface Event {
   id: number;
   division: string;
-  dateStart: string;
-  dateEnd: string;
+  dateStart: Date;
+  dateEnd: Date;
   eventName: string;
   privateSlots: number;
   pilotBriefing: string;

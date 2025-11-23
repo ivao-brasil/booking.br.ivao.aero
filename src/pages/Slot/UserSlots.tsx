@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 
 import {useEvent} from "hooks/useEvent";
 import {useEventUserSlots} from "hooks/slots/useEventUserSlots";
-import {BoardingPass, BoardingPassType} from "components/boarding/BoardingPass";
+import {BoardingPass} from "components/boarding/BoardingPass";
 import {SlotPageHeader} from "components/slots/SlotPageHeader";
 import {UserSlotsSideInfos} from "components/slots/UserSlotsSideInfos";
 import {LoadingIndicator} from "components/LoadingIndicator/LoadingIndicator";
@@ -210,18 +210,14 @@ export default function UserSlots() {
                   {slotPage.data.map((slot) => {
                     const originDetails = airportDetailsMap[slot.origin];
                     const destinationDetails = airportDetailsMap[slot.destination];
+                    slot.owner = user;
 
                     return (
                       <Fragment key={slot.id}>
                         <BoardingPass
-                          user={{firstName: user.firstName, lastName: user.lastName, vid: user.vid}}
                           origin={{name: getAirportShortName(originDetails), iata: originDetails.iata}}
                           destination={{name: getAirportShortName(destinationDetails), iata: destinationDetails.iata}}
-                          callsign={slot.flightNumber}
-                          slotDate={slot.slotTime.toString()}
-                          gate={slot.gate}
-                          type={slot.type === "takeoff" ? BoardingPassType.DEPARTURE : BoardingPassType.ARIVAL}
-                          eventStartDate={new Date(event.dateStart)}
+                          slot={slot}
                           actions={(
                             <div className="flex gap-4">
                               {availableActions(slot)}
