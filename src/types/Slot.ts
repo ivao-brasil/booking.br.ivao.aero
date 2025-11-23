@@ -24,6 +24,7 @@ export interface Slot {
   gate: string;
   aircraft: string;
   isFixedAircraft: boolean;
+  isPrivate: boolean;
   owner?: User;
   event?: Event;
   flightNumber: string;

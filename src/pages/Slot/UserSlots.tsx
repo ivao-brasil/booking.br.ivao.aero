@@ -7,7 +7,7 @@ import {BoardingPass} from "components/boarding/BoardingPass";
 import {SlotPageHeader} from "components/slots/SlotPageHeader";
 import {UserSlotsSideInfos} from "components/slots/UserSlotsSideInfos";
 import {LoadingIndicator} from "components/LoadingIndicator/LoadingIndicator";
-import {ActionButton} from "components/button/Button";
+import {ActionButton, LinkButton} from "components/button/Button";
 import {useAuthData} from "hooks/useAuthData";
 import {BookingStatus, Slot, SlotBookActions} from "types/Slot";
 import {useSlotBookMutation} from "hooks/slots/useSlotBookMutation";
@@ -15,6 +15,7 @@ import {useAirportInfoFromSlots} from "hooks/slots/useAirportInfoFromSlots";
 import {AirportDetails} from "types/AirportDetails";
 import {useFlatInfiniteData} from "hooks/useFlatInfiniteData";
 import {useText} from "hooks/useText";
+import {IoExitOutline} from "react-icons/io5";
 
 export default function UserSlots() {
   const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
@@ -123,9 +124,30 @@ export default function UserSlots() {
   }
 
   const availableActions = (slot: Slot) => {
+    console.log(slot, event);
     if (event.has_ended) {
       return null;
     }
+
+    const dispatchOnSimbriefAction = () => {
+      const params = new URLSearchParams({
+        airline: !slot.isPrivate ? slot.flightNumber.substring(0, 3) : '',
+        fltnum: !slot.isPrivate ? slot.flightNumber.substring(3) : slot.flightNumber,
+        type: slot.aircraft,
+        orig: slot.origin,
+        dest: slot.destination
+      });
+      return (<LinkButton
+        height="h-8"
+        content={<span className="flex items-center w-full px-8 text-xs text-center font-header font-bold text-white truncate">
+          <img className="mr-1" style={{width: "25px"}} src="/simbrief_logo.png" alt="simbrief logo"/>
+          SimBrief
+          <IoExitOutline className="ml-2" size="28" />
+        </span>}
+        backgroundColor="bg-black"
+        href={`https://dispatch.simbrief.com/options/custom?${params.toString()}`}
+      />);
+    };
 
     const cancelFlightAction = (
       <ActionButton
@@ -144,6 +166,8 @@ export default function UserSlots() {
       return (
         <>
           {cancelFlightAction}
+
+          {dispatchOnSimbriefAction()}
         </>
       )
     } else if (event.can_confirm_slots) {

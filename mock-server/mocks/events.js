@@ -100,7 +100,7 @@ module.exports = {
         "type": "rfo",
         "allowBookingAfterStart": 0,
         "has_started": true,
-        "has_ended": true,
+        "has_ended": false,
         "can_confirm_slots": false,
         "airports": [
           {
