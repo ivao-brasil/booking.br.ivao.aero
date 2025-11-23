@@ -182,6 +182,21 @@ const deTranslations: { translations: Translations } = {
         waitToConfirm: 'Warten um Flug zu bestätigen.'
       }
     },
+    boardingPass: {
+      boardingPass: 'Bordkarte',
+      name: 'Name',
+      localizer: 'Buchungscode',
+      flight: 'Flugnummer',
+      departure: 'Von',
+      arrival: 'Nach',
+      date: 'Datum',
+      stand: 'Standplatz',
+      gate: 'Gate',
+      seat: 'Sitzplatz',
+      aircraft: 'Flugzeug',
+      group: 'Gruppe',
+      termsAndConditions: 'Um am Event teilzunehmen, müssen Sie alle im Pilotenbriefing bereitgestellten Richtlinien kennen und bereit sein, diese einzuhalten'
+    },
     sidebarPanel: {
       information: 'Allgemeine Information',
       flights: 'Flüge suchen',

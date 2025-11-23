@@ -4,6 +4,7 @@ import bodyStyle from "./board-pass-body.module.css";
 import headerStyle from "./boarding-pass-header.module.css";
 import {IoAirplaneOutline} from "react-icons/io5";
 import {Slot, SlotType} from "../../types/Slot";
+import {useText} from "../../hooks/useText";
 
 interface BoardingPassProps {
   slot: Slot,
@@ -39,14 +40,14 @@ const BoardingPassHeader: FunctionComponent<BoardingPassProps> = ({
   themeColor = defaultThemeColor,
   actions
 }) => {
+  const { t } = useText();
   return (
     <header
       style={{ backgroundColor: themeColor }}
       className={headerStyle.header}
     >
       <div>
-        <span>Cartão de Embarque</span>
-        <span>Boarding Pass</span>
+        <span>{t('boardingPass.boardingPass')}</span>
       </div>
       <div>
         {actions}
@@ -61,18 +62,19 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
   origin,
   destination
 }) => {
+  const { t } = useText();
   return (
     <div>
       <div className={bodyStyle.passengerInfo}>
         <span>
-          <span>Nome/Name</span>
+          <span>{t('boardingPass.name')}</span>
           <span>
             {slot.owner!.lastName}, {slot.owner!.firstName}
           </span>
         </span>
 
         <span>
-          <span>Localizador</span>
+          <span>{t('boardingPass.localizer')}</span>
           <span>{slot.owner!.vid}</span>
         </span>
       </div>
@@ -81,9 +83,9 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
         style={{ backgroundColor: themeColor, color: themeColor }}
         className={bodyStyle.flightHeader}
       >
-        <span>from</span>
-        <span>flight</span>
-        <span>arrival</span>
+        <span>{t('boardingPass.departure')}</span>
+        <span>{t('boardingPass.flight')}</span>
+        <span>{t('boardingPass.arrival')}</span>
       </div>
       <div className={bodyStyle.flightInfo}>
         <div className="flex flex-col">
@@ -91,11 +93,11 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
             {origin.name}/{origin.iata}
           </div>
           <div className="font-header mt-auto">
-            <div className="font-light text-[0.56rem] leading-3">Data</div>
+            <div className="font-light text-[0.56rem] leading-3">{t('boardingPass.date')}</div>
             <div className="text-sm">{dateFormatter.format(new Date(slot.slotTime)).toUpperCase()}</div>
           </div>
           <div className="font-header mt-auto">
-            <div className="font-light text-[0.56rem] leading-3">stand</div>
+            <div className="font-light text-[0.56rem] leading-3">{t('boardingPass.stand')}</div>
             <div className="text-[2rem] leading-[2.6rem] font-extrabold">{slot.gate}</div>
           </div>
         </div>
@@ -104,7 +106,7 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
             {slot.flightNumber}
           </div>
           <div className="font-header mt-auto">
-            <div className="font-light text-[0.56rem] leading-3">Group</div>
+            <div className="font-light text-[0.56rem] leading-3">{t('boardingPass.group')}</div>
             <div className="text-sm">G1</div>
           </div>
           <div className="font-header mt-auto">
@@ -120,10 +122,8 @@ const BoardingPassLeftSide: FunctionComponent<BoardingPassProps> = ({
           </div>
           <div className={bodyStyle.qrCodeInfo}>
             <div className={bodyStyle.infoText}>
-              Para participar do evento você deve estar ciente e disposto a
-              cumprir todas as orientações disponíveis no briefing de piloto
+              {t('boardingPass.termsAndConditions')}
             </div>
-
             <QrCode value="https://br.ivao.aero" size={76} renderAs="svg" />
           </div>
         </div>
@@ -137,10 +137,11 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
   origin,
   destination,
 }) => {
+  const { t } = useText();
   return (
     <div className={bodyStyle.sideContent}>
       <div className={bodyStyle.passengerInfoSideBar}>
-        <div>name</div>
+        <div>{t('boardingPass.name')}</div>
         <div>
           {slot.owner!.lastName}, {slot.owner!.firstName}
         </div>
@@ -157,7 +158,7 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
       </div>
       <div className={bodyStyle.dateInfoSidebar}>
         <div>
-          <div>Date</div>
+          <div>{t('boardingPass.date')}</div>
           <div>{dateFormatter.format(new Date(slot.slotTime)).toUpperCase()}</div>
         </div>
         <div>
@@ -169,11 +170,11 @@ const BoardingPassRightSide: FunctionComponent<BoardingPassProps> = ({
       </div>
       <div className={bodyStyle.seatInfo}>
         <div>
-          <div>Group</div>
+          <div>{t('boardingPass.group')}</div>
           <div>G1</div>
         </div>
         <div>
-          <div>Seat</div>
+          <div>{t('boardingPass.seat')}</div>
           <div className="text-right">1A</div>
         </div>
       </div>

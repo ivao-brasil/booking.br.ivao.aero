@@ -182,6 +182,21 @@ const enTranslations: { translations: Translations } = {
         waitToConfirm: 'Wait to confirm flight.'
       }
     },
+    boardingPass: {
+      boardingPass: 'Boarding Pass',
+      name: 'Name',
+      localizer: 'Localizer',
+      flight: 'Flight Number',
+      departure: 'From',
+      arrival: 'To',
+      date: 'Date',
+      stand: 'Stand',
+      gate: 'Gate',
+      seat: 'Seat',
+      aircraft: 'Aircraft',
+      group: 'Group',
+      termsAndConditions: 'To participate in the event, you must be aware of and willing to comply with all the guidelines provided in the pilot briefing'
+    },
     sidebarPanel: {
       information: 'General information',
       flights: 'Search flights',

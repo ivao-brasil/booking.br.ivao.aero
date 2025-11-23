@@ -179,6 +179,21 @@ export interface Translations {
       waitToConfirm: string
     }
   },
+  boardingPass: {
+    boardingPass: string,
+    name: string,
+    localizer: string,
+    departure: string,
+    arrival: string,
+    flight: string,
+    date: string,
+    stand: string,
+    gate: string,
+    seat: string,
+    aircraft: string,
+    group: string
+    termsAndConditions: string,
+  },
   sidebarPanel: {
     information: string,
     flights: string,

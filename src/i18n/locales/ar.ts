@@ -182,6 +182,21 @@ const arTranslations: { translations: Translations } = {
         waitToConfirm: 'انتظر لتأكيد الرحلة'
       }
     },
+    boardingPass: {
+      boardingPass: 'بطاقة الصعود',
+      name: 'الاسم',
+      localizer: 'رمز الحجز',
+      flight: 'رقم الرحلة',
+      departure: 'من',
+      arrival: 'إلى',
+      date: 'التاريخ',
+      stand: 'الموقف',
+      gate: 'البوابة',
+      seat: 'المقعد',
+      aircraft: 'الطائرة',
+      group: 'المجموعة',
+      termsAndConditions: 'للمشاركة في الحدث، يجب أن تكون على علم ومستعدًا للالتزام بجميع الإرشادات الواردة في موجز الطيار'
+    },
     sidebarPanel: {
       information: 'معلومات عامة',
       flights: 'البحث عن الرحلات',

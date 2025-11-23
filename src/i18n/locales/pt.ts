@@ -182,6 +182,21 @@ const ptTranslations: { translations: Translations } = {
         waitToConfirm: 'Aguarde para confirmar o voo.'
       }
     },
+    boardingPass: {
+      boardingPass: 'Cartão de embarque',
+      name: 'Nome',
+      localizer: 'Localizador',
+      flight: 'Número do voo',
+      departure: 'De',
+      arrival: 'Chegada',
+      date: 'Data',
+      stand: 'Posição',
+      gate: 'Portão',
+      seat: 'Assento',
+      aircraft: 'Aeronave',
+      group: 'Grupo',
+      termsAndConditions: 'Para participar do evento você deve estar ciente e disposto a cumprir todas as orientações disponíveis no briefing de piloto'
+    },
     sidebarPanel: {
       information: 'Informações gerais',
       flights: 'Procurar voos',
