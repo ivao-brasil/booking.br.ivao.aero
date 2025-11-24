@@ -15,7 +15,6 @@ import {useAirportInfoFromSlots} from "hooks/slots/useAirportInfoFromSlots";
 import {AirportDetails} from "types/AirportDetails";
 import {useFlatInfiniteData} from "hooks/useFlatInfiniteData";
 import {useText} from "hooks/useText";
-import {IoExitOutline} from "react-icons/io5";
 
 export default function UserSlots() {
   const [searchedFlightNumber, setSearchedFlightNumber] = useState<string | null>(null);
@@ -139,10 +138,9 @@ export default function UserSlots() {
       });
       return (<LinkButton
         height="h-8"
-        content={<span className="flex items-center w-full px-8 text-xs text-center font-header font-bold text-white truncate">
+        content={<span className="flex items-center w-full px-4 text-s text-center font-header font-bold text-white truncate">
           <img className="mr-1" style={{width: "25px"}} src="/simbrief_logo.png" alt="simbrief logo"/>
           SimBrief
-          <IoExitOutline className="ml-2" size="28" />
         </span>}
         backgroundColor="bg-black"
         href={`https://dispatch.simbrief.com/options/custom?${params.toString()}`}
